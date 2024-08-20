@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610Lecture Notes - 5&nbsp; Generalized linear models: Special cases</title>
+<title>STAT 9610 Lecture Notes - Generalized linear models: Special cases</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./multiple-testing.html" rel="next">
-<link href="./glm-general-theory.html" rel="prev">
+<link href="./logistic-regression.html" rel="next">
+<link href="./r-demo-part-4.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -96,10 +62,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="custom.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -111,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-special-cases.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generalized linear models: Special cases</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-special-cases.html">Generalized linear models: Special cases</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,9 +89,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">STAT 9610<br>Lecture Notes</a> 
+      <a href="./">STAT 9610 Lecture Notes</a> 
         <div class="sidebar-tools-main">
-    <a href="./STAT-9610-br-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -142,120 +105,275 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear models: Estimation</span></span></a>
+  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear models: Inference</span></span></a>
+  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear models: Misspecification</span></span></a>
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Generalized linear models: General theory</span></span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generalized linear models: Special cases</span></span></a>
+  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sec-logistic-regression" id="toc-sec-logistic-regression" class="nav-link active" data-scroll-target="#sec-logistic-regression"><span class="header-section-number">5.1</span> Logistic regression</a>
-  <ul class="collapse">
-  <li><a href="#sec-logistic-model" id="toc-sec-logistic-model" class="nav-link" data-scroll-target="#sec-logistic-model"><span class="header-section-number">5.1.1</span> Model definition and interpretation</a></li>
-  <li><a href="#sec-logistic-case-control" id="toc-sec-logistic-case-control" class="nav-link" data-scroll-target="#sec-logistic-case-control"><span class="header-section-number">5.1.2</span> Logistic regression with case-control studies</a></li>
-  </ul></li>
-  <li><a href="#sec-estimation-inference" id="toc-sec-estimation-inference" class="nav-link" data-scroll-target="#sec-estimation-inference"><span class="header-section-number">5.2</span> Estimation and inference</a>
-  <ul class="collapse">
-  <li><a href="#sec-score-fisher" id="toc-sec-score-fisher" class="nav-link" data-scroll-target="#sec-score-fisher"><span class="header-section-number">5.2.1</span> Score and Fisher information</a></li>
-  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">5.2.2</span> Wald inference</a></li>
-  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">5.2.3</span> Likelihood ratio inference</a></li>
-  </ul></li>
-  <li><a href="#sec-goodness-of-fit" id="toc-sec-goodness-of-fit" class="nav-link" data-scroll-target="#sec-goodness-of-fit"><span class="header-section-number">5.3</span> Goodness of fit testing</a></li>
-  <li><a href="#sec-example-2x2-table" id="toc-sec-example-2x2-table" class="nav-link" data-scroll-target="#sec-example-2x2-table"><span class="header-section-number">5.4</span> Example: <span class="math inline">\(2 \times 2\)</span> table</a>
-  <ul class="collapse">
-  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">5.4.1</span> Score-based inference</a></li>
-  <li><a href="#sec-fisher-exact-test" id="toc-sec-fisher-exact-test" class="nav-link" data-scroll-target="#sec-fisher-exact-test"><span class="header-section-number">5.4.2</span> Fisher’s exact test</a></li>
-  </ul></li>
-  <li><a href="#sec-poisson-regression" id="toc-sec-poisson-regression" class="nav-link" data-scroll-target="#sec-poisson-regression"><span class="header-section-number">6</span> Poisson regression</a>
-  <ul class="collapse">
-  <li><a href="#sec-model-definition" id="toc-sec-model-definition" class="nav-link" data-scroll-target="#sec-model-definition"><span class="header-section-number">6.1</span> Model definition and interpretation</a></li>
-  <li><a href="#sec-example-modeling-rates" id="toc-sec-example-modeling-rates" class="nav-link" data-scroll-target="#sec-example-modeling-rates"><span class="header-section-number">6.2</span> Example: Modeling rates</a></li>
-  <li><a href="#sec-estimation-inference" id="toc-sec-estimation-inference" class="nav-link" data-scroll-target="#sec-estimation-inference"><span class="header-section-number">6.3</span> Estimation and inference</a>
-  <ul class="collapse">
-  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">6.3.1</span> Score, Fisher information, and Wald inference</a></li>
-  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">6.3.2</span> Likelihood ratio inference</a></li>
-  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">6.3.3</span> Score-based inference</a></li>
-  </ul></li>
-  <li><a href="#sec-poisson-multinomial" id="toc-sec-poisson-multinomial" class="nav-link" data-scroll-target="#sec-poisson-multinomial"><span class="header-section-number">6.4</span> Relationship between Poisson and multinomial distributions</a></li>
-  <li><a href="#sec-example-2x2-tables" id="toc-sec-example-2x2-tables" class="nav-link" data-scroll-target="#sec-example-2x2-tables"><span class="header-section-number">6.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</a>
-  <ul class="collapse">
-  <li><a href="#sec-poisson-2x2" id="toc-sec-poisson-2x2" class="nav-link" data-scroll-target="#sec-poisson-2x2"><span class="header-section-number">6.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</a></li>
-  <li><a href="#sec-inference-conditioning-margins" id="toc-sec-inference-conditioning-margins" class="nav-link" data-scroll-target="#sec-inference-conditioning-margins"><span class="header-section-number">6.5.2</span> Inference is the same regardless of conditioning on margins</a></li>
-  <li><a href="#sec-poisson-logistic-equivalence" id="toc-sec-poisson-logistic-equivalence" class="nav-link" data-scroll-target="#sec-poisson-logistic-equivalence"><span class="header-section-number">6.5.3</span> Equivalence among Poisson and logistic regressions</a></li>
-  </ul></li>
-  <li><a href="#sec-poisson-jk-tables" id="toc-sec-poisson-jk-tables" class="nav-link" data-scroll-target="#sec-poisson-jk-tables"><span class="header-section-number">6.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</a></li>
-  <li><a href="#sec-poisson-jkl-tables" id="toc-sec-poisson-jkl-tables" class="nav-link" data-scroll-target="#sec-poisson-jkl-tables"><span class="header-section-number">6.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</a></li>
-  <li><a href="#sec-nb-regression" id="toc-sec-nb-regression" class="nav-link" data-scroll-target="#sec-nb-regression"><span class="header-section-number">6.8</span> Negative binomial regression</a>
-  <ul class="collapse">
-  <li><a href="#overdispersion" id="toc-overdispersion" class="nav-link" data-scroll-target="#overdispersion"><span class="header-section-number">6.8.1</span> Overdispersion</a></li>
-  <li><a href="#hierarchical-poisson-regression" id="toc-hierarchical-poisson-regression" class="nav-link" data-scroll-target="#hierarchical-poisson-regression"><span class="header-section-number">6.8.2</span> Hierarchical Poisson regression</a></li>
-  <li><a href="#negative-binomial-distribution" id="toc-negative-binomial-distribution" class="nav-link" data-scroll-target="#negative-binomial-distribution"><span class="header-section-number">6.8.3</span> Negative binomial distribution</a></li>
-  <li><a href="#negative-binomial-as-exponential-dispersion-model" id="toc-negative-binomial-as-exponential-dispersion-model" class="nav-link" data-scroll-target="#negative-binomial-as-exponential-dispersion-model"><span class="header-section-number">6.8.4</span> Negative binomial as exponential dispersion model</a></li>
-  <li><a href="#negative-binomial-regression" id="toc-negative-binomial-regression" class="nav-link" data-scroll-target="#negative-binomial-regression"><span class="header-section-number">6.8.5</span> Negative binomial regression</a></li>
-  <li><a href="#score-and-fisher-information" id="toc-score-and-fisher-information" class="nav-link" data-scroll-target="#score-and-fisher-information"><span class="header-section-number">6.8.6</span> Score and Fisher information</a></li>
-  <li><a href="#estimation-in-negative-binomial-regression" id="toc-estimation-in-negative-binomial-regression" class="nav-link" data-scroll-target="#estimation-in-negative-binomial-regression"><span class="header-section-number">6.8.7</span> Estimation in negative binomial regression</a></li>
-  <li><a href="#wald-inference" id="toc-wald-inference" class="nav-link" data-scroll-target="#wald-inference"><span class="header-section-number">6.8.8</span> Wald inference</a></li>
-  <li><a href="#likelihood-ratio-test-inference" id="toc-likelihood-ratio-test-inference" class="nav-link" data-scroll-target="#likelihood-ratio-test-inference"><span class="header-section-number">6.8.9</span> Likelihood ratio test inference</a></li>
-  <li><a href="#testing-for-overdispersion" id="toc-testing-for-overdispersion" class="nav-link" data-scroll-target="#testing-for-overdispersion"><span class="header-section-number">6.8.10</span> Testing for overdispersion</a></li>
-  <li><a href="#overdispersion-in-logistic-regression" id="toc-overdispersion-in-logistic-regression" class="nav-link" data-scroll-target="#overdispersion-in-logistic-regression"><span class="header-section-number">6.8.11</span> Overdispersion in logistic regression</a></li>
-  </ul></li>
-  <li><a href="#sec-r-demo" id="toc-sec-r-demo" class="nav-link" data-scroll-target="#sec-r-demo"><span class="header-section-number">6.9</span> R demo</a>
-  <ul class="collapse">
-  <li><a href="#sec-contingency-table" id="toc-sec-contingency-table" class="nav-link" data-scroll-target="#sec-contingency-table"><span class="header-section-number">6.9.1</span> Contingency table analysis</a></li>
-  <li><a href="#sec-crime-data" id="toc-sec-crime-data" class="nav-link" data-scroll-target="#sec-crime-data"><span class="header-section-number">6.9.2</span> Revisiting the crime data, again</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-glms-special-cases" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generalized linear models: Special cases</span></span></h1>
+<h1 class="title"><span id="sec-glms-special-cases" class="quarto-section-identifier">Generalized linear models: Special cases</span></h1>
 </div>
 
 
@@ -271,1052 +389,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>Chapter 4 developed a general theory for GLMs. In Chapter 5, we specialize this theory to several important cases, including logistic regression and Poisson regression.</p>
-<section id="sec-logistic-regression" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="sec-logistic-regression"><span class="header-section-number">5.1</span> Logistic regression</h2>
-<section id="sec-logistic-model" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-logistic-model"><span class="header-section-number">5.1.1</span> Model definition and interpretation</h3>
-<section id="model-definition." class="level4" data-number="5.1.1.1">
-<h4 data-number="5.1.1.1" class="anchored" data-anchor-id="model-definition."><span class="header-section-number">5.1.1.1</span> Model definition.</h4>
-<p>Recall from Chapter 4 that the logistic regression model is <span class="math display">\[
-m_i y_i \overset{\text{ind}} \sim \text{Bin}(m_i, \pi_i); \quad \text{logit}(\pi_i) = \log\frac{\pi_i}{1-\pi_i} = \boldsymbol{x}^T_{i*}\boldsymbol{\beta}.
-\]</span> Here we use the canonical logit link function, although other link functions are possible. We also set the offsets to 0. The interpretation of the parameter <span class="math inline">\(\beta_j\)</span> is that a unit increase in <span class="math inline">\(x_j\)</span>—other predictors held constant—is associated with an (additive) increase of <span class="math inline">\(\beta_j\)</span> on the log-odds scale or a multiplicative increase of <span class="math inline">\(e^{\beta_j}\)</span> on the odds scale. Note that logistic regression data come in two formats: <em>ungrouped</em> and <em>grouped</em>. For ungrouped data, we have <span class="math inline">\(m_1 = \dots = m_n = 1\)</span>, so <span class="math inline">\(y_i \in \{0,1\}\)</span> are Bernoulli random variables. For grouped data, we can have several independent Bernoulli observations per predictor <span class="math inline">\(\boldsymbol{x}_{i*}\)</span>, which give rise to binomial proportions <span class="math inline">\(y_i \in [0,1]\)</span>. This happens most often when all the predictors are discrete. You can always convert grouped data into ungrouped data, but not necessarily vice versa. We’ll discuss below that the grouped and ungrouped formulations of logistic regression have the same MLE and standard errors but different deviances.</p>
-</section>
-<section id="generative-model-equivalent." class="level4" data-number="5.1.1.2">
-<h4 data-number="5.1.1.2" class="anchored" data-anchor-id="generative-model-equivalent."><span class="header-section-number">5.1.1.2</span> Generative model equivalent.</h4>
-<p>Consider the following generative model for <span class="math inline">\((\boldsymbol{x}, y) \in \mathbb{R}^{p-1} \times \{0,1\}\)</span>: <span class="math display">\[
-y \sim \text{Ber}(\pi); \quad \boldsymbol{x}|y \sim \begin{cases} N(\boldsymbol{\mu}_0, \boldsymbol{V}) \quad \text{if } y = 0 \\ N(\boldsymbol{\mu}_1, \boldsymbol{V}) \quad \text{if } y = 1 \end{cases}.
-\]</span> Then, we can derive that <span class="math inline">\(y|\boldsymbol{x}\)</span> follows a logistic regression model (called a <em>discriminative</em> model because it conditions on <span class="math inline">\(\boldsymbol{x}\)</span>). Indeed, <span class="math display">\[
-\begin{aligned}
-\text{logit}(p(y = 1|\boldsymbol{x})) &amp;= \log\frac{p(y = 1)p(\boldsymbol{x}|y = 1)}{p(y = 0)p(\boldsymbol{x}|y = 0)} \\
-&amp;= \log\frac{\pi \exp\left(-\frac12(\boldsymbol{x} - \boldsymbol{\mu}_1)^T \boldsymbol{V}^{-1}(\boldsymbol{x} - \boldsymbol{\mu}_1)\right)}{(1-\pi) \exp\left(-\frac12(\boldsymbol{x} - \boldsymbol{\mu}_0)^T \boldsymbol{V}^{-1}(\boldsymbol{x} - \boldsymbol{\mu}_0)\right)} \\
-&amp;= \beta_0 + \boldsymbol{x}^T \boldsymbol{V}^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_0) \\
-&amp;\equiv \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
-\end{aligned}
-\]</span> This is another natural route to motivating the logistic regression model.</p>
-</section>
-<section id="sec-2x2-contingency" class="level4" data-number="5.1.1.3">
-<h4 data-number="5.1.1.3" class="anchored" data-anchor-id="sec-2x2-contingency"><span class="header-section-number">5.1.1.3</span> Special case: <span class="math inline">\(2 \times 2\)</span> contingency table.</h4>
-<p>Suppose that <span class="math inline">\(x \in \{0,1\}\)</span>, and consider the logistic regression model <span class="math inline">\(\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i\)</span>. For example, suppose that <span class="math inline">\(x \in \{0,1\}\)</span> encodes treatment (1) and control (0) in a clinical trial, and <span class="math inline">\(y_i \in \{0,1\}\)</span> encodes success (1) and failure (0). We make <span class="math inline">\(n\)</span> observations of <span class="math inline">\((x_i, y_i)\)</span> in this ungrouped setup. The parameter <span class="math inline">\(e^{\beta_1}\)</span> can be interpreted as the <em>odds ratio</em>: <span class="math display">\[
-e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 1|x=0]/\mathbb{P}[y = 0|x=0]}.
-\]</span> This parameter is the multiple by which the odds of success increase when going from control to treatment. We can summarize such data via the <span class="math inline">\(2 \times 2\)</span> <em>contingency table</em> (<a href="#tbl-2-by-2-table">Table&nbsp;<span>5.1</span></a>). A grouped version of this data would be <span class="math inline">\(\{(x_1, y_1) = (0, 7/24), (x_2, y_2) = (1, 9/21)\}\)</span>. The null hypothesis <span class="math inline">\(H_0: \beta_1 = 0 \Longleftrightarrow H_0: e^{\beta_1} = 1\)</span> states that the success probability in both rows of the table is the same.</p>
-<div id="tbl-2-by-2-table" class="anchored">
-<table class="table">
-<caption>Table&nbsp;5.1: An example of a <span class="math inline">\(2 \times 2\)</span> contingency table.</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th>Success</th>
-<th>Failure</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Treatment</td>
-<td>9</td>
-<td>12</td>
-<td>21</td>
-</tr>
-<tr class="even">
-<td>Control</td>
-<td>7</td>
-<td>17</td>
-<td>24</td>
-</tr>
-<tr class="odd">
-<td>Total</td>
-<td>16</td>
-<td>29</td>
-<td>45</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</section>
-<section id="sec-logistic-case-control" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="sec-logistic-case-control"><span class="header-section-number">5.1.2</span> Logistic regression with case-control studies</h3>
-<p>In a prospective study (e.g.&nbsp;a clinical trial), we assign treatment or control (i.e., <span class="math inline">\(x\)</span>) to individuals, and then observe a binary outcome (i.e., <span class="math inline">\(y\)</span>). Sometimes, the outcome <span class="math inline">\(y\)</span> takes a long time to measure or has a highly imbalanced distribution in the population (e.g., the development of lung cancer). In this case, an appealing study design is the <em>retrospective study</em>, where individuals are sampled based on their <em>response values</em> (e.g., presence of lung cancer) rather than their treatment/exposure status (e.g., smoking). It turns out that a logistic regression model is appropriate for such retrospective study designs as well.</p>
-<p>Indeed, suppose that <span class="math inline">\(y|\boldsymbol{x}\)</span> follows a logistic regression model. Let’s try to figure out the distribution of <span class="math inline">\(y|\boldsymbol{x}\)</span> in the retrospectively gathered sample. Letting <span class="math inline">\(z \in \{0,1\}\)</span> denote the indicator that an observation is sampled, define <span class="math inline">\(\rho_1 \equiv \mathbb{P}[z = 1|y = 1]\)</span> and <span class="math inline">\(\rho_0 \equiv \mathbb{P}[z = 1|y = 0]\)</span>, and assume that <span class="math inline">\(\mathbb{P}[z = 1, y, \boldsymbol{x}] = \mathbb{P}[z = 1 | y]\)</span>. The latter assumption states that the predictors <span class="math inline">\(\boldsymbol{x}\)</span> were not used in the retrospective sampling process. Then,</p>
-<p><span class="math display">\[
-\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) = \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} = \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) = \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
-\]</span></p>
-<p>Thus, conditioning on retrospective sampling changes only the intercept term, but preserves the coefficients of <span class="math inline">\(\boldsymbol{x}\)</span>. Therefore, we can carry out inference for <span class="math inline">\(\boldsymbol{\beta}_{-0}\)</span> in the same way regardless of whether the study design is prospective or retrospective.</p>
-</section>
-</section>
-<section id="sec-estimation-inference" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="sec-estimation-inference"><span class="header-section-number">5.2</span> Estimation and inference</h2>
-<section id="sec-score-fisher" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="sec-score-fisher"><span class="header-section-number">5.2.1</span> Score and Fisher information</h3>
-<p>Recall from Chapter 4 that</p>
-<p><span class="math display">\[
-\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
-\]</span></p>
-<p>where</p>
-<p><span class="math display">\[
-\begin{aligned}
-\boldsymbol{W} &amp;\equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right), \\
-\boldsymbol{M} &amp;\equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
-\end{aligned}
-\]</span></p>
-<p>Since logistic regression uses a canonical link function, we get the following simplifications:</p>
-<p><span class="math display">\[
-\begin{aligned}
-\boldsymbol{W} &amp;= \text{diag}\left(w_i V(\mu_i)\right) = \text{diag}\left(m_i \pi_i(1-\pi_i)\right), \\
-\boldsymbol{M} &amp;= \text{diag}\left(\frac{1}{\pi_i(1-\pi_i)}\right).
-\end{aligned}
-\]</span></p>
-<p>Here we have substituted the notation <span class="math inline">\(\boldsymbol{\pi}\)</span> for <span class="math inline">\(\boldsymbol{\mu}\)</span>, and recall that for logistic regression, <span class="math inline">\(\phi_0 = 1\)</span>, <span class="math inline">\(w_i = m_i\)</span>, and <span class="math inline">\(V(\pi_i) = \pi_i(1-\pi_i)\)</span>. Therefore, the score equations for logistic regression are</p>
-<p><span id="eq-logistic-score-equations"><span class="math display">\[
-0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0, \quad j = 0, \dots, p-1.
-\tag{5.1}\]</span></span></p>
-<p>We can solve these equations using IRLS. The Fisher information is</p>
-<p><span class="math display">\[
-\boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \text{diag}\left(m_i \pi_i(1-\pi_i)\right) \boldsymbol{X}.
-\]</span></p>
-</section>
-<section id="sec-wald-inference" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">5.2.2</span> Wald inference</h3>
-<p>Using the results in the previous paragraph, we can carry out Wald inference based on the normal approximation</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat \beta} \overset \cdot \sim N\left(\boldsymbol \beta, \left(\boldsymbol X^T\text{diag}(m_i \widehat \pi_i(1-\widehat \pi_i))\boldsymbol X\right)^{-1}\right).
-\]</span></p>
-<p>This approximation holds for <span class="math inline">\(\sum_{i = 1}^n m_i \rightarrow \infty\)</span>.</p>
-<section id="sec-2x2-contingency-table" class="level4" data-number="5.2.2.1">
-<h4 data-number="5.2.2.1" class="anchored" data-anchor-id="sec-2x2-contingency-table"><span class="header-section-number">5.2.2.1</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency table.</h4>
-<p>Suppose we have a <span class="math inline">\(2 \times 2\)</span> contingency table. The grouped logistic regression formulation of these data is</p>
-<p><span class="math display">\[
-y_0 \sim \frac{1}{m_0}\text{Bin}(m_0, \pi_0); \quad y_1 \sim \frac{1}{m_1}\text{Bin}(m_1, \pi_1); \quad \text{logit}(\pi_i) = \beta_0 + \beta_1 x_i.
-\]</span></p>
-<p>In this case, we have <span class="math inline">\(n = p = 2\)</span>, so the grouped logistic regression model is saturated. Therefore, we have</p>
-<p><span class="math display">\[
-\hat \pi_0 = y_0, \quad \text{and} \quad \hat \pi_1 = y_1, \quad \text{so} \quad \hat \beta_1 = \log \frac{\hat \pi_1 / (1 - \hat \pi_1)}{\hat \pi_0 / (1 - \hat \pi_0)} = \log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}.
-\]</span></p>
-<p>The squared Wald standard error for <span class="math inline">\(\hat \beta_1\)</span> is</p>
-<p><span class="math display">\[
-\begin{split}
-\text{SE}^2(\widehat \beta_1) &amp;\equiv \left[\left(\boldsymbol X^T\text{diag}(m_i \widehat \pi_i(1-\widehat \pi_i))\boldsymbol X\right)^{-1}\right]_{22} \\
-&amp;= \left[\left(\begin{pmatrix} 1 &amp; 0 \\ 1 &amp; 1 \end{pmatrix}^T\begin{pmatrix} m_0y_0(1-y_0) &amp; 0 \\ 0 &amp; m_1y_1(1-y_1) \end{pmatrix}\begin{pmatrix} 1 &amp; 0 \\ 1 &amp; 1 \end{pmatrix}\right)^{-1}\right]_{22} \\
-&amp;= \left[\left(\begin{pmatrix} m_0 y_0 (1-y_0) + m_1 y_1 (1-y_1) &amp; m_1 y_1(1-y_1) \\ m_1 y_1(1-y_1) &amp; m_1 y_1(1-y_1) \end{pmatrix}\right)^{-1}\right]_{22} \\
-&amp;= \frac{m_0 y_0 (1-y_0) + m_1 y_1 (1-y_1)}{m_0y_0(1-y_0) \cdot m_1y_1(1-y_1)} \\
-&amp;= \frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}.
-\end{split}
-\]</span></p>
-<p>Therefore, the Wald test for <span class="math inline">\(H_0: \beta_1 = 0\)</span> rejects if</p>
-<p><span class="math display">\[
-\left|\frac{\hat \beta_1}{\text{SE}(\hat \beta_1)}\right| = \left|\frac{\log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}}{\sqrt{\frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}}}\right| &gt; z_{1-\alpha/2}.
-\]</span></p>
-</section>
-<section id="sec-hauck-donner-effect" class="level4" data-number="5.2.2.2">
-<h4 data-number="5.2.2.2" class="anchored" data-anchor-id="sec-hauck-donner-effect"><span class="header-section-number">5.2.2.2</span> Hauck-Donner effect.</h4>
-<p>Unfortunately, Wald inference in finite samples does not always perform very well. The Wald test above is known to be conservative if one or more of the mean parameters (in this case, <span class="math inline">\(\pi_i\)</span>) tends to the edge of the parameter space (in this case, <span class="math inline">\(\pi_i \rightarrow 0\)</span> or <span class="math inline">\(\pi_i \rightarrow 1\)</span>). This is called the <em>Hauck-Donner effect</em>. As an example, consider testing <span class="math inline">\(H_0: \beta_0 = 0\)</span> in the intercept-only model</p>
-<p><span class="math display">\[
-my \sim \text{Bin}(m, \pi); \quad \text{logit}(\pi) = \beta_0.
-\]</span></p>
-<p>The Wald test statistic is <span class="math inline">\(z \equiv \widehat \beta/\text{SE} = \text{logit}(y)\sqrt{my(1-y)}\)</span>. This test statistic actually tends to <em>decrease</em> as <span class="math inline">\(y \rightarrow 1\)</span> (see <a href="#fig-hauck-donner">Figure&nbsp;<span>5.1</span></a>), since the standard error grows faster than the estimate itself. So the test statistic becomes less significant as we go further away from the null! A similar situation arises in the <span class="math inline">\(2 \times 2\)</span> contingency table example above, where the Wald test for <span class="math inline">\(H_0: \beta_1 = 0\)</span> becomes less significant as <span class="math inline">\(y_0 \rightarrow 0\)</span> and <span class="math inline">\(y_1 \rightarrow 1\)</span>. As a limiting case of this, the Wald test is undefined if <span class="math inline">\(y_0 = 0\)</span> and <span class="math inline">\(y_1 = 1\)</span>. This situation is a special case of <em>perfect separability</em> in logistic regression: when a hyperplane in covariate space separates observations with <span class="math inline">\(y_i = 0\)</span> from those with <span class="math inline">\(y_i = 1\)</span>. Some of the maximum likelihood coefficient estimates are infinite in this case, causing the Wald test to be undefined since it uses these coefficient estimates as test statistics.</p>
-<div id="fig-hauck-donner" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><embed src="figures/hauck-donner.pdf" class="img-fluid" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;5.1: The Hauck-Donner effect: The Wald statistic for testing <span class="math inline">\(H_0: \pi = 0.5\)</span> within the model <span class="math inline">\(my \sim \text{Bin}(m, \pi)\)</span> decreases as the proportion <span class="math inline">\(y\)</span> approaches 1. Here, <span class="math inline">\(m = 25\)</span>.</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="sec-likelihood-ratio-inference" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">5.2.3</span> Likelihood ratio inference</h3>
-<section id="sec-bernoulli-binomial-deviance" class="level4" data-number="5.2.3.1">
-<h4 data-number="5.2.3.1" class="anchored" data-anchor-id="sec-bernoulli-binomial-deviance"><span class="header-section-number">5.2.3.1</span> The Bernoulli and binomial deviance.</h4>
-<p>Let’s first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. The unit deviance is</p>
-<p><span class="math display">\[
-t(y, \pi) = y \log \pi + (1-y)\log(1-\pi).
-\]</span></p>
-<p>Hence, we have</p>
-<p><span class="math display">\[
-t(y, y) = y \log y + (1-y) \log(1-y).
-\]</span></p>
-<p>Hence, the unit deviance is</p>
-<p><span class="math display">\[
-d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
-\]</span></p>
-<p>The total deviance, therefore, is</p>
-<p><span id="eq-logistic-deviance"><span class="math display">\[
-D(\boldsymbol y, \hat{\boldsymbol \pi}) \equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
-\tag{5.2}\]</span></span></p>
-</section>
-<section id="sec-comparing-deviances" class="level4" data-number="5.2.3.2">
-<h4 data-number="5.2.3.2" class="anchored" data-anchor-id="sec-comparing-deviances"><span class="header-section-number">5.2.3.2</span> Comparing the deviances of grouped and ungrouped logistic regression models.</h4>
-<p>Let us pause to compare the total deviances of grouped and ungrouped logistic regression models. Consider the following grouped and ungrouped models:</p>
-<p><span class="math display">\[
-y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i, \quad \text{where} \quad \text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
-\]</span></p>
-<p>The relationship between the grouped and ungrouped observations is that</p>
-<p><span class="math display">\[
-y^{\text{grp}}_i = \frac{1}{m_i}\sum_{k = 1}^{m_i} y^{\text{ungrp}}_{ik} \equiv \bar y^{\text{ungrp}}_i.
-\]</span></p>
-<p>Since the grouped and ungrouped logistic regression models have the same likelihoods, it follows that they have the same maximum likelihood estimates <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> and <span class="math inline">\(\widehat{\boldsymbol \pi}\)</span>. However, the total deviances of the two models are different. The total deviance of the grouped model is given by (<a href="#eq-logistic-deviance"><span>5.2</span></a>):</p>
-<p><span id="eq-total-deviance-grouped"><span class="math display">\[
-D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) = 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
-\tag{5.3}\]</span></span></p>
-<p>On the other hand, the total deviance of the ungrouped model is</p>
-<p><span id="eq-total-deviance-ungrouped"><span class="math display">\[
-\begin{split}
-D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) &amp;= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
-&amp;= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{1}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1}{1-\widehat \pi_i}\right) \\
-&amp;= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{1}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1}{1-\widehat \pi_i}\right).
-\end{split}
-\tag{5.4}\]</span></span></p>
-<p>In the second line, we used the fact that <span class="math inline">\(y \log y \rightarrow 0\)</span> and <span class="math inline">\((1-y)\log(1-y) \rightarrow 0\)</span> as <span class="math inline">\(y \rightarrow 0\)</span> or <span class="math inline">\(y \rightarrow 1\)</span>. Comparing the grouped (<a href="#eq-total-deviance-grouped"><span>5.3</span></a>) and ungrouped (<a href="#eq-total-deviance-ungrouped"><span>5.4</span></a>) total deviances, we see that these are given by related, but different expressions. Because small dispersion asymptotics applies to the grouped model but not the ungrouped model, we have that</p>
-<p><span class="math display">\[
-\text{under small-dispersion asymptotics,} \quad D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
-\]</span></p>
-</section>
-<section id="sec-likelihood-ratio-test" class="level4" data-number="5.2.3.3">
-<h4 data-number="5.2.3.3" class="anchored" data-anchor-id="sec-likelihood-ratio-test"><span class="header-section-number">5.2.3.3</span> Likelihood ratio inference for one or more coefficients.</h4>
-<p>Letting <span class="math inline">\(\boldsymbol{\widehat \pi}_0\)</span> and <span class="math inline">\(\boldsymbol{\widehat \pi}_1\)</span> be the MLEs from two nested models, we can then express the likelihood ratio statistic as</p>
-<p><span class="math display">\[
-D(\boldsymbol y, \boldsymbol{\widehat \pi}_0) - D(\boldsymbol y, \boldsymbol{\widehat \pi}_1) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{\widehat \pi_{i1}}{\widehat \pi_{i0}} + m_i(1-y_i) \log\frac{1-\widehat \pi_{i1}}{1-\widehat \pi_{i0}}\right).
-\]</span></p>
-<p>Note that this expression holds for grouped or ungrouped logistic regression models. We can then construct a likelihood ratio test in the usual way. Likelihood ratio inference can be justified by either large-sample or small-dispersion asymptotics.</p>
-</section>
-</section>
-</section>
-<section id="sec-goodness-of-fit" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="sec-goodness-of-fit"><span class="header-section-number">5.3</span> Goodness of fit testing</h2>
-<p>In grouped logistic regression, we can also use the likelihood ratio test to test goodness of fit. To do so, we compare the total deviance of the fitted model <a href="#eq-logistic-deviance"><span>5.2</span></a> to a chi-squared quantile. In particular, the deviance-based goodness of fit test rejects when:</p>
-<p><span id="eq-goodness-of-fit"><span class="math display">\[
-D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) &gt; \chi^2_{n-p}(1-\alpha).
-\tag{5.5}\]</span></span></p>
-<p>This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when <span class="math inline">\(\min(m_i \pi_i, (1-m_i)\pi_i) \geq 3\)</span> for each <span class="math inline">\(i\)</span>.</p>
-</section>
-<section id="sec-example-2x2-table" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="sec-example-2x2-table"><span class="header-section-number">5.4</span> Example: <span class="math inline">\(2 \times 2\)</span> table</h2>
-<p>Let us revisit the example of the <span class="math inline">\(2 \times 2\)</span> table model, within which we would like to test <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Note that we can view this as a goodness of fit test of the intercept-only model in a grouped logistic regression model since the alternative model is the saturated model (it has two observations and two parameters). To compute the likelihood ratio statistic, we first need to fit the intercept-only model. The score equations <a href="#eq-logistic-score-equations"><span>5.1</span></a> reduce to:</p>
-<p><span class="math display">\[
-m_0 (y_0 - \hat \pi) + m_1 (y_1 - \hat \pi) = 0 \quad \Longrightarrow \quad \hat \pi_0 = \hat \pi_1 = \hat \pi = \frac{m_0 y_0 + m_1 y_1}{m_0 + m_1}.
-\]</span></p>
-<p>Therefore, the deviance-based test of <span class="math inline">\(H_0: \beta_1 = 0\)</span> rejects when:</p>
-<p><span class="math display">\[
-\begin{split}
-D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &amp;= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) \\
-&amp;= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
-&amp;&gt; \chi^2_{1}(1-\alpha).
-\end{split}
-\]</span></p>
-<p>Likelihood ratio inference can give nontrivial conclusions in cases when Wald inference cannot, e.g.&nbsp;in the case of perfect separability. In the above example, suppose <span class="math inline">\(y_0 = 0\)</span> and <span class="math inline">\(y_1 = 1\)</span>, giving perfect separability. Then, we can use the fact that <span class="math inline">\(y \log y \rightarrow 0\)</span> and <span class="math inline">\((1-y)\log(1-y) \rightarrow 0\)</span> as <span class="math inline">\(y \rightarrow 0\)</span> or <span class="math inline">\(y \rightarrow 1\)</span> to see that:</p>
-<p><span id="eq-perfect-separability"><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) = 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) = 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
-\tag{5.6}\]</span></span></p>
-<p>This gives us a finite value, which we can compare to <span class="math inline">\(\chi^2_{1}(1-\alpha)\)</span> to test <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Even though the likelihood ratio statistic is still defined, we do still have to be careful because the data may suggest that the parameters are too close to the boundary of the parameter space. However, the rate at which the test breaks down as the parameters approach this boundary is slower than the rate at which the Wald test breaks down.</p>
-<section id="sec-score-based-inference" class="level3" data-number="5.4.1">
-<h3 data-number="5.4.1" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">5.4.1</span> Score-based inference</h3>
-<p>Here we present only the score-based goodness-of-fit test. Recalling Section <span class="quarto-unresolved-ref">?sec-score-tests-1</span>, the score statistic for goodness of fit is Pearson’s <span class="math inline">\(X^2\)</span> statistic:</p>
-<p><span id="eq-pearson-statistic"><span class="math display">\[
-X^2 = \sum_{i = 1}^n \frac{w_i (y_i - \widehat \mu_i)^2}{V(\widehat \mu_i)} = \sum_{i = 1}^n \frac{m_i(y_i - \widehat \pi_i)^2}{\widehat \pi_i(1-\widehat \pi_i)}.
-\tag{5.7}\]</span></span></p>
-<p>This test is justified by small-dispersion asymptotics based on the central limit theorem, which is decent when <span class="math inline">\(\min(m_i \pi_i, (1-m_i)\pi_i) \geq 5\)</span> for each <span class="math inline">\(i\)</span>.</p>
-</section>
-<section id="sec-fisher-exact-test" class="level3" data-number="5.4.2">
-<h3 data-number="5.4.2" class="anchored" data-anchor-id="sec-fisher-exact-test"><span class="header-section-number">5.4.2</span> Fisher’s exact test</h3>
-<p>As an alternative to asymptotic tests for logistic regression, in the case of <span class="math inline">\(2 \times 2\)</span> tables, there is an <em>exact</em> test of <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Suppose we have:</p>
-<p><span id="eq-binomial"><span class="math display">\[
-s_1 = m_1y_1 \sim \text{Bin}(m_1, \pi_1) \quad \text{and} \quad s_2 = m_2y_2 \sim \text{Bin}(m_2, \pi_2).
-\tag{5.8}\]</span></span></p>
-<p>The trick is to conduct inference <em>conditional on</em> <span class="math inline">\(s_1 + s_2\)</span>. Note that under <span class="math inline">\(H_0: \pi_1 = \pi_2\)</span>, we have:</p>
-<p><span id="eq-exact-test"><span class="math display">\[
-\begin{split}
-\mathbb{P}[s_1 = t | s_1+s_2 = v] &amp;= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
-&amp;= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
-&amp;= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
-&amp;= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
-\end{split}
-\tag{5.9}\]</span></span></p>
-<p>Therefore, a finite-sample <span class="math inline">\(p\)</span>-value to test <span class="math inline">\(H_0: \pi_1 = \pi_2\)</span> versus <span class="math inline">\(H_1: \pi_1 &gt; \pi_2\)</span> is <span class="math inline">\(\mathbb{P}[s_1 \geq t | s_1 + s_2]\)</span>, which can be computed exactly based on the formula above.</p>
-</section>
-</section>
-<section id="sec-poisson-regression" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Poisson regression</h1>
-<section id="sec-model-definition" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="sec-model-definition"><span class="header-section-number">6.1</span> Model definition and interpretation</h2>
-<p>The Poisson regression model (with offsets) is:</p>
-<p><span id="eq-poisson-with-offsets"><span class="math display">\[
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\beta}.
-\tag{6.1}\]</span></span></p>
-<p>Because the log of the mean is linear in the predictors, Poisson regression models are often called <em>loglinear models</em>. To interpret the coefficients, note that a unit increase in <span class="math inline">\(x_j\)</span> (while keeping the other variables fixed) is associated with an increase in the predicted mean by a factor of <span class="math inline">\(e^{\beta_j}\)</span>.</p>
-</section>
-<section id="sec-example-modeling-rates" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="sec-example-modeling-rates"><span class="header-section-number">6.2</span> Example: Modeling rates</h2>
-<p>One cool feature of the Poisson model is that rates can be easily modeled with the help of offsets. Let’s say that the count <span class="math inline">\(y_i\)</span> is collected over the course of a time interval of length <span class="math inline">\(t_i\)</span>, or a spatial region with area <span class="math inline">\(t_i\)</span>, or a population of size <span class="math inline">\(t_i\)</span>, etc. Then, it is meaningful to model:</p>
-<p><span class="math display">\[
-y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
-\]</span></p>
-<p>where <span class="math inline">\(\pi_i\)</span> represents the rate of events per day / per square mile / per capita, etc. In other words:</p>
-<p><span class="math display">\[
-y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
-\]</span></p>
-<p>which is exactly equation <a href="#eq-poisson-with-offsets"><span>6.1</span></a> with offsets <span class="math inline">\(o_i = \log t_i\)</span>. For example, in single-cell RNA-sequencing, <span class="math inline">\(y_i\)</span> is the number of reads aligning to a gene in cell <span class="math inline">\(i\)</span> and <span class="math inline">\(t_i\)</span> is the total number of reads measured in the cell, a quantity called the <em>sequencing depth</em>. We might use a Poisson regression model to carry out a <em>differential expression analysis</em> between two cell types.</p>
-</section>
-<section id="sec-estimation-inference" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="sec-estimation-inference"><span class="header-section-number">6.3</span> Estimation and inference</h2>
-<section id="sec-wald-inference" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">6.3.1</span> Score, Fisher information, and Wald inference</h3>
-<p>We found in Chapter <span class="citation" data-cites="ch-glm-theory">@ch-glm-theory</span> that the score and Fisher information for Poisson regression are:</p>
-<p><span class="math display">\[
-\boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),
-\]</span></p>
-<p>and:</p>
-<p><span class="math display">\[
-\boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X} = \boldsymbol{X}^T \text{diag}(V(\mu_i))\boldsymbol{X} = \boldsymbol{X}^T \text{diag}(\mu_i)\boldsymbol{X},
-\]</span></p>
-<p>respectively. Hence, the normal equations for the MLE are:</p>
-<p><span class="math display">\[
-\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\hat \mu}).
-\]</span></p>
-<p>Wald inference is based on the approximation:</p>
-<p><span class="math display">\[
-\boldsymbol{\hat \beta} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \text{diag}(\hat \mu_i)\boldsymbol{X})^{-1}).
-\]</span></p>
-</section>
-<section id="sec-likelihood-ratio-inference" class="level3" data-number="6.3.2">
-<h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">6.3.2</span> Likelihood ratio inference</h3>
-<p>For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:</p>
-<p><span class="math display">\[
-d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
-\]</span></p>
-<p>Hence, the total deviance is:</p>
-<p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
-\]</span></p>
-<p>The residual deviance is then:</p>
-<p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
-\]</span></p>
-<p>The last equality holds for any model containing the intercept, since by the normal equations we have <span class="math inline">\(\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0\)</span>. We can carry out a likelihood ratio test for <span class="math inline">\(H_0: \boldsymbol{\beta_S} = \boldsymbol{0}\)</span> via:</p>
-<p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat \mu^0}) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
-\]</span></p>
-<p>We can carry out a goodness-of-fit test via:</p>
-<p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
-\]</span></p>
-</section>
-<section id="sec-score-based-inference" class="level3" data-number="6.3.3">
-<h3 data-number="6.3.3" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">6.3.3</span> Score-based inference</h3>
-<p>Recalling equation <a href="glm-general-theory.html#eq-score-test-univariate"><span>4.20</span></a>, the score test for <span class="math inline">\(H_0: \beta_j = 0\)</span> is based on:</p>
-<p><span class="math display">\[
-\frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).
-\]</span></p>
-<p>On the other hand, the score test for goodness-of-fit is based on the Pearson <span class="math inline">\(X^2\)</span> statistic:</p>
-<p><span class="math display">\[
-X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
-\]</span></p>
-</section>
-</section>
-<section id="sec-poisson-multinomial" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="sec-poisson-multinomial"><span class="header-section-number">6.4</span> Relationship between Poisson and multinomial distributions</h2>
-<p>Suppose that <span class="math inline">\(y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i)\)</span> for <span class="math inline">\(i = 1, \dots, n\)</span>. Then,</p>
-<p><span class="math display">\[
-\begin{split}
-\mathbb{P}\left[y_1 = m_1, \dots, y_n = m_n \left| \sum_{i}y_i = m\right.\right] &amp;= \frac{\mathbb{P}[y_1 = m_1, \dots, y_n = m_n]}{\mathbb{P}[\sum_{i}y_i = m]} \\
-&amp;= \frac{\prod_{i = 1}^n e^{-\mu_i}\frac{\mu_i^{m_i}}{m_i!}}{e^{-\sum_i \mu_i}\frac{(\sum_i \mu_i)^m}{m!}} \\
-&amp;= {m \choose m_1, \dots, m_n} \prod_{i = 1}^n \pi_i^{m_i}; \quad \pi_i \equiv \frac{\mu_i}{\sum_{i' = 1}^n \mu_{i'}}.
-\end{split}
-\]</span></p>
-<p>We recognize the last expression as the probability mass function of the multinomial distribution with parameters <span class="math inline">\((\pi_1, \dots, \pi_n)\)</span> summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.</p>
-</section>
-<section id="sec-example-2x2-tables" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="sec-example-2x2-tables"><span class="header-section-number">6.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</h2>
-<section id="sec-poisson-2x2" class="level3" data-number="6.5.1">
-<h3 data-number="6.5.1" class="anchored" data-anchor-id="sec-poisson-2x2"><span class="header-section-number">6.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</h3>
-<p>Let’s say that we have two binary random variables <span class="math inline">\(x_1, x_2 \in \{0,1\}\)</span> with joint distribution <span class="math inline">\(\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}\)</span> for <span class="math inline">\(j,k \in \{0,1\}\)</span>. We collect a total of <span class="math inline">\(n\)</span> samples from this joint distribution and summarize the counts in a <span class="math inline">\(2 \times 2\)</span> table, where <span class="math inline">\(y_{jk}\)</span> is the number of times we observed <span class="math inline">\((x_1, x_2) = (j,k)\)</span>, so that:</p>
-<p><span class="math display">\[
-(y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
-\]</span></p>
-<p>Our primary question is whether these two random variables are independent, i.e.</p>
-<p><span id="eq-null-product-formulation"><span class="math display">\[
-\pi_{jk} = \pi_{j+}\pi_{+k}, \quad \text{where} \quad \pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
-\tag{6.2}\]</span></span></p>
-<p>We can express this equivalently as:</p>
-<p><span class="math display">\[
-\pi_{00}\pi_{11} = \pi_{01}\pi_{10}.
-\]</span></p>
-<p>In other words, we can express the independence hypothesis concisely as:</p>
-<p><span id="eq-independence-2"><span class="math display">\[
-H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
-\tag{6.3}\]</span></span></p>
-<p>Let’s arbitrarily assume that, additionally, <span class="math inline">\(n \sim \text{Poi}(\mu_{++})\)</span>. Then, by the relationship between Poisson and multinomial distributions, we have:</p>
-<p><span class="math display">\[
-y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
-\]</span></p>
-<p>Let <span class="math inline">\(i \in \{1,2,3,4\}\)</span> index the four pairs <span class="math inline">\((x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\}\)</span>, so that:</p>
-<p><span id="eq-2x2-poisson-reg"><span class="math display">\[
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2}, \quad i = 1, \dots, 4,
-\tag{6.4}\]</span></span></p>
-<p>where:</p>
-<p><span id="eq-2x2-poisson-reg-coefs"><span class="math display">\[
-\beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \quad \beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
-\tag{6.5}\]</span></span></p>
-<p>Note that the independence hypothesis <a href="#eq-independence-2"><span>6.3</span></a> reduces to the hypothesis <span class="math inline">\(H_0: \beta_{12} = 0\)</span>:</p>
-<p><span class="math display">\[
-H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1 \quad \Longleftrightarrow \quad H_0: \beta_{12} = 0.
-\]</span></p>
-<p>So the presence of an interaction in the Poisson regression is equivalent to a lack of independence between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. We can test the latter hypothesis using our standard tools for Poisson regression.</p>
-<p>For example, we can use the Pearson <span class="math inline">\(X^2\)</span> goodness-of-fit test. To apply this test, we must find the fitted means under the null hypothesis model:</p>
-<p><span id="eq-2x2-poisson-reg-null"><span class="math display">\[
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}, \quad i = 1, \dots, 4.
-\tag{6.6}\]</span></span></p>
-<p>The normal equations give us the following:</p>
-<p><span class="math display">\[
-y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \quad y_{+1} \equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \quad y_{1+} \equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
-\]</span></p>
-<p>By combining these equations, we arrive at:</p>
-<p><span class="math display">\[
-\hat \mu_{++} = y_{++}; \quad \hat \mu_{j+} = y_{j+} \text{ for all } j \in \{0, 1\}; \quad \hat \mu_{+k} = y_{+k} \text{ for all } k \in \{0, 1\}.
-\]</span></p>
-<p>Therefore, the fitted means under the null hypothesis model <a href="#eq-2x2-poisson-reg-null"><span>6.6</span></a> are:</p>
-<p><span class="math display">\[
-\hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
-\]</span></p>
-<p>Hence, we have:</p>
-<p><span class="math display">\[
-X^2 = \sum_{j,k = 0}^1 \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} = \sum_{j, k = 0}^1 \frac{(y_{jk} - y_{j+}y_{+k}/y_{++})^2}{y_{j+}y_{+k}/y_{++}}.
-\]</span></p>
-<p>Alternatively, we can use the likelihood ratio test, which gives:</p>
-<p><span class="math display">\[
-G^2 = 2\sum_{j,k = 0}^1 y_{jk}\log\frac{y_{jk}}{\widehat \mu_{jk}} = 2\sum_{j, k = 0}^1 y_{jk}\log\frac{y_{jk}}{y_{j+}y_{+k}/y_{++}}.
-\]</span></p>
-<p>We would compare both <span class="math inline">\(X^2\)</span> and <span class="math inline">\(G^2\)</span> to a <span class="math inline">\(\chi^2_1\)</span> distribution.</p>
-</section>
-<section id="sec-inference-conditioning-margins" class="level3" data-number="6.5.2">
-<h3 data-number="6.5.2" class="anchored" data-anchor-id="sec-inference-conditioning-margins"><span class="header-section-number">6.5.2</span> Inference is the same regardless of conditioning on margins</h3>
-<p>Now, our data might actually have been collected such that <span class="math inline">\(n \sim \text{Poi}(\mu_{++})\)</span>, or maybe <span class="math inline">\(n\)</span> was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:</p>
-<p><span class="math display">\[
-p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
-\]</span></p>
-<p>so:</p>
-<p><span class="math display">\[
-\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) = \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
-\]</span></p>
-<p>In other words, the log-likelihoods of the Poisson and multinomial models, as a function of <span class="math inline">\(\boldsymbol{\pi}\)</span>, differ from each other by a constant. Therefore, any likelihood-based inference in these models is equivalent. The same argument shows that conditioning on the row or column totals (as opposed to the overall total) also yields the same exact inference. Therefore, regardless of the sampling mechanism, we can always conduct an independence test in a <span class="math inline">\(2 \times 2\)</span> table via a Poisson regression.</p>
-</section>
-<section id="sec-poisson-logistic-equivalence" class="level3" data-number="6.5.3">
-<h3 data-number="6.5.3" class="anchored" data-anchor-id="sec-poisson-logistic-equivalence"><span class="header-section-number">6.5.3</span> Equivalence among Poisson and logistic regressions</h3>
-<p>We’ve talked about two ways to view a <span class="math inline">\(2 \times 2\)</span> contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations <a href="#eq-2x2-poisson-reg"><span>6.4</span></a> and <a href="#eq-2x2-poisson-reg-coefs"><span>6.5</span></a> that <span class="math inline">\(x_1 \perp \!\!\! \perp x_2\)</span> if and only if <span class="math inline">\(\beta_{12} = 0\)</span> in the Poisson regression:</p>
-<p><span class="math display">\[
-\log y_i \overset{\text{ind}}{\sim} \text{Poi}(\mu_i), \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12} x_{i1}x_{i2}, \quad i = 1, \dots, 4.
-\]</span></p>
-<p>However, we have:</p>
-<p><span class="math display">\[
-\beta_{12} = \log \frac{\pi_{11}\pi_{00}}{\pi_{01}\pi_{10}} = \log \frac{\pi_{11}/\pi_{01}}{\pi_{01}/\pi_{00}} = \log \frac{\mathbb{P}[x_2 = 1 \mid x_1 = 1] / \mathbb{P}[x_2 = 0 \mid x_1 = 1]}{\mathbb{P}[x_2 = 1 \mid x_1 = 0] / \mathbb{P}[x_2 = 0 \mid x_1 = 0]}.
-\]</span></p>
-<p>Recalling the logistic regression of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span>:</p>
-<p><span id="eq-2x2-logistic-reg"><span class="math display">\[
-\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
-\tag{6.7}\]</span></span></p>
-<p>and that <span class="math inline">\(\tilde{\beta_1}\)</span> is the log odds ratio, we conclude that:</p>
-<p><span class="math display">\[
-\beta_{12} = \tilde{\beta_1},
-\]</span></p>
-<p>so <span class="math inline">\(x_1 \perp \!\!\! \perp x_2\)</span> if and only if <span class="math inline">\(\tilde{\beta_1} = 0\)</span>. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio <span class="math inline">\(\beta_{12}\)</span> (or <span class="math inline">\(\tilde{\beta_1}\)</span>) obtained from Poisson and logistic regressions will be the same.</p>
-</section>
-</section>
-<section id="sec-poisson-jk-tables" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="sec-poisson-jk-tables"><span class="header-section-number">6.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</h2>
-<p>Suppose now that <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span> and <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>. Then, we denote <span class="math inline">\(\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}\)</span>. We still are interested in testing for independence between <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, which amounts to a goodness-of-fit test for the Poisson model:</p>
-<p><span class="math display">\[
-y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
-\]</span></p>
-<p>The score (Pearson) and deviance-based goodness-of-fit statistics for this test are:</p>
-<p><span class="math display">\[
-X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 1}^J \sum_{k = 1}^K y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
-\]</span></p>
-<p>where <span class="math inline">\(\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}\)</span>. Like with the <span class="math inline">\(2 \times 2\)</span> case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is <span class="math inline">\(JK\)</span>, while the degrees of freedom in the partial model is <span class="math inline">\(J + K - 1\)</span>, so the degrees of freedom for the goodness-of-fit test is <span class="math inline">\(JK - J - K + 1 = (J - 1)(K - 1)\)</span>. Pearson erroneously concluded that the test had <span class="math inline">\(JK - 1\)</span> degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.</p>
-</section>
-<section id="sec-poisson-jkl-tables" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="sec-poisson-jkl-tables"><span class="header-section-number">6.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</h2>
-<p>These ideas can be extended to multi-way tables, for example, three-way tables. If we have <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span>, <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>, <span class="math inline">\(x_3 \in \{1, \dots, L\}\)</span>, then we might be interested in testing several kinds of null hypotheses:</p>
-<ul>
-<li>Mutual independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3\)</span>.</li>
-<li>Joint independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp (x_2, x_3)\)</span>.</li>
-<li>Conditional independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp x_2 \mid x_3\)</span>.</li>
-</ul>
-<p>These three null hypotheses can be shown to be equivalent to the Poisson regression model:</p>
-<p><span class="math display">\[
-y_{jkl} \overset{\text{ind}}\sim \text{Poi}(\mu_{jkl}),
-\]</span></p>
-<p>where:</p>
-<p><span class="math display">\[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
-\]</span></p>
-<p><span class="math display">\[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
-\]</span></p>
-<p><span class="math display">\[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_l \quad \text{(conditional independence)}.
-\]</span></p>
-</section>
-<section id="sec-nb-regression" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="sec-nb-regression"><span class="header-section-number">6.8</span> Negative binomial regression</h2>
-<section id="overdispersion" class="level3" data-number="6.8.1">
-<h3 data-number="6.8.1" class="anchored" data-anchor-id="overdispersion"><span class="header-section-number">6.8.1</span> Overdispersion</h3>
-<p>A pervasive issue with Poisson regression is <em>overdispersion</em>: that the variances of observations are greater than the corresponding means. A common cause of overdispersion is omitted variable bias. Suppose that <span class="math inline">\(y \sim \text{Poi}(\mu)\)</span>, where <span class="math inline">\(\log \mu = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span>. However, we omitted variable <span class="math inline">\(x_2\)</span> and are considering the GLM based on <span class="math inline">\(\log \mu = \beta_0 + \beta_1 x_1\)</span>. If <span class="math inline">\(\beta_2 \neq 0\)</span> and <span class="math inline">\(x_2\)</span> is correlated with <span class="math inline">\(x_1\)</span>, then we have a confounding issue. Let’s consider the more benign situation that <span class="math inline">\(x_2\)</span> is independent of <span class="math inline">\(x_1\)</span>. Then, we have</p>
-<p><span id="eq-mean-variance"><span class="math display">\[
-\mathbb{E}[y|x_1] = \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] = \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] = e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
-\tag{6.8}\]</span></span></p>
-<p>So in the model for the mean of <span class="math inline">\(y\)</span>, the impact of omitted variable <span class="math inline">\(x_2\)</span> seems only to have impacted the intercept. Let’s consider the variance of <span class="math inline">\(y\)</span>:</p>
-<p><span id="eq-var-greater-mean"><span class="math display">\[
-\text{Var}[y|x_1] = \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] = e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] &gt; e^{\beta'_0 + \beta_1 x_1} = \mathbb{E}[y|x_1].
-\tag{6.9}\]</span></span></p>
-<p>So indeed, the variance is larger than what we would have expected under the Poisson model.</p>
-</section>
-<section id="hierarchical-poisson-regression" class="level3" data-number="6.8.2">
-<h3 data-number="6.8.2" class="anchored" data-anchor-id="hierarchical-poisson-regression"><span class="header-section-number">6.8.2</span> Hierarchical Poisson regression</h3>
-<p>Let’s say that <span class="math inline">\(y|\boldsymbol{x} \sim \text{Poi}(\lambda)\)</span>, where <span class="math inline">\(\lambda|\boldsymbol{x}\)</span> is random due to the fluctuations of the omitted variables. A common distribution used to model nonnegative random variables is the <em>gamma</em> distribution <span class="math inline">\(\Gamma(\mu, k)\)</span>, parameterized by a mean <span class="math inline">\(\mu &gt; 0\)</span> and a <em>shape</em> <span class="math inline">\(k &gt; 0\)</span>. This distribution has probability density function</p>
-<p><span id="eq-gamma-pdf"><span class="math display">\[
-f(\lambda; k, \mu) = \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1},
-\tag{6.10}\]</span></span></p>
-<p>with mean and variance given by</p>
-<p><span id="eq-gamma-moments"><span class="math display">\[
-\mathbb{E}[\lambda] = \mu; \quad \text{Var}[\lambda] = \mu^2/k.
-\tag{6.11}\]</span></span></p>
-<p>Therefore, it makes sense to augment the Poisson regression model as follows:</p>
-<p><span id="eq-nb-hierarchical"><span class="math display">\[
-\lambda|\boldsymbol{x} \sim \Gamma(\mu, k), \quad \log \mu = \boldsymbol{x}^T \boldsymbol{\beta}, \quad y | \lambda \sim \text{Poi}(\lambda).
-\tag{6.12}\]</span></span></p>
-</section>
-<section id="negative-binomial-distribution" class="level3" data-number="6.8.3">
-<h3 data-number="6.8.3" class="anchored" data-anchor-id="negative-binomial-distribution"><span class="header-section-number">6.8.3</span> Negative binomial distribution</h3>
-<p>A simpler way to write the hierarchical model <a href="#eq-nb-hierarchical"><span>6.12</span></a> would be to marginalize out <span class="math inline">\(\lambda\)</span>. Doing so leaves us with a count distribution called the <em>negative binomial distribution</em>:</p>
-<p><span id="eq-nb-definition"><span class="math display">\[
-\lambda \sim \Gamma(\mu, k),\  y | \lambda \sim \text{Poi}(\lambda) \quad \Longrightarrow \quad y \sim \text{NegBin}(\mu, k).
-\tag{6.13}\]</span></span></p>
-<p>The negative binomial probability mass function is</p>
-<p><span id="eq-nb-pmf"><span class="math display">\[
-p(y; \mu, k) = \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda = \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
-\tag{6.14}\]</span></span></p>
-<p>This random variable has mean and variance given by</p>
-<p><span id="eq-nb-moments"><span class="math display">\[
-\mathbb{E}[y] = \mathbb{E}[\lambda] = \mu \quad \text{and} \quad \text{Var}[y] = \mathbb{E}[\lambda] + \text{Var}[\lambda] = \mu + \frac{\mu^2}{k}.
-\tag{6.15}\]</span></span></p>
-<p>As we send <span class="math inline">\(k \rightarrow \infty\)</span>, the distribution of <span class="math inline">\(\lambda\)</span> tends to a point mass and the negative binomial distribution tends to <span class="math inline">\(\text{Poi}(\mu)\)</span>.</p>
-</section>
-<section id="negative-binomial-as-exponential-dispersion-model" class="level3" data-number="6.8.4">
-<h3 data-number="6.8.4" class="anchored" data-anchor-id="negative-binomial-as-exponential-dispersion-model"><span class="header-section-number">6.8.4</span> Negative binomial as exponential dispersion model</h3>
-<p>Let us see whether we can express the negative binomial model as an exponential dispersion model. First, let us write out the probability mass function:</p>
-<p><span id="eq-nb-edm"><span class="math display">\[
-p(y; \mu, k) = \exp\left(y \log \frac{\mu}{\mu + k} - k \log \frac{\mu + k}{k}\right)\frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}.
-\tag{6.16}\]</span></span></p>
-<p>Unfortunately, we run into difficulties expressing this probability mass function in EDM form, because there is not a neat decoupling between the natural parameter and the dispersion parameter. Indeed, for unknown <span class="math inline">\(k\)</span>, the negative binomial model is <em>not</em> an EDM. However, we can still express the negative binomial model as an EDM (in fact, a one-parameter exponential family) if we treat <span class="math inline">\(k\)</span> as known. In particular, we can read off that</p>
-<p><span id="eq-neg-bin-exp-fam"><span class="math display">\[
-\theta = \log \frac{\mu}{\mu + k}, \quad \psi(\theta) = k\log \frac{\mu + k}{k} = -k\log(1-e^{\theta}).
-\tag{6.17}\]</span></span></p>
-<p>An alternate parameterization of the negative binomial model is via <span class="math inline">\(\gamma = 1/k\)</span>. With this parameterization, we have</p>
-<p><span id="eq-nb-alt-param"><span class="math display">\[
-\mathbb{E}[y] = \mu \quad \text{and} \quad \text{Var}[y] = \mu + \gamma \mu^2.
-\tag{6.18}\]</span></span></p>
-<p>Here, <span class="math inline">\(\gamma\)</span> acts as a kind of dispersion parameter, as the variance of <span class="math inline">\(y\)</span> grows with <span class="math inline">\(\gamma\)</span>. Note that the relationship between <span class="math inline">\(\text{Var}[y]\)</span> and <span class="math inline">\(\gamma\)</span> is not exactly proportional, as it is in EDMs. Nevertheless, the <span class="math inline">\(\gamma\)</span> parameter is often called the negative binomial <em>dispersion</em>. Note that setting <span class="math inline">\(\gamma = 0\)</span> recovers the Poisson distribution.</p>
-</section>
-<section id="negative-binomial-regression" class="level3" data-number="6.8.5">
-<h3 data-number="6.8.5" class="anchored" data-anchor-id="negative-binomial-regression"><span class="header-section-number">6.8.5</span> Negative binomial regression</h3>
-<p>Let’s revisit the hierarchical model <a href="#eq-nb-hierarchical"><span>6.12</span></a>, writing it more succinctly in terms of the negative binomial distribution:</p>
-<p><span id="eq-nb-regression"><span class="math display">\[
-y_i \overset{\text{ind}}{\sim} \text{NegBin}(\mu_i, \gamma), \quad \log \mu_i = \boldsymbol{x}^T \boldsymbol{\beta}.
-\tag{6.19}\]</span></span></p>
-<p>Notice that we typically assume that all observations share the same dispersion parameter <span class="math inline">\(\gamma\)</span>. Reading off from equation <a href="#eq-neg-bin-exp-fam"><span>6.17</span></a>, we see that the canonical link function for the negative binomial distribution is <span class="math inline">\(\mu \mapsto \log \frac{\mu}{\mu + k}\)</span>. However, typically for negative binomial regression we use the log link <span class="math inline">\(g(\mu) = \log \mu\)</span> instead. This is the link of Poisson regression, and leads to more interpretable coefficient estimates. This is our first example of a non-canonical link!</p>
-</section>
-<section id="score-and-fisher-information" class="level3" data-number="6.8.6">
-<h3 data-number="6.8.6" class="anchored" data-anchor-id="score-and-fisher-information"><span class="header-section-number">6.8.6</span> Score and Fisher information</h3>
-<p>Recall from Chapter 4 that</p>
-<p><span id="eq-score-fisher-info"><span class="math display">\[
-\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
-\tag{6.20}\]</span></span></p>
-<p>where</p>
-<p><span id="eq-w-m-matrix"><span class="math display">\[
-\boldsymbol{W} \equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right) \quad \text{and} \quad \boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
-\tag{6.21}\]</span></span></p>
-<p>In our case, we have</p>
-<p><span id="eq-w-v-deriv"><span class="math display">\[
-w_i = 1; \quad V(\mu_i) = \mu_i + \gamma \mu_i^2; \quad \frac{\partial\eta_i}{\partial \mu_i} = \frac{1}{\mu_i}.
-\tag{6.22}\]</span></span></p>
-<p>Putting this together, we find that</p>
-<p><span id="eq-w-m-simplified"><span class="math display">\[
-\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{1 + \gamma \mu_i}\right).
-\tag{6.23}\]</span></span></p>
-</section>
-<section id="estimation-in-negative-binomial-regression" class="level3" data-number="6.8.7">
-<h3 data-number="6.8.7" class="anchored" data-anchor-id="estimation-in-negative-binomial-regression"><span class="header-section-number">6.8.7</span> Estimation in negative binomial regression</h3>
-<p>Negative binomial regression is an EDM when <span class="math inline">\(\gamma\)</span> is known, but typically the dispersion parameter is unknown. Note that there is a dependency in <span class="math inline">\(\psi\)</span> on <span class="math inline">\(k\)</span> (i.e.&nbsp;on <span class="math inline">\(\gamma\)</span>), which complicates things. It means that the estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> depends on the parameter <span class="math inline">\(\gamma\)</span> (this does not happen, for example, in the normal linear model case).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Therefore, estimation in negative binomial regression is typically an iterative procedure, where at each step <span class="math inline">\(\boldsymbol{\beta}\)</span> is estimated for the current value of <span class="math inline">\(\gamma\)</span> and then <span class="math inline">\(\gamma\)</span> is estimated based on the updated value of <span class="math inline">\(\boldsymbol{\beta}\)</span>. Let’s discuss each of these tasks in turn. Given a value of <span class="math inline">\(\widehat{\gamma}\)</span>, we have the normal equations:</p>
-<p><span id="eq-nb-normal-eq"><span class="math display">\[
-\boldsymbol{X}^T \text{diag}\left(\frac{1}{1 + \widehat{\gamma} \widehat{\mu}_i}\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) = 0.
-\tag{6.24}\]</span></span></p>
-<p>This reduces to the Poisson normal equations when <span class="math inline">\(\widehat{\gamma} = 0\)</span>. Solving these equations for a fixed value of <span class="math inline">\(\widehat{\gamma}\)</span> can be done via IRLS, as usual. Estimating <span class="math inline">\(\gamma\)</span> for a fixed value of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> can be done in several ways, including setting to zero the derivative of the likelihood with respect to <span class="math inline">\(\gamma\)</span>. This results in a nonlinear equation (not given here) that can be solved iteratively.</p>
-</section>
-<section id="wald-inference" class="level3" data-number="6.8.8">
-<h3 data-number="6.8.8" class="anchored" data-anchor-id="wald-inference"><span class="header-section-number">6.8.8</span> Wald inference</h3>
-<p>Wald inference is based on</p>
-<p><span id="eq-wald-inference"><span class="math display">\[
-\widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1}, \quad \text{where} \quad \boldsymbol{\widehat{W}} = \text{diag}\left(\frac{\widehat{\mu}_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
-\tag{6.25}\]</span></span></p>
-</section>
-<section id="likelihood-ratio-test-inference" class="level3" data-number="6.8.9">
-<h3 data-number="6.8.9" class="anchored" data-anchor-id="likelihood-ratio-test-inference"><span class="header-section-number">6.8.9</span> Likelihood ratio test inference</h3>
-<p>The negative binomial deviance is</p>
-<p><span id="eq-nb-deviance"><span class="math display">\[
-D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\widehat{\mu}_i} - \left(y_i + \frac{1}{\widehat{\gamma}}\right)\log \frac{1 + \widehat{\gamma} y_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
-\tag{6.26}\]</span></span></p>
-<p>We can use this for comparing nested models, <strong>but not for goodness of fit testing!</strong> The issue is that we have estimated the parameter <span class="math inline">\(\gamma\)</span>, whereas goodness of fit tests are applicable only when the dispersion parameter is known.</p>
-</section>
-<section id="testing-for-overdispersion" class="level3" data-number="6.8.10">
-<h3 data-number="6.8.10" class="anchored" data-anchor-id="testing-for-overdispersion"><span class="header-section-number">6.8.10</span> Testing for overdispersion</h3>
-<p>It is reasonable to want to test for overdispersion, i.e., to test the null hypothesis <span class="math inline">\(H_0: \gamma = 0\)</span>. This is somewhat of a tricky task because <span class="math inline">\(\gamma = 0\)</span> is at the edge of the parameter space. We can do so using a likelihood ratio test. As it turns out, the likelihood ratio statistic <span class="math inline">\(T^{\text{LRT}}\)</span> has asymptotic null distribution</p>
-<p><span id="eq-lrt-null"><span class="math display">\[
-T^{\text{LRT}} \equiv 2(\ell^{\text{NB}} - \ell^{\text{Poi}}) \overset \cdot \sim \frac{1}{2}\delta_0 + \frac{1}{2}\chi^2_1.
-\tag{6.27}\]</span></span></p>
-<p>Here, <span class="math inline">\(\delta_0\)</span> is the delta mass at zero. The reason for this is that, under the null, we can view the estimated dispersion parameter as being symmetrically distributed around 0. However, since the dispersion parameter is nonnegative, this means it gets rounded up to 0 with probability 1/2. Therefore, the likelihood ratio test for <span class="math inline">\(H_0: \gamma = 0\)</span> rejects when</p>
-<p><span id="eq-lrt-reject"><span class="math display">\[
-T^{\text{LRT}} &gt; \chi^2_1(1-2\alpha).
-\tag{6.28}\]</span></span></p>
-<p>Note that the above test for overdispersion can be viewed as a goodness of fit test for the Poisson GLM. It is different from the usual GLM goodness of fit tests, because the saturated model against which the latter tests stays in the Poisson family. Nevertheless, significant results in standard goodness of fit tests for Poisson GLMs are often an indication of overdispersion. Or, they may indicate omitted variable bias (e.g., you forgot to include an interaction), so it’s somewhat tricky.</p>
-</section>
-<section id="overdispersion-in-logistic-regression" class="level3" data-number="6.8.11">
-<h3 data-number="6.8.11" class="anchored" data-anchor-id="overdispersion-in-logistic-regression"><span class="header-section-number">6.8.11</span> Overdispersion in logistic regression</h3>
-<p>Note that overdispersion is potentially an issue not only in Poisson regression models but in logistic regression models as well. Dealing with overdispersion in the latter case is more tricky, because the analog of the negative binomial model (the beta-binomial model) is not an exponential family. An alternate route to dealing with overdispersion is quasi-likelihood modeling, but this topic is beyond the scope of the course.</p>
-</section>
-</section>
-<section id="sec-r-demo" class="level2" data-number="6.9">
-<h2 data-number="6.9" class="anchored" data-anchor-id="sec-r-demo"><span class="header-section-number">6.9</span> R demo</h2>
-<section id="sec-contingency-table" class="level3" data-number="6.9.1">
-<h3 data-number="6.9.1" class="anchored" data-anchor-id="sec-contingency-table"><span class="header-section-number">6.9.1</span> Contingency table analysis</h3>
-<p>Let’s take a look at the UC Berkeley admissions data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ucb_data <span class="ot">&lt;-</span> UCBAdmissions <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ucb_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 24 × 4
-   Admit    Gender Dept      n
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
- 1 Admitted Male   A       512
- 2 Rejected Male   A       313
- 3 Admitted Female A        89
- 4 Rejected Female A        19
- 5 Admitted Male   B       353
- 6 Rejected Male   B       207
- 7 Admitted Female B        17
- 8 Rejected Female B         8
- 9 Admitted Male   C       120
-10 Rejected Male   C       205
-# ℹ 14 more rows</code></pre>
-</div>
-</div>
-<p>It contains data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex. Let’s see whether there is an association between <code>Gender</code> and <code>Admit</code>. Let’s first aggregate over department:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ucb_data_agg <span class="ot">&lt;-</span> ucb_data <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Admit, Gender) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ucb_data_agg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
-  Admit    Gender     n
-  &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt;
-1 Admitted Female   557
-2 Admitted Male    1198
-3 Rejected Female  1278
-4 Rejected Male    1493</code></pre>
-</div>
-</div>
-<p>Let’s see what the admissions rates are by gender:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ucb_data_agg <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Admission rate</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(n<span class="sc">*</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>))<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  Gender `Admission rate`
-  &lt;chr&gt;             &lt;dbl&gt;
-1 Female            0.304
-2 Male              0.445</code></pre>
-</div>
-</div>
-<p>This suggests that men have substantially higher admission rates than women. Let’s see if we can confirm this using either a Fisher’s exact test or a Pearson chi-square test.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first convert to 2x2 table format</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>admit_vs_gender <span class="ot">&lt;-</span> ucb_data_agg <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> n) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Admit"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>admit_vs_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         Female Male
-Admitted    557 1198
-Rejected   1278 1493</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fisher exact test (note that the direction of the effect can be deduced)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(admit_vs_gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Fisher's Exact Test for Count Data
-
-data:  admit_vs_gender
-p-value &lt; 2.2e-16
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.4781839 0.6167675
-sample estimates:
-odds ratio 
- 0.5432254 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chi-square test</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(admit_vs_gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test with Yates' continuity correction
-
-data:  admit_vs_gender
-X-squared = 91.61, df = 1, p-value &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>As a sanity check, let’s run the Poisson regression underlying the chi-square test above.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pois_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(n <span class="sc">~</span> Admit <span class="sc">+</span> Gender <span class="sc">+</span> Admit<span class="sc">*</span>Gender,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ucb_data_agg)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pois_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = n ~ Admit + Gender + Admit * Gender, family = "poisson", 
-    data = ucb_data_agg)
-
-Coefficients:
-                         Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)               6.32257    0.04237 149.218   &lt;2e-16 ***
-AdmitRejected             0.83049    0.05077  16.357   &lt;2e-16 ***
-GenderMale                0.76584    0.05128  14.933   &lt;2e-16 ***
-AdmitRejected:GenderMale -0.61035    0.06389  -9.553   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for poisson family taken to be 1)
-
-    Null deviance:  4.8635e+02  on 3  degrees of freedom
-Residual deviance: -3.4062e-13  on 0  degrees of freedom
-AIC: 43.225
-
-Number of Fisher Scoring iterations: 2</code></pre>
-</div>
-</div>
-<p>Based on all of these tests, there seems to be a very substantial difference in admissions rates based on gender. That is not good.</p>
-<p>But perhaps, women tend to apply to more selective departments? Let’s look into this:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ucb_data <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dept) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">admissions_rate =</span> <span class="fu">sum</span>(n<span class="sc">*</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>))<span class="sc">/</span><span class="fu">sum</span>(n),</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">prop_female_applicants =</span> <span class="fu">sum</span>(n<span class="sc">*</span>(Gender <span class="sc">==</span> <span class="st">"Female"</span>))<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> admissions_rate, <span class="at">y =</span> prop_female_applicants)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Admissions rate"</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Proportion female applicants"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="glm-special-cases_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="288"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Indeed, it does seem that female applicants typically applied to more selective departments! This suggests that it is very important to control for department when evaluating the association between admissions and gender. To do this, we can run a test for conditional independence in the <span class="math inline">\(J \times K \times L\)</span> table:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pois_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(n <span class="sc">~</span> Admit <span class="sc">+</span> Dept <span class="sc">+</span> Gender <span class="sc">+</span> Admit<span class="sc">:</span>Dept <span class="sc">+</span> Gender<span class="sc">:</span>Dept,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ucb_data)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fu">sum</span>(<span class="fu">resid</span>(pois_fit, <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> pois_fit<span class="sc">$</span>df.residual,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.002840164</code></pre>
-</div>
-</div>
-<p>Still we find a significant effect! But what is the direction of the effect? The chi-square test does not tell us. We can simply compute the admissions rates by department and plot them:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ucb_data <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dept, Gender) <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Admission rate</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(n<span class="sc">*</span>(Admit <span class="sc">==</span> <span class="st">"Admitted"</span>))<span class="sc">/</span><span class="fu">sum</span>(n),</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> <span class="st">`</span><span class="at">Admission rate</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Female, <span class="at">y =</span> Male, <span class="at">label =</span> Dept)) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>() <span class="sc">+</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Female admission rate"</span>,</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Male admission rate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="glm-special-cases_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="288"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Now the difference doesn’t seem so huge, with most departments close to even and with department A heavily skewed towards admitting women!</p>
-</section>
-<section id="sec-crime-data" class="level3" data-number="6.9.2">
-<h3 data-number="6.9.2" class="anchored" data-anchor-id="sec-crime-data"><span class="header-section-number">6.9.2</span> Revisiting the crime data, again</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Here we are again, face to face with the crime data, with one last chance to get the analysis right. Let’s load and preprocess it, as before.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read crime data</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>crime_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/Statewide_crime.dat"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read and transform population data</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>population_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/state-populations.csv"</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>population_data <span class="ot">&lt;-</span> population_data <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(State <span class="sc">!=</span> <span class="st">"Puerto Rico"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(State, Pop) <span class="sc">|&gt;</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state_name =</span> State, <span class="at">state_pop =</span> Pop)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># collate state abbreviations</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>state_abbreviations <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_name =</span> state.name,</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_abbrev =</span> state.abb</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">state_name =</span> <span class="st">"District of Columbia"</span>, <span class="at">state_abbrev =</span> <span class="st">"DC"</span>)</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># add CrimeRate to crime_data</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>crime_data <span class="ot">&lt;-</span> crime_data <span class="sc">|&gt;</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STATE =</span> <span class="fu">ifelse</span>(STATE <span class="sc">==</span> <span class="st">"IO"</span>, <span class="st">"IA"</span>, STATE)) <span class="sc">|&gt;</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state_abbrev =</span> STATE) <span class="sc">|&gt;</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>) <span class="sc">|&gt;</span> <span class="co"># remove outlier</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(state_abbreviations, <span class="at">by =</span> <span class="st">"state_abbrev"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(population_data, <span class="at">by =</span> <span class="st">"state_name"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state_abbrev, Violent, Metro, HighSchool, Poverty, state_pop)</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>crime_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 50 × 6
-   state_abbrev Violent Metro HighSchool Poverty state_pop
-   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1 AK               593  65.6       90.2     8      724357
- 2 AL               430  55.4       82.4    13.7   4934193
- 3 AR               456  52.5       79.2    12.1   3033946
- 4 AZ               513  88.2       84.4    11.9   7520103
- 5 CA               579  94.4       81.3    10.5  39613493
- 6 CO               345  84.5       88.3     7.3   5893634
- 7 CT               308  87.7       88.8     6.4   3552821
- 8 DE               658  80.1       86.5     5.8    990334
- 9 FL               730  89.3       85.9     9.7  21944577
-10 GA               454  71.6       85.2    10.8  10830007
-# ℹ 40 more rows</code></pre>
-</div>
-</div>
-<p>Let’s recall the logistic regression we ran on these data in Chapter 4:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bin_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Violent <span class="sc">/</span> state_pop <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> state_pop,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We had found very poor results from the goodness of fit test for this model. We have therefore omitted some important variables and/or we have serious overdispersion on our hands.</p>
-<p>We haven’t discussed in any detail how to deal with overdispersion in logistic regression models, so let’s try a Poisson model instead. The natural way to model rates using Poisson distributions is via offsets:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pois_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Violent <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty <span class="sc">+</span> <span class="fu">offset</span>(<span class="fu">log</span>(state_pop)),</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"poisson"</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pois_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-glm(formula = Violent ~ Metro + HighSchool + Poverty + offset(log(state_pop)), 
-    family = "poisson", data = crime_data)
-
-Coefficients:
-              Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -1.609e+01  3.520e-01  -45.72   &lt;2e-16 ***
-Metro       -2.585e-02  5.727e-04  -45.15   &lt;2e-16 ***
-HighSchool   9.106e-02  3.450e-03   26.39   &lt;2e-16 ***
-Poverty      6.077e-02  4.852e-03   12.53   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for poisson family taken to be 1)
-
-    Null deviance: 15589  on 49  degrees of freedom
-Residual deviance: 11741  on 46  degrees of freedom
-AIC: 12135
-
-Number of Fisher Scoring iterations: 5</code></pre>
-</div>
-</div>
-<p>Again, everything is significant, and again, the regression summary shows that we have a huge residual deviance. This was to be expected, given that <span class="math inline">\(\text{Bin}(m, \pi) \approx \text{Poi}(m\pi)\)</span> for large <span class="math inline">\(m\)</span> and small <span class="math inline">\(\pi\)</span>. So, the natural thing to try is a negative binomial regression! Negative binomial regression is not implemented in the regular <code>glm</code> package, but <code>glm.nb()</code> from the <code>MASS</code> package is a dedicated function for this task. Let’s see what we get:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>nb_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">glm.nb</span>(Violent <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty <span class="sc">+</span> <span class="fu">offset</span>(<span class="fu">log</span>(state_pop)),</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nb_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-MASS::glm.nb(formula = Violent ~ Metro + HighSchool + Poverty + 
-    offset(log(state_pop)), data = crime_data, init.theta = 1.467747388, 
-    link = log)
-
-Coefficients:
-              Estimate Std. Error z value Pr(&gt;|z|)  
-(Intercept) -10.254088   5.273418  -1.944   0.0518 .
-Metro        -0.012188   0.008518  -1.431   0.1525  
-HighSchool    0.028052   0.052482   0.535   0.5930  
-Poverty      -0.026852   0.068449  -0.392   0.6948  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for Negative Binomial(1.4677) family taken to be 1)
-
-    Null deviance: 59.516  on 49  degrees of freedom
-Residual deviance: 55.487  on 46  degrees of freedom
-AIC: 732.58
-
-Number of Fisher Scoring iterations: 1
-
-              Theta:  1.468 
-          Std. Err.:  0.268 
-
- 2 x log-likelihood:  -722.575 </code></pre>
-</div>
-</div>
-<p>Aha! Things are not looking so significant anymore! And the residual deviance is not as huge! Although, we must be careful! The residual deviance no longer has the usual <span class="math inline">\(\chi^2\)</span> distribution because of the estimated dispersion parameter. So we don’t really have an easy goodness of fit test. The estimated value of <span class="math inline">\(\gamma\)</span> (confusingly called <span class="math inline">\(\theta\)</span> in the summary) is significantly different from zero, indicating overdispersion. Let’s formally test for overdispersion using the nonstandard likelihood ratio test discussed above:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>T_LRT <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fu">as.numeric</span>(<span class="fu">logLik</span>(nb_fit)) <span class="sc">-</span> <span class="fu">as.numeric</span>(<span class="fu">logLik</span>(pois_fit)))</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>p_LRT <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(T_LRT, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>p_LRT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<p>So at the very least the NB model fits much better than the Poisson model. Let’s do some inference based on this model. For example, we can get Wald confidence intervals:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(nb_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                   2.5 %      97.5 %
-(Intercept) -20.58979658 0.081620714
-Metro        -0.02888413 0.004507747
-HighSchool   -0.07481066 0.130915138
-Poverty      -0.16100973 0.107305015</code></pre>
-</div>
-</div>
-<p>Or we can get LRT-based (i.e.&nbsp;profile) confidence intervals:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(nb_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                   2.5 %       97.5 %
-(Intercept) -19.20209590 -0.860399348
-Metro        -0.03153902  0.006365841
-HighSchool   -0.06265118  0.115318303
-Poverty      -0.13930110  0.085200541</code></pre>
-</div>
-</div>
-<p>Or we can get confidence intervals for the predicted means:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(nb_fit,</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> crime_data <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"state_abbrev"</span>),</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"response"</span>,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">se.fit =</span> <span class="cn">TRUE</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$fit
-       AK        AL        AR        AZ        CA        CO        CT        DE 
- 116.1520  617.7064  375.4895  700.6931 3257.5300  725.1538  436.7863  127.2572 
-       FL        GA        HI        ID        IL        IN        IA        KS 
-2232.2308 1301.2937  157.1416  263.8572 1379.1847  954.3366  546.5503  439.0649 
-       KY        LA        MA        MD        ME        MI        MN        MO 
- 541.5706  391.6745  747.7454  737.0032  274.2879 1322.9956  970.4078  871.2829 
-       MS        MT        NC        ND        NE        NH        NJ        NM 
- 380.6756  199.4947 1313.0904  134.8128  305.0634  261.1975  966.9940  204.3311 
-       NV        NY        OH        OK        OR        PA        RI        SC 
- 327.7316 1926.3861 1477.1713  495.9711  517.8397 1600.0813   96.3565  684.9102 
-       SD        TN        TX        UT        VA        VT        WA        WI 
- 160.9225  867.0224 2423.0647  416.6648 1244.5168  148.1635 1012.1932  892.0644 
-       WV        WY 
- 226.4515  100.1906 
-
-$se.fit
-       AK        AL        AR        AZ        CA        CO        CT        DE 
- 21.00552 143.65071 130.44272 165.08459 910.57769 121.34777  85.53768  32.15169 
-       FL        GA        HI        ID        IL        IN        IA        KS 
-427.89514 173.04544  31.73873  40.28262 239.43324 147.21049 104.05752  68.82044 
-       KY        LA        MA        MD        ME        MI        MN        MO 
-133.28938 129.40665 150.23524 158.93816  92.04222 171.28409 216.32477 110.88843 
-       MS        MT        NC        ND        NE        NH        NJ        NM 
-138.28105  65.60335 379.90855  26.74061  69.62560  66.73731 220.88371  59.26953 
-       NV        NY        OH        OK        OR        PA        RI        SC 
- 64.30971 387.25204 241.24541  95.44911  81.97419 220.42078  33.97964 119.45174 
-       SD        TN        TX        UT        VA        VT        WA        WI 
- 41.50215 169.68896 738.95321 107.62725 209.14651  51.32810 191.75629 137.35158 
-       WV        WY 
- 71.55328  22.79279 
-
-$residual.scale
-[1] 1</code></pre>
-</div>
-</div>
-<p>We can carry out some hypothesis tests as well, e.g.&nbsp;to test <span class="math inline">\(H_0: \beta_{\text{Metro}} = 0\)</span>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>nb_fit_partial <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">glm.nb</span>(Violent <span class="sc">~</span> HighSchool <span class="sc">+</span> Poverty <span class="sc">+</span> <span class="fu">offset</span>(<span class="fu">log</span>(state_pop)),</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>anova_fit <span class="ot">&lt;-</span> <span class="fu">anova</span>(nb_fit_partial, nb_fit)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>anova_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Likelihood ratio tests of Negative Binomial Models
-
-Response: Violent
-                                                  Model    theta Resid. df
-1         HighSchool + Poverty + offset(log(state_pop)) 1.428675        47
-2 Metro + HighSchool + Poverty + offset(log(state_pop)) 1.467747        46
-     2 x log-lik.   Test    df LR stat.   Pr(Chi)
-1       -724.1882                                
-2       -722.5753 1 vs 2     1 1.612878 0.2040877</code></pre>
-</div>
-</div>
 
 
-</section>
-</section>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>Having said that, the dependency between <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\widehat{\gamma}\)</span> is weak, as the two are asymptotically independent parameters.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1554,13 +628,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./glm-general-theory.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Generalized linear models: General theory</span></span>
+      <a href="./r-demo-part-4.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./multiple-testing.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./logistic-regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

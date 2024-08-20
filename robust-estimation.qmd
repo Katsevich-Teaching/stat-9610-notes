@@ -1,0 +1,19 @@
+## Robust estimation {#sec-robust-estimation}
+
+The squared error loss $\sum_{i = 1}^n (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2$ is sensitive to outliers in the sense that a large value of $y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}$ can have a significant impact on the loss function. The least squares estimate, as the minimizer of this loss function, is therefore sensitive to outliers. One way of addressing this challenge is to replace the squared error loss with a different loss that does not grow so quickly in $y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}$. A popular choice for such a loss function is the Huber loss:
+
+$$
+L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
+\begin{cases}
+\frac{1}{2}(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2, \quad &\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| \leq \delta; \\
+\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\delta), \quad &\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| > \delta.
+\end{cases}
+$$
+
+This function is differentiable, like the squared error loss, but grows linearly as opposed to quadratically. We can then define:
+
+$$
+\boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}).
+$$
+
+This is an *M-estimator*; it is consistent and has an asymptotic normal distribution that can be used for inference.

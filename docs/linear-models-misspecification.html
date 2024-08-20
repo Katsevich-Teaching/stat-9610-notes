@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610Lecture Notes - 3&nbsp; Linear models: Misspecification</title>
+<title>STAT 9610 Lecture Notes - Linear models: Misspecification</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./glm-general-theory.html" rel="next">
-<link href="./linear-models-inference.html" rel="prev">
+<link href="./misspecification-overview.html" rel="next">
+<link href="./r-demo-part-2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -99,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="custom.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -111,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear models: Misspecification</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,9 +91,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">STAT 9610<br>Lecture Notes</a> 
+      <a href="./">STAT 9610 Lecture Notes</a> 
         <div class="sidebar-tools-main">
-    <a href="./STAT-9610-br-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -142,94 +107,275 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear models: Estimation</span></span></a>
+  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear models: Inference</span></span></a>
+  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear models: Misspecification</span></span></a>
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Generalized linear models: General theory</span></span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generalized linear models: Special cases</span></span></a>
+  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#origins-consequences-diagnostics-and-overview-of-fixes" id="toc-origins-consequences-diagnostics-and-overview-of-fixes" class="nav-link active" data-scroll-target="#origins-consequences-diagnostics-and-overview-of-fixes"><span class="header-section-number">3.1</span> Origins, consequences, diagnostics, and overview of fixes</a>
-  <ul class="collapse">
-  <li><a href="#sec-non-normality" id="toc-sec-non-normality" class="nav-link" data-scroll-target="#sec-non-normality"><span class="header-section-number">3.1.1</span> Non-normality</a></li>
-  <li><a href="#sec-heteroskedasticity" id="toc-sec-heteroskedasticity" class="nav-link" data-scroll-target="#sec-heteroskedasticity"><span class="header-section-number">3.1.2</span> Heteroskedastic and correlated errors</a></li>
-  <li><a href="#sec-model-bias" id="toc-sec-model-bias" class="nav-link" data-scroll-target="#sec-model-bias"><span class="header-section-number">3.1.3</span> Model bias</a></li>
-  <li><a href="#sec-outliers" id="toc-sec-outliers" class="nav-link" data-scroll-target="#sec-outliers"><span class="header-section-number">3.1.4</span> Outliers</a></li>
-  </ul></li>
-  <li><a href="#sec-asymptotic-methods" id="toc-sec-asymptotic-methods" class="nav-link" data-scroll-target="#sec-asymptotic-methods"><span class="header-section-number">3.2</span> Asymptotic methods for heteroskedastic and correlated errors</a>
-  <ul class="collapse">
-  <li><a href="#sec-better-estimate" id="toc-sec-better-estimate" class="nav-link" data-scroll-target="#sec-better-estimate"><span class="header-section-number">3.2.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></a></li>
-  <li><a href="#sec-better-standard-errors" id="toc-sec-better-standard-errors" class="nav-link" data-scroll-target="#sec-better-standard-errors"><span class="header-section-number">3.2.2</span> Methods that build better standard errors for OLS estimate</a></li>
-  </ul></li>
-  <li><a href="#sec-bootstrap" id="toc-sec-bootstrap" class="nav-link" data-scroll-target="#sec-bootstrap"><span class="header-section-number">3.3</span> The bootstrap</a>
-  <ul class="collapse">
-  <li><a href="#sec-residual-bootstrap" id="toc-sec-residual-bootstrap" class="nav-link" data-scroll-target="#sec-residual-bootstrap"><span class="header-section-number">3.3.1</span> The residual bootstrap</a></li>
-  <li><a href="#sec-pairs-bootstrap" id="toc-sec-pairs-bootstrap" class="nav-link" data-scroll-target="#sec-pairs-bootstrap"><span class="header-section-number">3.3.2</span> Pairs bootstrap</a></li>
-  </ul></li>
-  <li><a href="#sec-permutation-test" id="toc-sec-permutation-test" class="nav-link" data-scroll-target="#sec-permutation-test"><span class="header-section-number">3.4</span> The permutation test</a>
-  <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">3.4.1</span> Example</a></li>
-  <li><a href="#strengths-and-weaknesses" id="toc-strengths-and-weaknesses" class="nav-link" data-scroll-target="#strengths-and-weaknesses"><span class="header-section-number">3.4.2</span> Strengths and weaknesses</a></li>
-  </ul></li>
-  <li><a href="#sec-robust-estimation" id="toc-sec-robust-estimation" class="nav-link" data-scroll-target="#sec-robust-estimation"><span class="header-section-number">3.5</span> Robust estimation</a></li>
-  <li><a href="#sec-R-demo-misspecification" id="toc-sec-R-demo-misspecification" class="nav-link" data-scroll-target="#sec-R-demo-misspecification"><span class="header-section-number">3.6</span> R demo</a>
-  <ul class="collapse">
-  <li><a href="#heteroskedasticity" id="toc-heteroskedasticity" class="nav-link" data-scroll-target="#heteroskedasticity"><span class="header-section-number">3.6.1</span> Heteroskedasticity</a></li>
-  <li><a href="#group-correlated-errors" id="toc-group-correlated-errors" class="nav-link" data-scroll-target="#group-correlated-errors"><span class="header-section-number">3.6.2</span> Group-correlated errors</a></li>
-  <li><a href="#autocorrelated-errors" id="toc-autocorrelated-errors" class="nav-link" data-scroll-target="#autocorrelated-errors"><span class="header-section-number">3.6.3</span> Autocorrelated errors</a></li>
-  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers"><span class="header-section-number">3.6.4</span> Outliers</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear models: Misspecification</span></h1>
+<h1 class="title">Linear models: Misspecification</h1>
 </div>
 
 
@@ -250,617 +396,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \]</span></p>
 <p>In this unit, we will discuss what happens when this model is misspecified:</p>
 <ul>
-<li><strong>Non-normality</strong> (<a href="#sec-non-normality"><span>Section&nbsp;3.1.1</span></a>): <span class="math inline">\(\boldsymbol{\epsilon} \sim (0, \sigma^2 \boldsymbol{I}_n)\)</span> but not <span class="math inline">\(N(0, \sigma^2 \boldsymbol{I}_n)\)</span>.</li>
-<li><strong>Heteroskedastic and/or correlated errors</strong> (<a href="#sec-heteroskedasticity"><span>Section&nbsp;3.1.2</span></a>): <span class="math inline">\(\boldsymbol{\epsilon} \sim (0, \boldsymbol{\Sigma})\)</span>, where <span class="math inline">\(\boldsymbol{\Sigma} \neq \sigma^2 \boldsymbol{I}\)</span>. This includes the case of heteroskedastic errors (<span class="math inline">\(\boldsymbol{\Sigma}\)</span> is diagonal but not a constant multiple of the identity) and correlated errors (<span class="math inline">\(\boldsymbol{\Sigma}\)</span> is not diagonal).</li>
-<li><strong>Model bias</strong> (<a href="#sec-model-bias"><span>Section&nbsp;3.1.3</span></a>): It is not the case that <span class="math inline">\(\mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta}\)</span> for some <span class="math inline">\(\boldsymbol{\beta} \in \mathbb{R}^p\)</span>.</li>
-<li><strong>Outliers</strong> (<a href="#sec-outliers"><span>Section&nbsp;3.1.4</span></a>): For one or more <span class="math inline">\(i\)</span>, it is not the case that <span class="math inline">\(y_i \sim N(\boldsymbol{x}_{i*}^T \boldsymbol{\beta}, \sigma^2)\)</span>.</li>
+<li><strong>Non-normality</strong> (<a href="misspecification-overview.html#sec-non-normality"><span>Section&nbsp;15.1</span></a>): <span class="math inline">\(\boldsymbol{\epsilon} \sim (0, \sigma^2 \boldsymbol{I}_n)\)</span> but not <span class="math inline">\(N(0, \sigma^2 \boldsymbol{I}_n)\)</span>.</li>
+<li><strong>Heteroskedastic and/or correlated errors</strong> (<a href="misspecification-overview.html#sec-heteroskedasticity"><span>Section&nbsp;15.2</span></a>): <span class="math inline">\(\boldsymbol{\epsilon} \sim (0, \boldsymbol{\Sigma})\)</span>, where <span class="math inline">\(\boldsymbol{\Sigma} \neq \sigma^2 \boldsymbol{I}\)</span>. This includes the case of heteroskedastic errors (<span class="math inline">\(\boldsymbol{\Sigma}\)</span> is diagonal but not a constant multiple of the identity) and correlated errors (<span class="math inline">\(\boldsymbol{\Sigma}\)</span> is not diagonal).</li>
+<li><strong>Model bias</strong> (<a href="misspecification-overview.html#sec-model-bias"><span>Section&nbsp;15.3</span></a>): It is not the case that <span class="math inline">\(\mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta}\)</span> for some <span class="math inline">\(\boldsymbol{\beta} \in \mathbb{R}^p\)</span>.</li>
+<li><strong>Outliers</strong> (<a href="misspecification-overview.html#sec-outliers"><span>Section&nbsp;15.4</span></a>): For one or more <span class="math inline">\(i\)</span>, it is not the case that <span class="math inline">\(y_i \sim N(\boldsymbol{x}_{i*}^T \boldsymbol{\beta}, \sigma^2)\)</span>.</li>
 </ul>
-<p>For each type of misspecification, we will discuss its origins, consequences, detection, and fixes (<a href="#sec-non-normality"><span>Section&nbsp;3.1.1</span></a>-<a href="#sec-outliers"><span>Section&nbsp;3.1.4</span></a>). We conclude with an R demo (<a href="#sec-R-demo-misspecification"><span>Section&nbsp;3.6</span></a>).</p>
-<section id="origins-consequences-diagnostics-and-overview-of-fixes" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="origins-consequences-diagnostics-and-overview-of-fixes"><span class="header-section-number">3.1</span> Origins, consequences, diagnostics, and overview of fixes</h2>
-<section id="sec-non-normality" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="sec-non-normality"><span class="header-section-number">3.1.1</span> Non-normality</h3>
-<section id="origin" class="level4" data-number="3.1.1.1">
-<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="origin"><span class="header-section-number">3.1.1.1</span> Origin</h4>
-<p>Non-normality occurs when the distribution of <span class="math inline">\(y|\boldsymbol{x}\)</span> is either skewed or has heavier tails than the normal distribution. This may happen, for example, if there is some discreteness in <span class="math inline">\(y\)</span>.</p>
-</section>
-<section id="consequences" class="level4" data-number="3.1.1.2">
-<h4 data-number="3.1.1.2" class="anchored" data-anchor-id="consequences"><span class="header-section-number">3.1.1.2</span> Consequences</h4>
-<p>Non-normality is the most benign of linear model misspecifications. While we derived linear model inferences under the normality assumption, all the corresponding statements hold asymptotically without this assumption. Recall Homework 2 Question 1, or take for example the simpler problem of estimating the mean <span class="math inline">\(\mu\)</span> of a distribution based on <span class="math inline">\(n\)</span> samples from it: We can test <span class="math inline">\(H_0: \mu = 0\)</span> and build a confidence interval for <span class="math inline">\(\mu\)</span> even if the underlying distribution is not normal. So if <span class="math inline">\(n\)</span> is relatively large and <span class="math inline">\(p\)</span> is relatively small, you need not worry too much. If <span class="math inline">\(n\)</span> is small and the errors are highly skewed or heavy-tailed, we may have issues with incorrect standard errors.</p>
-</section>
-<section id="detection" class="level4" data-number="3.1.1.3">
-<h4 data-number="3.1.1.3" class="anchored" data-anchor-id="detection"><span class="header-section-number">3.1.1.3</span> Detection</h4>
-<p>Non-normality is a property of the error terms <span class="math inline">\(\epsilon_i\)</span>. We do not observe these directly, but we can approximate them using the residuals:</p>
-<p><span class="math display">\[
-\widehat{\epsilon}_i = y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}.
-\]</span></p>
-<p>Recall from Chapter 2 that <span class="math inline">\(\text{Var}[\boldsymbol{\widehat{\epsilon}}] = \sigma^2(\boldsymbol{I} - \boldsymbol{H})\)</span>. Letting <span class="math inline">\(h_i\)</span> be the <span class="math inline">\(i\)</span>th diagonal entry of <span class="math inline">\(\boldsymbol{H}\)</span>, it follows that <span class="math inline">\(\widehat{\epsilon}_i \sim (0, \sigma^2(1-h_i))\)</span>. The <em>standardized residuals</em> are defined as:</p>
-<p><span id="eq-standardized-residuals"><span class="math display">\[
-r_i = \frac{\widehat{\epsilon}_i}{\widehat{\sigma} \sqrt{1-h_i}}.
-\tag{3.1}\]</span></span></p>
-<p>Under normality, we would expect <span class="math inline">\(r_i \overset{\cdot}{\sim} N(0,1)\)</span>. We can therefore assess normality by producing a histogram or normal QQ-plot of these residuals (see Figure <span class="citation" data-cites="fig:qqplot">[-@fig:qqplot]</span>).</p>
-<div id="fig-qqplot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/qqplot.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.1: Histogram and normal QQ plot of standardized residuals.</figcaption>
-</figure>
-</div>
-</section>
-<section id="fixes" class="level4" data-number="3.1.1.4">
-<h4 data-number="3.1.1.4" class="anchored" data-anchor-id="fixes"><span class="header-section-number">3.1.1.4</span> Fixes</h4>
-<p>As mentioned above, non-normality is not necessarily a problem that needs to be fixed, except in small samples. In small samples (but not too small!), we can apply the residual bootstrap for robust standard error computation and/or robust hypothesis testing.</p>
-</section>
-</section>
-<section id="sec-heteroskedasticity" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-heteroskedasticity"><span class="header-section-number">3.1.2</span> Heteroskedastic and correlated errors</h3>
-<section id="origin-1" class="level4" data-number="3.1.2.1">
-<h4 data-number="3.1.2.1" class="anchored" data-anchor-id="origin-1"><span class="header-section-number">3.1.2.1</span> Origin</h4>
-<p><strong>Heteroskedasticity</strong> can arise as follows. Suppose each observation <span class="math inline">\(y_i\)</span> is actually the average of <span class="math inline">\(n_i\)</span> underlying observations, each with variance <span class="math inline">\(\sigma^2\)</span>. Then, the variance of <span class="math inline">\(y_i\)</span> is <span class="math inline">\(\sigma^2/n_i\)</span>, which will differ across <span class="math inline">\(i\)</span> if <span class="math inline">\(n_i\)</span> differ. It is also common to see the variance of a distribution increase as the mean increases (as in Figure <span class="citation" data-cites="fig:heteroskedasticity">[-@fig:heteroskedasticity]</span>), whereas for a linear model the variance of <span class="math inline">\(y\)</span> stays constant as the mean of <span class="math inline">\(y\)</span> varies.</p>
-<p><strong>Correlated errors</strong> can arise when observations have group, spatial, or temporal structure. Below are examples:</p>
-<ul>
-<li><strong>Group/clustered structure</strong>: We have 10 samples <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> each from 100 schools.</li>
-<li><strong>Spatial structure</strong>: We have 100 soil samples from a <span class="math inline">\(10\times10\)</span> grid on a 1km <span class="math inline">\(\times\)</span> 1km field.</li>
-<li><strong>Temporal structure</strong>: We have 366 COVID positivity rate measurements, one from each day of the year 2020.</li>
-</ul>
-<p>The issue arises because there are common sources of variation among samples that are in the same group or spatially/temporally close to one another.</p>
-</section>
-<section id="consequences-1" class="level4" data-number="3.1.2.2">
-<h4 data-number="3.1.2.2" class="anchored" data-anchor-id="consequences-1"><span class="header-section-number">3.1.2.2</span> Consequences</h4>
-<p>All normal linear model inference from Chapter 2 hinges on the assumption that <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I})\)</span>. If instead of <span class="math inline">\(\sigma^2 \boldsymbol{I}\)</span> we have <span class="math inline">\(\text{Var}[\boldsymbol{\epsilon}] = \boldsymbol{\Sigma}\)</span> for some matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, then we may suffer two consequences: wrong inference (in terms of confidence interval coverage and hypothesis test levels) and inefficient inference (in terms of confidence interval width and hypothesis test power). One way of seeing the consequence of heteroskedasticity for confidence interval coverage is the width of prediction intervals; see Figure <span class="citation" data-cites="fig:heteroskedasticity">[-@fig:heteroskedasticity]</span> for intuition.</p>
-<div id="fig-heteroskedasticity" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/heteroskedasticity.png" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.2: Heteroskedasticity in a simple bivariate linear model (image source: ).</figcaption>
-</figure>
-</div>
-<p>Like with heteroskedastic errors, correlated errors can cause invalid standard errors. In particular, positively correlated errors typically cause standard errors to be smaller than they should be, leading to inflated Type-I error rates. For intuition, consider estimating the mean of a distribution based on <span class="math inline">\(n\)</span> samples. Consider the cases when these samples are independent, compared to when they are perfectly correlated. The effective sample size in the former case is <span class="math inline">\(n\)</span> and in the latter case is 1.</p>
-</section>
-<section id="detection-1" class="level4" data-number="3.1.2.3">
-<h4 data-number="3.1.2.3" class="anchored" data-anchor-id="detection-1"><span class="header-section-number">3.1.2.3</span> Detection</h4>
-<p>Heteroskedasticity is usually assessed via the <em>residual plot</em> (Figure <span class="citation" data-cites="fig:residual-plots">[-@fig:residual-plots]</span>). In this plot, the standardized residuals <span class="math inline">\(r_i\)</span> (<a href="#eq-standardized-residuals"><span>3.1</span></a>) are plotted against the fitted values <span class="math inline">\(\widehat{\mu}_i\)</span>. In the absence of heteroskedasticity, the spread of the points around the origin should be roughly constant as a function of <span class="math inline">\(\widehat{\mu}\)</span> (Figure <a href="a">-<span class="citation" data-cites="fig:residual-plots">@fig:residual-plots</span></a>). A common sign of heteroskedasticity is the fan shape where variance increases as a function of <span class="math inline">\(\widehat{\mu}\)</span> (Figure <a href="c">-<span class="citation" data-cites="fig:residual-plots">@fig:residual-plots</span></a>).</p>
-<div id="fig-residual-plots" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/residual-plots.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.3: Residuals plotted against linear-model fitted values that reflect (a) model adequacy, (b) quadratic rather than linear relationship, and (c) nonconstant variance (image source: Agresti Figure 2.8).</figcaption>
-</figure>
-</div>
-<p>Residual plots once again come in handy to detect correlated errors. Instead of plotting the standardized residuals against the fitted values, we should plot the residuals against whatever variables we think might explain variation in the response that the regression does not account for. In the presence of group structures, we can plot residuals versus group (via a boxplot); in the presence of spatial or temporal structure, we can plot residuals as a function of space or time. If the residuals show a dependency on these variables, this suggests they are correlated. This dependency can be checked via formal means as well, e.g., via an ANOVA test in the case of groups or by estimating the autocorrelation function in the case of temporal structure.</p>
-</section>
-</section>
-<section id="sec-model-bias" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="sec-model-bias"><span class="header-section-number">3.1.3</span> Model bias</h3>
-<section id="origin-2" class="level4" data-number="3.1.3.1">
-<h4 data-number="3.1.3.1" class="anchored" data-anchor-id="origin-2"><span class="header-section-number">3.1.3.1</span> Origin</h4>
-<p>Model bias arises when predictors are left out of the regression model:</p>
-<p><span id="eq-confounding"><span class="math display">\[
-\text{assumed model: } \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}; \quad \text{actual model: } \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{Z} \boldsymbol{\gamma} + \boldsymbol{\epsilon}.
-\tag{3.2}\]</span></span></p>
-<p>We may not always know about or measure all the variables that impact a response <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-<p>Model bias can also arise when the predictors do not impact the response on the linear scale. For example:</p>
-<p><span id="eq-wrong-scale"><span class="math display">\[
-\text{assumed model: } \mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta}; \quad \text{actual model: } g(\mathbb{E}[\boldsymbol{y}]) = \boldsymbol{X} \boldsymbol{\beta}.
-\tag{3.3}\]</span></span></p>
-</section>
-<section id="consequences-2" class="level4" data-number="3.1.3.2">
-<h4 data-number="3.1.3.2" class="anchored" data-anchor-id="consequences-2"><span class="header-section-number">3.1.3.2</span> Consequences</h4>
-<p>In cases of model bias, the parameters <span class="math inline">\(\boldsymbol{\beta}\)</span> in the assumed linear model lose their meanings. The least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> will be a biased estimate for the parameter we probably actually want to estimate. In the case (<a href="#eq-confounding"><span>3.2</span></a>) when predictors are left out of the regression model, these additional predictors <span class="math inline">\(\boldsymbol{Z}\)</span> will act as confounders and create bias in <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as an estimate of the <span class="math inline">\(\boldsymbol{\beta}\)</span> parameters in the true model, unless <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{Z} = 0\)</span>. As discussed in Chapter 2, this can lead to misleading conclusions.</p>
-</section>
-<section id="detection-2" class="level4" data-number="3.1.3.3">
-<h4 data-number="3.1.3.3" class="anchored" data-anchor-id="detection-2"><span class="header-section-number">3.1.3.3</span> Detection</h4>
-<p>Similarly to the detection of correlated errors, we can try to identify model bias by plotting the standardized residuals against predictors that may have been left out of the model. A good place to start is to plot standardized residuals against the predictors <span class="math inline">\(\boldsymbol{X}\)</span> (one at a time) that are in the model, since nonlinear transformations of these might have been left out. In this case, you would see something like Figure <a href="b">-<span>Figure&nbsp;<span>3.3</span></span></a>.</p>
-<p>It is possible to formally test for model bias in cases when we have repeated observations of the response for each value of the predictor vector. In particular, suppose that <span class="math inline">\(\boldsymbol{x}_{i*} = \boldsymbol{x}_c\)</span> for <span class="math inline">\(c = c(i)\)</span> and predictor vectors <span class="math inline">\(\boldsymbol{x}_1, \dots, \boldsymbol{x}_C \in \mathbb{R}^p\)</span>. Then, consider testing the following hypothesis:</p>
-<p><span class="math display">\[
-H_0: y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i \quad \text{versus} \quad H_1: y_i = \beta_{c(i)} + \epsilon_i.
-\]</span></p>
-<p>The model under <span class="math inline">\(H_0\)</span> (the linear model) is nested in the model for <span class="math inline">\(H_1\)</span> (the saturated model), and we can test this hypothesis using an <span class="math inline">\(F\)</span>-test called the <em>lack of fit <span class="math inline">\(F\)</span>-test</em>.</p>
-</section>
-<section id="overview-of-fixes" class="level4" data-number="3.1.3.4">
-<h4 data-number="3.1.3.4" class="anchored" data-anchor-id="overview-of-fixes"><span class="header-section-number">3.1.3.4</span> Overview of fixes</h4>
-<p>To fix model bias in the case (<a href="#eq-confounding"><span>3.2</span></a>), ideally we would identify the missing predictors <span class="math inline">\(\boldsymbol{Z}\)</span> and add them to the regression model. This may not always be feasible or possible. To fix model bias in the case (<a href="#eq-wrong-scale"><span>3.3</span></a>), it is sometimes advocated to find a transformation <span class="math inline">\(g\)</span> (e.g., a square root or a logarithm) of <span class="math inline">\(\boldsymbol{y}\)</span> such that <span class="math inline">\(\mathbb{E}[g(\boldsymbol{y})] = \boldsymbol{X} \boldsymbol{\beta}\)</span>. However, a better solution is to use a <em>generalized linear model</em>, which we will discuss starting in Chapter 4.</p>
-</section>
-</section>
-<section id="sec-outliers" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="sec-outliers"><span class="header-section-number">3.1.4</span> Outliers</h3>
-<section id="origin-3" class="level4" data-number="3.1.4.1">
-<h4 data-number="3.1.4.1" class="anchored" data-anchor-id="origin-3"><span class="header-section-number">3.1.4.1</span> Origin</h4>
-<p>Outliers often arise due to measurement or data entry errors. An observation can be an outlier in <span class="math inline">\(\boldsymbol{x}\)</span>, in <span class="math inline">\(y\)</span>, or both.</p>
-</section>
-<section id="consequences-3" class="level4" data-number="3.1.4.2">
-<h4 data-number="3.1.4.2" class="anchored" data-anchor-id="consequences-3"><span class="header-section-number">3.1.4.2</span> Consequences</h4>
-<p>An outlier can have the effect of biasing the estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>. This occurs when an observation has outlying <span class="math inline">\(\boldsymbol{x}\)</span> as well as outlying <span class="math inline">\(y\)</span>.</p>
-</section>
-<section id="detection-3" class="level4" data-number="3.1.4.3">
-<h4 data-number="3.1.4.3" class="anchored" data-anchor-id="detection-3"><span class="header-section-number">3.1.4.3</span> Detection</h4>
-<p>There are a few measures associated with an observation that can be used to detect outliers, though none are perfect. The first quantity is called the <em>leverage</em>, defined as:</p>
-<p><span class="math display">\[
-\text{leverage of observation } i \equiv \text{corr}^2(y_i, \widehat{\mu}_i)^2.
-\]</span></p>
-<p>This quantity measures the extent to which the fitted value <span class="math inline">\(\widehat{\mu}_i\)</span> is sensitive to the (noise in the) observation <span class="math inline">\(y_i\)</span>. It can be derived that:</p>
-<p><span class="math display">\[
-\text{leverage of observation } i = h_i,
-\]</span></p>
-<p>which is the <span class="math inline">\(i\)</span>th diagonal element of the hat matrix <span class="math inline">\(\boldsymbol{H}\)</span>. This is related to the fact that <span class="math inline">\(\text{Var}[\widehat{\epsilon}_i] = \sigma^2(1-h_i)\)</span>. The larger the leverage, the smaller the variance of the residual, so the closer the line passes to the <span class="math inline">\(i\)</span>th observation. The leverage of an observation is larger to the extent that <span class="math inline">\(\boldsymbol{x}_{i*}\)</span> is far from <span class="math inline">\(\boldsymbol{\bar{x}}\)</span>. For example, in the bivariate linear model <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span>,</p>
-<p><span class="math display">\[
-h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{\sum_{i' = 1}^n (x_{i'} - \bar{x})^2}.
-\]</span></p>
-<p>Note that the average of the leverages is:</p>
-<p><span class="math display">\[
-\frac{1}{n}\sum_{i = 1}^n h_i = \frac{1}{n}\text{trace}(\boldsymbol{H}) = \frac{p}{n}.
-\]</span></p>
-<p>An observation’s leverage is considered large if it is significantly larger than this, e.g., three times larger.</p>
-<p>Note that the leverage is not a function of <span class="math inline">\(y_i\)</span>, so a high-leverage point might or might not be an outlier in <span class="math inline">\(y_i\)</span> and therefore might or might not have a strong impact on the regression. To assess more directly whether an observation is <em>influential</em>, we can compare the least squares fits with and without that observation. To this end, we define the <em>Cook’s distance</em>:</p>
-<p><span class="math display">\[
-D_i = \frac{\sum_{i' = 1}^n (\widehat{\mu}_{i'} - \widehat{\mu}^{\text{-}i}_{i'})^2}{p\widehat{\sigma}^2},
-\]</span></p>
-<p>where <span class="math inline">\(\widehat{\mu}^{\text{-}i}_{i'} = \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}^{\text{-}i}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{-}i}\)</span> is the least squares estimate based on <span class="math inline">\((\boldsymbol{X}_{\text{-}i,*}, \boldsymbol{y}_{\text{-}i})\)</span>. An observation is considered influential if it has Cook’s distance greater than one.</p>
-<p>There is a connection between Cook’s distance and leverage:</p>
-<p><span class="math display">\[
-D_i = \left(\frac{y_i - \widehat{\mu}_i}{\widehat{\sigma} \sqrt{1-h_{ii}}}\right)^2 \cdot \frac{h_{ii}}{p(1-h_{ii})}.
-\]</span></p>
-<p>We recognize the first term as the standardized residual; therefore a point is influential if its residual and leverage are large.</p>
-<p>Note that Cook’s distance may not successfully identify outliers. For example, if there are groups of outliers, then they will <em>mask</em> each other in the calculation of Cook’s distance.</p>
-</section>
-<section id="overview-of-fixes-1" class="level4" data-number="3.1.4.4">
-<h4 data-number="3.1.4.4" class="anchored" data-anchor-id="overview-of-fixes-1"><span class="header-section-number">3.1.4.4</span> Overview of fixes</h4>
-<p>If outliers can be detected, then the fix is to remove them from the regression. But, we need to be careful. Definitively determining whether observations are outliers can be tricky. Outlier detection can even be used as a way to commit fraud with data, as now-defunct blood testing start-up <a href="https://arstechnica.com/tech-policy/2021/09/cherry-picking-data-was-routine-practice-at-theranos-former-lab-worker-says/">Theranos</a> is alleged to have done. As an alternative to removing outliers, we can fit estimators <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> that are less sensitive to outliers; see Section <a href="#sec-robust-estimation"><span>Section&nbsp;3.5</span></a>.</p>
-</section>
-</section>
-</section>
-<section id="sec-asymptotic-methods" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sec-asymptotic-methods"><span class="header-section-number">3.2</span> Asymptotic methods for heteroskedastic and correlated errors</h2>
-<p>Broadly speaking, approaches to fixing heteroskedastic or correlated errors can be divided into (1) those based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> and (2) those based on resampling. Methods based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> can use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> or (ii) build better standard errors for the least squares estimate. Resampling methods include the bootstrap (for estimation) and the permutation test (for testing).</p>
-<section id="sec-better-estimate" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">3.2.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></h3>
-<p>Suppose <span class="math inline">\(\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma})\)</span>. This is a <em>generalized least squares</em> problem for which inference can be carried out. The generalized least squares estimate is <span class="math inline">\(\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{y}\)</span>, which is distributed as <span class="math inline">\(\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1})\)</span>. This is the best linear unbiased estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, recovering efficiency. We can carry out inference based on the latter distributional result analogously to how we did so in Chapter 2. The issue, of course, is that we usually do not know <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Therefore, we can consider the following approach: (1) estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> using OLS, (2) use this estimate to get an estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, (3) use <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> to get a (hopefully) more efficient estimator</p>
-<p><span id="eq-fgls-estimate"><span class="math display">\[
-\boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
-\tag{3.4}\]</span></span></p>
-<p>This is called the <em>feasible generalized least squares estimate</em> (FGLS), to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. The procedure above can be iterated until convergence. To estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>, we usually need to make some parametric assumptions. For example, in the case of grouped structure, we might assume a <em>random effects model</em>. In the case of a temporal structure, we might assume an <em>AR(1) model</em>.</p>
-</section>
-<section id="sec-better-standard-errors" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-better-standard-errors"><span class="header-section-number">3.2.2</span> Methods that build better standard errors for OLS estimate</h3>
-<p>Sometimes we don’t feel comfortable enough with our estimate of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> to actually modify the least squares estimator. So we want to keep using our least squares estimator, but still get standard errors robust to heteroskedastic or correlated errors. There are several strategies to computing valid standard errors in such situations.</p>
-<section id="sec-sandwich-errors" class="level4" data-number="3.2.2.1">
-<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="sec-sandwich-errors"><span class="header-section-number">3.2.2.1</span> Sandwich standard errors</h4>
-<p>Let’s say that <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}\)</span>, where <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>. Then, we can compute that the covariance matrix of the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> is</p>
-<p><span id="eq-sandwich"><span class="math display">\[
-\text{Var}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\tag{3.5}\]</span></span></p>
-<p>Note that this expression reduces to the usual <span class="math inline">\(\sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> when <span class="math inline">\(\boldsymbol{\Sigma} = \sigma^2 \boldsymbol{I}\)</span>. It is called the sandwich variance because we have the <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})\)</span> term sandwiched between two <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> terms. If we have some estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of the covariance matrix, we can construct</p>
-<p><span class="math display">\[
-\widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\]</span></p>
-<p>Different estimates <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> are appropriate in different situations. Below we consider three of the most common choices: one for heteroskedasticity (due to Huber-White), one for group-correlated errors (due to Liang-Zeger), and one for temporally-correlated errors (due to Newey-West).</p>
-</section>
-<section id="sec-specific-sandwich-errors" class="level4" data-number="3.2.2.2">
-<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-specific-sandwich-errors"><span class="header-section-number">3.2.2.2</span> Specific instances of sandwich standard errors</h4>
-<p><strong>Huber-White standard errors.</strong></p>
-<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>3.5</span></a>), with</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\Sigma}} \equiv \text{diag}(\widehat{\sigma}_1^2, \dots, \widehat{\sigma}_n^2), \quad \text{where} \quad \widehat{\sigma}_i^2 = (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}})^2.
-\]</span></p>
-<p>While each estimator <span class="math inline">\(\widehat{\sigma}_i^2\)</span> is very poor, Huber and White’s insight was that the resulting estimate of the (averaged) quantity <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}\)</span> is not bad. To see why, assume that <span class="math inline">\((\boldsymbol{x}_{i*}, y_i) \overset{\text{i.i.d.}}{\sim} F\)</span> for some joint distribution <span class="math inline">\(F\)</span>. Then, we have that</p>
-<p><span class="math display">\[
-\begin{split}
-\frac{1}{n}(\boldsymbol{X}^T \widehat{\boldsymbol{\Sigma}} \boldsymbol{X} - \boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X}) &amp;= \frac{1}{n} \sum_{i=1}^n (\widehat{\sigma}_i^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
-&amp;= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\widehat{\boldsymbol{\beta}} - \boldsymbol{\beta}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
-&amp;= \frac{1}{n} \sum_{i=1}^n \epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T + o_p(1) \\
-&amp;\to_p 0.
-\end{split}
-\]</span></p>
-<p>The last step holds by the law of large numbers, since <span class="math inline">\(\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0\)</span> for each <span class="math inline">\(i\)</span>.</p>
-<p><strong>Liang-Zeger standard errors.</strong></p>
-<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>3.5</span></a>), with</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
-\]</span></p>
-<p>Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each <span class="math inline">\(\boldsymbol{\widehat{\Sigma}_c}\)</span> is a poor estimator, the resulting estimate of the (averaged) quantity <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}\)</span> is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as “clustered standard errors” in the econometrics community.</p>
-<p><strong>Newey-West standard errors.</strong></p>
-<p>Finally, consider the case when our observations <span class="math inline">\(i\)</span> have a temporal structure, and we believe there to be nontrivial correlations between <span class="math inline">\(\epsilon_{i1}\)</span> and <span class="math inline">\(\epsilon_{i2}\)</span> for <span class="math inline">\(|i1 - i2| \leq L\)</span>. Then, a natural extension of the Huber-White estimate of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> for each pair <span class="math inline">\((i1, i2)\)</span> such that <span class="math inline">\(|i1 - i2| \leq L\)</span>. Unfortunately, this is not guaranteed to give a positive semidefinite matrix <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>. Therefore, Newey and West proposed a slightly modified estimator:</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
-\]</span></p>
-<p>This estimator shrinks the off-diagonal estimates <span class="math inline">\(\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>.</p>
-</section>
-<section id="sec-sandwich-inference" class="level4" data-number="3.2.2.3">
-<h4 data-number="3.2.2.3" class="anchored" data-anchor-id="sec-sandwich-inference"><span class="header-section-number">3.2.2.3</span> Inference based on sandwich standard errors</h4>
-<p>We now have a matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> such that</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\beta}} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \widehat{\boldsymbol{\Omega}}).
-\]</span></p>
-<p>This allows us to construct confidence intervals and hypothesis tests for each <span class="math inline">\(\beta_j\)</span>, by simply replacing <span class="math inline">\(\text{SE}(\beta_j)\)</span> with <span class="math inline">\(\sqrt{\widehat{\Omega}_{jj}}\)</span>. For contrasts and prediction intervals, we can use the fact that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})\)</span>, so that <span class="math inline">\(\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}\)</span>. It is less obvious how to use the matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> to test the hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span>. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Chapter 4). The Wald test statistic is</p>
-<p><span class="math display">\[
-W = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S,
-\]</span></p>
-<p>which is asymptotically distributed as <span class="math inline">\(\chi^2_{|S|}\)</span> under the null hypothesis. It turns out that the usual regression <span class="math inline">\(F\)</span>-test is asymptotically equivalent to this Wald test.</p>
-</section>
-</section>
-</section>
-<section id="sec-bootstrap" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="sec-bootstrap"><span class="header-section-number">3.3</span> The bootstrap</h2>
-<section id="sec-residual-bootstrap" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="sec-residual-bootstrap"><span class="header-section-number">3.3.1</span> The residual bootstrap</h3>
-<section id="standard-errors-via-the-residual-bootstrap" class="level4" data-number="3.3.1.1">
-<h4 data-number="3.3.1.1" class="anchored" data-anchor-id="standard-errors-via-the-residual-bootstrap"><span class="header-section-number">3.3.1.1</span> Standard errors via the residual bootstrap</h4>
-<p>The <em>bootstrap</em> is one way of carrying out robust inference. The core idea of the bootstrap is to use the data to construct an approximation to the data-generating distribution and then to approximate the sampling distribution of any test statistic by simulating from this approximate data-generating distribution. This approach, pioneered by Brad Efron in 1979, replaces mathematical derivations with computation. The bootstrap is extremely flexible and can be adapted to apply in a variety of settings.</p>
-<p>Suppose that <span class="math inline">\(y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i\)</span>, where <span class="math inline">\(\epsilon_i \overset{\text{i.i.d.}}{\sim} F\)</span> for some distribution <span class="math inline">\(F\)</span>. Then, the data-generating distribution is specified by <span class="math inline">\((\boldsymbol{\beta}, F)\)</span>, which we approximate by substituting <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> for <span class="math inline">\(\boldsymbol{\beta}\)</span> and the empirical distribution of the residuals <span class="math inline">\(\widehat{\epsilon}_i\)</span> (call it <span class="math inline">\(\widehat{F}\)</span>) for <span class="math inline">\(F\)</span>. We can then sample new response vectors based on this approximate data-generating distribution:</p>
-<p><span id="eq-residual-bootstrap"><span class="math display">\[
-y_i^b = \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
-\tag{3.6}\]</span></span></p>
-<p>Note that i.i.d. sampling <span class="math inline">\(\epsilon_i^b\)</span> from <span class="math inline">\(\widehat{F}\)</span> amounts to sampling <span class="math inline">\((\epsilon_1^b, \dots, \epsilon_n^b)\)</span> with replacement from <span class="math inline">\((\widehat{\epsilon}_1, \dots, \widehat{\epsilon}_n)\)</span>. Then, as with the parametric bootstrap, we fit a least squares coefficient vector <span class="math inline">\(\boldsymbol{\widehat{\beta}}^b\)</span> to <span class="math inline">\((\boldsymbol{X}, \boldsymbol{y}^b)\)</span> for each <span class="math inline">\(b\)</span> and obtain standard errors by treating <span class="math inline">\(\{\boldsymbol{\widehat{\beta}}^b\}_{b = 1}^B\)</span> as though it were the sampling distribution of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>.</p>
-</section>
-<section id="hypothesis-testing-via-the-residual-bootstrap" class="level4" data-number="3.3.1.2">
-<h4 data-number="3.3.1.2" class="anchored" data-anchor-id="hypothesis-testing-via-the-residual-bootstrap"><span class="header-section-number">3.3.1.2</span> Hypothesis testing via the residual bootstrap</h4>
-<p>While the bootstrap is commonly associated with the construction of standard errors, it can also be used directly for hypothesis testing. Suppose we wish to test the linear regression null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span> for some <span class="math inline">\(S \subseteq \{1, \dots, p-1\}\)</span> (which recall we cannot do using a permutation test). We compute some test statistic <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y})\)</span> measuring the significance of <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (e.g., an <span class="math inline">\(F\)</span>-statistic, but it could be anything else). Then, we can use a variant of the residual bootstrap. We fit the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as usual and extract the residuals <span class="math inline">\(\widehat{\epsilon}_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}\)</span> and their empirical distribution <span class="math inline">\(\widehat{F}\)</span>. Then, placing ourselves under the null hypothesis, we generate new samples <span class="math inline">\(\boldsymbol{y}^b\)</span> from the null distribution analogously to the usual residual bootstrap (<a href="#eq-residual-bootstrap"><span>3.6</span></a>):</p>
-<p><span class="math display">\[
-y_i^b = \boldsymbol{x}_{i, \text{-}S}^T \boldsymbol{\widehat{\beta}}_{\text{-}S} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
-\]</span></p>
-<p>We can then build a null distribution by recomputing <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}^b)\)</span> for each <span class="math inline">\(b\)</span> and then define the bootstrap-based <span class="math inline">\(p\)</span>-value:</p>
-<p><span class="math display">\[
-p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
-\]</span></p>
-</section>
-</section>
-<section id="sec-pairs-bootstrap" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="sec-pairs-bootstrap"><span class="header-section-number">3.3.2</span> Pairs bootstrap</h3>
-<p>The residual bootstrap corrects for non-normality but not heteroskedasticity or correlated errors, since it assumes that the noise terms are i.i.d. from some distribution.</p>
-<p>Weakening the assumptions further, let’s assume only that <span class="math inline">\((\boldsymbol{x}_{i*}, y_i) \overset{\text{i.i.d.}}{\sim} F\)</span> for some joint distribution <span class="math inline">\(F\)</span>. We then resample our observations by sampling with replacement from the original observations.</p>
-<p>Note that, unlike the parametric or residual bootstrap, the pairs bootstrap treats the predictors <span class="math inline">\(\boldsymbol{X}\)</span> as random rather than fixed. The benefit of the pairs bootstrap is that it does not assume homoskedasticity since the error variance is allowed to depend on <span class="math inline">\(\boldsymbol{x}_{i*}\)</span>. Therefore, the pairs bootstrap addresses both non-normality and heteroskedasticity, though it does not address correlated errors (though variants of the pairs bootstrap do; see below). Note that the pairs bootstrap does not even assume that <span class="math inline">\(\mathbb{E}[y_i] = \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span> for some <span class="math inline">\(\boldsymbol{\beta}\)</span>. However, in the presence of model bias, it is unclear for what parameters we are even doing inference. While the pairs bootstrap assumes less than the residual bootstrap, it may be somewhat less efficient in the case when the assumptions of the latter are met.</p>
-<p>The pairs bootstrap has several variants that help it overcome correlated errors, in addition to heteroskedasticity. The <em>cluster bootstrap</em> is applicable in the case when errors have a clustered/grouped structure. In this case, we sample entire clusters of observations, with replacement, from the original set of clusters. The <em>moving blocks bootstrap</em> is applicable in the case of spatially or temporally structured errors. In this variant of the pairs bootstrap, we resample spatially or temporally adjacent blocks of observations together to preserve their joint correlation structure.</p>
-</section>
-</section>
-<section id="sec-permutation-test" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="sec-permutation-test"><span class="header-section-number">3.4</span> The permutation test</h2>
-<p>Unlike the residual bootstrap, the pairs bootstrap cannot accommodate hypothesis testing. If we would like resampling-based hypothesis tests in the presence of heteroskedasticity, we can consider permutation tests instead. Permutation tests are an easy way of testing the null hypothesis of independence between two random variables (or vectors). For our purposes, suppose that <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> are drawn i.i.d. from some joint distribution <span class="math inline">\(F\)</span> (as opposed to the usual assumption that <span class="math inline">\(\boldsymbol{X}\)</span> is fixed). Then, consider the null hypothesis:</p>
-<p><span id="eq-independence-1"><span class="math display">\[
-H_0: \boldsymbol{x} \perp\!\!\!\perp y.
-\tag{3.7}\]</span></span></p>
-<p>This null hypothesis is related to the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = 0\)</span> in a linear regression, as formalized by the following lemma.</p>
-<div id="lem-independence" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 3.1 </strong></span>Suppose <span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^{p-1}\)</span> has a nondegenerate distribution <span class="math inline">\(F_{\boldsymbol{x}}\)</span> in the sense that there does not exist a vector <span class="math inline">\(c \in \mathbb{R}^{p-1}\)</span> such that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{x}\)</span> is deterministic. Suppose also that <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> is a distribution such that <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}\)</span> and that the distribution <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> is specified by its mean. Then,</p>
-<p><span class="math display">\[
-\boldsymbol{x} \perp\!\!\!\perp y \quad \Longleftrightarrow \quad \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}.
-\]</span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>If <span class="math inline">\(\boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span>, then <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0\)</span>. Therefore, the mean of <span class="math inline">\(y\)</span> does not depend on <span class="math inline">\(\boldsymbol{x}\)</span>. By the assumption on <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span>, it follows that the entire distribution <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> does not depend on <span class="math inline">\(\boldsymbol{x}\)</span>, i.e., <span class="math inline">\(y \perp\!\!\!\perp \boldsymbol{x}\)</span>. If <span class="math inline">\(\boldsymbol{\beta}_{\text{-}0} \neq \boldsymbol{0}\)</span>, then <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}\)</span>, which by assumption is non-constant. Since <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}]\)</span> depends on <span class="math inline">\(\boldsymbol{x}\)</span>, it follows that <span class="math inline">\(y\)</span> is not independent of <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
-</div>
-<p>Therefore, any valid independence test automatically gives a non-normality-robust and heteroskedasticity-robust test of <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span> in a linear regression.</p>
-<p>Now, suppose we have <span class="math inline">\(n\)</span> i.i.d. samples <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> from <span class="math inline">\(F\)</span>. Under the independence null hypothesis (<a href="#eq-independence-1"><span>3.7</span></a>), the distribution of the data is unchanged if we permute the response variables <span class="math inline">\(y_i\)</span>. Formally, let <span class="math inline">\(\boldsymbol{y}_{()}\)</span> be the order statistics of the response variable, let <span class="math inline">\(S_n\)</span> be the permutation group on <span class="math inline">\(\{1, \dots, n\}\)</span>, and let <span class="math inline">\(\boldsymbol{y}_\tau\)</span> denote the permutation of <span class="math inline">\(\boldsymbol{y}\)</span> by <span class="math inline">\(\tau \in S_n\)</span>. Then,</p>
-<p><span class="math display">\[
-\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(\boldsymbol{y}_{\tau}).
-\]</span></p>
-<p>Now, let <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y})\)</span> be any test statistic measuring the association between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, e.g., a linear regression <span class="math inline">\(F\)</span>-statistic. Then, the above distributional result implies that</p>
-<p><span class="math display">\[
-T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(T(\boldsymbol{X}, \boldsymbol{y}_{\tau})).
-\]</span></p>
-<p>Hence, we can compute the null distribution of <span class="math inline">\(T\)</span> by repeatedly permuting the response <span class="math inline">\(\boldsymbol{y}\)</span> and recomputing <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}_{\tau})\)</span>. This gives rise to the permutation <span class="math inline">\(p\)</span>-value:</p>
-<p><span class="math display">\[
-p^{\text{perm}} \equiv \frac{1}{n!}\sum_{\tau \in S_n} \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}_{\tau}) \geq T(\boldsymbol{X}, \boldsymbol{y})).
-\]</span></p>
-<p>The uniform distribution of <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()}\)</span> implies that</p>
-<p><span class="math display">\[
-\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}] \leq t \quad \Longrightarrow \quad \mathbb{P}[p^{\text{perm}} \leq t] = \mathbb{E}[\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}]] \leq t \quad \text{for all } t \in [0,1].
-\]</span></p>
-<p>In practice, <span class="math inline">\(p^{\text{perm}}\)</span> is approximated by independently sampling <span class="math inline">\(B\)</span> permutations <span class="math inline">\(\tau_1, \dots, \tau_B\)</span> from the uniform distribution over <span class="math inline">\(S_n\)</span>. Letting <span class="math inline">\(\tau_0\)</span> be the identity permutation, it follows that</p>
-<p><span class="math display">\[
-\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y} \in \{\boldsymbol{y}_{\tau_0}, \dots, \boldsymbol{y}_{\tau_B}\} \sim \frac{1}{B+1}\sum_{b = 0}^B \delta(\boldsymbol{y}_{\tau_b}).
-\]</span></p>
-<p>Similar logic as above leads to the approximate permutation <span class="math inline">\(p\)</span>-value:</p>
-<p><span id="eq-p-perm-hat"><span class="math display">\[
-\widehat{p}^{\text{perm}} \equiv \frac{1}{B+1}\sum_{b = 0}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y})) = \frac{1}{B+1}\left(1 + \sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
-\tag{3.8}\]</span></span></p>
-<p>Although <span class="math inline">\(\widehat{p}^{\text{perm}}\)</span> can be viewed as an approximation to <span class="math inline">\(\boldsymbol{p}^{\text{perm}}\)</span>, it is also stochastically larger than the uniform distribution in finite samples:</p>
-<p><span id="eq-permutation-pvalue-validity"><span class="math display">\[
-\mathbb{P}[\widehat{p}^{\text{perm}} \leq t] \leq t \quad \text{for all } t \in [0,1].
-\tag{3.9}\]</span></span></p>
-<p><strong>Warning:</strong> A common mistake is to omit the “1+” in the numerator and denominator of the definition (<a href="#eq-p-perm-hat"><span>3.8</span></a>). The resulting <span class="math inline">\(p\)</span>-value is <em>not valid</em> in the sense of (<a href="#eq-permutation-pvalue-validity"><span>3.9</span></a>).</p>
-<section id="example" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="example"><span class="header-section-number">3.4.1</span> Example</h3>
-<p>A common application of the permutation test is testing for equality of distributions in the two-sample problem, where the permutation test amounts to generating a null distribution for any test statistic (e.g., a difference in means) by pooling together the two samples and randomly reassigning the classes of the samples.</p>
-</section>
-<section id="strengths-and-weaknesses" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="strengths-and-weaknesses"><span class="header-section-number">3.4.2</span> Strengths and weaknesses</h3>
-<p>The strength of the permutation test is that it is valid under almost no assumptions on the data-generating process. Its main weakness is that it is not applicable to the hypothesis <span class="math inline">\(H_0: \beta_S = 0\)</span> for any group of predictors <span class="math inline">\(S \neq \{1, \dots, p-1\}\)</span>. Intuitively, this would require a fancy kind of permutation that breaks the association between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{X}_{*, S}\)</span> while preserving the association between <span class="math inline">\(\boldsymbol{X}_{*, S}\)</span> and <span class="math inline">\(\boldsymbol{X}_{*, \text{-}S}\)</span>. This amounts to a test of <em>conditional</em> independence, which requires more assumptions on the joint distribution <span class="math inline">\(F_{\boldsymbol{x}, y}\)</span> than an independence test. Another weakness of a permutation test is that it is computationally expensive, although in the 21st century this is not a huge issue.</p>
-</section>
-</section>
-<section id="sec-robust-estimation" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="sec-robust-estimation"><span class="header-section-number">3.5</span> Robust estimation</h2>
-<p>The squared error loss <span class="math inline">\(\sum_{i = 1}^n (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2\)</span> is sensitive to outliers in the sense that a large value of <span class="math inline">\(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span> can have a significant impact on the loss function. The least squares estimate, as the minimizer of this loss function, is therefore sensitive to outliers. One way of addressing this challenge is to replace the squared error loss with a different loss that does not grow so quickly in <span class="math inline">\(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span>. A popular choice for such a loss function is the Huber loss:</p>
-<p><span class="math display">\[
-L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
-\begin{cases}
-\frac{1}{2}(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2, \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| \leq \delta; \\
-\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\delta), \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| &gt; \delta.
-\end{cases}
-\]</span></p>
-<p>This function is differentiable, like the squared error loss, but grows linearly as opposed to quadratically. We can then define:</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}).
-\]</span></p>
-<p>This is an <em>M-estimator</em>; it is consistent and has an asymptotic normal distribution that can be used for inference.</p>
-</section>
-<section id="sec-R-demo-misspecification" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="sec-R-demo-misspecification"><span class="header-section-number">3.6</span> R demo</h2>
-<p>We illustrate how to deal with heteroskedasticity, group-correlated errors, autocorrelated errors, and outliers in the following sections.</p>
-<section id="heteroskedasticity" class="level3" data-number="3.6.1">
-<h3 data-number="3.6.1" class="anchored" data-anchor-id="heteroskedasticity"><span class="header-section-number">3.6.1</span> Heteroskedasticity</h3>
-<p>Next, let’s look at another dataset, from the Current Population Survey (CPS).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cps_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/cps2.tsv"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cps_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Suppose we want to regress <code>wage</code> on <code>educ</code>, <code>exper</code>, and <code>metro</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> metro, <span class="at">data =</span> cps_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="diagnostics" class="level4" data-number="3.6.1.1">
-<h4 data-number="3.6.1.1" class="anchored" data-anchor-id="diagnostics"><span class="header-section-number">3.6.1.1</span> Diagnostics</h4>
-<p>Let’s take a look at the standard linear model diagnostic plots built into R.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">1</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">2</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The residuals versus fitted plot suggests significant heteroskedasticity, with variance growing as a function of the fitted value.</p>
-</section>
-<section id="sandwich-standard-errors" class="level4" data-number="3.6.1.2">
-<h4 data-number="3.6.1.2" class="anchored" data-anchor-id="sandwich-standard-errors"><span class="header-section-number">3.6.1.2</span> Sandwich standard errors</h4>
-<p>To get standard errors robust to this heteroskedasticity, we can use one of the robust estimators discussed in <a href="#sec-heteroskedasticity"><span>Section&nbsp;3.1.2</span></a>. Most of the robust standard error constructions discussed in that section are implemented in the R package <code>sandwich</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For example, Huber-White’s heteroskedasticity-consistent estimate <span class="math inline">\(\widehat{\text{Var}}[\boldsymbol{\widehat \beta}]\)</span> can be obtained via <code>vcovHC</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HW_cov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(lm_fit)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>HW_cov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Compare this to the traditional estimate:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>usual_cov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(lm_fit, <span class="at">type =</span> <span class="st">"const"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>usual_cov</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the variance estimates from the diagonal</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">rownames</span>(usual_cov),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">usual_variance =</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(usual_cov)),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">HW_variance =</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(HW_cov))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Bootstrap standard errors are also implemented in <code>sandwich</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs bootstrap</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bootstrap_cov <span class="ot">&lt;-</span> <span class="fu">vcovBS</span>(lm_fit, <span class="at">type =</span> <span class="st">"xy"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">rownames</span>(usual_cov),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">usual_variance =</span> <span class="fu">diag</span>(usual_cov),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">HW_variance =</span> <span class="fu">diag</span>(HW_cov),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">bootstrap_variance =</span> <span class="fu">diag</span>(bootstrap_cov)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The covariance estimate produced by <code>sandwich</code> can be easily integrated into linear model inference using the package <code>lmtest</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fit linear model as usual</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> metro, <span class="at">data =</span> cps_data)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># robust t-tests for coefficients</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_fit, <span class="at">vcov. =</span> vcovHC)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># robust confidence intervals for coefficients</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">coefci</span>(lm_fit, <span class="at">vcov. =</span> vcovHC)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># robust F-test</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>lm_fit_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ, <span class="at">data =</span> cps_data) <span class="co"># a partial model</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">waldtest</span>(lm_fit_partial, lm_fit, <span class="at">vcov =</span> vcovHC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="bootstrap-confidence-intervals" class="level4" data-number="3.6.1.3">
-<h4 data-number="3.6.1.3" class="anchored" data-anchor-id="bootstrap-confidence-intervals"><span class="header-section-number">3.6.1.3</span> Bootstrap confidence intervals</h4>
-<p>One R package for performing bootstrap inference is <code>simpleboot</code>. Let’s see how to get pairs bootstrap distributions for the coefficient estimates.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simpleboot)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>boot_out <span class="ot">&lt;-</span> <span class="fu">lm.boot</span>(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lm.object =</span> lm_fit, <span class="co"># input the fit object from lm()</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">R =</span> <span class="dv">1000</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>) <span class="co"># R is the number of bootstrap replicates</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">perc</span>(boot_out) <span class="co"># get the percentile 95% confidence intervals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We can extract the resampling distributions for the coefficient estimates using the <code>samples</code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">samples</span>(boot_out, <span class="at">name =</span> <span class="st">"coef"</span>)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We can plot these as follows:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>boot_pctiles <span class="ot">&lt;-</span> boot_out <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">perc</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">!=</span> <span class="st">"(Intercept)"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">samples</span>(boot_out, <span class="at">name =</span> <span class="st">"coef"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>var, <span class="at">names_to =</span> <span class="st">"resample"</span>, <span class="at">values_to =</span> <span class="st">"coefficient"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">|&gt;</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> coefficient)) <span class="sc">+</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="st">`</span><span class="at">2.5%</span><span class="st">`</span>), <span class="at">data =</span> boot_pctiles, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="st">`</span><span class="at">97.5%</span><span class="st">`</span>), <span class="at">data =</span> boot_pctiles, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this case, the bootstrap sampling distributions look roughly normal.</p>
-</section>
-</section>
-<section id="group-correlated-errors" class="level3" data-number="3.6.2">
-<h3 data-number="3.6.2" class="anchored" data-anchor-id="group-correlated-errors"><span class="header-section-number">3.6.2</span> Group-correlated errors</h3>
-<p>Credit for this data example: <a href="https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/">https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/</a>.</p>
-<p>Let’s consider the <code>nslwork</code> data from the <code>webuse</code> package:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webuse)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nlswork_orig <span class="ot">&lt;-</span> <span class="fu">webuse</span>(<span class="st">"nlswork"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>nlswork <span class="ot">&lt;-</span> nlswork_orig <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(idcode <span class="sc">&lt;=</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idcode, year, ln_wage, age, tenure, union) <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">union =</span> <span class="fu">as.integer</span>(union),</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">idcode =</span> <span class="fu">as.factor</span>(idcode)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>nlswork</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The data comes from the US National Longitudinal Survey (NLS) and contains information about more than 4,000 young working women. We’re interested in the relationship between wage (here as log-scaled GNP-adjusted wage) <code>ln_wage</code> and survey participant’s current age, job tenure in years, and union membership as independent variables. It’s a longitudinal survey, so subjects were asked repeatedly between 1968 and 1988, and each subject is identified by a unique idcode <code>idcode</code>. Here we restrict attention to the first 100 subjects and remove any rows with missing data.</p>
-<p>Let’s start by fitting a linear regression of the log wage on <code>age</code>, <code>tenure</code>, <code>union</code>, and the interaction between <code>tenure</code> and <code>union</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ln_wage <span class="sc">~</span> age <span class="sc">+</span> tenure <span class="sc">+</span> union <span class="sc">+</span> tenure<span class="sc">:</span>union, <span class="at">data =</span> nlswork)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s plot the residuals against the individuals:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nlswork <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resid =</span> lm_fit<span class="sc">$</span>residuals) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> idcode, <span class="at">y =</span> resid)) <span class="sc">+</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Subject"</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residual"</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Clearly, there is dependency among the residuals within subjects. Therefore, we have either model bias, or correlated errors, or both. To help assess whether we have model bias or not, we must check whether the variables of interest are correlated with the grouping variable <code>idcode</code>. We can check this with a plot, e.g., for the <code>tenure</code> variable:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nlswork <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> idcode, <span class="at">y =</span> tenure)) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Subject"</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Tenure"</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Again, there seems to be nontrivial association between <code>tenure</code> and <code>idcode</code>. We can check this more formally with an ANOVA test:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(tenure <span class="sc">~</span> idcode, <span class="at">data =</span> nlswork))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>So, in this case, we do have model bias on our hands. We can address this using fixed effects for each subject.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lm_fit_FE <span class="ot">&lt;-</span> <span class="fu">lm</span>(ln_wage <span class="sc">~</span> age <span class="sc">+</span> tenure <span class="sc">+</span> union <span class="sc">+</span> tenure<span class="sc">:</span>union <span class="sc">+</span> idcode, <span class="at">data =</span> nlswork)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>lm_fit_FE <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"idcode"</span>, var)) <span class="sc">|&gt;</span> <span class="co"># remove coefficients for fixed effects</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note the changes in the standard errors and p-values. Sometimes, we may have remaining correlation among residuals even after adding cluster fixed effects. Therefore, it is common practice to compute clustered (i.e., Liang-Zeger) standard errors in conjunction with cluster fixed effects. We can get clustered standard errors via the <code>vcovCL</code> function from <code>sandwich</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>LZ_cov <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(lm_fit_FE, <span class="at">cluster =</span> nlswork<span class="sc">$</span>idcode)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_fit_FE, <span class="at">vcov. =</span> LZ_cov)[, ] <span class="sc">|&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"var"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"idcode"</span>, var)) <span class="sc">|&gt;</span> <span class="co"># remove coefficients for fixed effects</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Again, note the changes in the standard errors and p-values.</p>
-</section>
-<section id="autocorrelated-errors" class="level3" data-number="3.6.3">
-<h3 data-number="3.6.3" class="anchored" data-anchor-id="autocorrelated-errors"><span class="header-section-number">3.6.3</span> Autocorrelated errors</h3>
-<p>Let’s take a look at the <code>EuStockMarkets</code> data built into R, containing the daily closing prices of major European stock indices: Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE. Let’s regress <code>DAX</code> on <code>FTSE</code> and take a look at the residuals:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(DAX <span class="sc">~</span> FTSE, <span class="at">data =</span> EuStockMarkets)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We find an extremely significant association between the two stock indices. But let’s examine the residuals for autocorrelation:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>EuStockMarkets <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">row_number</span>(),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">resid =</span> lm_fit<span class="sc">$</span>residuals</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> resid)) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Day"</span>,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residual"</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>There is clearly some autocorrelation in the residuals. Let’s quantify it using the autocorrelation function (<code>acf()</code> in R):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_fit<span class="sc">$</span>residuals, <span class="at">lag.max =</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We see that the autocorrelation gets into a reasonably low range around lag 200. We can then construct Newey-West standard errors based on this lag:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>NW_cov <span class="ot">&lt;-</span> <span class="fu">NeweyWest</span>(lm_fit)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_fit, <span class="at">vcov. =</span> NW_cov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We see that the p-value for the association goes from <code>2e-16</code> to <code>0.46</code>, after accounting for autocorrelation.</p>
-</section>
-<section id="outliers" class="level3" data-number="3.6.4">
-<h3 data-number="3.6.4" class="anchored" data-anchor-id="outliers"><span class="header-section-number">3.6.4</span> Outliers</h3>
-<p>Let’s take a look at the crime data from HW2:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read crime data</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>crime_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/Statewide_crime.dat"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read and transform population data</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>population_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/state-populations.csv"</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>population_data <span class="ot">&lt;-</span> population_data <span class="sc">|&gt;</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(State <span class="sc">!=</span> <span class="st">"Puerto Rico"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(State, Pop) <span class="sc">|&gt;</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state_name =</span> State, <span class="at">state_pop =</span> Pop)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># collate state abbreviations</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>state_abbreviations <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_name =</span> state.name,</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">state_abbrev =</span> state.abb</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">state_name =</span> <span class="st">"District of Columbia"</span>, <span class="at">state_abbrev =</span> <span class="st">"DC"</span>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co"># add CrimeRate to crime_data</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>crime_data <span class="ot">&lt;-</span> crime_data <span class="sc">|&gt;</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STATE =</span> <span class="fu">ifelse</span>(STATE <span class="sc">==</span> <span class="st">"IO"</span>, <span class="st">"IA"</span>, STATE)) <span class="sc">|&gt;</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">state_abbrev =</span> STATE) <span class="sc">|&gt;</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(state_abbreviations, <span class="at">by =</span> <span class="st">"state_abbrev"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(population_data, <span class="at">by =</span> <span class="st">"state_name"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CrimeRate =</span> Violent <span class="sc">/</span> state_pop) <span class="sc">|&gt;</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(state_abbrev, CrimeRate, Metro, HighSchool, Poverty)</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>crime_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s fit the linear regression:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note: we make the state abbreviations row names for better diagnostic plots</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty, <span class="at">data =</span> crime_data <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"state_abbrev"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We can get the standard linear regression diagnostic plots as follows:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">1</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">2</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The information underlying these diagnostic plots can be extracted as follows:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> crime_data<span class="sc">$</span>state_abbrev,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">std_residual =</span> <span class="fu">rstandard</span>(lm_fit),</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitted_value =</span> <span class="fu">fitted.values</span>(lm_fit),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">leverage =</span> <span class="fu">hatvalues</span>(lm_fit),</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cooks_dist =</span> <span class="fu">cooks.distance</span>(lm_fit)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Clearly, DC is an outlier. We can either run a robust estimation procedure or redo the analysis without DC. Let’s try both. First, we try robust regression using <code>rlm()</code> from the <code>MASS</code> package:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rlm_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty, <span class="at">data =</span> crime_data)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For some reason, the p-values are not computed automatically. We can compute them ourselves instead:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_fit)<span class="sc">$</span>coef <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Estimate =</span> Value) <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">p value</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">dnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(<span class="st">`</span><span class="at">t value</span><span class="st">`</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To see the robust estimation action visually, let’s consider a univariate example:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro, <span class="at">data =</span> crime_data)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>rlm_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(CrimeRate <span class="sc">~</span> Metro, <span class="at">data =</span> crime_data)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># collate the fits into a tibble</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>line_fits <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"Usual"</span>, <span class="st">"Robust"</span>),</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">intercept =</span> <span class="fu">c</span>(</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(lm_fit)[<span class="st">"(Intercept)"</span>],</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(rlm_fit)[<span class="st">"(Intercept)"</span>]</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope =</span> <span class="fu">c</span>(</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(lm_fit)[<span class="st">"Metro"</span>],</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(rlm_fit)[<span class="st">"Metro"</span>]</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usual and robust univariate fits</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the fits</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>crime_data <span class="sc">|&gt;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Metro, <span class="at">y =</span> CrimeRate)) <span class="sc">+</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> intercept, <span class="at">slope =</span> slope, <span class="at">colour =</span> method), <span class="at">data =</span> line_fits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Next, let’s try removing DC and running a usual linear regression.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lm_fit_no_dc <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty,</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"state_abbrev"</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">1</span>)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">2</span>)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For each type of misspecification, we will discuss its origins, consequences, detection, and fixes (<a href="misspecification-overview.html#sec-non-normality"><span>Section&nbsp;15.1</span></a>-<a href="misspecification-overview.html#sec-outliers"><span>Section&nbsp;15.4</span></a>). We conclude with an R demo (<a href="r-demo-part-2.html"><span>Chapter&nbsp;14</span></a>).</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1098,13 +641,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./linear-models-inference.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear models: Inference</span></span>
+      <a href="./r-demo-part-2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./glm-general-theory.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Generalized linear models: General theory</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./misspecification-overview.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

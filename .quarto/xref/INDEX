@@ -19,5 +19,98 @@
   },
   "multiple-testing.qmd": {
     "multiple-testing.html": "431a269f"
+  },
+  "predictors-and-coefficients.qmd": {
+    "predictors-and-coefficients.html": "b7a0f2be"
+  },
+  "linear-model-spaces.qmd": {
+    "linear-model-spaces.html": "1f5b0d7e"
+  },
+  "least-squares-estimation.qmd": {
+    "least-squares-estimation.html": "1fefe6e0"
+  },
+  "anova.qmd": {
+    "anova.html": "549330f7"
+  },
+  "special-cases.qmd": {
+    "special-cases.html": "f184198b"
+  },
+  "collinearity.qmd": {
+    "collinearity.html": "f9e432d5"
+  },
+  "r-demo-part-1.qmd": {
+    "r-demo-part-1.html": "2a2139b5"
+  },
+  "building-blocks.qmd": {
+    "building-blocks.html": "4c6f9a4b"
+  },
+  "hypothesis-testing.qmd": {
+    "hypothesis-testing.html": "e08ea5a3"
+  },
+  "power.qmd": {
+    "power.html": "ff5ec233"
+  },
+  "confidence-intervals.qmd": {
+    "confidence-intervals.html": "2e535ffc"
+  },
+  "practical-considerations.qmd": {
+    "practical-considerations.html": "e0408d34"
+  },
+  "r-demo-part-2.qmd": {
+    "r-demo-part-2.html": "7dc27c20"
+  },
+  "misspecification-overview.qmd": {
+    "misspecification-overview.html": "8824b7e4"
+  },
+  "asymptotic-methods.qmd": {
+    "asymptotic-methods.html": "db681499"
+  },
+  "bootstrap.qmd": {
+    "bootstrap.html": "d0f7e7f9"
+  },
+  "permutation-test.qmd": {
+    "permutation-test.html": "4996c549"
+  },
+  "robust-estimation.qmd": {
+    "robust-estimation.html": "6427b441"
+  },
+  "r-demo-part-3.qmd": {
+    "r-demo-part-3.html": "84928d8b"
+  },
+  "exponential-dispersion-models.qmd": {
+    "exponential-dispersion-models.html": "ed3b4ded"
+  },
+  "generalized-linear-models.qmd": {
+    "generalized-linear-models.html": "00ae0897"
+  },
+  "parameter-estimation.qmd": {
+    "parameter-estimation.html": "6c821b9a"
+  },
+  "glm-inference.qmd": {
+    "glm-inference.html": "66335fd2"
+  },
+  "r-demo-part-4.qmd": {
+    "r-demo-part-4.html": "b28166f2"
+  },
+  "logistic-regression.qmd": {
+    "logistic-regression.html": "afcb4e23"
+  },
+  "poisson-regression.qmd": {
+    "poisson-regression.html": "8d01b451"
+  },
+  "negative-binomial-regression.qmd": {
+    "negative-binomial-regression.html": "4ab1acd9"
+  },
+  "r-demo-part-5.qmd": {
+    "r-demo-part-5.html": "d2124278"
+  },
+  "multiple-testing-intro.qmd": {
+    "multiple-testing-intro.html": "3ec4b587"
+  },
+  "global-testing.qmd": {
+    "global-testing.html": "3bb7542d"
+  },
+  "multiple-testing-chapter.qmd": {
+    "multiple-testing-chapter.html": "b14572f7"
   }
 }

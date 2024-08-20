@@ -1,0 +1,27 @@
+## Linear model spaces
+
+*See also Agresti 1.3-1.4, Dunn and Smyth 2.1, 2.2, 2.5.1*
+
+The matrix $\boldsymbol{X}$ is called the *model matrix* or the *design matrix*. Concatenating the linear model equations across observations gives us an equivalent formulation:
+$$
+\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}; \quad \mathbb{E}[\boldsymbol{\epsilon}] = \boldsymbol{0}, \ \text{Var}[\boldsymbol{\epsilon}] = \sigma^2 \boldsymbol{I_n}
+$$
+or
+$$
+\mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{\mu}.
+$$
+As $\boldsymbol{\beta}$ varies in $\mathbb{R}^p$, the set of possible vectors $\boldsymbol{\mu} \in \mathbb{R}^n$ is defined
+$$
+C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \boldsymbol{X} \boldsymbol{\beta}: \boldsymbol{\beta} \in \mathbb{R}^p\}.
+$$
+$C(\boldsymbol{X})$, called the *model vector space*, is a subspace of $\mathbb{R}^n$: $C(\boldsymbol{X}) \subseteq \mathbb{R}^n$. Since
+$$
+\boldsymbol{X} \boldsymbol{\beta} = \beta_0 \boldsymbol{x_{*0}} + \cdots + \beta_{p-1} \boldsymbol{x_{*p-1}},
+$$
+the model vector space is the column space of the matrix $\boldsymbol{X}$ (@fig-model-vector-space).
+
+![The model vector space.](figures/model-vector-space.png){#fig-model-vector-space width=50%}
+
+The *dimension* of $C(\boldsymbol{X})$ is the rank of $\boldsymbol{X}$, i.e. the number of linearly independent columns of $\boldsymbol{X}$. If $\text{rank}(\boldsymbol{X}) < p$, this means that there are two different vectors $\boldsymbol{\beta}$ and $\boldsymbol{\beta'}$ such that $\boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{X} \boldsymbol{\beta'}$. Therefore, we have two values of the parameter vector that give the same model for $\boldsymbol{y}$. This makes $\boldsymbol{\beta}$ *not identifiable*, and makes it impossible to reliably determine $\boldsymbol{\beta}$ based on the data. For this reason, we will generally assume that $\boldsymbol{\beta}$ is *identifiable*, i.e. $\boldsymbol{X} \boldsymbol{\beta} \neq \boldsymbol{X} \boldsymbol{\beta'}$ if $\boldsymbol{\beta} \neq \boldsymbol{\beta'}$. This is equivalent to the assumption that $\text{rank}(\boldsymbol{X}) = p$. Note that this cannot hold when $p > n$, so for the majority of the course we will assume that $p \leq n$. In this case, $\text{rank}(\boldsymbol{X}) = p$ if and only if $\boldsymbol{X}$ has *full-rank*.
+
+As an example when $p \leq n$ but when $\boldsymbol{\beta}$ is still not identifiable, consider the case of a categorical predictor. Suppose the categories of $w$ were $\{w_1, \dots, w_{C-1}\}$, i.e. the baseline category $w_0$ did not exist. In this case, the model ([-@eq-C-sample-model]) would not be identifiable because $x_0 = 1 = x_1 + \cdots + x_{C-1}$ and thus $x_{*0} = 1 = x_{*1} + \cdots + x_{*,C-1}$. Indeed, this means that one of the predictors can be expressed as a linear combination of the others, so $\boldsymbol{X}$ cannot have full rank. A simpler way of phrasing the problem is that we are describing $C-1$ intrinsic parameters (the means in each of the $C-1$ groups) with $C$ model parameters. There must therefore be some redundancy. For this reason, if we include an intercept term in the model then we must designate one of our categories as the baseline and exclude its indicator from the model.

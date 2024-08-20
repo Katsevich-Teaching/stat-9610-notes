@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "STAT 9610<br>Lecture Notes"
+  title: "STAT 9610 Lecture Notes"
   author: "Eugene Katsevich"
   downloads: pdf
   chapters:
@@ -19,15 +19,50 @@ book:
         - collinearity.qmd
         - r-demo-part-1.qmd
 
-    - linear-models-inference.qmd
-    - linear-models-misspecification.qmd
-    - glm-general-theory.qmd
-    - glm-special-cases.qmd
-    - multiple-testing.qmd
+    - part: linear-models-inference.qmd
+      chapters:
+        - building-blocks.qmd
+        - hypothesis-testing.qmd
+        - power.qmd
+        - confidence-intervals.qmd
+        - practical-considerations.qmd
+        - r-demo-part-2.qmd
+
+    - part: linear-models-misspecification.qmd
+      chapters:
+        - misspecification-overview.qmd
+        - asymptotic-methods.qmd
+        - bootstrap.qmd
+        - permutation-test.qmd
+        - robust-estimation.qmd
+        - r-demo-part-3.qmd
+
+    - part: glm-general-theory.qmd
+      chapters:
+        - exponential-dispersion-models.qmd
+        - generalized-linear-models.qmd
+        - parameter-estimation.qmd
+        - glm-inference.qmd
+        - r-demo-part-4.qmd
+
+    - part: glm-special-cases.qmd
+      chapters:
+        - logistic-regression.qmd
+        - poisson-regression.qmd
+        - negative-binomial-regression.qmd
+        - r-demo-part-5.qmd
+    - part: multiple-testing.qmd
+      chapters:
+        - multiple-testing-intro.qmd
+        - global-testing.qmd
+        - multiple-testing-chapter.qmd
 format:
   html:
-    theme: cosmo
-    css: custom.css
+    theme:
+      - cosmo
+      - custom.scss
+    font:
+      mainfont: "Computer Modern"
     mathjax:
       config: |
         MathJax.Hub.Config({

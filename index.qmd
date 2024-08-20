@@ -1,4 +1,4 @@
-# Introduction {-}
+# Introduction
 
 ## Welcome
 
@@ -66,13 +66,14 @@ are called _generalized linear models_ (GLMs). They specialize to linear models 
 
 ## Course outline
 
-This course is broken up into five units:
+This course is broken up into six units:
 
 - **Chapter 1. Linear model: Estimation.** The _least squares_ point estimate $\boldsymbol{\widehat \beta}$ of $\boldsymbol{\beta}$ based on a dataset $(\boldsymbol{X}, \boldsymbol{y})$ under the linear model assumptions.
 - **Chapter 2. Linear model: Inference.** Under the additional assumption that $\epsilon \sim N(0,\sigma^2)$, how to carry out statistical inference (hypothesis testing and confidence intervals) for the coefficients.
 - **Chapter 3. Linear model: Misspecification.** What to do when the linear model assumptions are not correct: What issues can arise, how to diagnose them, and how to fix them.
 - **Chapter 4. GLMs: General theory.** Estimation and inference for GLMs (generalizing Chapters 1 and 2). GLMs fit neatly into a unified theory based on _exponential families_.
 - **Chapter 5. GLMs: Special cases.** Looking more closely at the most important special cases of GLMs, including logistic regression and Poisson regression.
+- **Chapter 6. Multiple testing.** How to adjust for multiple hypothesis testing, both in the context of GLMs and more generally.
 
 ## Notation
 

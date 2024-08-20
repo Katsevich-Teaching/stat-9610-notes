@@ -1,0 +1,65 @@
+# Analysis of variance
+
+*See also Agresti 2.4.2, 2.4.3, 2.4.6, Dunn and Smyth 2.9*
+
+## Analysis of variance
+
+The orthogonality property of least squares, together with the Pythagorean theorem, leads to a fundamental relationship called *the analysis of variance*.
+
+Let's say that $S \subset \{0, 1, \dots, p-1\}$ is a subset of the predictors we wish to exclude from the model. First regress $\boldsymbol{y}$ on $\boldsymbol{X}$ to get $\boldsymbol{\widehat{\beta}}$ as usual. Then, we consider the *partial model matrix* $\boldsymbol{X_{*,\text{-}S}}$ obtained by selecting all predictors except those in $S$. Regressing $\boldsymbol{y}$ on $\boldsymbol{X_{*, \text{-}S}}$ results in $\boldsymbol{\widehat{\beta}_{\text{-}S}}$ (note: $\boldsymbol{\widehat{\beta}_{\text{-}S}}$ is not necessarily obtained from $\boldsymbol{\widehat{\beta}}$ by extracting the coefficients corresponding to $\text{-}S$).
+
+::: {#thm-analysis-of-variance}
+$$
+\|\boldsymbol{y} -  \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 = \|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 + \|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2.
+$$ {#eq-pythagorean-theorem}
+:::
+
+::: {.proof}
+Consider the three points $\boldsymbol{y}$, $\boldsymbol{X}\boldsymbol{\widehat{\beta}}$, $\boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}} \in \mathbb{R}^n$. Since $\boldsymbol{X}\boldsymbol{\widehat{\beta}}$ and $\boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}$ are both in $C(\boldsymbol{X})$, it follows by the orthogonal projection property that $\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}$ is orthogonal to $\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}$. In other words, these three points form a right triangle (@fig-sum-of-squares). The relationship ([-@eq-pythagorean-theorem]) is then a consequence of the Pythagorean theorem.
+:::
+
+![Pythagorean theorem for regression on a subset of predictors.](figures/sum-of-squares.jpeg){#fig-sum-of-squares width=50%}
+
+We will rely on this fundamental relationship throughout this course. One important special case is when $S = \{1, \dots, p-1\}$, i.e., the model without $S$ is the intercept-only model. In this case, $\boldsymbol{X_{*, \text{-}S}} = \boldsymbol{1_n}$ and $\boldsymbol{\widehat{\beta}_{\text{-}S}} = \bar{y}$. Therefore, equation ([-@eq-pythagorean-theorem]) implies the following.
+
+::: {#prp-sum-of-squares}
+$$
+\|\boldsymbol{y} -  \bar{y} \boldsymbol{1_n}\|^2 = \|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1_n}\|^2 + \|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2.
+$$
+
+Equivalently, we can rewrite this equation as follows:
+
+$$
+\textnormal{SST} \equiv \sum_{i = 1}^n (y_i - \bar{y})^2 = \sum_{i = 1}^n (\widehat{\mu}_i - \bar{y})^2 + \sum_{i = 1}^n (y_i - \widehat{\mu}_i)^2 \equiv \textnormal{SSR} + \textnormal{SSE}.
+$$ {#eq-anova}
+:::
+
+## $R^2$ and multiple correlation
+
+The ANOVA decomposition ([-@eq-anova]) of the variation in $\boldsymbol{y}$ into that explained by the linear regression model (SSR) and that left over (SSE) leads naturally to the definition of $R^2$ as the fraction of variation in $\boldsymbol{y}$ explained by the linear regression model:
+
+$$
+R^2 \equiv \frac{\text{SSR}}{\text{SST}} = \frac{\sum_{i = 1}^n (\widehat{\mu}_i - \bar{y})^2}{\sum_{i = 1}^n (y_i - \bar{y})^2} = \frac{\|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1_n}\|^2}{\|\boldsymbol{y} -  \bar{y} \boldsymbol{1_n}\|^2}.
+$$
+
+By the decomposition ([-@eq-anova]), we have $R^2 \in [0,1]$. The closer $R^2$ is to 1, the more closely the data follow the fitted linear regression model. This intuition is formalized in the following result.
+
+::: {#prp-multiple-correlation}
+$R^2$ is the squared sample correlation between $\boldsymbol{X} \boldsymbol{\widehat{\beta}}$ and $\boldsymbol{y}$.
+:::
+
+For this reason, the positive square root of $R^2$ is called the *multiple correlation coefficient*.
+
+::: {.proof}
+The first step is to observe that the mean of $\boldsymbol{X} \boldsymbol{\widehat{\beta}}$ is $\bar{y}$ (this follows from the normal equations). Therefore, the sample correlation between $\boldsymbol{X} \boldsymbol{\widehat{\beta}}$ and $\boldsymbol{y}$ is the inner product of the unit-normalized vectors $\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}$ and $\boldsymbol{y} - \bar{y} \boldsymbol{1}$, which is the cosine of the angle between them. From the geometry of @fig-sum-of-squares, we find that the cosine of the angle between $\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}$ and $\boldsymbol{y} - \bar{y} \boldsymbol{1}$ is $\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\|/\|\boldsymbol{y} - \bar{y} \boldsymbol{1}\|$. Squaring this relation gives the desired conclusion.
+:::
+
+## $R^2$ increases as predictors are added
+
+The $R^2$ is an *in-sample* measure, i.e., it uses the same data to fit the model and to assess the quality of the fit. Therefore, it is generally an optimistic measure of the (out-of-sample) prediction error. One manifestation of this is that the $R^2$ increases if any predictors are added to the model (even if these predictors are “junk”). To see this, it suffices to show that SSE decreases as we add predictors. Without loss of generality, suppose that we start with a model with all predictors except those in $S \subset \{0, 1, \dots, p-1\}$ and compare it to the model including all the predictors $\{0,1,\dots,p-1\}$. We can read off from the Pythagorean theorem ([-@eq-pythagorean-theorem]) that:
+
+$$
+\text{SSE}(\boldsymbol{X_{*, \text{-}S}}, \boldsymbol{y}) \equiv \|\boldsymbol{y} -  \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 \geq  \|\boldsymbol{y} -  \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2 \equiv \text{SSE}(\boldsymbol{X}, \boldsymbol{y}).
+$$
+
+Adding many junk predictors will have the effect of degrading predictive performance but will nevertheless increase $R^2$.

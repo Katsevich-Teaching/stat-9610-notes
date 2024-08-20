@@ -1,0 +1,188 @@
+# Confidence intervals
+
+*See also Agresti 3.3, Dunn and Smyth 2.8.4-2.8.5*
+
+In addition to hypothesis testing, we often want to construct confidence intervals for the coefficients.
+
+## Confidence interval for a coefficient
+
+Under $H_0: \beta_j = 0$, we showed that $\frac{\widehat{\beta_j}}{\widehat{\sigma}/s_j} \sim t_{n-p}$. The same argument shows that for arbitrary $\beta_j$, we have
+
+$$
+\frac{\widehat{\beta_j} - \beta_j}{\widehat{\sigma}/s_j} \sim t_{n-p}.
+$$
+
+We can use this relationship to construct a confidence interval for $\beta_j$ as follows:
+
+$$
+\begin{split}
+1-\alpha = \mathbb{P}[|t_{n-p}| \leq t_{n-p}(1-\alpha/2)] &= \mathbb{P}\left[\left|\frac{\widehat{\beta_j} - \beta_j}{\widehat{\sigma}/s_j}\right| \leq t_{n-p}(1-\alpha/2) \right] \\
+&= \mathbb{P}\left[\beta_j \in \left[\widehat{\beta_j} - \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2), \widehat{\beta_j} + \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2) \right]\right] \\
+&\equiv \mathbb{P}\left[\beta_j \in \left[\widehat{\beta_j} - \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2), \widehat{\beta_j} + \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2) \right]\right] \\
+&\equiv \mathbb{P}[\beta_j \in \text{CI}(\beta_j)].
+\end{split}
+$$ {#eq-pointwise-interval-beta}
+
+The confidence interval $\text{CI}(\beta_j)$ defined above therefore has $1-\alpha$ coverage. Because of the duality between confidence intervals and hypothesis tests, the factors contributing to powerful tests ([-@sec-power]) also lead to shorter confidence intervals.
+
+## Confidence interval for $\mathbb{E}[y|\boldsymbol{x_0}]$
+
+Suppose now that we have a new predictor vector $\boldsymbol{x_0} \in \mathbb{R}^p$. The mean of the response for this predictor vector is $\mathbb{E}[y|\boldsymbol{x_0}] = \boldsymbol{x_0}^T \boldsymbol{\beta}$. Plugging in $\boldsymbol{x_0}$ for $\boldsymbol{c}$ in the relation, we obtain
+
+$$
+\frac{\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} - \boldsymbol{x_0}^T \boldsymbol{\beta}}{\widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}}} \sim t_{n-p}.
+$$
+
+From this, we can derive that
+
+$$
+\text{CI}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}} \cdot t_{n-p}(1-\alpha/2)
+$$
+
+is a $1-\alpha$ confidence interval for $\boldsymbol{x_0}^T \boldsymbol{\beta}$. We see that the width of this confidence interval depends on $\boldsymbol{x_0}$ through the quantity $\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}$. Let's give this quantity a closer look, in the case when the regression contains an intercept, i.e., $\boldsymbol{x_{*,0}} = \boldsymbol{1}$. Then, we have $\boldsymbol{x_0} = (1, \boldsymbol{x^T_{0,\text{-}0}})$. Then, defining $\bar{x} \in \mathbb{R}^{p-1}$ as the vector of column-wise means of $\boldsymbol{X_{*,\text{-}0}}$, we can rewrite the regression as
+
+$$
+y = \beta_0 + \boldsymbol{x_{\text{-}0}}^T \boldsymbol{\beta_{\text{-}0}} + \epsilon \equiv \beta'_0 + (\boldsymbol{x_{\text{-}0}}-\bar{x})^T  \boldsymbol{\beta_{\text{-}0}} + \epsilon.
+$$
+
+Therefore, we seek a prediction interval for $\boldsymbol{x_{0}}^T \boldsymbol{\beta} = \beta'_0 + (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T \boldsymbol{\beta_{\text{-}0}}$. With this reformulation, we can compute
+
+$$
+\begin{split}
+\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0} &= (1 \ (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T)\begin{pmatrix}\boldsymbol{1}^T \boldsymbol{1} & 0 \\ 0 &\boldsymbol{X_{*,\text{-}0}}^T \boldsymbol{X_{*,\text{-}0}} \end{pmatrix}^{-1}{1 \choose \boldsymbol{x_{0, \text{-}0}}-\bar{x}} \\
+&= \frac{1}{n} + (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T (\boldsymbol{X_{*,\text{-}0}}^T \boldsymbol{X_{*,\text{-}0}})^{-1}(\boldsymbol{x_{0, \text{-}0}}-\bar{x}).
+\end{split}
+$$
+
+Hence, we see that this quantity grows larger as $\boldsymbol{x_{0, \text{-}0}}-\bar{x}$ grows larger, and achieves its minimum when $\boldsymbol{x_{0, \text{-}0}}=\bar{x}$. Let's look at the special case when $p = 2$, so there is just one predictor except the intercept. Then, we have $\boldsymbol{X_{*,\text{-}0}} = \boldsymbol{x_{*,1}}-\bar{x_1}$, so
+
+$$
+\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0} = \frac{1}{n} + \frac{(x_{01}-\bar{x_1})^2}{\|\boldsymbol{x_{*,1}}-\bar{x_1}\|^2}.
+$$
+
+## Prediction interval for $y|\boldsymbol{x_0}$
+
+Instead of creating a confidence interval for a point on the regression line, we may want to create a confidence interval for a new draw $y_0$ of $y$ for $\boldsymbol{x} = \boldsymbol{x_0}$, i.e., a *prediction interval*. Note that
+
+$$
+y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0 - \boldsymbol{x_0}^T \widehat{\beta} = \epsilon_0 + \boldsymbol{x_0}^T (\beta-\widehat{\beta}) \sim N(0, \sigma^2 + \sigma^2 \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}).
+$$
+
+Therefore, we have
+
+$$
+\frac{y_0 - \boldsymbol{x_0}^T \widehat{\beta}}{\widehat{\sigma}\sqrt{1 + \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}}} \sim t_{n-p},
+$$
+
+which leads to the $1-\alpha$ prediction interval
+
+$$
+\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{1+\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}} \cdot t_{n-p}(1-\alpha/2) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2).
+$$ {#eq-pointwise-contrast-interval}
+
+**Remark: Prediction with confidence in machine learning.**
+
+The entire field of supervised machine learning is focused on accurately predicting $y_0$ from $\boldsymbol{x_0}$, usually using nonlinear functions $\widehat{f}(\boldsymbol{x_0})$. In addition to providing a guess $\widehat{y_0}$ for $y_0$, it is often useful to quantify the uncertainty in this guess. In other words, it is useful to come up with a prediction interval (or prediction region) $\text{PI}(y_0)$ such that
+
+$$
+\mathbb{P}[y_0 \in \text{PI}(y_0) \mid \boldsymbol{x_0}] \geq 1-\alpha.
+$$ {#eq-conditional-prediction-interval}
+
+For example, in safety-critical applications of machine learning like self-driving cars, it is essential to have confidence in predictions. Unfortunately, beyond the realm of linear regression, it is hard to come up with intervals satisfying ([-@eq-conditional-prediction-interval]) for each point $\boldsymbol{x_0}$. However, the emerging field of *conformal inference* provides guarantees on average over possible values of $\boldsymbol{x}$:
+
+$$
+\mathbb{P}[y \in \text{PI}(y)] = \mathbb{E}[\mathbb{P}[y \in \text{PI}(y) \mid \boldsymbol{x}]] \geq 1-\alpha.
+$$ {#eq-unconditional-prediction-interval}
+
+Remarkably, these guarantees place no assumption on the machine learning method used and require only that the data points on which $\widehat{f}$ is trained are exchangeable (an even weaker condition than i.i.d.). While the unconditional guarantee ([-@eq-unconditional-prediction-interval]) is weaker than the conditional one ([-@eq-conditional-prediction-interval]), it can be obtained for modern machine learning and deep learning models.
+
+## Simultaneous intervals
+
+Note that the intervals in the preceding sections have *pointwise coverage*. For example, we have
+
+$$
+\mathbb{P}[\beta_j \in \text{CI}(\beta_j)] \geq 1-\alpha \quad \text{for each } j.
+$$
+
+or
+
+$$
+\mathbb{P}[\boldsymbol{x_0}^T \boldsymbol{\beta} \in \text{CI}(\boldsymbol{x_0}^T \boldsymbol{\beta})] \geq 1-\alpha \quad \text{for each } \boldsymbol{x_0}.
+$$
+
+Sometimes a stronger *simultaneous coverage* guarantee is desired, e.g.,
+
+$$
+\mathbb{P}[\beta_j \in \text{CI}^{\text{sim}}(\beta_j) \ \text{for each } j] \geq 1-\alpha
+$$ {#eq-simultaneous-coordinatewise}
+
+or
+
+$$
+\mathbb{P}[\boldsymbol{x_0}^T \boldsymbol{\beta} \in \text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \ \text{for each } \boldsymbol{x_0}] \geq 1-\alpha.
+$$ {#eq-simultaneous-contrasts}
+
+Simultaneous confidence intervals are possible to construct as well. As a starting point, note that
+
+$$
+\frac{\frac{1}{p}\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X} \boldsymbol{\beta}\|^2}{\widehat{\sigma}^2} \sim F_{p, n-p}.
+$$
+
+Hence, we have
+
+$$
+\mathbb{P}[\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X} \boldsymbol{\beta}\|^2 \leq p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha)] \geq 1-\alpha.
+$$
+
+Hence, the region
+
+$$
+\text{CR}(\boldsymbol{\beta}) \equiv \{\boldsymbol{\beta}: (\boldsymbol{\widehat{\beta}} - \boldsymbol{\beta})^T \boldsymbol{X}^T \boldsymbol{X} (\boldsymbol{\widehat{\beta}} - \boldsymbol{\beta})  \leq p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha)\} \subseteq \mathbb{R}^p
+$$
+
+is a $1-\alpha$ confidence region for the vector $\boldsymbol{\beta}$:
+
+$$
+\mathbb{P}[\boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})] \geq 1-\alpha.
+$$
+
+It's easy to see that $\text{CR}(\boldsymbol{\beta})$ is an ellipse centered at $\boldsymbol{\widehat{\beta}}$.
+
+![Confidence region and simultaneous and pointwise confidence intervals.](figures/confidence-regions.jpg){#fig-confidence-region width=40%}
+
+Since the confidence region is for the entire vector $\boldsymbol{\beta}$, we can define simultaneous confidence intervals for each coordinate as follows:
+
+$$
+\text{CI}^{\text{sim}}(\beta_j) \equiv \{\beta_j: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
+$$
+
+Then, these confidence intervals will satisfy the simultaneous coverage property ([-@eq-simultaneous-coordinatewise]). We will obtain a more explicit expression for $\text{CI}^{\text{sim}}(\beta_j)$ shortly.
+
+Similarly, we may define the simultaneous confidence regions
+
+$$
+\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \equiv \{\boldsymbol{x_0}^T \boldsymbol{\beta}: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
+$$
+
+Let us find a more explicit expression for the latter interval. For notational ease, let us define $\boldsymbol{\Sigma} \equiv \boldsymbol{X}^T \boldsymbol{X}$. Then, note that if $\boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})$, then by the Cauchy-Schwarz inequality we have
+
+$$
+\begin{split}
+(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}-\boldsymbol{x_0}^T \boldsymbol{\beta})^2 = \|\boldsymbol{x_0}^T (\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 &= \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{x_0})^T \boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \\
+&\leq \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{x_0})\|^2\|\boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \leq \boldsymbol{x_0}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{x_0} p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha),
+\end{split}
+$$
+
+i.e.,
+
+$$
+\boldsymbol{x_0}^T \boldsymbol{\beta} \in \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{x_0}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}})\cdot\sqrt{pF_{p, n-p}(1-\alpha)}.
+$$ {#eq-simultaneous-fit-se}
+
+Defining the above interval as $\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta})$ gives us the simultaneous coverage property ([-@eq-simultaneous-contrasts]). Comparing to equation ([-@eq-pointwise-contrast-interval]), we see that the simultaneous interval is the pointwise interval expanded by a factor of $\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)$. Specializing to the case $\boldsymbol{x_0} \equiv \boldsymbol{e_j}$, we get an expression for the simultaneous intervals for each coordinate:
+
+$$
+\text{CI}^{\text{sim}}(\beta_j) \equiv \widehat{\beta_j} \pm \widehat{\sigma} \sqrt{(\boldsymbol{X}^T \boldsymbol{X})^{-1}_{jj}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \text{SE}(\widehat{\beta_j})\sqrt{pF_{p, n-p}(1-\alpha)},
+$$ {#eq-simultaneous-coordinatewise-se}
+
+which again is the pointwise interval ([-@eq-pointwise-interval-beta]) expanded by a factor of $\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)$. These simultaneous intervals are called *Working-Hotelling intervals*.

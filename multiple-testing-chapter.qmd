@@ -1,0 +1,166 @@
+# Multiple testing {#sec-multiple-testing}
+
+Here we present one method each for FWER and FDR control.
+
+## The Bonferroni procedure for FWER control {#sec-bonferroni-fwer}
+
+We discussed the Bonferroni test for the global null. This test can be extended to an FWER-controlling procedure:
+
+$$
+\hat S \equiv \{j: p_j \leq \alpha/m\}
+$$ {#eq-bonferroni}
+
+::: {#prp-bonferroni}
+
+The Bonferroni procedure controls the FWER at level $\alpha$ for arbitrary $p$-value dependence structures.
+
+:::
+
+::: {.proof}
+We have
+
+$$
+\mathbb{P}[\hat S \cap \mathcal H_0 \neq \varnothing] = \mathbb{P}\left[\min_{j \in \mathcal H_0} p_j \leq \alpha/m\right] \leq \sum_{j \in \mathcal H_0} \mathbb{P}[p_j \leq \alpha/m] = \frac{|\mathcal H_0|}{m}\alpha \leq \alpha.
+$$
+
+This completes the proof.
+:::
+
+Note that the FWER is actually controlled at the level $\frac{|\mathcal H_0|}{m}\alpha \leq \alpha$, making the Bonferroni test conservative to the extent that $|\mathcal H_0| < m$. The null proportion $\frac{|\mathcal H_0|}{m}$ has such an effect on the performance of many multiple testing procedures. Not all global tests can be extended to FWER-controlling procedures in this way. For example, the Fisher combination test does not single out any of the hypotheses, as it only aggregates the $p$-values. By contrast, the Bonferroni test searches for $p$-values that are individually very small, allowing it to double as an FWER-controlling procedure.
+
+## The Benjamini-Hochberg procedure for FDR control {#sec-bh-fdr}
+
+Designing procedures with FDR control, as well as verifying the latter property, is typically harder than for FWER control. It is harder to decouple the effects of the individual hypotheses, as the denominator $|S|$ in the FDR definition ([-@eq-fdr-def]) couples them together. Both the FDR criterion and the most popular FDR-controlling procedure were proposed by Benjamini and Hochberg in 1995.
+
+### Procedure
+
+To define the BH procedure, consider thresholding the $p$-values at $t \in [0,1]$. We would expect $\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t$ false discoveries among $\{j: p_j \leq t\}$. Since $|\mathcal H_0|$ is unknown, we can bound it from above by $mt$. This leads to the FDP estimate:
+
+$$
+\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}
+$$ {#eq-fdp-estimate}
+
+The BH procedure is then defined via:
+
+$$
+\hat S \equiv \{j: p_j \leq \widehat t\}, \quad \text{where} \quad \widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}
+$$ {#eq-bh-procedure}
+
+In words, we choose the most liberal $p$-value threshold for which the estimated FDP is below the nominal level $q$. Note that the set over which the above maximum is taken is always nonempty because it at least contains 0: $\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0$.
+
+### FDR control under independence {#sec-fdr-control-independence}
+
+Benjamini and Hochberg established that their procedure controls the FDR if the $p$-values are independent. Here we present an alternative argument due to Storey, Taylor, and Siegmund (2004).
+
+::: {#prp-bh-fdr-control}
+
+The BH procedure controls the FDR at level $q$ assuming that the $p$-values are independent.
+
+:::
+
+::: {.proof}
+
+We have
+
+$$
+\begin{split}
+\text{FDR} &= \mathbb{E}\left[\text{FDP}(\widehat t)\right] = \mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{|\{j: p_j \leq \widehat t\}|}\right] \\
+&= \mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\widehat{\text{FDP}}(\widehat t)\right] \leq q \cdot \mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right].
+\end{split}
+$$
+
+To prove that the last expectation is bounded above by 1, note that
+
+$$
+M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
+$$ {#eq-martingale}
+
+is a backwards martingale with respect to the filtration
+
+$$
+\mathcal F_t = \sigma(\{p_j: j \in \mathcal H_1\}, |\{j \in \mathcal H_0: p_j \leq t'\}| \text{ for } t' \geq t),
+$$ {#eq-filtration}
+
+with $t$ running backwards from 1 to 0. Indeed, for $s < t$ we have
+
+$$
+\mathbb{E}[M(s)|\mathcal F_t] = \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] = \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} = \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+$$
+
+The threshold $\widehat t$ is a stopping time with respect to this filtration, so by the optional stopping theorem, we have
+
+$$
+\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] \leq \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
+$$
+
+This completes the proof.
+:::
+
+### FDR control under dependence {#sec-fdr-control-dependence}
+
+Under dependence, the BH procedure's FDR can be bounded by a multiple of the nominal FDR level.
+
+::: {#prp-bh-dependence}
+
+The BH procedure controls the FDR at level $q(1 + \frac{1}{2} + \cdots + \frac{1}{m})$ regardless of the $p$-value dependency structure.
+
+:::
+
+::: {.proof}
+
+We have
+
+$$
+\begin{split}
+\text{FDP}(\hat S) &= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
+&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l} 1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
+\end{split}
+$$
+
+It follows that
+
+$$
+\text{FDR} = \mathbb{E}[\text{FDP}(\hat S)] \leq \frac{|\mathcal H_0|}{m}q\left(1 + \frac{1}{2} + \cdots + \frac{1}{m}\right).
+$$
+
+This completes the proof.
+:::
+
+## Additional topics {#sec-additional-topics}
+
+### Weighted multiple testing procedures {#sec-weighted-multiple-testing}
+
+Sometimes, we may have more prior evidence against certain null hypotheses than others, which we wish to incorporate in the global testing or multiple testing procedure to boost power. A common approach to doing so is to *weight* the $p$-values. Letting $w_1, \dots, w_m$ be $p$-value weights averaging to 1, define *weighted $p$-values* $\tilde{p}_j$ via:
+
+$$
+\tilde{p}_j \equiv \frac{p_j}{w_j}
+$$ {#eq-weighted-p-values}
+
+Note that $p$-values corresponding to hypotheses with large (small) weights will be made more (less) significant. We can then attempt to apply the above global testing and multiple testing procedures on the weighted $p$-values $\tilde{p}_j$ rather than the original $p$-values $p_j$. As it turns out, in many cases these weighted procedures retain the Type-I error guarantees of their unweighted counterparts.
+
+::: {#prp-weighted-bonferroni}
+
+The weighted variants of the Bonferroni global test, the Bonferroni FWER procedure, and the BH FDR procedure all control their respective Type-I error rates under the same conditions as their unweighted counterparts (arbitrary dependence for the Bonferroni procedures and independence for BH).
+
+:::
+
+::: {.proof}
+
+Here, we prove the statement just for the Bonferroni global test; the remaining proofs are left as exercises. The weighted Bonferroni global test is as follows:
+
+$$
+\phi(p_1, \dots, p_m) \equiv \mathbbm{1}\left(\min_{1 \leq j \leq m} \frac{p_j}{w_j} \leq \frac{\alpha}{m}\right).
+$$
+
+It follows that
+
+$$
+\mathbb{E}_{H_0}[\phi(p_1, \dots, p_m)] \leq \sum_{j = 1}^m \frac{\alpha}{m} w_j = \alpha.
+$$
+
+The last equality follows from the fact that the weights $w_j$ average to 1 by assumption.
+
+This completes the proof.
+:::

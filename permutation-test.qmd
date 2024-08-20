@@ -1,0 +1,78 @@
+# The permutation test {#sec-permutation-test}
+
+Unlike the residual bootstrap, the pairs bootstrap cannot accommodate hypothesis testing. If we would like resampling-based hypothesis tests in the presence of heteroskedasticity, we can consider permutation tests instead. Permutation tests are an easy way of testing the null hypothesis of independence between two random variables (or vectors). For our purposes, suppose that $(\boldsymbol{x}_{i*}, y_i)$ are drawn i.i.d. from some joint distribution $F$ (as opposed to the usual assumption that $\boldsymbol{X}$ is fixed). Then, consider the null hypothesis:
+
+$$
+H_0: \boldsymbol{x} \perp\!\!\!\perp y.
+$$ {#eq-independence-1}
+
+This null hypothesis is related to the null hypothesis $H_0: \boldsymbol{\beta}_{\text{-}0} = 0$ in a linear regression, as formalized by the following lemma.
+
+::: {#lem-independence}
+
+Suppose $\boldsymbol{x} \in \mathbb{R}^{p-1}$ has a nondegenerate distribution $F_{\boldsymbol{x}}$ in the sense that there does not exist a vector $c \in \mathbb{R}^{p-1}$ such that $\boldsymbol{c}^T \boldsymbol{x}$ is deterministic. Suppose also that $F_{y|\boldsymbol{x}}$ is a distribution such that $\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}$ and that the distribution $F_{y|\boldsymbol{x}}$ is specified by its mean. Then,
+
+$$
+\boldsymbol{x} \perp\!\!\!\perp y \quad \Longleftrightarrow \quad \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}.
+$$
+:::
+
+::: {.proof}
+
+If $\boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}$, then $\mathbb{E}[y|\boldsymbol{x}] = \beta_0$. Therefore, the mean of $y$ does not depend on $\boldsymbol{x}$. By the assumption on $F_{y|\boldsymbol{x}}$, it follows that the entire distribution $F_{y|\boldsymbol{x}}$ does not depend on $\boldsymbol{x}$, i.e., $y \perp\!\!\!\perp \boldsymbol{x}$. If $\boldsymbol{\beta}_{\text{-}0} \neq \boldsymbol{0}$, then $\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}$, which by assumption is non-constant. Since $\mathbb{E}[y|\boldsymbol{x}]$ depends on $\boldsymbol{x}$, it follows that $y$ is not independent of $\boldsymbol{x}$.
+
+:::
+
+Therefore, any valid independence test automatically gives a non-normality-robust and heteroskedasticity-robust test of $H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}$ in a linear regression.
+
+Now, suppose we have $n$ i.i.d. samples $(\boldsymbol{x}_{i*}, y_i)$ from $F$. Under the independence null hypothesis ([-@eq-independence-1]), the distribution of the data is unchanged if we permute the response variables $y_i$. Formally, let $\boldsymbol{y}_{()}$ be the order statistics of the response variable, let $S_n$ be the permutation group on $\{1, \dots, n\}$, and let $\boldsymbol{y}_\tau$ denote the permutation of $\boldsymbol{y}$ by $\tau \in S_n$. Then,
+
+$$
+\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(\boldsymbol{y}_{\tau}).
+$$
+
+Now, let $T(\boldsymbol{X}, \boldsymbol{y})$ be any test statistic measuring the association between $\boldsymbol{y}$ and $\boldsymbol{X}$, e.g., a linear regression $F$-statistic. Then, the above distributional result implies that
+
+$$
+T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(T(\boldsymbol{X}, \boldsymbol{y}_{\tau})).
+$$
+
+Hence, we can compute the null distribution of $T$ by repeatedly permuting the response $\boldsymbol{y}$ and recomputing $T(\boldsymbol{X}, \boldsymbol{y}_{\tau})$. This gives rise to the permutation $p$-value:
+
+$$
+p^{\text{perm}} \equiv \frac{1}{n!}\sum_{\tau \in S_n} 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau}) \geq T(\boldsymbol{X}, \boldsymbol{y})).
+$$
+
+The uniform distribution of $T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()}$ implies that
+
+$$
+\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}] \leq t \quad \Longrightarrow \quad \mathbb{P}[p^{\text{perm}} \leq t] = \mathbb{E}[\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}]] \leq t \quad \text{for all } t \in [0,1].
+$$
+
+In practice, $p^{\text{perm}}$ is approximated by independently sampling $B$ permutations $\tau_1, \dots, \tau_B$ from the uniform distribution over $S_n$. Letting $\tau_0$ be the identity permutation, it follows that
+
+$$
+\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y} \in \{\boldsymbol{y}_{\tau_0}, \dots, \boldsymbol{y}_{\tau_B}\} \sim \frac{1}{B+1}\sum_{b = 0}^B \delta(\boldsymbol{y}_{\tau_b}).
+$$
+
+Similar logic as above leads to the approximate permutation $p$-value:
+
+$$
+\widehat{p}^{\text{perm}} \equiv \frac{1}{B+1}\sum_{b = 0}^B 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y})) = \frac{1}{B+1}\left(1 + \sum_{b = 1}^B 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
+$$ {#eq-p-perm-hat}
+
+Although $\widehat{p}^{\text{perm}}$ can be viewed as an approximation to $\boldsymbol{p}^{\text{perm}}$, it is also stochastically larger than the uniform distribution in finite samples:
+
+$$
+\mathbb{P}[\widehat{p}^{\text{perm}} \leq t] \leq t \quad \text{for all } t \in [0,1].
+$$ {#eq-permutation-pvalue-validity}
+
+**Warning:** A common mistake is to omit the "1+" in the numerator and denominator of the definition ([-@eq-p-perm-hat]). The resulting $p$-value is *not valid* in the sense of ([-@eq-permutation-pvalue-validity]).
+
+## Example
+
+A common application of the permutation test is testing for equality of distributions in the two-sample problem, where the permutation test amounts to generating a null distribution for any test statistic (e.g., a difference in means) by pooling together the two samples and randomly reassigning the classes of the samples.
+
+## Strengths and weaknesses
+
+The strength of the permutation test is that it is valid under almost no assumptions on the data-generating process. Its main weakness is that it is not applicable to the hypothesis $H_0: \beta_S = 0$ for any group of predictors $S \neq \{1, \dots, p-1\}$. Intuitively, this would require a fancy kind of permutation that breaks the association between $\boldsymbol{y}$ and $\boldsymbol{X}_{*, S}$ while preserving the association between $\boldsymbol{X}_{*, S}$ and $\boldsymbol{X}_{*, \text{-}S}$. This amounts to a test of *conditional* independence, which requires more assumptions on the joint distribution $F_{\boldsymbol{x}, y}$ than an independence test. Another weakness of a permutation test is that it is computationally expensive, although in the 21st century this is not a huge issue.

@@ -1,0 +1,165 @@
+# Negative binomial regression {#sec-nb-regression}
+
+## Overdispersion
+
+A pervasive issue with Poisson regression is *overdispersion*: that the variances of observations are greater than the corresponding means. A common cause of overdispersion is omitted variable bias. Suppose that $y \sim \text{Poi}(\mu)$, where $\log \mu = \beta_0 + \beta_1 x_1 + \beta_2 x_2$. However, we omitted variable $x_2$ and are considering the GLM based on $\log \mu = \beta_0 + \beta_1 x_1$. If $\beta_2 \neq 0$ and $x_2$ is correlated with $x_1$, then we have a confounding issue. Let's consider the more benign situation that $x_2$ is independent of $x_1$. Then, we have
+
+$$
+\mathbb{E}[y|x_1] = \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] = \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] = e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+$$ {#eq-mean-variance}
+
+So in the model for the mean of $y$, the impact of omitted variable $x_2$ seems only to have impacted the intercept. Let's consider the variance of $y$:
+
+$$
+\text{Var}[y|x_1] = \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] = e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] > e^{\beta'_0 + \beta_1 x_1} = \mathbb{E}[y|x_1].
+$$ {#eq-var-greater-mean}
+
+So indeed, the variance is larger than what we would have expected under the Poisson model.
+
+## Hierarchical Poisson regression
+
+Let's say that $y|\boldsymbol{x} \sim \text{Poi}(\lambda)$, where $\lambda|\boldsymbol{x}$ is random due to the fluctuations of the omitted variables. A common distribution used to model nonnegative random variables is the *gamma* distribution $\Gamma(\mu, k)$, parameterized by a mean $\mu > 0$ and a *shape* $k > 0$. This distribution has probability density function
+
+$$
+f(\lambda; k, \mu) = \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1},
+$$ {#eq-gamma-pdf}
+
+with mean and variance given by
+
+$$
+\mathbb{E}[\lambda] = \mu; \quad \text{Var}[\lambda] = \mu^2/k.
+$$ {#eq-gamma-moments}
+
+Therefore, it makes sense to augment the Poisson regression model as follows:
+
+$$
+\lambda|\boldsymbol{x} \sim \Gamma(\mu, k), \quad \log \mu = \boldsymbol{x}^T \boldsymbol{\beta}, \quad y | \lambda \sim \text{Poi}(\lambda).
+$$ {#eq-nb-hierarchical}
+
+## Negative binomial distribution
+
+A simpler way to write the hierarchical model ([-@eq-nb-hierarchical]) would be to marginalize out $\lambda$. Doing so leaves us with a count distribution called the *negative binomial distribution*:
+
+$$
+\lambda \sim \Gamma(\mu, k),\  y | \lambda \sim \text{Poi}(\lambda) \quad \Longrightarrow \quad y \sim \text{NegBin}(\mu, k).
+$$ {#eq-nb-definition}
+
+The negative binomial probability mass function is
+
+$$
+p(y; \mu, k) = \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda = \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+$$ {#eq-nb-pmf}
+
+This random variable has mean and variance given by
+
+$$
+\mathbb{E}[y] = \mathbb{E}[\lambda] = \mu \quad \text{and} \quad \text{Var}[y] = \mathbb{E}[\lambda] + \text{Var}[\lambda] = \mu + \frac{\mu^2}{k}.
+$$ {#eq-nb-moments}
+
+As we send $k \rightarrow \infty$, the distribution of $\lambda$ tends to a point mass and the negative binomial distribution tends to $\text{Poi}(\mu)$.
+
+## Negative binomial as exponential dispersion model
+
+Let us see whether we can express the negative binomial model as an exponential dispersion model. First, let us write out the probability mass function:
+
+$$
+p(y; \mu, k) = \exp\left(y \log \frac{\mu}{\mu + k} - k \log \frac{\mu + k}{k}\right)\frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}.
+$$ {#eq-nb-edm}
+
+Unfortunately, we run into difficulties expressing this probability mass function in EDM form, because there is not a neat decoupling between the natural parameter and the dispersion parameter. Indeed, for unknown $k$, the negative binomial model is *not* an EDM. However, we can still express the negative binomial model as an EDM (in fact, a one-parameter exponential family) if we treat $k$ as known. In particular, we can read off that
+
+$$
+\theta = \log \frac{\mu}{\mu + k}, \quad \psi(\theta) = k\log \frac{\mu + k}{k} = -k\log(1-e^{\theta}).
+$$ {#eq-neg-bin-exp-fam}
+
+An alternate parameterization of the negative binomial model is via $\gamma = 1/k$. With this parameterization, we have
+
+$$
+\mathbb{E}[y] = \mu \quad \text{and} \quad \text{Var}[y] = \mu + \gamma \mu^2.
+$$ {#eq-nb-alt-param}
+
+Here, $\gamma$ acts as a kind of dispersion parameter, as the variance of $y$ grows with $\gamma$. Note that the relationship between $\text{Var}[y]$ and $\gamma$ is not exactly proportional, as it is in EDMs. Nevertheless, the $\gamma$ parameter is often called the negative binomial *dispersion*. Note that setting $\gamma = 0$ recovers the Poisson distribution.
+
+## Negative binomial regression
+
+Let's revisit the hierarchical model [-@eq-nb-hierarchical], writing it more succinctly in terms of the negative binomial distribution:
+
+$$
+y_i \overset{\text{ind}}{\sim} \text{NegBin}(\mu_i, \gamma), \quad \log \mu_i = \boldsymbol{x}^T \boldsymbol{\beta}.
+$$ {#eq-nb-regression}
+
+Notice that we typically assume that all observations share the same dispersion parameter $\gamma$. Reading off from equation ([-@eq-neg-bin-exp-fam]), we see that the canonical link function for the negative binomial distribution is $\mu \mapsto \log \frac{\mu}{\mu + k}$. However, typically for negative binomial regression we use the log link $g(\mu) = \log \mu$ instead. This is the link of Poisson regression, and leads to more interpretable coefficient estimates. This is our first example of a non-canonical link!
+
+## Score and Fisher information
+
+Recall from Chapter 4 that
+
+$$
+\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+$$ {#eq-score-fisher-info}
+
+where
+
+$$
+\boldsymbol{W} \equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right) \quad \text{and} \quad \boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+$$ {#eq-w-m-matrix}
+
+In our case, we have
+
+$$
+w_i = 1; \quad V(\mu_i) = \mu_i + \gamma \mu_i^2; \quad \frac{\partial\eta_i}{\partial \mu_i} = \frac{1}{\mu_i}.
+$$ {#eq-w-v-deriv}
+
+Putting this together, we find that
+
+$$
+\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{1 + \gamma \mu_i}\right).
+$$ {#eq-w-m-simplified}
+
+## Estimation in negative binomial regression
+
+Negative binomial regression is an EDM when $\gamma$ is known, but typically the dispersion parameter is unknown. Note that there is a dependency in $\psi$ on $k$ (i.e. on $\gamma$), which complicates things. It means that the estimate $\boldsymbol{\widehat{\beta}}$ depends on the parameter $\gamma$ (this does not happen, for example, in the normal linear model case).^[Having said that, the dependency between $\boldsymbol{\widehat{\beta}}$ and $\widehat{\gamma}$ is weak, as the two are asymptotically independent parameters.] Therefore, estimation in negative binomial regression is typically an iterative procedure, where at each step $\boldsymbol{\beta}$ is estimated for the current value of $\gamma$ and then $\gamma$ is estimated based on the updated value of $\boldsymbol{\beta}$. Let's discuss each of these tasks in turn. Given a value of $\widehat{\gamma}$, we have the normal equations:
+
+$$
+\boldsymbol{X}^T \text{diag}\left(\frac{1}{1 + \widehat{\gamma} \widehat{\mu}_i}\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) = 0.
+$$ {#eq-nb-normal-eq}
+
+This reduces to the Poisson normal equations when $\widehat{\gamma} = 0$. Solving these equations for a fixed value of $\widehat{\gamma}$ can be done via IRLS, as usual. Estimating $\gamma$ for a fixed value of $\boldsymbol{\widehat{\beta}}$ can be done in several ways, including setting to zero the derivative of the likelihood with respect to $\gamma$. This results in a nonlinear equation (not given here) that can be solved iteratively.
+
+## Wald inference
+
+Wald inference is based on
+
+$$
+\widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1}, \quad \text{where} \quad \boldsymbol{\widehat{W}} = \text{diag}\left(\frac{\widehat{\mu}_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
+$$ {#eq-wald-inference}
+
+## Likelihood ratio test inference
+
+The negative binomial deviance is
+
+$$
+D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\widehat{\mu}_i} - \left(y_i + \frac{1}{\widehat{\gamma}}\right)\log \frac{1 + \widehat{\gamma} y_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
+$$ {#eq-nb-deviance}
+
+We can use this for comparing nested models, **but not for goodness of fit testing!** The issue is that we have estimated the parameter $\gamma$, whereas goodness of fit tests are applicable only when the dispersion parameter is known.
+
+## Testing for overdispersion
+
+It is reasonable to want to test for overdispersion, i.e., to test the null hypothesis $H_0: \gamma = 0$. This is somewhat of a tricky task because $\gamma = 0$ is at the edge of the parameter space. We can do so using a likelihood ratio test. As it turns out, the likelihood ratio statistic $T^{\text{LRT}}$ has asymptotic null distribution
+
+$$
+T^{\text{LRT}} \equiv 2(\ell^{\text{NB}} - \ell^{\text{Poi}}) \overset \cdot \sim \frac{1}{2}\delta_0 + \frac{1}{2}\chi^2_1.
+$$ {#eq-lrt-null}
+
+Here, $\delta_0$ is the delta mass at zero. The reason for this is that, under the null, we can view the estimated dispersion parameter as being symmetrically distributed around 0. However, since the dispersion parameter is nonnegative, this means it gets rounded up to 0 with probability 1/2. Therefore, the likelihood ratio test for $H_0: \gamma = 0$ rejects when
+
+$$
+T^{\text{LRT}} > \chi^2_1(1-2\alpha).
+$$ {#eq-lrt-reject}
+
+Note that the above test for overdispersion can be viewed as a goodness of fit test for the Poisson GLM. It is different from the usual GLM goodness of fit tests, because the saturated model against which the latter tests stays in the Poisson family. Nevertheless, significant results in standard goodness of fit tests for Poisson GLMs are often an indication of overdispersion. Or, they may indicate omitted variable bias (e.g., you forgot to include an interaction), so it's somewhat tricky.
+
+## Overdispersion in logistic regression
+
+Note that overdispersion is potentially an issue not only in Poisson regression models but in logistic regression models as well. Dealing with overdispersion in the latter case is more tricky, because the analog of the negative binomial model (the beta-binomial model) is not an exponential family. An alternate route to dealing with overdispersion is quasi-likelihood modeling, but this topic is beyond the scope of the course.

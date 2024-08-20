@@ -1,0 +1,295 @@
+# Poisson regression {#sec-poisson-regression}
+
+## Model definition and interpretation {#sec-model-definition}
+
+The Poisson regression model (with offsets) is:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\beta}.
+$$ {#eq-poisson-with-offsets}
+
+Because the log of the mean is linear in the predictors, Poisson regression models are often called *loglinear models*. To interpret the coefficients, note that a unit increase in $x_j$ (while keeping the other variables fixed) is associated with an increase in the predicted mean by a factor of $e^{\beta_j}$.
+
+## Example: Modeling rates {#sec-example-modeling-rates}
+
+One cool feature of the Poisson model is that rates can be easily modeled with the help of offsets. Let's say that the count $y_i$ is collected over the course of a time interval of length $t_i$, or a spatial region with area $t_i$, or a population of size $t_i$, etc. Then, it is meaningful to model:
+
+$$
+y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
+$$
+
+where $\pi_i$ represents the rate of events per day / per square mile / per capita, etc. In other words:
+
+$$
+y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
+$$
+
+which is exactly equation ([-@eq-poisson-with-offsets]) with offsets $o_i = \log t_i$. For example, in single-cell RNA-sequencing, $y_i$ is the number of reads aligning to a gene in cell $i$ and $t_i$ is the total number of reads measured in the cell, a quantity called the *sequencing depth*. We might use a Poisson regression model to carry out a *differential expression analysis* between two cell types.
+
+## Estimation and inference {#sec-estimation-inference}
+
+### Score, Fisher information, and Wald inference {#sec-wald-inference}
+
+We found in Chapter @ch-glm-theory that the score and Fisher information for Poisson regression are:
+
+$$
+\boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),
+$$
+
+and:
+
+$$
+\boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X} = \boldsymbol{X}^T \text{diag}(V(\mu_i))\boldsymbol{X} = \boldsymbol{X}^T \text{diag}(\mu_i)\boldsymbol{X},
+$$
+
+respectively. Hence, the normal equations for the MLE are:
+
+$$
+\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\hat \mu}).
+$$
+
+Wald inference is based on the approximation:
+
+$$
+\boldsymbol{\hat \beta} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \text{diag}(\hat \mu_i)\boldsymbol{X})^{-1}).
+$$
+
+### Likelihood ratio inference {#sec-likelihood-ratio-inference}
+
+For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:
+
+$$
+d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
+$$
+
+Hence, the total deviance is:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
+$$
+
+The residual deviance is then:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
+$$
+
+The last equality holds for any model containing the intercept, since by the normal equations we have $\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0$. We can carry out a likelihood ratio test for $H_0: \boldsymbol{\beta_S} = \boldsymbol{0}$ via:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat \mu^0}) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
+$$
+
+We can carry out a goodness-of-fit test via:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+$$
+
+### Score-based inference {#sec-score-based-inference}
+
+Recalling equation ([-@eq-score-test-univariate]), the score test for $H_0: \beta_j = 0$ is based on:
+
+$$
+\frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).
+$$
+
+On the other hand, the score test for goodness-of-fit is based on the Pearson $X^2$ statistic:
+
+$$
+X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+$$
+
+## Relationship between Poisson and multinomial distributions {#sec-poisson-multinomial}
+
+Suppose that $y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i)$ for $i = 1, \dots, n$. Then,
+
+$$
+\begin{split}
+\mathbb{P}\left[y_1 = m_1, \dots, y_n = m_n \left| \sum_{i}y_i = m\right.\right] &= \frac{\mathbb{P}[y_1 = m_1, \dots, y_n = m_n]}{\mathbb{P}[\sum_{i}y_i = m]} \\
+&= \frac{\prod_{i = 1}^n e^{-\mu_i}\frac{\mu_i^{m_i}}{m_i!}}{e^{-\sum_i \mu_i}\frac{(\sum_i \mu_i)^m}{m!}} \\
+&= {m \choose m_1, \dots, m_n} \prod_{i = 1}^n \pi_i^{m_i}; \quad \pi_i \equiv \frac{\mu_i}{\sum_{i' = 1}^n \mu_{i'}}.
+\end{split}
+$$
+
+We recognize the last expression as the probability mass function of the multinomial distribution with parameters $(\pi_1, \dots, \pi_n)$ summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.
+
+## Example: $2 \times 2$ contingency tables {#sec-example-2x2-tables}
+
+### Poisson model for $2 \times 2$ contingency tables {#sec-poisson-2x2}
+
+Let's say that we have two binary random variables $x_1, x_2 \in \{0,1\}$ with joint distribution $\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}$ for $j,k \in \{0,1\}$. We collect a total of $n$ samples from this joint distribution and summarize the counts in a $2 \times 2$ table, where $y_{jk}$ is the number of times we observed $(x_1, x_2) = (j,k)$, so that:
+
+$$
+(y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
+$$
+
+Our primary question is whether these two random variables are independent, i.e.
+
+$$
+\pi_{jk} = \pi_{j+}\pi_{+k}, \quad \text{where} \quad \pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
+$$ {#eq-null-product-formulation}
+
+We can express this equivalently as:
+
+$$
+\pi_{00}\pi_{11} = \pi_{01}\pi_{10}.
+$$
+
+In other words, we can express the independence hypothesis concisely as:
+
+$$
+H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
+$$ {#eq-independence-2}
+
+Let's arbitrarily assume that, additionally, $n \sim \text{Poi}(\mu_{++})$. Then, by the relationship between Poisson and multinomial distributions, we have:
+
+$$
+y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
+$$
+
+Let $i \in \{1,2,3,4\}$ index the four pairs $(x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\}$, so that:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2}, \quad i = 1, \dots, 4,
+$$ {#eq-2x2-poisson-reg}
+
+where:
+
+$$
+\beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \quad \beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
+$$ {#eq-2x2-poisson-reg-coefs}
+
+Note that the independence hypothesis ([-@eq-independence-2]) reduces to the hypothesis $H_0: \beta_{12} = 0$:
+
+$$
+H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1 \quad \Longleftrightarrow \quad H_0: \beta_{12} = 0.
+$$
+
+So the presence of an interaction in the Poisson regression is equivalent to a lack of independence between $x_1$ and $x_2$. We can test the latter hypothesis using our standard tools for Poisson regression.
+
+For example, we can use the Pearson $X^2$ goodness-of-fit test. To apply this test, we must find the fitted means under the null hypothesis model:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}, \quad i = 1, \dots, 4.
+$$ {#eq-2x2-poisson-reg-null}
+
+The normal equations give us the following:
+
+$$
+y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \quad y_{+1} \equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \quad y_{1+} \equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
+$$
+
+By combining these equations, we arrive at:
+
+$$
+\hat \mu_{++} = y_{++}; \quad \hat \mu_{j+} = y_{j+} \text{ for all } j \in \{0, 1\}; \quad \hat \mu_{+k} = y_{+k} \text{ for all } k \in \{0, 1\}.
+$$
+
+Therefore, the fitted means under the null hypothesis model [-@eq-2x2-poisson-reg-null] are:
+
+$$
+\hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
+$$
+
+Hence, we have:
+
+$$
+X^2 = \sum_{j,k = 0}^1 \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} = \sum_{j, k = 0}^1 \frac{(y_{jk} - y_{j+}y_{+k}/y_{++})^2}{y_{j+}y_{+k}/y_{++}}.
+$$
+
+Alternatively, we can use the likelihood ratio test, which gives:
+
+$$
+G^2 = 2\sum_{j,k = 0}^1 y_{jk}\log\frac{y_{jk}}{\widehat \mu_{jk}} = 2\sum_{j, k = 0}^1 y_{jk}\log\frac{y_{jk}}{y_{j+}y_{+k}/y_{++}}.
+$$
+
+We would compare both $X^2$ and $G^2$ to a $\chi^2_1$ distribution.
+
+### Inference is the same regardless of conditioning on margins {#sec-inference-conditioning-margins}
+
+Now, our data might actually have been collected such that $n \sim \text{Poi}(\mu_{++})$, or maybe $n$ was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:
+
+$$
+p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
+$$
+
+so:
+
+$$
+\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) = \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+$$
+
+In other words, the log-likelihoods of the Poisson and multinomial models, as a function of $\boldsymbol{\pi}$, differ from each other by a constant. Therefore, any likelihood-based inference in these models is equivalent. The same argument shows that conditioning on the row or column totals (as opposed to the overall total) also yields the same exact inference. Therefore, regardless of the sampling mechanism, we can always conduct an independence test in a $2 \times 2$ table via a Poisson regression.
+
+### Equivalence among Poisson and logistic regressions {#sec-poisson-logistic-equivalence}
+
+We've talked about two ways to view a $2 \times 2$ contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations [-@eq-2x2-poisson-reg] and [-@eq-2x2-poisson-reg-coefs] that $x_1 \perp \!\!\! \perp x_2$ if and only if $\beta_{12} = 0$ in the Poisson regression:
+
+$$
+\log y_i \overset{\text{ind}}{\sim} \text{Poi}(\mu_i), \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12} x_{i1}x_{i2}, \quad i = 1, \dots, 4.
+$$
+
+However, we have:
+
+$$
+\beta_{12} = \log \frac{\pi_{11}\pi_{00}}{\pi_{01}\pi_{10}} = \log \frac{\pi_{11}/\pi_{01}}{\pi_{01}/\pi_{00}} = \log \frac{\mathbb{P}[x_2 = 1 \mid x_1 = 1] / \mathbb{P}[x_2 = 0 \mid x_1 = 1]}{\mathbb{P}[x_2 = 1 \mid x_1 = 0] / \mathbb{P}[x_2 = 0 \mid x_1 = 0]}.
+$$
+
+Recalling the logistic regression of $x_2$ on $x_1$:
+
+$$
+\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
+$$ {#eq-2x2-logistic-reg}
+
+and that $\tilde{\beta_1}$ is the log odds ratio, we conclude that:
+
+$$
+\beta_{12} = \tilde{\beta_1},
+$$
+
+so $x_1 \perp \!\!\! \perp x_2$ if and only if $\tilde{\beta_1} = 0$. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio $\beta_{12}$ (or $\tilde{\beta_1}$) obtained from Poisson and logistic regressions will be the same.
+
+## Example: Poisson models for $J \times K$ contingency tables {#sec-poisson-jk-tables}
+
+Suppose now that $x_1 \in \{1, \dots, J\}$ and $x_2 \in \{1, \dots, K\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $j$ and $k$, which amounts to a goodness-of-fit test for the Poisson model:
+
+$$
+y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
+$$
+
+The score (Pearson) and deviance-based goodness-of-fit statistics for this test are:
+
+$$
+X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 1}^J \sum_{k = 1}^K y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
+$$
+
+where $\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}$. Like with the $2 \times 2$ case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is $JK$, while the degrees of freedom in the partial model is $J + K - 1$, so the degrees of freedom for the goodness-of-fit test is $JK - J - K + 1 = (J - 1)(K - 1)$. Pearson erroneously concluded that the test had $JK - 1$ degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.
+
+## Example: Poisson models for $J \times K \times L$ contingency tables {#sec-poisson-jkl-tables}
+
+These ideas can be extended to multi-way tables, for example, three-way tables. If we have $x_1 \in \{1, \dots, J\}$, $x_2 \in \{1, \dots, K\}$, $x_3 \in \{1, \dots, L\}$, then we might be interested in testing several kinds of null hypotheses:
+
+- Mutual independence: $H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3$.
+- Joint independence: $H_0: x_1 \perp \!\!\! \perp (x_2, x_3)$.
+- Conditional independence: $H_0: x_1 \perp \!\!\! \perp x_2 \mid x_3$.
+
+These three null hypotheses can be shown to be equivalent to the Poisson regression model:
+
+$$
+y_{jkl} \overset{\text{ind}}\sim \text{Poi}(\mu_{jkl}),
+$$
+
+where:
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
+$$
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
+$$
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_l \quad \text{(conditional independence)}.
+$$

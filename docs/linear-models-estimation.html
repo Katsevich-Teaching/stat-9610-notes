@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610Lecture Notes - 1&nbsp; Linear models: Estimation</title>
+<title>STAT 9610 Lecture Notes - Linear models: Estimation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,7 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./linear-models-inference.html" rel="next">
+<link href="./predictors-and-coefficients.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -99,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="custom.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -111,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear models: Estimation</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html">Linear models: Estimation</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -126,9 +91,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">STAT 9610<br>Lecture Notes</a> 
+      <a href="./">STAT 9610 Lecture Notes</a> 
         <div class="sidebar-tools-main">
-    <a href="./STAT-9610-br-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -142,98 +107,275 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear models: Estimation</span></span></a>
+  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear models: Inference</span></span></a>
+  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear models: Misspecification</span></span></a>
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Generalized linear models: General theory</span></span></a>
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Generalized linear models: Special cases</span></span></a>
+  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#types-of-predictors-interpreting-linear-model-coefficients" id="toc-types-of-predictors-interpreting-linear-model-coefficients" class="nav-link active" data-scroll-target="#types-of-predictors-interpreting-linear-model-coefficients"><span class="header-section-number">1.1</span> Types of predictors; interpreting linear model coefficients</a></li>
-  <li><a href="#model-matrices-model-vector-spaces-and-identifiability" id="toc-model-matrices-model-vector-spaces-and-identifiability" class="nav-link" data-scroll-target="#model-matrices-model-vector-spaces-and-identifiability"><span class="header-section-number">1.2</span> Model matrices, model vector spaces, and identifiability</a></li>
-  <li><a href="#least-squares-estimation" id="toc-least-squares-estimation" class="nav-link" data-scroll-target="#least-squares-estimation"><span class="header-section-number">1.3</span> Least squares estimation</a>
-  <ul class="collapse">
-  <li><a href="#algebraic-perspective" id="toc-algebraic-perspective" class="nav-link" data-scroll-target="#algebraic-perspective"><span class="header-section-number">1.3.1</span> Algebraic perspective</a></li>
-  <li><a href="#probabilistic-perspective" id="toc-probabilistic-perspective" class="nav-link" data-scroll-target="#probabilistic-perspective"><span class="header-section-number">1.3.2</span> Probabilistic perspective</a></li>
-  <li><a href="#geometric-perspective" id="toc-geometric-perspective" class="nav-link" data-scroll-target="#geometric-perspective"><span class="header-section-number">1.3.3</span> Geometric perspective</a></li>
-  </ul></li>
-  <li><a href="#analysis-of-variance-and-r2" id="toc-analysis-of-variance-and-r2" class="nav-link" data-scroll-target="#analysis-of-variance-and-r2"><span class="header-section-number">1.4</span> Analysis of variance and <span class="math inline">\(R^2\)</span></a>
-  <ul class="collapse">
-  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link" data-scroll-target="#analysis-of-variance"><span class="header-section-number">1.4.1</span> Analysis of variance</a></li>
-  <li><a href="#r2-and-multiple-correlation" id="toc-r2-and-multiple-correlation" class="nav-link" data-scroll-target="#r2-and-multiple-correlation"><span class="header-section-number">1.4.2</span> <span class="math inline">\(R^2\)</span> and multiple correlation</a></li>
-  <li><a href="#r2-increases-as-predictors-are-added" id="toc-r2-increases-as-predictors-are-added" class="nav-link" data-scroll-target="#r2-increases-as-predictors-are-added"><span class="header-section-number">1.4.3</span> <span class="math inline">\(R^2\)</span> increases as predictors are added</a></li>
-  </ul></li>
-  <li><a href="#special-cases" id="toc-special-cases" class="nav-link" data-scroll-target="#special-cases"><span class="header-section-number">1.5</span> Special cases</a>
-  <ul class="collapse">
-  <li><a href="#the-c-groups-model" id="toc-the-c-groups-model" class="nav-link" data-scroll-target="#the-c-groups-model"><span class="header-section-number">1.5.1</span> The <span class="math inline">\(C\)</span>-groups model</a></li>
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression"><span class="header-section-number">1.5.2</span> Simple linear regression</a></li>
-  </ul></li>
-  <li><a href="#collinearity-adjustment-and-partial-correlation" id="toc-collinearity-adjustment-and-partial-correlation" class="nav-link" data-scroll-target="#collinearity-adjustment-and-partial-correlation"><span class="header-section-number">1.6</span> Collinearity, adjustment, and partial correlation</a>
-  <ul class="collapse">
-  <li><a href="#least-squares-estimates-in-the-orthogonal-case" id="toc-least-squares-estimates-in-the-orthogonal-case" class="nav-link" data-scroll-target="#least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">1.6.1</span> Least squares estimates in the orthogonal case</a></li>
-  <li><a href="#least-squares-estimates-via-orthogonalization" id="toc-least-squares-estimates-via-orthogonalization" class="nav-link" data-scroll-target="#least-squares-estimates-via-orthogonalization"><span class="header-section-number">1.6.2</span> Least squares estimates via orthogonalization</a></li>
-  <li><a href="#adjustment-and-partial-correlation" id="toc-adjustment-and-partial-correlation" class="nav-link" data-scroll-target="#adjustment-and-partial-correlation"><span class="header-section-number">1.6.3</span> Adjustment and partial correlation</a></li>
-  <li><a href="#effects-of-collinearity" id="toc-effects-of-collinearity" class="nav-link" data-scroll-target="#effects-of-collinearity"><span class="header-section-number">1.6.4</span> Effects of collinearity</a></li>
-  <li><a href="#remark-average-treatment-effect-estimation-in-causal-inference" id="toc-remark-average-treatment-effect-estimation-in-causal-inference" class="nav-link" data-scroll-target="#remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">1.6.5</span> Remark: Average treatment effect estimation in causal inference</a></li>
-  </ul></li>
-  <li><a href="#r-demo" id="toc-r-demo" class="nav-link" data-scroll-target="#r-demo"><span class="header-section-number">1.7</span> R demo</a>
-  <ul class="collapse">
-  <li><a href="#exploration" id="toc-exploration" class="nav-link" data-scroll-target="#exploration"><span class="header-section-number">1.7.1</span> Exploration</a></li>
-  <li><a href="#linear-model-coefficient-interpretation" id="toc-linear-model-coefficient-interpretation" class="nav-link" data-scroll-target="#linear-model-coefficient-interpretation"><span class="header-section-number">1.7.2</span> Linear model coefficient interpretation</a></li>
-  <li><a href="#r2-and-sum-of-squared-decompositions." id="toc-r2-and-sum-of-squared-decompositions." class="nav-link" data-scroll-target="#r2-and-sum-of-squared-decompositions."><span class="header-section-number">1.7.3</span> <span class="math inline">\(R^2\)</span> and sum-of-squared decompositions.</a></li>
-  <li><a href="#adjustment-and-collinearity." id="toc-adjustment-and-collinearity." class="nav-link" data-scroll-target="#adjustment-and-collinearity."><span class="header-section-number">1.7.4</span> Adjustment and collinearity.</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="linear-models-estimation" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Linear models: Estimation</span></span></h1>
+<h1 class="title"><span id="linear-models-estimation" class="quarto-section-identifier">Linear models: Estimation</span></h1>
 </div>
 
 
@@ -248,694 +390,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="types-of-predictors-interpreting-linear-model-coefficients" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="types-of-predictors-interpreting-linear-model-coefficients"><span class="header-section-number">1.1</span> Types of predictors; interpreting linear model coefficients</h2>
-<p><em>See also Agresti 1.2, Dunn and Smyth 1.4, 1.7, 2.7</em></p>
-<p>The types of predictors <span class="math inline">\(x_j\)</span> (e.g.&nbsp;binary or continuous) has less of an effect on the regression than the type of response, but it is still important to pay attention to the former.</p>
-<p><strong>Intercepts.</strong> It is common to include an <em>intercept</em> in a linear regression model, a predictor <span class="math inline">\(x_0\)</span> such that <span class="math inline">\(x_{i0} = 1\)</span> for all <span class="math inline">\(i\)</span>. When an intercept is present, we index it as the 0th predictor. The simplest kind of linear model is the <em>intercept-only model</em> or the <em>one-sample model</em>: <span id="eq-one-sample-model"><span class="math display">\[
-y = \beta_0 + \epsilon.
-\tag{1.1}\]</span></span> The parameter <span class="math inline">\(\beta_0\)</span> is the mean of the response.</p>
-<p><strong>Binary predictors.</strong> In addition to an intercept, suppose we have a binary predictor <span class="math inline">\(x_1 \in \{0,1\}\)</span> (e.g.&nbsp;<span class="math inline">\(x_1 = 1\)</span> for patients who took blood pressure medication and <span class="math inline">\(x_1 = 0\)</span> for those who didn’t). This leads to the following linear model: <span id="eq-two-sample-model"><span class="math display">\[
-y = \beta_0 + \beta_1 x_1 + \epsilon.
-\tag{1.2}\]</span></span> Here, <span class="math inline">\(\beta_0\)</span> is the mean response (say blood pressure) for observations with <span class="math inline">\(x_1 = 0\)</span> and <span class="math inline">\(\beta_0 + \beta_1\)</span> is the mean response for observations with <span class="math inline">\(x_1 = 1\)</span>. Therefore, the parameter <span class="math inline">\(\beta_1\)</span> is the difference in mean response between observations with <span class="math inline">\(x_1 = 1\)</span> and <span class="math inline">\(x_1 = 0\)</span>. This parameter is sometimes called the <em>effect</em> or <em>effect size</em> of <span class="math inline">\(x_1\)</span>, though a causal relationship might or might not be present. The model (<a href="#eq-two-sample-model"><span>1.2</span></a>) is sometimes called the <em>two-sample model</em>, because the response data can be split into two “samples”: those corresponding to <span class="math inline">\(x_1 = 0\)</span> and those corresponding to <span class="math inline">\(x_1 = 1\)</span>.</p>
-<p><strong>Categorical predictors.</strong> A binary predictor is a special case of a categorical predictor: A predictor taking two or more discrete values. Suppose we have a predictor <span class="math inline">\(w \in \{w_0, w_1, \dots, w_{C-1}\}\)</span>, where <span class="math inline">\(C \geq 2\)</span> is the number of categories and <span class="math inline">\(w_0, \dots, w_{C-1}\)</span> are the <em>levels</em> of <span class="math inline">\(w\)</span>. E.g. suppose <span class="math inline">\(\{w_0, \dots, w_{C-1}\}\)</span> is the collection of U.S. states, so that <span class="math inline">\(C = 50\)</span>. If we want to regress a response on the categorical predictor <span class="math inline">\(w\)</span>, we cannot simply set <span class="math inline">\(x_1 = w\)</span> in the context of the linear regression (<a href="#eq-two-sample-model"><span>1.2</span></a>). Indeed, <span class="math inline">\(w\)</span> does not necessarily take numerical values. Instead, we need to add a predictor <span class="math inline">\(x_j\)</span> for each of the levels of <span class="math inline">\(w\)</span>. In particular, define <span class="math inline">\(x_j \equiv \mathbbm 1(w = w_j)\)</span> for <span class="math inline">\(j = 1, \dots, C-1\)</span> and consider the regression <span id="eq-C-sample-model"><span class="math display">\[
-y = \beta_0 + \beta_1 x_1 + \cdots + \beta_{C-1}x_{C-1} + \epsilon.
-\tag{1.3}\]</span></span> Here, category 0 is the <em>base category</em>, and <span class="math inline">\(\beta_0\)</span> represents the mean response in the base category. The coefficient <span class="math inline">\(\beta_j\)</span> represents the difference in mean response between the <span class="math inline">\(j\)</span>th category and the base category.</p>
-<p><strong>Quantitative predictors.</strong> A quantitative predictor is one that can take on any real value. For example, suppose that <span class="math inline">\(x_1 \in \mathbb{R}\)</span>, and consider the linear model <span id="eq-simple-linear-regression"><span class="math display">\[
-y = \beta_0 + \beta_1 x_1 + \epsilon.
-\tag{1.4}\]</span></span> Now, the interpretation of <span class="math inline">\(\beta_1\)</span> is that an increase in <span class="math inline">\(x_1\)</span> by 1 is associated with an increase in <span class="math inline">\(y\)</span> by <span class="math inline">\(\beta_1\)</span>. We must be careful to avoid saying “an increase in <span class="math inline">\(x_1\)</span> by 1 <em>causes</em> <span class="math inline">\(y\)</span> to increase by <span class="math inline">\(\beta_1\)</span>” unless we make additional causal assumptions. Note that the units of <span class="math inline">\(x_1\)</span> matter. If <span class="math inline">\(x_1\)</span> is the height of a person, then the value and the interpretation of <span class="math inline">\(\beta_1\)</span> changes depending on whether that height is measured in feet or in meters.</p>
-<p><strong>Ordinal predictors.</strong> There is an awkward category of predictor in between categorical and continuous called <em>ordinal</em>. An ordinal predictor is one that takes a discrete number of values, but these values have an intrinsic ordering, e.g.&nbsp;<span class="math inline">\(x_1 \in \{\texttt{small}, \texttt{medium}, \texttt{large}\}\)</span>. It can be treated as categorical at the cost of losing the ordering information, or as continuous if one is willing to assign quantitative values to each category.</p>
-<p><strong>Multiple predictors.</strong> A linear regression need not contain just one predictor (aside from an intercept). For example, let’s say <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are two predictors. Then, a linear model with both predictors is <span id="eq-multiple-regression"><span class="math display">\[
-y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon.
-\tag{1.5}\]</span></span> When there are multiple predictors, the interpretation of coefficients must be revised somewhat. For example, <span class="math inline">\(\beta_1\)</span> in the above regression is the effect of an increase in <span class="math inline">\(x_1\)</span> by 1 <em>while holding <span class="math inline">\(x_2\)</span> constant</em> or <em>while adjusting for <span class="math inline">\(x_2\)</span></em> or <em>while controlling for <span class="math inline">\(x_2\)</span></em>. If <span class="math inline">\(y\)</span> is blood pressure, <span class="math inline">\(x_1\)</span> is a binary predictor indicating blood pressure medication taken and <span class="math inline">\(x_2\)</span> is sex, then <span class="math inline">\(\beta_1\)</span> is the effect of the medication on blood pressure while controlling for sex. In general, the coefficient of a predictor depends on what other predictors are in the model. As an extreme case, suppose the medication has no actual effect, but that men generally have higher blood pressure and higher rates of taking the medication. Then, the coefficient <span class="math inline">\(\beta_1\)</span> in the single regression model (<a href="#eq-two-sample-model"><span>1.2</span></a>) would be nonzero but the coefficient in the multiple regression model (<a href="#eq-multiple-regression"><span>1.5</span></a>) would be equal to zero. In this case, sex acts as a <em>confounder</em>.</p>
-<p><strong>Interactions.</strong> Note that the multiple regression model (<a href="#eq-multiple-regression"><span>1.5</span></a>) has the built-in assumption that the effect of <span class="math inline">\(x_1\)</span> on <span class="math inline">\(y\)</span> is the same for any fixed value of <span class="math inline">\(x_2\)</span> (and vice versa). In some cases, the effect of one variable on the response may depend on the value of another variable. In this case, it’s appropriate to add another predictor called an <em>interaction</em>. Suppose <span class="math inline">\(x_2\)</span> is quantitative (e.g.&nbsp;years of job experience) and <span class="math inline">\(x_2\)</span> is binary (e.g.&nbsp;sex, with <span class="math inline">\(x_2 = 1\)</span> meaning male). Then, we can define a third predictor <span class="math inline">\(x_3\)</span> as the product of the first two, i.e.&nbsp;<span class="math inline">\(x_3 = x_1x_2\)</span>. This gives the regression model <span id="eq-interaction"><span class="math display">\[
-y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \epsilon.
-\tag{1.6}\]</span></span> Now, the effect of adding another year of job experience is <span class="math inline">\(\beta_1\)</span> for females and <span class="math inline">\(\beta_1 + \beta_3\)</span> for males. The coefficient <span class="math inline">\(\beta_3\)</span> is the difference in the effect of job experience between males and females.</p>
-</section>
-<section id="model-matrices-model-vector-spaces-and-identifiability" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="model-matrices-model-vector-spaces-and-identifiability"><span class="header-section-number">1.2</span> Model matrices, model vector spaces, and identifiability</h2>
-<p><em>See also Agresti 1.3-1.4, Dunn and Smyth 2.1, 2.2, 2.5.1</em></p>
-<p>The matrix <span class="math inline">\(\boldsymbol{X}\)</span> is called the <em>model matrix</em> or the <em>design matrix</em>. Concatenating the linear model equations across observations gives us an equivalent formulation: <span class="math display">\[
-\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}; \quad \mathbb{E}[\boldsymbol{\epsilon}] = \boldsymbol{0}, \ \text{Var}[\boldsymbol{\epsilon}] = \sigma^2 \boldsymbol{I_n}
-\]</span> or <span class="math display">\[
-\mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{\mu}.
-\]</span> As <span class="math inline">\(\boldsymbol{\beta}\)</span> varies in <span class="math inline">\(\mathbb{R}^p\)</span>, the set of possible vectors <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^n\)</span> is defined <span class="math display">\[
-C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \boldsymbol{X} \boldsymbol{\beta}: \boldsymbol{\beta} \in \mathbb{R}^p\}.
-\]</span> <span class="math inline">\(C(\boldsymbol{X})\)</span>, called the <em>model vector space</em>, is a subspace of <span class="math inline">\(\mathbb{R}^n\)</span>: <span class="math inline">\(C(\boldsymbol{X}) \subseteq \mathbb{R}^n\)</span>. Since <span class="math display">\[
-\boldsymbol{X} \boldsymbol{\beta} = \beta_0 \boldsymbol{x_{*0}} + \cdots + \beta_{p-1} \boldsymbol{x_{*p-1}},
-\]</span> the model vector space is the column space of the matrix <span class="math inline">\(\boldsymbol{X}\)</span> (<a href="#fig-model-vector-space">Figure&nbsp;<span>1.1</span></a>).</p>
-<div id="fig-model-vector-space" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/model-vector-space.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;1.1: The model vector space.</figcaption>
-</figure>
-</div>
-<p>The <em>dimension</em> of <span class="math inline">\(C(\boldsymbol{X})\)</span> is the rank of <span class="math inline">\(\boldsymbol{X}\)</span>, i.e.&nbsp;the number of linearly independent columns of <span class="math inline">\(\boldsymbol{X}\)</span>. If <span class="math inline">\(\text{rank}(\boldsymbol{X}) &lt; p\)</span>, this means that there are two different vectors <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\boldsymbol{\beta'}\)</span> such that <span class="math inline">\(\boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{X} \boldsymbol{\beta'}\)</span>. Therefore, we have two values of the parameter vector that give the same model for <span class="math inline">\(\boldsymbol{y}\)</span>. This makes <span class="math inline">\(\boldsymbol{\beta}\)</span> <em>not identifiable</em>, and makes it impossible to reliably determine <span class="math inline">\(\boldsymbol{\beta}\)</span> based on the data. For this reason, we will generally assume that <span class="math inline">\(\boldsymbol{\beta}\)</span> is <em>identifiable</em>, i.e.&nbsp;<span class="math inline">\(\boldsymbol{X} \boldsymbol{\beta} \neq \boldsymbol{X} \boldsymbol{\beta'}\)</span> if <span class="math inline">\(\boldsymbol{\beta} \neq \boldsymbol{\beta'}\)</span>. This is equivalent to the assumption that <span class="math inline">\(\text{rank}(\boldsymbol{X}) = p\)</span>. Note that this cannot hold when <span class="math inline">\(p &gt; n\)</span>, so for the majority of the course we will assume that <span class="math inline">\(p \leq n\)</span>. In this case, <span class="math inline">\(\text{rank}(\boldsymbol{X}) = p\)</span> if and only if <span class="math inline">\(\boldsymbol{X}\)</span> has <em>full-rank</em>.</p>
-<p>As an example when <span class="math inline">\(p \leq n\)</span> but when <span class="math inline">\(\boldsymbol{\beta}\)</span> is still not identifiable, consider the case of a categorical predictor. Suppose the categories of <span class="math inline">\(w\)</span> were <span class="math inline">\(\{w_1, \dots, w_{C-1}\}\)</span>, i.e.&nbsp;the baseline category <span class="math inline">\(w_0\)</span> did not exist. In this case, the model (<a href="#eq-C-sample-model"><span>1.3</span></a>) would not be identifiable because <span class="math inline">\(x_0 = 1 = x_1 + \cdots + x_{C-1}\)</span> and thus <span class="math inline">\(x_{*0} = 1 = x_{*1} + \cdots + x_{*,C-1}\)</span>. Indeed, this means that one of the predictors can be expressed as a linear combination of the others, so <span class="math inline">\(\boldsymbol{X}\)</span> cannot have full rank. A simpler way of phrasing the problem is that we are describing <span class="math inline">\(C-1\)</span> intrinsic parameters (the means in each of the <span class="math inline">\(C-1\)</span> groups) with <span class="math inline">\(C\)</span> model parameters. There must therefore be some redundancy. For this reason, if we include an intercept term in the model then we must designate one of our categories as the baseline and exclude its indicator from the model.</p>
-</section>
-<section id="least-squares-estimation" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="least-squares-estimation"><span class="header-section-number">1.3</span> Least squares estimation</h2>
-<section id="algebraic-perspective" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="algebraic-perspective"><span class="header-section-number">1.3.1</span> Algebraic perspective</h3>
-<p><em>See also Agresti 2.1.1, Dunn and Smyth 2.4.1, 2.5.2</em></p>
-<p>Now, suppose that we are given a dataset <span class="math inline">\((\boldsymbol{X}, \boldsymbol{y})\)</span>. How do we go about estimating <span class="math inline">\(\boldsymbol{\beta}\)</span> based on this data? The canonical approach is the <em>method of least squares</em>: <span class="math display">\[
-\boldsymbol{\widehat{\beta}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\beta}\|^2.
-\]</span> The quantity <span class="math display">\[
-\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2 = \|\boldsymbol{y} - \boldsymbol{\widehat{\mu}}\|^2 = \sum_{i = 1}^n (y_i - \widehat{\mu}_i)^2
-\]</span> is called the <em>residual sum of squares (RSS)</em>, and it measures the lack of fit of the linear regression model. We therefore want to choose <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> to minimize this lack of fit. Letting <span class="math inline">\(L(\boldsymbol{\beta}) = \frac{1}{2}\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\beta}\|^2\)</span>, we can do some calculus to derive that <span class="math display">\[
-\frac{\partial}{\partial \boldsymbol{\beta}}L(\boldsymbol{\beta}) = -\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\beta}).
-\]</span> Setting this vector of partial derivatives equal to zero, we arrive at the <em>normal equations</em>: <span id="eq-normal-equations"><span class="math display">\[
--\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}) = 0 \quad \Longleftrightarrow \quad \boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\widehat{\beta}} = \boldsymbol{X}^T \boldsymbol{y}.
-\tag{1.7}\]</span></span> If <span class="math inline">\(\boldsymbol{X}\)</span> is full rank, the matrix <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{X}\)</span> is invertible and we can therefore conclude that <span id="eq-beta-hat"><span class="math display">\[
-\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}.
-\tag{1.8}\]</span></span></p>
-</section>
-<section id="probabilistic-perspective" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="probabilistic-perspective"><span class="header-section-number">1.3.2</span> Probabilistic perspective</h3>
-<p><em>See also Agresti 2.7.1</em></p>
-<section id="least-squares-as-maximum-likelihood-estimation." class="level4" data-number="1.3.2.1">
-<h4 data-number="1.3.2.1" class="anchored" data-anchor-id="least-squares-as-maximum-likelihood-estimation."><span class="header-section-number">1.3.2.1</span> Least squares as maximum likelihood estimation.</h4>
-<p>Note that if <span class="math inline">\(\boldsymbol{\epsilon}\)</span> is assumed to be <span class="math inline">\(N(0,\sigma^2 \boldsymbol{I_n})\)</span>, then the least squares solution would also be the maximum likelihood solution. Indeed, for <span class="math inline">\(y_i \sim N(\mu_i, \sigma^2)\)</span>, the log-likelihood is:</p>
-<p><span class="math display">\[
-\log \left[\prod_{i = 1}^n \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(y_i - \mu_i)^2}{2\sigma^2}\right)\right] = \text{constant} - \frac{1}{2\sigma^2}\sum_{i = 1}^n (y_i - \mu_i)^2.
-\]</span></p>
-</section>
-<section id="gauss-markov-theorem" class="level4" data-number="1.3.2.2">
-<h4 data-number="1.3.2.2" class="anchored" data-anchor-id="gauss-markov-theorem"><span class="header-section-number">1.3.2.2</span> Gauss-Markov theorem</h4>
-<p>Now that we have derived the least squares estimator, we can compute its bias and variance. To obtain the bias, we first calculate that:</p>
-<p><span class="math display">\[
-\mathbb{E}[\widehat{\boldsymbol{\beta}}] = \mathbb{E}[(\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \mathbb{E}[\boldsymbol{y}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{\beta}.
-\]</span></p>
-<p>Therefore, the least squares estimator is unbiased. To obtain the variance, we compute:</p>
-<p><span id="eq-var-of-beta-hat"><span class="math display">\[
-\begin{split}
-\text{Var}[\boldsymbol{\widehat{\beta}}] &amp;= \text{Var}[(\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y}] \\
-&amp;= (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T\text{Var}[\boldsymbol{y}]\boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{X})^{-1} \\
-&amp;= (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T(\sigma^2 \boldsymbol{I_n})\boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{X})^{-1} \\
-&amp;= \sigma^2 (\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\end{split}
-\tag{1.9}\]</span></span></p>
-<div id="thm-gauss-markov" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1.1 (Gauss-Markov theorem) </strong></span>For homoskedastic linear models (eqs. (<a href="index.html#eq-lm1"><span>1</span></a>) and (<a href="index.html#eq-lm2"><span>2</span></a>)), the least squares coefficient estimates have the smallest covariance matrix (in the sense of positive semidefinite matrices) among all linear unbiased estimates of <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
-</div>
-</section>
-</section>
-<section id="geometric-perspective" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="geometric-perspective"><span class="header-section-number">1.3.3</span> Geometric perspective</h3>
-<p><em>See also Agresti 2.2.1-2.2.3</em></p>
-<p>The following is the key geometric property of least squares (<a href="#fig-least-squares-as-projection">Figure&nbsp;<span>1.2</span></a>).</p>
-<div id="prp-orthogonal-projection" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1.1 </strong></span>The mapping <span class="math inline">\(\boldsymbol{y} \mapsto \boldsymbol{\widehat{\mu}} = \boldsymbol{X}\boldsymbol{\widehat{\beta}} \in C(\boldsymbol{X})\)</span> is an <em>orthogonal projection</em> onto <span class="math inline">\(C(\boldsymbol{X})\)</span>, with projection matrix</p>
-<p><span id="eq-hat-matrix"><span class="math display">\[
-\boldsymbol{H} \equiv  \boldsymbol{X}(\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \quad (\textit{the hat matrix}).
-\tag{1.10}\]</span></span></p>
-</div>
-<p>Geometrically, this makes sense since we define <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> so that <span class="math inline">\(\boldsymbol{\widehat{\mu}} \in C(\boldsymbol{X})\)</span> is as close to <span class="math inline">\(\boldsymbol{y}\)</span> as possible. The shortest path between a point and a plane is the perpendicular. A simple example of <span class="math inline">\(\boldsymbol{H}\)</span> can be obtained by considering the intercept-only regression.</p>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>To prove that <span class="math inline">\(\boldsymbol{y} \mapsto \boldsymbol{\widehat{\mu}}\)</span> is an orthogonal projection onto <span class="math inline">\(C(\boldsymbol{X})\)</span>, it suffices to show that:</p>
-<p><span class="math display">\[
-\boldsymbol{v}^T (\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}) = 0 \text{ for each } \boldsymbol{v} \in C(\boldsymbol{X}).
-\]</span></p>
-<p>Since the columns <span class="math inline">\(\{\boldsymbol{x_{*0}}, \dots, \boldsymbol{x_{*p-1}}\}\)</span> of <span class="math inline">\(\boldsymbol{X}\)</span> form a basis for <span class="math inline">\(C(\boldsymbol{X})\)</span>, it suffices to show that <span class="math inline">\(\boldsymbol{x_{*j}}^T (\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}) = 0\)</span> for each <span class="math inline">\(j = 0, \dots, p-1\)</span>. This is a consequence of the normal equations <span class="math inline">\(\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}) = 0\)</span> derived in (<a href="#eq-normal-equations"><span>1.7</span></a>).</p>
-<p>To show that the projection matrix is <span class="math inline">\(\boldsymbol{H}\)</span> (<a href="#eq-hat-matrix"><span>1.10</span></a>), it suffices to check that:</p>
-<p><span class="math display">\[
-\boldsymbol{\widehat{\mu}} = \boldsymbol{X}\boldsymbol{\widehat{\beta}} = \boldsymbol{X}(\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{y} \equiv \boldsymbol{H} \boldsymbol{y}.
-\]</span></p>
-</div>
-<div id="fig-least-squares-as-projection" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/least-squares-as-projection.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;1.2: Least squares as orthogonal projection.</figcaption>
-</figure>
-</div>
-<div id="prp-projection-matrices" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1.2 </strong></span>If <span class="math inline">\(\boldsymbol{P}\)</span> is an orthogonal projection onto a subspace <span class="math inline">\(\boldsymbol{W}\)</span>, then:</p>
-<ol type="1">
-<li><span class="math inline">\(\boldsymbol{P}\)</span> is idempotent, i.e., <span class="math inline">\(\boldsymbol{P}^2 = \boldsymbol{P}\)</span>.</li>
-<li>For all <span class="math inline">\(\boldsymbol{v} \in \boldsymbol{W}\)</span>, we have <span class="math inline">\(\boldsymbol{P}\boldsymbol{v} = \boldsymbol{v}\)</span>, and for all <span class="math inline">\(\boldsymbol{v} \in \boldsymbol{W}^{\perp}\)</span>, we have <span class="math inline">\(\boldsymbol{P} \boldsymbol{v} = 0\)</span>.</li>
-<li><span class="math inline">\(\text{trace}(\boldsymbol{P}) = \text{dim}(\boldsymbol{W})\)</span>.</li>
-</ol>
-</div>
-<p>One consequence of the geometric interpretation of least squares is that the fitted values <span class="math inline">\(\boldsymbol{\widehat{\mu}}\)</span> depend on <span class="math inline">\(\boldsymbol{X}\)</span> only through <span class="math inline">\(C(\boldsymbol{X})\)</span>. As we will see in Homework 1, there are many different model matrices <span class="math inline">\(\boldsymbol{X}\)</span> leading to the same model space. Essentially, this reflects the fact that there are many different bases for the same vector space. Consider, for example, changing the units on the columns of <span class="math inline">\(\boldsymbol{X}\)</span>. It can be verified that not just the fitted values <span class="math inline">\(\boldsymbol{\widehat{\mu}}\)</span> but also the predictions on a new set of features remain invariant to reparametrization (this follows from parts (a) and (b) of Homework 1 Problem 1). Therefore, while reparametrization can have a huge impact on the fitted coefficients, it has no impact on the predictions of linear regression.</p>
-</section>
-</section>
-<section id="analysis-of-variance-and-r2" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="analysis-of-variance-and-r2"><span class="header-section-number">1.4</span> Analysis of variance and <span class="math inline">\(R^2\)</span></h2>
-<p><em>See also Agresti 2.4.2, 2.4.3, 2.4.6, Dunn and Smyth 2.9</em></p>
-<section id="analysis-of-variance" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">1.4.1</span> Analysis of variance</h3>
-<p>The orthogonality property of least squares, together with the Pythagorean theorem, leads to a fundamental relationship called <em>the analysis of variance</em>.</p>
-<p>Let’s say that <span class="math inline">\(S \subset \{0, 1, \dots, p-1\}\)</span> is a subset of the predictors we wish to exclude from the model. First regress <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> to get <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as usual. Then, we consider the <em>partial model matrix</em> <span class="math inline">\(\boldsymbol{X_{*,\text{-}S}}\)</span> obtained by selecting all predictors except those in <span class="math inline">\(S\)</span>. Regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X_{*, \text{-}S}}\)</span> results in <span class="math inline">\(\boldsymbol{\widehat{\beta}_{\text{-}S}}\)</span> (note: <span class="math inline">\(\boldsymbol{\widehat{\beta}_{\text{-}S}}\)</span> is not necessarily obtained from <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> by extracting the coefficients corresponding to <span class="math inline">\(\text{-}S\)</span>).</p>
-<div id="thm-analysis-of-variance" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1.2 </strong></span><span id="eq-pythagorean-theorem"><span class="math display">\[
-\|\boldsymbol{y} -  \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 = \|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 + \|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2.
-\tag{1.11}\]</span></span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Consider the three points <span class="math inline">\(\boldsymbol{y}\)</span>, <span class="math inline">\(\boldsymbol{X}\boldsymbol{\widehat{\beta}}\)</span>, <span class="math inline">\(\boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}} \in \mathbb{R}^n\)</span>. Since <span class="math inline">\(\boldsymbol{X}\boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\)</span> are both in <span class="math inline">\(C(\boldsymbol{X})\)</span>, it follows by the orthogonal projection property that <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}\)</span> is orthogonal to <span class="math inline">\(\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\)</span>. In other words, these three points form a right triangle (<a href="#fig-sum-of-squares">Figure&nbsp;<span>1.3</span></a>). The relationship (<a href="#eq-pythagorean-theorem"><span>1.11</span></a>) is then a consequence of the Pythagorean theorem.</p>
-</div>
-<div id="fig-sum-of-squares" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/sum-of-squares.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;1.3: Pythagorean theorem for regression on a subset of predictors.</figcaption>
-</figure>
-</div>
-<p>We will rely on this fundamental relationship throughout this course. One important special case is when <span class="math inline">\(S = \{1, \dots, p-1\}\)</span>, i.e., the model without <span class="math inline">\(S\)</span> is the intercept-only model. In this case, <span class="math inline">\(\boldsymbol{X_{*, \text{-}S}} = \boldsymbol{1_n}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\beta}_{\text{-}S}} = \bar{y}\)</span>. Therefore, equation (<a href="#eq-pythagorean-theorem"><span>1.11</span></a>) implies the following.</p>
-<div id="prp-sum-of-squares" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1.3 </strong></span><span class="math display">\[
-\|\boldsymbol{y} -  \bar{y} \boldsymbol{1_n}\|^2 = \|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1_n}\|^2 + \|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2.
-\]</span></p>
-<p>Equivalently, we can rewrite this equation as follows:</p>
-<p><span id="eq-anova"><span class="math display">\[
-\textnormal{SST} \equiv \sum_{i = 1}^n (y_i - \bar{y})^2 = \sum_{i = 1}^n (\widehat{\mu}_i - \bar{y})^2 + \sum_{i = 1}^n (y_i - \widehat{\mu}_i)^2 \equiv \textnormal{SSR} + \textnormal{SSE}.
-\tag{1.12}\]</span></span></p>
-</div>
-</section>
-<section id="r2-and-multiple-correlation" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="r2-and-multiple-correlation"><span class="header-section-number">1.4.2</span> <span class="math inline">\(R^2\)</span> and multiple correlation</h3>
-<p>The ANOVA decomposition (<a href="#eq-anova"><span>1.12</span></a>) of the variation in <span class="math inline">\(\boldsymbol{y}\)</span> into that explained by the linear regression model (SSR) and that left over (SSE) leads naturally to the definition of <span class="math inline">\(R^2\)</span> as the fraction of variation in <span class="math inline">\(\boldsymbol{y}\)</span> explained by the linear regression model:</p>
-<p><span class="math display">\[
-R^2 \equiv \frac{\text{SSR}}{\text{SST}} = \frac{\sum_{i = 1}^n (\widehat{\mu}_i - \bar{y})^2}{\sum_{i = 1}^n (y_i - \bar{y})^2} = \frac{\|\boldsymbol{X}\boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1_n}\|^2}{\|\boldsymbol{y} -  \bar{y} \boldsymbol{1_n}\|^2}.
-\]</span></p>
-<p>By the decomposition (<a href="#eq-anova"><span>1.12</span></a>), we have <span class="math inline">\(R^2 \in [0,1]\)</span>. The closer <span class="math inline">\(R^2\)</span> is to 1, the more closely the data follow the fitted linear regression model. This intuition is formalized in the following result.</p>
-<div id="prp-multiple-correlation" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1.4 </strong></span><span class="math inline">\(R^2\)</span> is the squared sample correlation between <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
-</div>
-<p>For this reason, the positive square root of <span class="math inline">\(R^2\)</span> is called the <em>multiple correlation coefficient</em>.</p>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>The first step is to observe that the mean of <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> is <span class="math inline">\(\bar{y}\)</span> (this follows from the normal equations). Therefore, the sample correlation between <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> is the inner product of the unit-normalized vectors <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\)</span> and <span class="math inline">\(\boldsymbol{y} - \bar{y} \boldsymbol{1}\)</span>, which is the cosine of the angle between them. From the geometry of <a href="#fig-sum-of-squares">Figure&nbsp;<span>1.3</span></a>, we find that the cosine of the angle between <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\)</span> and <span class="math inline">\(\boldsymbol{y} - \bar{y} \boldsymbol{1}\)</span> is <span class="math inline">\(\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\|/\|\boldsymbol{y} - \bar{y} \boldsymbol{1}\|\)</span>. Squaring this relation gives the desired conclusion.</p>
-</div>
-</section>
-<section id="r2-increases-as-predictors-are-added" class="level3" data-number="1.4.3">
-<h3 data-number="1.4.3" class="anchored" data-anchor-id="r2-increases-as-predictors-are-added"><span class="header-section-number">1.4.3</span> <span class="math inline">\(R^2\)</span> increases as predictors are added</h3>
-<p>The <span class="math inline">\(R^2\)</span> is an <em>in-sample</em> measure, i.e., it uses the same data to fit the model and to assess the quality of the fit. Therefore, it is generally an optimistic measure of the (out-of-sample) prediction error. One manifestation of this is that the <span class="math inline">\(R^2\)</span> increases if any predictors are added to the model (even if these predictors are “junk”). To see this, it suffices to show that SSE decreases as we add predictors. Without loss of generality, suppose that we start with a model with all predictors except those in <span class="math inline">\(S \subset \{0, 1, \dots, p-1\}\)</span> and compare it to the model including all the predictors <span class="math inline">\(\{0,1,\dots,p-1\}\)</span>. We can read off from the Pythagorean theorem (<a href="#eq-pythagorean-theorem"><span>1.11</span></a>) that:</p>
-<p><span class="math display">\[
-\text{SSE}(\boldsymbol{X_{*, \text{-}S}}, \boldsymbol{y}) \equiv \|\boldsymbol{y} -  \boldsymbol{X_{*, \text{-}S}}\boldsymbol{\widehat{\beta}_{\text{-}S}}\|^2 \geq  \|\boldsymbol{y} -  \boldsymbol{X}\boldsymbol{\widehat{\beta}}\|^2 \equiv \text{SSE}(\boldsymbol{X}, \boldsymbol{y}).
-\]</span></p>
-<p>Adding many junk predictors will have the effect of degrading predictive performance but will nevertheless increase <span class="math inline">\(R^2\)</span>.</p>
-</section>
-</section>
-<section id="special-cases" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="special-cases"><span class="header-section-number">1.5</span> Special cases</h2>
-<section id="the-c-groups-model" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="the-c-groups-model"><span class="header-section-number">1.5.1</span> The <span class="math inline">\(C\)</span>-groups model</h3>
-<p><em>See also Agresti 2.3.2-2.3.3</em></p>
-<section id="anova-decomposition-for-c-groups-model" class="level4" data-number="1.5.1.1">
-<h4 data-number="1.5.1.1" class="anchored" data-anchor-id="anova-decomposition-for-c-groups-model"><span class="header-section-number">1.5.1.1</span> ANOVA decomposition for <span class="math inline">\(C\)</span> groups model</h4>
-<p>Let’s consider the special case of the ANOVA decomposition (<a href="#eq-anova"><span>1.12</span></a>) when the model matrix <span class="math inline">\(\boldsymbol{X}\)</span> represents a single categorical predictor <span class="math inline">\(w\)</span>. In this case, each observation <span class="math inline">\(i\)</span> is associated with one of the <span class="math inline">\(C\)</span> classes of <span class="math inline">\(w\)</span>, which we denote <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Let’s consider the <span class="math inline">\(C\)</span> groups of observations <span class="math inline">\(\{i: c(i) = c\}\)</span> for <span class="math inline">\(c \in \{1, \dots, C\}\)</span>. For example, <span class="math inline">\(w\)</span> may be the type of a car (compact, midsize, minivan, etc.) and <span class="math inline">\(y\)</span> might be its fuel efficiency in miles per gallon.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(class, hwy), <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Car class"</span>, <span class="at">y =</span> <span class="st">"Gas mileage (mpg)"</span>) <span class="sc">+</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>It is easy to check that the least squares fitted values <span class="math inline">\(\widehat{\mu}_i\)</span> are simply the means of the corresponding groups:</p>
-<p><span class="math display">\[
-\widehat{\mu}_i = \bar{y}_{c(i)}, \quad \text{where}\ \bar{y}_{c(i)} \equiv \frac{\sum_{i: c(i) = c} y_i}{|\{i: c(i) = c\}|}.
-\]</span></p>
-<p>Therefore, we have:</p>
-<p><span class="math display">\[
-\text{SSR} = \sum_{i = 1}^n (\widehat{\mu}_i - \bar{y})^2 = \sum_{i = 1}^n (\bar{y}_{c(i)} - \bar{y})^2 \equiv \text{between-groups sum of squares (SSB)}.
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\text{SSE} = \sum_{i = 1}^n (y_i - \widehat{\mu}_i)^2 = \sum_{i = 1}^n (y_i - \bar{y}_{c(i)})^2 \equiv \text{within-groups sum of squares (SSW)}.
-\]</span></p>
-<p>We therefore obtain the following corollary of the ANOVA decomposition (<a href="#eq-anova"><span>1.12</span></a>):</p>
-<p><span id="eq-anova-C-groups"><span class="math display">\[
-\text{SST} = \text{SSB} + \text{SSW}.
-\tag{1.13}\]</span></span></p>
-</section>
-</section>
-<section id="simple-linear-regression" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="simple-linear-regression"><span class="header-section-number">1.5.2</span> Simple linear regression</h3>
-<p><em>See also Agresti 2.1.3</em></p>
-<p>Consider a linear regression model with an intercept and one quantitative predictor, <span class="math inline">\(x\)</span>:</p>
-<p><span id="eq-simple-regression"><span class="math display">\[
-y = \beta_0 + \beta_1 x + \epsilon.
-\tag{1.14}\]</span></span></p>
-<p>This is the simple linear regression model.</p>
-<section id="anova-decomposition-for-simple-linear-regression" class="level4" data-number="1.5.2.1">
-<h4 data-number="1.5.2.1" class="anchored" data-anchor-id="anova-decomposition-for-simple-linear-regression"><span class="header-section-number">1.5.2.1</span> ANOVA decomposition for simple linear regression</h4>
-<p>Figure <a href="#fig-anova-simple-linear-regression">Figure&nbsp;<span>1.4</span></a> gives an interpretation of the ANOVA decomposition (<a href="#eq-anova"><span>1.12</span></a>) in the case of the simple linear regression model (<a href="#eq-simple-regression"><span>1.14</span></a>).</p>
-<div id="fig-anova-simple-linear-regression" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/anova-simple-linear-regression.png" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;1.4: ANOVA decomposition for simple linear regression.</figcaption>
-</figure>
-</div>
-</section>
-<section id="connection-between-r2-and-correlation" class="level4" data-number="1.5.2.2">
-<h4 data-number="1.5.2.2" class="anchored" data-anchor-id="connection-between-r2-and-correlation"><span class="header-section-number">1.5.2.2</span> Connection between <span class="math inline">\(R^2\)</span> and correlation</h4>
-<p>There is a connection between <span class="math inline">\(R^2\)</span> and correlation in simple linear regression.</p>
-<div id="prp-R2-correlation" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1.5 </strong></span><span class="math display">\[
-R^2 = \rho_{xy}^2.
-\]</span></p>
-<p>Let <span class="math inline">\(\rho_{xy}\)</span> denote the sample correlation between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and let <span class="math inline">\(R^2_{xy}\)</span> be the <span class="math inline">\(R^2\)</span> from the simple linear regression (<a href="#eq-simple-regression"><span>1.14</span></a>). Then, we have:</p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>This fact is a consequence of Proposition <a href="#prp-multiple-correlation"><span>1.4</span></a>.</p>
-</div>
-</section>
-<section id="regression-to-the-mean" class="level4" data-number="1.5.2.3">
-<h4 data-number="1.5.2.3" class="anchored" data-anchor-id="regression-to-the-mean"><span class="header-section-number">1.5.2.3</span> Regression to the mean</h4>
-<p>Simple linear regression can be used to study the relationship between the same quantity across time (or generations). For example, let <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> be the height of a parent and child. This example motivated Sir Francis Galton to study linear regression in the first place. Alternatively, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> can be a student’s score on a standardized test in two consecutive years, or the number of games won by a given sports team in two consecutive seasons. In this situation, it is reasonable to assume that the sample standard deviations of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are the same (or to normalize these variables to achieve this). In this case, one can show that:</p>
-<p><span id="eq-coefficient-as-correlation"><span class="math display">\[
-\widehat{\beta}_0 = \bar{y} - \rho_{xy} \bar{x} \quad \text{and} \quad \widehat{\beta}_1 = \rho_{xy}.
-\tag{1.15}\]</span></span></p>
-<p>It follows that:</p>
-<p><span class="math display">\[
-|\widehat{\mu}_i - \bar{y}| = |\widehat{\beta}_0 + \widehat{\beta}_1 x_i - \bar{y}| = |\rho_{xy}(x_i - \bar{x})| = |\rho_{xy}| \cdot |x_i - \bar{x}|.
-\]</span></p>
-<p>Since <span class="math inline">\(|\rho_{xy}| &lt; 1\)</span> unless <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are perfectly correlated (by the Cauchy-Schwarz inequality), this means that:</p>
-<p><span id="eq-regression-to-the-mean"><span class="math display">\[
-|\widehat{\mu}_i - \bar{y}| &lt; |x_i - \bar{x}| \quad \text{for each } i.
-\tag{1.16}\]</span></span></p>
-<p>Therefore, we expect <span class="math inline">\(y_i\)</span> to be closer to its mean than <span class="math inline">\(x_i\)</span> is to its mean. This phenomenon is called <em>regression to the mean</em> (and is in fact the origin of the term “regression”). Many mistakenly attribute a causal mechanism to this phenomenon, when in reality it is simply a statistical artifact. For example, suppose <span class="math inline">\(x_i\)</span> is the number of games a sports team won last season and <span class="math inline">\(y_i\)</span> is the number of games it won this season. It is widely observed that teams with exceptional performance in a given season suffer a “winner’s curse,” performing worse in the next season. The reason for the winner’s curse is simple: teams perform exceptionally well due to a combination of skill and luck. While skill stays roughly constant from year to year, the team which performed exceptionally well in a given season is unlikely to get as lucky as it did the next season.</p>
-</section>
-</section>
-</section>
-<section id="collinearity-adjustment-and-partial-correlation" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="collinearity-adjustment-and-partial-correlation"><span class="header-section-number">1.6</span> Collinearity, adjustment, and partial correlation</h2>
-<p><em>See also Agresti 2.2.4, 2.5.6, 2.5.7, 4.6.5</em></p>
-<p>An important part of linear regression analysis is the dependence of the least squares coefficient for a predictor on what other predictors are in the model. This relationship is dictated by the extent to which the given predictor is correlated with the other predictors. In this section, we’ll use some additional notation. Let <span class="math inline">\(S \subset \{0, \dots, p-1\}\)</span> be a group of predictors (we can assume without loss of generality that <span class="math inline">\(S = \{0, \dots, s-1\}\)</span> for some <span class="math inline">\(1 \leq s &lt; p\)</span>). Then, denote <span class="math inline">\(\text{-}S \equiv \{0, \dots, p-1\} \setminus S\)</span>. Let <span class="math inline">\(\boldsymbol{\widehat{\beta}}_S\)</span> denote the least squares coefficients when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*S}\)</span> and let <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{S|\text{-}S}\)</span> denote the least squares coefficients corresponding to <span class="math inline">\(S\)</span> when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X} = (\boldsymbol{X}_{*S}, \boldsymbol{X}_{*,\text{-}S})\)</span>.</p>
-<section id="least-squares-estimates-in-the-orthogonal-case" class="level3" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">1.6.1</span> Least squares estimates in the orthogonal case</h3>
-<p>The simplest case to analyze is when a group of predictors <span class="math inline">\(\boldsymbol{X}_{*S}\)</span> is orthogonal to the rest of the predictors <span class="math inline">\(\boldsymbol{X}_{*,\text{-}S}\)</span> in the sense that</p>
-<p><span class="math display">\[
-\boldsymbol{X}_{*S}^T \boldsymbol{X}_{*,\text{-}S} = \boldsymbol{0}.
-\]</span></p>
-<p>In this case, we can derive the least squares coefficient vector <span class="math inline">\(\boldsymbol{\widehat{\beta}} = (\boldsymbol{\widehat{\beta}}_{S|\text{-}S}, \boldsymbol{\widehat{\beta}}_{\text{-}S|S})\)</span> from the normal equations:</p>
-<p><span id="eq-orthogonality"><span class="math display">\[
-\begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S|S}
-\end{pmatrix} = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y} =
-\begin{pmatrix}
-\boldsymbol{X}_S^T \boldsymbol{X}_S &amp; \boldsymbol{0} \\
-\boldsymbol{0} &amp; \boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S}
-\end{pmatrix}^{-1}
-\begin{pmatrix}
-\boldsymbol{X}_S^T \\
-\boldsymbol{X}_{\text{-}S}^T
-\end{pmatrix} \boldsymbol{y} =
-\begin{pmatrix}
-(\boldsymbol{X}_S^T \boldsymbol{X}_S)^{-1} \boldsymbol{X}_S^T \boldsymbol{y} \\
-(\boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S})^{-1} \boldsymbol{X}_{\text{-}S}^T \boldsymbol{y}
-\end{pmatrix} =
-\begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S}
-\end{pmatrix}.
-\tag{1.17}\]</span></span></p>
-<p>Therefore, the least squares coefficients when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{X}_S, \boldsymbol{X}_{\text{-}S})\)</span> are the same as those obtained from regressing <span class="math inline">\(\boldsymbol{y}\)</span> separately on <span class="math inline">\(\boldsymbol{X}_S\)</span> and <span class="math inline">\(\boldsymbol{X}_{\text{-}S}\)</span>, i.e.</p>
-<p><span id="eq-orthogonality-consequence"><span class="math display">\[
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} = \boldsymbol{\widehat{\beta}}_{S}.
-\tag{1.18}\]</span></span></p>
-</section>
-<section id="least-squares-estimates-via-orthogonalization" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="least-squares-estimates-via-orthogonalization"><span class="header-section-number">1.6.2</span> Least squares estimates via orthogonalization</h3>
-<p>Let’s now focus our attention on a single predictor <span class="math inline">\(x_j\)</span>. If this predictor is orthogonal to the remaining predictors, then the result (<a href="#eq-orthogonality-consequence"><span>1.18</span></a>) states that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> can be obtained from simply regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(x_j\)</span>. However, this is usually not the case. Usually, <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> has a nonzero projection <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> onto <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}j})\)</span>:</p>
-<p><span class="math display">\[
-\boldsymbol{x}_{*j} = \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}} + \boldsymbol{x}^{\perp}_{*j},
-\]</span></p>
-<p>where <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> is the residual from regressing <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> onto <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> and is therefore orthogonal to <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}j})\)</span>. In other words, <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> is the projection of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> onto the orthogonal complement of <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}j})\)</span>.</p>
-<p>With this decomposition, let us change basis from <span class="math inline">\((\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span> to <span class="math inline">\((\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span> by the process explored in Homework 1 Question 1. Let us write:</p>
-<p><span class="math display">\[
-\begin{aligned}
-\boldsymbol{y} &amp;= \boldsymbol{x}_{*j} \beta_{j|\text{-}j} + \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\beta}_{\text{-}j|j} + \boldsymbol{\epsilon} \\
-&amp;\Longleftrightarrow \ \boldsymbol{y} = (\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}} + \boldsymbol{x}^{\perp}_{*j})\beta_{j|\text{-}j} + \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\beta}_{\text{-}j|j} + \boldsymbol{\epsilon} \\
-&amp;\Longleftrightarrow \ \boldsymbol{y} = \boldsymbol{x}^{\perp}_{*j}\beta_{j|\text{-}j} + \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\beta}'_{\text{-}j|j} + \boldsymbol{\epsilon}.
-\end{aligned}
-\]</span></p>
-<p>What this means is that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>, the least squares coefficient of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>, is also the least squares coefficient of <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>. However, since <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> is orthogonal to <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> by construction, we can use the result (<a href="#eq-orthogonality"><span>1.17</span></a>) to conclude that:</p>
-<p><span class="math display">\[
-\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the *univariate* regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
-\]</span></p>
-<p>We can solve this univariate regression explicitly to obtain:</p>
-<p><span id="eq-orthogonal-univariate"><span class="math display">\[
-\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol{y}}{\|\boldsymbol{x}^{\perp}_{*j}\|^2}.
-\tag{1.19}\]</span></span></p>
-</section>
-<section id="adjustment-and-partial-correlation" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="adjustment-and-partial-correlation"><span class="header-section-number">1.6.3</span> Adjustment and partial correlation</h3>
-<p>Equivalently, letting <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{\text{-}j}\)</span> be the least squares estimate in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> (note that this is <em>not</em> the same as <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{\text{-}j|j}\)</span>), we can write:</p>
-<p><span class="math display">\[
-\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}_{*j} -\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2}.
-\]</span></p>
-<p>We can interpret this result as follows:</p>
-<div id="thm-frisch-waugh-lovell" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1.3 </strong></span>The linear regression coefficient <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> results from first adjusting <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> for the effects of all other variables, and then regressing the residuals from <span class="math inline">\(\boldsymbol{y}\)</span> onto the residuals from <span class="math inline">\(\boldsymbol{x}_{*j}\)</span>.</p>
-</div>
-<p>In this sense, <em>the least squares coefficient for a predictor in a multiple linear regression reflects the effect of the predictor on the response after controlling for the effects of all other predictors.</em> A related quantity is the <em>partial correlation</em> between <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> after controlling for <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span>, defined as the correlation between <span class="math inline">\(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> and <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j}\)</span>. We can then connect the least squares coefficient <span class="math inline">\(\widehat{\beta}_j\)</span> to this partial correlation in a similar spirit to equation (<a href="#eq-coefficient-as-correlation"><span>1.15</span></a>).</p>
-</section>
-<section id="effects-of-collinearity" class="level3" data-number="1.6.4">
-<h3 data-number="1.6.4" class="anchored" data-anchor-id="effects-of-collinearity"><span class="header-section-number">1.6.4</span> Effects of collinearity</h3>
-<p>Collinearity between a predictor <span class="math inline">\(x_j\)</span> and the other predictors tends to make the estimate <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> unstable. Intuitively, this makes sense because it becomes harder to distinguish between the effects of predictor <span class="math inline">\(x_j\)</span> and those of the other predictors on the response. To find the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> for a model matrix <span class="math inline">\(\boldsymbol{X}\)</span>, we could in principle use the formula (<a href="#eq-var-of-beta-hat"><span>1.9</span></a>). However, this formula involves the inverse of the matrix <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{X}\)</span>, which is hard to reason about. Instead, we can employ the formula (<a href="#eq-orthogonal-univariate"><span>1.19</span></a>) to calculate directly that:</p>
-<p><span id="eq-conditional-variance"><span class="math display">\[
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}^\perp\|^2}.
-\tag{1.20}\]</span></span></p>
-<p>We see that the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> is inversely proportional to <span class="math inline">\(\|\boldsymbol{x}_{*j}^\perp\|^2\)</span>. This means that the greater the collinearity, the less of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is left over after adjusting for <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span>, and the greater the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>. To quantify the effect of this adjustment, suppose there were no other predictors other than the intercept term. Then, we would have:</p>
-<p><span class="math display">\[
-\text{Var}[\widehat{\beta}_j] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
-\]</span></p>
-<p>Therefore, we can rewrite the variance (<a href="#eq-conditional-variance"><span>1.20</span></a>) as:</p>
-<p><span id="eq-vif"><span class="math display">\[
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_j] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_j] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_j],
-\tag{1.21}\]</span></span></p>
-<p>where <span class="math inline">\(R_j^2\)</span> is the <span class="math inline">\(R^2\)</span> value when regressing <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> and VIF stands for <em>variance inflation factor</em>. The higher <span class="math inline">\(R_j^2\)</span>, the more of the variance in <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is explained by other predictors, the higher the variance in <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>.</p>
-</section>
-<section id="remark-average-treatment-effect-estimation-in-causal-inference" class="level3" data-number="1.6.5">
-<h3 data-number="1.6.5" class="anchored" data-anchor-id="remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">1.6.5</span> Remark: Average treatment effect estimation in causal inference</h3>
-<p>Suppose we’d like to study the effect of an exposure or treatment (e.g.&nbsp;taking a blood pressure medication) on a response <span class="math inline">\(y\)</span> (e.g.&nbsp;blood pressure). In the Neyman-Rubin causal model, for a given individual <span class="math inline">\(i\)</span> we denote by <span class="math inline">\(y_i(1)\)</span> and <span class="math inline">\(y_i(0)\)</span> the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called <em>potential outcomes</em>. Let <span class="math inline">\(t_i \in \{0,1\}\)</span> indicate whether the <span class="math inline">\(i\)</span>th individual actually received treatment or control. Therefore, the observed outcome is <span class="math inline">\(y_i^{\text{obs}} = y_i(t_i)\)</span>. Based on the data <span class="math inline">\(\{(t_i, y_i)\}_{i = 1, \dots, n}\)</span>, the most basic goal is to estimate the:</p>
-<p><span class="math display">\[
-\textit{average treatment effect} \  \tau \equiv \mathbb{E}[y(1) - y(0)],
-\]</span></p>
-<p>where averaging is done over the population of individuals (often called <em>units</em> in causal inference). Of course, we do not observe both <span class="math inline">\(y(1)\)</span> and <span class="math inline">\(y(0)\)</span> for any unit. Additionally, usually in observational studies we have <em>confounding variables</em> <span class="math inline">\(z_2, \dots, z_{p-1}\)</span>: variables that influence both the treatment assignment and the response (e.g.&nbsp;degree of health-seeking activity). It is important to control for these confounders in order to get an unbiased estimate of the treatment effect. Suppose the following linear model holds:</p>
-<p><span class="math display">\[
-y(t) = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}, \quad \text{where} \ \epsilon \perp\!\!\!\!\perp t.
-\]</span></p>
-<p>This assumption implies that the treatment effect is constant, and the response is a linear function of the treatment and observed confounders, and there is no unmeasured confounding. Note that:</p>
-<p><span class="math display">\[
-\tau \equiv \mathbb{E}[y(1) - y(0)] = \beta_1.
-\]</span></p>
-<p>Furthermore:</p>
-<p><span class="math display">\[
-y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
-\]</span></p>
-<p>In this case, the average treatment effect <span class="math inline">\(\tau\)</span> is <em>identified</em> as the coefficient <span class="math inline">\(\beta_1\)</span> in the above regression, i.e.&nbsp;<span class="math inline">\(\tau = \beta\)</span>. Therefore, the least squares estimate <span class="math inline">\(\widehat{\beta}_1\)</span> is an unbiased estimate of the average treatment effect. (Causal inference is beyond the scope of STAT 9610; see STAT 9210 instead.)</p>
-</section>
-</section>
-<section id="r-demo" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="r-demo"><span class="header-section-number">1.7</span> R demo</h2>
-<p><em>See also Agresti 2.6, Dunn and Smyth 2.6</em></p>
-<p>The R demo will be based on the <code>ScotsRaces</code> data from the Agresti textbook. Data description (quoted from the textbook):</p>
-<blockquote class="blockquote">
-<p>“Each year the Scottish Hill Runners Association publishes a list of hill races in Scotland for the year. The table below shows data on the record time for some of the races (in minutes). Explanatory variables listed are the distance of the race (in miles) and the cumulative climb (in thousands of feet).”</p>
-</blockquote>
-<p>We will also familiarize ourselves with several important functions from the <code>tidyverse</code> packages, including the <code>ggplot2</code> package for data visualization and <code>dplyr</code> package for data manipulation.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data import, manipulation, and plotting</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)    <span class="co"># for ggpairs() function</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)   <span class="co"># for geom_text_repel() function</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)       <span class="co"># for vif() function</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read the data into R</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/ScotsRaces.dat"</span>) <span class="co"># read_tsv from readr for data import</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>scots_races</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 35 × 4
-   race                   distance climb  time
-   &lt;chr&gt;                     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 GreenmantleNewYearDash      2.5  0.65  16.1
- 2 Carnethy5HillRace           6    2.5   48.4
- 3 CraigDunainHillRace         6    0.9   33.6
- 4 BenRhaHillRace              7.5  0.8   45.6
- 5 BenLomondHillRace           8    3.07  62.3
- 6 GoatfellHillRace            8    2.87  73.2
- 7 BensofJuraFellRace         16    7.5  205. 
- 8 CairnpappleHillRace         6    0.8   36.4
- 9 ScoltyHillRace              5    0.8   29.8
-10 TraprainLawRace             6    0.65  39.8
-# ℹ 25 more rows</code></pre>
-</div>
-</div>
-<section id="exploration" class="level3" data-number="1.7.1">
-<h3 data-number="1.7.1" class="anchored" data-anchor-id="exploration"><span class="header-section-number">1.7.1</span> Exploration</h3>
-<p>Before modeling our data, let’s first explore it.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs plot</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What are the typical ranges of the variables?</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What are the relationships among the variables?</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>race) <span class="sc">|&gt;</span> <span class="co"># select() from dplyr for selecting columns</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>() <span class="co"># ggpairs() from GGally to create pairs plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="480"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mile time versus distance</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: How does mile time vary with distance?</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What races deviate from this trend?</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: How does climb play into it?</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># add mile time variable to scots_races</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>scots_races <span class="ot">&lt;-</span> scots_races <span class="sc">|&gt;</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mile_time =</span> time <span class="sc">/</span> distance) <span class="co"># mutate() from dplyr to add column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot mile time versus distance</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add climb information as point color</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time, <span class="at">colour =</span> climb)) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="432"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># highlight extreme points</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>scots_races_extreme <span class="ot">&lt;-</span> scots_races <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(distance <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">|</span> mile_time <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="co"># filter() from dplyr to subset rows</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot mile time versus distance</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time, <span class="at">label =</span> race, <span class="at">colour =</span> climb)) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> race), <span class="at">data =</span> scots_races_extreme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="432"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clean up plot</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time, <span class="at">label =</span> race, <span class="at">color =</span> climb)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> race), <span class="at">data =</span> scots_races_extreme) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distance (miles)"</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Mile Time (minutes per mile)"</span>,</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Climb</span><span class="sc">\n</span><span class="st">(thousands of ft)"</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="linear-models-estimation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="528"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="linear-model-coefficient-interpretation" class="level3" data-number="1.7.2">
-<h3 data-number="1.7.2" class="anchored" data-anchor-id="linear-model-coefficient-interpretation"><span class="header-section-number">1.7.2</span> Linear model coefficient interpretation</h3>
-<p>Let’s fit some linear models and interpret the coefficients.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What is the effect of an extra mile of distance on time?</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance <span class="sc">+</span> climb, <span class="at">data =</span> scots_races)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)    distance       climb 
- -13.108551    6.350955   11.780133 </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model with interaction</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What is the effect of an extra mile of distance on time</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  for a run with low climb?</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What is the effect of an extra mile of distance on time</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  for a run with high climb?</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>lm_fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance <span class="sc">*</span> climb, <span class="at">data =</span> scots_races)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm_fit_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   (Intercept)       distance          climb distance:climb 
-    -0.7671925      4.9622542      3.7132519      0.6598256 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min_climb =</span> <span class="fu">min</span>(climb), <span class="at">max_climb =</span> <span class="fu">max</span>(climb))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  min_climb max_climb
-      &lt;dbl&gt;     &lt;dbl&gt;
-1       0.3       7.5</code></pre>
-</div>
-</div>
-<p>Let’s take a look at the regression summary for :</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance <span class="sc">+</span> climb, <span class="at">data =</span> scots_races)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = time ~ distance + climb, data = scots_races)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--16.654  -4.842   1.110   4.667  27.762 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -13.1086     2.5608  -5.119 1.41e-05 ***
-distance      6.3510     0.3578  17.751  &lt; 2e-16 ***
-climb        11.7801     1.2206   9.651 5.37e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 8.734 on 32 degrees of freedom
-Multiple R-squared:  0.9717,    Adjusted R-squared:   0.97 
-F-statistic: 549.9 on 2 and 32 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>We get a coefficient of 6.35 with standard error 0.36 for <code>distance</code>, where the standard error is an estimate of the quantity (<a href="#eq-conditional-variance"><span>1.20</span></a>).</p>
-</section>
-<section id="r2-and-sum-of-squared-decompositions." class="level3" data-number="1.7.3">
-<h3 data-number="1.7.3" class="anchored" data-anchor-id="r2-and-sum-of-squared-decompositions."><span class="header-section-number">1.7.3</span> <span class="math inline">\(R^2\)</span> and sum-of-squared decompositions.</h3>
-<p>We can extract the <span class="math inline">\(R^2\)</span> from this fit by reading it off from the bottom of the summary, or by typing</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.971725</code></pre>
-</div>
-</div>
-<p>We can construct sum-of-squares decompositions (<a href="#eq-pythagorean-theorem"><span>1.11</span></a>) using the <code>anova</code> function. This function takes as arguments the partial model and the full model. For example, consider the partial model <code>time ~ distance</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lm_fit_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance, <span class="at">data =</span> scots_races)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_partial, lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Model 1: time ~ distance
-Model 2: time ~ distance + climb
-  Res.Df    RSS Df Sum of Sq     F    Pr(&gt;F)    
-1     33 9546.9                                 
-2     32 2441.3  1    7105.6 93.14 5.369e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>We find that adding the predictor <code>climb</code> reduces the RSS by 7106, from 9547 to 2441. As another example, we can compute the <span class="math inline">\(R^2\)</span> by comparing the full model with the null model:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_fit_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> scots_races)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_null, lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Model 1: time ~ 1
-Model 2: time ~ distance + climb
-  Res.Df   RSS Df Sum of Sq      F    Pr(&gt;F)    
-1     34 86340                                  
-2     32  2441  2     83899 549.87 &lt; 2.2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>Therefore, the <span class="math inline">\(R^2\)</span> is 83899/86340 = 0.972, consistent with the above regression summary.</p>
-</section>
-<section id="adjustment-and-collinearity." class="level3" data-number="1.7.4">
-<h3 data-number="1.7.4" class="anchored" data-anchor-id="adjustment-and-collinearity."><span class="header-section-number">1.7.4</span> Adjustment and collinearity.</h3>
-<p>We can also test the adjustment formula (<a href="#eq-orthogonal-univariate"><span>1.19</span></a>) numerically. Let’s consider the coefficient of in the regression . We can obtain this coefficient by first regressing out of and :</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lm_dist_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lm_time_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>scots_races_resid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dist_residuals =</span> <span class="fu">residuals</span>(lm_dist_on_climb),</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">time_residuals =</span> <span class="fu">residuals</span>(lm_time_on_climb)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>lm_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(time_residuals <span class="sc">~</span> dist_residuals <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> scots_races_resid</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_adjusted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = time_residuals ~ dist_residuals - 1, data = scots_races_resid)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--16.654  -4.842   1.110   4.667  27.762 
-
-Coefficients:
-               Estimate Std. Error t value Pr(&gt;|t|)    
-dist_residuals   6.3510     0.3471    18.3   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 8.474 on 34 degrees of freedom
-Multiple R-squared:  0.9078,    Adjusted R-squared:  0.9051 
-F-statistic: 334.8 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>We find a coefficient of 6.35 with standard error 0.35, which matches that obtained in the original regression.</p>
-<p>We can get the partial correlation between <code>distance</code> and <code>time</code> by taking the empirical correlation between the residuals. We can compare this quantity to the usual correlation.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>scots_races_resid <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(dist_residuals, time_residuals)) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9527881</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(distance, time)) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9430944</code></pre>
-</div>
-</div>
-<p>In this case, the two correlation quantities are similar.</p>
-<p>To obtain the variance inflation factors defined in equation (<a href="#eq-vif"><span>1.21</span></a>), we can use the <code>vif</code> function from the <code>car</code> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>distance    climb 
-1.740812 1.740812 </code></pre>
-</div>
-</div>
-<p>Why are these two VIF values the same?</p>
+<p>In this unit, we will focus on estimating the coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> and variance <span class="math inline">\(\sigma^2\)</span> of a linear regression model. We will interpret these estimates from geometric, algebraic, and probabilistic perspectives.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1174,12 +631,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./linear-models-inference.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Linear models: Inference</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./predictors-and-coefficients.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,19 @@
+# Practical considerations
+
+## Practical versus statistical significance
+
+You can have a statistically significant effect that is not practically significant. The hypothesis testing framework is most useful in the case when the signal-to-noise ratio is relatively small. Otherwise, constructing a confidence interval for the effect size is a more meaningful approach.
+
+## Correlation versus causation, and Simpson's paradox
+
+Causation can be elusive for several reasons. One is reverse causation, where it is not clear whether $X$ causes $Y$ or $Y$ causes $X$. Another is confounding, where there is a third variable $Z$ that causes both $X$ and $Y$. For the latter reason, linear regression coefficients can be sensitive to the choice of other predictors to include and can be misleading if you omit important variables from the regression. A special and sometimes overlooked case of this is *Simpson's paradox*, where an important discrete variable is omitted. Consider the example in @fig-simpson-paradox. Sometimes this discrete variable may seem benign, such as the year in which the data was collected. Such variables might or might not be measured.
+
+![An example of Simpson's paradox (source: Wikipedia).](figures/kidney-stones.png){#fig-simpson-paradox width=100%}
+
+## Dealing with correlated predictors
+
+It depends on the goal. If we're trying to tease apart effects of correlated predictors, then we have no choice but to proceed as usual despite lower power. Otherwise, we can test predictors in groups via the $F$-test to get higher power at the cost of lower "resolution." Sometimes, it is recommended to simply remove predictors that are correlated with other predictors. This practice, however, is somewhat arbitrary and not recommended.
+
+## Model selection
+
+We need to ask ourselves: Why do we want to do model selection? It can either be for prediction purposes or for inferential purposes. If it is for prediction purposes, then we can apply cross-validation to select a model and we don't need to think very hard about statistical significance. If it is for inference, then we need to be more careful. There are various classical model selection criteria (e.g., AIC, BIC), but it is not entirely clear what statistical guarantee we are getting for the resulting models. A simpler approach is to apply a $t$-test for each variable in the model, apply a multiple testing correction to the resulting $p$-values, and report the set of significant variables and the associated guarantee. Re-fitting the linear regression after model selection leads us into some dicey inferential territory due to selection bias. This is the subject of ongoing research, and the jury is still out on the best way of doing this.

@@ -1,0 +1,257 @@
+# R demo
+
+*See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14*
+
+Let's put into practice what we've learned in this chapter by analyzing data about house prices.
+
+```{r, message = FALSE}
+library(tidyverse)
+library(GGally)
+
+houses_data <- read_tsv("data/Houses.dat")
+houses_data
+```
+
+## Exploration
+
+Let's first do a bit of exploration:
+
+```{r, fig.width = 4, fig.height = 3}
+# visualize distribution of housing prices, superimposing the mean
+houses_data |>
+  ggplot(aes(x = price)) +
+  geom_histogram(color = "black", bins = 30) +
+  geom_vline(aes(xintercept = mean(price)),
+    colour = "red",
+    linetype = "dashed"
+  )
+```
+
+```{r}
+# compare median and mean price
+houses_data |>
+  summarise(
+    mean_price = mean(price),
+    median_price = median(price)
+  )
+```
+
+```{r, fig.width = 4.5, fig.height = 4}
+# create a pairs plot of continuous variables
+houses_data |>
+  select(price, size, taxes) |>
+  ggpairs()
+```
+
+```{r, fig.width = 3, fig.height = 3}
+# see how price relates to beds
+houses_data |>
+  ggplot(aes(x = factor(beds), y = price)) +
+  geom_boxplot(fill = "dodgerblue")
+```
+
+```{r, fig.width = 3, fig.height = 3}
+# see how price relates to baths
+houses_data |>
+  ggplot(aes(x = factor(baths), y = price)) +
+  geom_boxplot(fill = "dodgerblue")
+```
+
+```{r, fig.width = 2, fig.height = 3}
+# see how price relates to new
+houses_data |>
+  ggplot(aes(x = factor(new), y = price)) +
+  geom_boxplot(fill = "dodgerblue")
+```
+
+## Hypothesis testing
+
+Let's run a linear regression and interpret the summary. But first, we must decide whether to model beds/baths as categorical or continuous? We should probably model these as categorical, given the potentially nonlinear trend observed in the box plots.
+
+```{r}
+lm_fit <- lm(price ~ factor(beds) + factor(baths) + new + size,
+  data = houses_data
+)
+summary(lm_fit)
+```
+
+We can read off the test statistics and $p$-values for each variable from the regression summary, as well as for the $F$-test against the constant model from the bottom of the summary.
+
+Let's use an $F$-test to assess whether the categorical `baths` variable is important.
+
+```{r}
+lm_fit_partial <- lm(price ~ factor(beds) + new + size,
+  data = houses_data
+)
+anova(lm_fit_partial, lm_fit)
+```
+
+What if we had not coded `baths` as a factor?
+
+```{r}
+lm_fit_not_factor <- lm(price ~ factor(beds) + baths + new + size,
+  data = houses_data
+)
+anova(lm_fit_partial, lm_fit_not_factor)
+```
+
+If we want to test for the equality of means across groups of a categorical predictor, without adjusting for other variables, we can use the ANOVA $F$-test. There are several equivalent ways of doing so:
+
+```{r}
+# just use the summary function
+lm_fit_baths <- lm(price ~ factor(baths), data = houses_data)
+summary(lm_fit_baths)
+
+# use the anova function as before
+lm_fit_const <- lm(price ~ 1, data = houses_data)
+anova(lm_fit_const, lm_fit_baths)
+
+# use the aov function
+aov_fit <- aov(price ~ factor(baths), data = houses_data)
+summary(aov_fit)
+```
+
+We can also use an $F$-test to test for the presence of an interaction with a multi-class categorical predictor.
+
+```{r}
+lm_fit_interaction <- lm(price ~ size * factor(beds), data = houses_data)
+summary(lm_fit_interaction)
+
+lm_fit_size <- lm(price ~ size + factor(beds), data = houses_data)
+anova(lm_fit_size, lm_fit_interaction)
+```
+
+Contrasts of regression coefficients can be tested using the `glht()` function from the `multcomp` package.
+
+## Confidence intervals
+
+We can construct pointwise confidence intervals for each coefficient using `confint()`:
+
+```{r}
+confint(lm_fit)
+```
+
+To create simultaneous confidence intervals, we need a somewhat more manual approach. We start with the coefficients and standard errors:
+
+```{r}
+coef(summary(lm_fit))
+```
+
+Then we add lower and upper confidence interval endpoints based on the formula ([-@eq-simultaneous-coordinatewise-se]):
+
+```{r}
+alpha <- 0.05
+n <- nrow(houses_data)
+p <- length(coef(lm_fit))
+f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
+coef(summary(lm_fit)) |>
+  as.data.frame() |>
+  rownames_to_column(var = "Variable") |>
+  select(Variable, Estimate, `Std. Error`) |>
+  mutate(
+    CI_lower = Estimate - `Std. Error` * sqrt(p * f_quantile),
+    CI_upper = Estimate + `Std. Error` * sqrt(p * f_quantile)
+  )
+```
+
+Note that the simultaneous intervals are substantially larger.
+
+To construct pointwise confidence intervals for the fit, we can use the `predict()` function:
+
+```{r}
+predict(lm_fit, newdata = houses_data, interval = "confidence") |> head()
+```
+
+To get pointwise prediction intervals, we switch `"confidence"` to `"prediction"`:
+
+```{r}
+predict(lm_fit, newdata = houses_data, interval = "prediction") |> head()
+```
+
+To construct simultaneous confidence intervals for the fit or predictions, we again need a slightly more manual approach. We call `predict()` again, but this time asking it for the standard errors rather than the confidence intervals:
+
+```{r}
+predictions <- predict(lm_fit, newdata = houses_data, se.fit = TRUE)
+head(predictions$fit)
+head(predictions$se.fit)
+```
+
+Now we can construct the simultaneous confidence intervals via the formula ([-@eq-simultaneous-fit-se]):
+
+```{r}
+f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
+tibble(
+  lower = predictions$fit - predictions$se.fit * sqrt(p * f_quantile),
+  upper = predictions$fit + predictions$se.fit * sqrt(p * f_quantile)
+)
+```
+
+In the case of simple linear regression, we can plot these pointwise and simultaneous confidence intervals as bands:
+
+```{r, fig.width = 3, fig.height = 3}
+# to produce confidence intervals for fits in general, use the predict() function
+n <- nrow(houses_data)
+p <- 2
+alpha <- 0.05
+lm_fit <- lm(price ~ size, data = houses_data)
+predictions <- predict(lm_fit, se.fit = TRUE)
+t_quantile <- qt(1 - alpha / 2, df = n - p)
+f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
+houses_data |>
+  mutate(
+    fit = predictions$fit,
+    se = predictions$se.fit,
+    ptwise_width = t_quantile * se,
+    simultaneous_width = sqrt(p * f_quantile) * se
+  ) |>
+  ggplot(aes(x = size)) +
+  geom_point(aes(y = price)) +
+  geom_line(aes(y = fit), color = "blue") +
+  geom_line(aes(y = fit + ptwise_width, color = "Pointwise")) +
+  geom_line(aes(y = fit - ptwise_width, color = "Pointwise")) +
+  geom_line(aes(y = fit + simultaneous_width, color = "Simultaneous")) +
+  geom_line(aes(y = fit - simultaneous_width, color = "Simultaneous")) +
+  theme(legend.title = element_blank(), legend.position = "bottom")
+```
+
+## Predictor competition and collaboration
+
+Let's look at the power of detecting the association between `price` and `beds`. We can imagine that `beds` and `baths` are correlated:
+
+```{r, fig.width = 3.5, fig.height = 3}
+houses_data |>
+  ggplot(aes(x = beds, y = baths)) +
+  geom_count()
+```
+
+So let's see how significant `beds` is, with and without `baths` in the model:
+
+```{r}
+lm_fit_only_beds <- lm(price ~ factor(beds), data = houses_data)
+summary(lm_fit_only_beds)
+```
+
+```{r}
+lm_fit_only_baths <- lm(price ~ factor(baths), data = houses_data)
+lm_fit_beds_baths <- lm(price ~ factor(beds) + factor(baths), data = houses_data)
+anova(lm_fit_only_baths, lm_fit_beds_baths)
+```
+
+We see that the significance of `beds` dropped by two orders of magnitude. This is an example of predictor competition.
+
+On the other hand, note that the variable `new` is not very correlated with `beds`:
+
+```{r}
+lm_fit <- lm(new ~ beds, data = houses_data)
+summary(lm_fit)
+```
+
+but we know it has a substantial impact on `price`. Let's look at the significance of the test that `beds` is not important when we add `new` to the model.
+
+```{r}
+lm_fit_only_new <- lm(price ~ new, data = houses_data)
+lm_fit_beds_new <- lm(price ~ new + factor(beds), data = houses_data)
+anova(lm_fit_only_new, lm_fit_beds_new)
+```
+
+Adding `new` to the model made the $p$-value more significant by a factor of 10. This is an example of predictor collaboration.

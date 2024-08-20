@@ -1,0 +1,39 @@
+# The bootstrap {#sec-bootstrap}
+
+## The residual bootstrap {#sec-residual-bootstrap}
+
+### Standard errors via the residual bootstrap
+
+The *bootstrap* is one way of carrying out robust inference. The core idea of the bootstrap is to use the data to construct an approximation to the data-generating distribution and then to approximate the sampling distribution of any test statistic by simulating from this approximate data-generating distribution. This approach, pioneered by Brad Efron in 1979, replaces mathematical derivations with computation. The bootstrap is extremely flexible and can be adapted to apply in a variety of settings.
+
+Suppose that $y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i$, where $\epsilon_i \overset{\text{i.i.d.}}{\sim} F$ for some distribution $F$. Then, the data-generating distribution is specified by $(\boldsymbol{\beta}, F)$, which we approximate by substituting $\boldsymbol{\widehat{\beta}}$ for $\boldsymbol{\beta}$ and the empirical distribution of the residuals $\widehat{\epsilon}_i$ (call it $\widehat{F}$) for $F$. We can then sample new response vectors based on this approximate data-generating distribution:
+
+$$
+y_i^b = \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
+$$ {#eq-residual-bootstrap}
+
+Note that i.i.d. sampling $\epsilon_i^b$ from $\widehat{F}$ amounts to sampling $(\epsilon_1^b, \dots, \epsilon_n^b)$ with replacement from $(\widehat{\epsilon}_1, \dots, \widehat{\epsilon}_n)$. Then, as with the parametric bootstrap, we fit a least squares coefficient vector $\boldsymbol{\widehat{\beta}}^b$ to $(\boldsymbol{X}, \boldsymbol{y}^b)$ for each $b$ and obtain standard errors by treating $\{\boldsymbol{\widehat{\beta}}^b\}_{b = 1}^B$ as though it were the sampling distribution of $\boldsymbol{\widehat{\beta}}$.
+
+### Hypothesis testing via the residual bootstrap
+
+While the bootstrap is commonly associated with the construction of standard errors, it can also be used directly for hypothesis testing. Suppose we wish to test the linear regression null hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$ for some $S \subseteq \{1, \dots, p-1\}$ (which recall we cannot do using a permutation test). We compute some test statistic $T(\boldsymbol{X}, \boldsymbol{y})$ measuring the significance of $\boldsymbol{\beta}_S$ (e.g., an $F$-statistic, but it could be anything else). Then, we can use a variant of the residual bootstrap. We fit the least squares estimate $\boldsymbol{\widehat{\beta}}$ as usual and extract the residuals $\widehat{\epsilon}_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}$ and their empirical distribution $\widehat{F}$. Then, placing ourselves under the null hypothesis, we generate new samples $\boldsymbol{y}^b$ from the null distribution analogously to the usual residual bootstrap ([-@eq-residual-bootstrap]):
+
+$$
+y_i^b = \boldsymbol{x}_{i, \text{-}S}^T \boldsymbol{\widehat{\beta}}_{\text{-}S} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
+$$
+
+We can then build a null distribution by recomputing $T(\boldsymbol{X}, \boldsymbol{y}^b)$ for each $b$ and then define the bootstrap-based $p$-value:
+
+$$
+p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
+$$
+
+## Pairs bootstrap {#sec-pairs-bootstrap}
+
+The residual bootstrap corrects for non-normality but not heteroskedasticity or correlated errors, since it assumes that the noise terms are i.i.d. from some distribution.
+
+Weakening the assumptions further, let's assume only that $(\boldsymbol{x}_{i*}, y_i) \overset{\text{i.i.d.}}{\sim} F$ for some joint distribution $F$. We then resample our observations by sampling with replacement from the original observations.
+
+Note that, unlike the parametric or residual bootstrap, the pairs bootstrap treats the predictors $\boldsymbol{X}$ as random rather than fixed. The benefit of the pairs bootstrap is that it does not assume homoskedasticity since the error variance is allowed to depend on $\boldsymbol{x}_{i*}$. Therefore, the pairs bootstrap addresses both non-normality and heteroskedasticity, though it does not address correlated errors (though variants of the pairs bootstrap do; see below). Note that the pairs bootstrap does not even assume that $\mathbb{E}[y_i] = \boldsymbol{x}_{i*}^T \boldsymbol{\beta}$ for some $\boldsymbol{\beta}$. However, in the presence of model bias, it is unclear for what parameters we are even doing inference. While the pairs bootstrap assumes less than the residual bootstrap, it may be somewhat less efficient in the case when the assumptions of the latter are met.
+
+The pairs bootstrap has several variants that help it overcome correlated errors, in addition to heteroskedasticity. The *cluster bootstrap* is applicable in the case when errors have a clustered/grouped structure. In this case, we sample entire clusters of observations, with replacement, from the original set of clusters. The *moving blocks bootstrap* is applicable in the case of spatially or temporally structured errors. In this variant of the pairs bootstrap, we resample spatially or temporally adjacent blocks of observations together to preserve their joint correlation structure.

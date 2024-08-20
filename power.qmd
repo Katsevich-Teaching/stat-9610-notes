@@ -1,0 +1,112 @@
+# Power {#sec-power}
+
+*See also Agresti 3.2.5*
+
+So far we've been focused on finding the null distributions of various test statistics in order to construct tests with Type-I error control. Now let's shift our attention to examining the power of these tests.
+
+## The power of a $t$-test
+
+Consider the $t$-test of the null hypothesis $H_0: \beta_j = 0$. Suppose that, in reality, $\beta_j \neq 0$. What is the probability the $t$-test will reject the null hypothesis? To answer this question, recall that $\widehat \beta_j \sim N(\beta_j, \sigma^2/s_j^2)$. Therefore,
+
+$$
+t = \frac{\widehat \beta_j}{\text{SE}(\widehat \beta_j)} = \frac{\beta_j}{\text{SE}(\widehat \beta_j)} + \frac{\widehat \beta_j - \beta_j}{\text{SE}(\widehat \beta_j)} \overset{\cdot}{\sim} N\left(\frac{\beta_j s_j}{\sigma}, 1\right)
+$$ {#eq-t-alt-dist-1}
+
+Here we have made the approximation $\text{SE}(\widehat \beta_j) \approx \frac{\sigma}{s_j}$, which is pretty good when $n-p$ is large. Therefore, the power of the two-sided $t$-test is
+
+$$
+\mathbb{E}[\phi_t] = \mathbb{P}[\phi_t = 1] \approx \mathbb{P}[|t| > z_{1-\alpha/2}] \approx \mathbb{P}\left[\left|N\left(\frac{\beta_j s_j}{\sigma}, 1\right)\right| > z_{1-\alpha/2}\right]
+$$
+
+Therefore, the quantity $\frac{\beta_j s_j}{\sigma}$ determines the power of the $t$-test. To understand $s_j$ a little better, let's assume that the rows $\boldsymbol{x}_{i*}$ of the model matrix are drawn i.i.d. from some distribution $(x_0, \dots, x_{p-1})$. Then we have roughly
+
+$$
+\boldsymbol{x}_{*j}^\perp \approx \boldsymbol{x}_{*j} - \mathbb{E}[\boldsymbol{x}_{*j}|\boldsymbol{X}_{*, \text{-}j}],
+$$
+
+so $x_{ij}^\perp \approx x_{ij} - \mathbb{E}[x_{ij}|\boldsymbol{x}_{i,\text{-}j}]$. Hence,
+
+$$
+s_j^2 \equiv \|\boldsymbol{x}_{*j}^\perp\|^2 \approx n\mathbb{E}[(x_j-\mathbb{E}[x_j|\boldsymbol{x}_{\text{-}j}])^2] = n\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]].
+$$
+
+Hence, we can rewrite the alternative distribution ([-@eq-t-alt-dist-1]) as
+
+$$
+t \overset{\cdot}{\sim} N\left(\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]}}{\sigma}, 1\right)
+$$ {#eq-t-alt-dist-2}
+
+We can see clearly now how the power of the $t$-test varies with the effect size $\beta_j$, the sample size $n$, the degree of collinearity $\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]$, and the noise standard deviation $\sigma$.
+
+## The power of an $F$-test
+
+Now let's turn our attention to computing the power of the $F$-test. We have
+
+$$
+F = \frac{\|\boldsymbol{X}\boldsymbol{\widehat \beta} - \boldsymbol{X}_{*, \text{-}S}\boldsymbol{\widehat \beta}_{-S}\|^2/|S|}{\|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat \beta}\|^2/|n-p|} = \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\|(\boldsymbol{I} - \boldsymbol{H})\boldsymbol{y}\|^2/|n-p|} \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2}.
+$$
+
+To calculate the distribution of the numerator, we need to introduce the notion of a non-central chi-squared random variable.
+
+::: {#def-noncentral-chi-square}
+For some vector $\boldsymbol{\mu} \in \mathbb{R}^d$, suppose $\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)$. Then, we define the distribution of $\|\boldsymbol{z}\|^2$ as the noncentral chi-square random variable with $d$ degrees of freedom and noncentrality parameter $\|\boldsymbol{\mu}\|^2$ and denote this distribution by $\chi^2_d(\|\boldsymbol{\mu}\|^2)$.
+:::
+
+The following proposition states two useful facts about noncentral chi-square distributions.
+
+::: {#prp-noncentral-chi-square}
+The following two relations hold:
+1. The mean of a $\chi^2_d(\|\boldsymbol{\mu}\|^2)$ random variable is $d + \|\boldsymbol{\mu}\|^2$.
+2. If $\boldsymbol{P}$ is a projection matrix and $\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}$, then $\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).$
+:::
+
+It therefore follows that
+
+$$
+F \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2} \sim \frac{1}{|S|}\chi^2_{|S|}\left(\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S})\boldsymbol{X} \boldsymbol{\beta}\|^2\right) = \frac{1}{|S|}\chi^2_{|S|}\left(\frac{1}{\sigma^2}\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2\right).
+$$
+
+Assuming as before that the rows of $\boldsymbol{X}$ are samples from a joint distribution, we can write
+
+$$
+\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2 \approx n\boldsymbol{\beta}_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S.
+$$
+
+Therefore,
+
+$$
+F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)
+$$
+
+which is similar in spirit to equation ([-@eq-t-alt-dist-2]). To get a better sense of what this relationship implies for the power of the $F$-test, we find from the first part of @prp-noncentral-chi-square that, under the alternative,
+
+$$
+\mathbb{E}[F] \approx \mathbb{E}\left[\frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)\right] = 1 + \frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{|S| \cdot \sigma^2}.
+$$
+
+By contrast, under the null, the mean of the $F$-statistic is 1. The $|S|$ term in the denominator above suggests that testing larger sets of variables explaining the same amount of variation in $\boldsymbol{y}$ will hurt power. The test must accommodate for the fact that larger sets of variables will explain more of the variability in $y$ even under the null hypothesis.
+
+## Power of the $t$-test when predictors are added to the model
+
+As we know, the outcome of a regression is a function of the predictors that are used. What happens to the $t$-test $p$-value for $H_0: \beta_j = 0$ when a predictor is added to the model? To keep things simple, let's consider the
+
+$$
+\text{true underlying model:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
+$$
+
+Let's consider the power of testing $H_0: \beta_0 = 0$ in the regression models
+
+$$
+\text{model 0:}\ y = \beta_0 x_0 + \epsilon \quad \text{versus} \quad \text{model 1:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
+$$
+
+There are four cases based on $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}]$ and the value of $\beta_1$ in the true model:
+
+1. $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] \neq 0$ and $\beta_1 \neq 0$. In this case, in model 0 we have omitted an important variable that is correlated with $\boldsymbol{x}_{*0}$. Therefore, the meaning of $\beta_0$ differs between model 0 and model 1, so it may not be meaningful to compare the $p$-values arising from these two models.
+2. $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] \neq 0$ and $\beta_1 = 0$. In this case, we are adding a null predictor that is correlated with $x_{*0}$. Recall that the power of the $t$-test hinges on the quantity $\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]}}{\sigma}$. Adding the predictor $x_1$ has the effect of reducing the conditional predictor variance $\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]$, therefore reducing the power. This is a case of *predictor competition*.
+3. $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0$ and $\beta_1 \neq 0$. In this case, we are adding a non-null predictor that is orthogonal to $\boldsymbol{x}_{*0}$. While the conditional predictor variance $\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]$ remains the same due to orthogonality, the residual variance $\sigma^2$ is reduced when going from model 0 to model 1.\footnote{If $\beta_1$ is small enough, then the unbiased estimate of the residual variance may actually increase due to a reduction in the residual degrees of freedom in the denominator.} Therefore, in this case adding $x_1$ to the model increases the power for testing $H_0: \beta_0 = 0$. This is a case of *predictor collaboration*.
+4. $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0$ and $\beta_1 = 0$. In this case, we are adding an orthogonal null variable, which does not change the conditional predictor variance or the residual variance, and therefore keeps the power of the test the same.
+
+In conclusion, adding a predictor can either increase or decrease the power of a $t$-test. Similar reasoning can be applied to the $F$-test.
+
+**Remark: Adjusting for covariates in randomized experiments.** Case 3 above, i.e., $\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0$ and $\beta_1 \neq 0$, arises in the context of randomized experiments in causal inference. In this case, $y$ represents the outcome, $x_0$ represents the treatment, and $x_1$ represents a covariate. Because the treatment is randomized, there is no correlation between $x_0$ and $x_1$. Therefore, it is not necessary to adjust for $x_1$ in order to get an unbiased estimate of the average treatment effect. However, it is known that adjusting for covariates can lead to more *precise* estimates of the treatment effect due to the phenomenon discussed in case 3 above. This point is also related to the discussion in Chapter 1 about the fact that if $x_0$ and $x_1$ are orthogonal, then the least squares coefficient $\widehat \beta_0$ is the same regardless of whether $x_1$ is included in the model. As we see here, either including $x_1$ in the model or adjusting $y$ for $x_1$ is necessary to get better power.

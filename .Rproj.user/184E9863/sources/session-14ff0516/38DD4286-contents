@@ -1,0 +1,179 @@
+## R demo
+
+*See also Agresti 2.6, Dunn and Smyth 2.6*
+
+The R demo will be based on the `ScotsRaces` data from the Agresti textbook. Data description (quoted from the textbook):
+
+>"Each year the Scottish Hill Runners Association publishes a list of hill races in Scotland for the year. The table below shows data on the record time for some of the races (in minutes). Explanatory variables listed are the distance of the race (in miles) and the cumulative climb (in thousands of feet)."
+
+We will also familiarize ourselves with several important functions from the `tidyverse` packages, including the `ggplot2` package for data visualization and `dplyr` package for data manipulation.
+
+```{r, cache = FALSE, message = FALSE}
+library(tidyverse) # for data import, manipulation, and plotting
+library(GGally)    # for ggpairs() function
+library(ggrepel)   # for geom_text_repel() function
+library(car)       # for vif() function
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+```
+
+```{r, message = FALSE}
+# read the data into R
+scots_races <- read_tsv("data/ScotsRaces.dat") # read_tsv from readr for data import
+scots_races
+```
+
+### Exploration
+
+Before modeling our data, let's first explore it.
+
+```{r, fig.width = 5, fig.height = 4, fig.align='center'}
+# pairs plot
+
+# Q: What are the typical ranges of the variables?
+# Q: What are the relationships among the variables?
+
+scots_races |>
+  select(-race) |> # select() from dplyr for selecting columns
+  ggpairs() # ggpairs() from GGally to create pairs plot
+
+# mile time versus distance
+
+# Q: How does mile time vary with distance?
+# Q: What races deviate from this trend?
+# Q: How does climb play into it?
+
+# add mile time variable to scots_races
+scots_races <- scots_races |>
+  mutate(mile_time = time / distance) # mutate() from dplyr to add column
+```
+
+```{r, fig.width = 4, fig.height = 4, fig.align='center'}
+# plot mile time versus distance
+scots_races |>
+  ggplot(aes(x = distance, y = mile_time)) +
+  geom_point()
+```
+
+```{r, fig.width = 4.5, fig.height = 4, fig.align='center'}
+# add climb information as point color
+scots_races |>
+  ggplot(aes(x = distance, y = mile_time, colour = climb)) +
+  geom_point()
+```
+
+```{r, fig.width = 4.5, fig.height = 4, fig.align='center'}
+# highlight extreme points
+scots_races_extreme <- scots_races |>
+  filter(distance > 15 | mile_time > 9) # filter() from dplyr to subset rows
+
+# plot mile time versus distance
+scots_races |>
+  ggplot(aes(x = distance, y = mile_time, label = race, colour = climb)) +
+  geom_point() +
+  geom_text_repel(aes(label = race), data = scots_races_extreme)
+```
+
+```{r, fig.width = 5.5, fig.height = 4, fig.align='center'}
+# clean up plot
+scots_races |>
+  ggplot(aes(x = distance, y = mile_time, label = race, color = climb)) +
+  geom_point() +
+  geom_text_repel(aes(label = race), data = scots_races_extreme) +
+  labs(
+    x = "Distance (miles)",
+    y = "Mile Time (minutes per mile)",
+    color = "Climb\n(thousands of ft)"
+  )
+```
+
+### Linear model coefficient interpretation
+
+Let's fit some linear models and interpret the coefficients.
+
+```{r}
+# Q: What is the effect of an extra mile of distance on time?
+
+lm_fit <- lm(time ~ distance + climb, data = scots_races)
+coef(lm_fit)
+```
+
+```{r}
+# Linear model with interaction
+
+# Q: What is the effect of an extra mile of distance on time
+#  for a run with low climb?
+
+# Q: What is the effect of an extra mile of distance on time
+#  for a run with high climb?
+
+lm_fit_int <- lm(time ~ distance * climb, data = scots_races)
+coef(lm_fit_int)
+
+scots_races |>
+  summarise(min_climb = min(climb), max_climb = max(climb))
+```
+
+Let's take a look at the regression summary for \verb|lm_fit|:
+```{r}
+lm_fit <- lm(time ~ distance + climb, data = scots_races)
+summary(lm_fit)
+```
+
+We get a coefficient of 6.35 with standard error 0.36 for `distance`, where the standard error is an estimate of the quantity ([-@eq-conditional-variance]).
+
+### $R^2$ and sum-of-squared decompositions.
+
+We can extract the $R^2$ from this fit by reading it off from the bottom of the summary, or by typing
+```{r}
+summary(lm_fit)$r.squared
+```
+
+We can construct sum-of-squares decompositions ([-@eq-pythagorean-theorem]) using the `anova` function. This function takes as arguments the partial model and the full model. For example, consider the partial model `time ~ distance`.
+```{r}
+lm_fit_partial <- lm(time ~ distance, data = scots_races)
+anova(lm_fit_partial, lm_fit)
+```
+We find that adding the predictor `climb` reduces the RSS by 7106, from 9547 to 2441. As another example, we can compute the $R^2$ by comparing the full model with the null model:
+```{r}
+lm_fit_null <- lm(time ~ 1, data = scots_races)
+anova(lm_fit_null, lm_fit)
+```
+Therefore, the $R^2$ is 83899/86340 = 0.972, consistent with the above regression summary.
+
+### Adjustment and collinearity.
+
+We can also test the adjustment formula ([-@eq-orthogonal-univariate]) numerically. Let's consider the coefficient of \verb|distance| in the regression \verb|time ~ distance + climb|. We can obtain this coefficient by first regressing \verb|climb| out of \verb|distance| and \verb|time|:
+```{r}
+lm_dist_on_climb <- lm(distance ~ climb, data = scots_races)
+lm_time_on_climb <- lm(time ~ climb, data = scots_races)
+
+scots_races_resid <- tibble(
+  dist_residuals = residuals(lm_dist_on_climb),
+  time_residuals = residuals(lm_time_on_climb)
+)
+
+lm_adjusted <- lm(time_residuals ~ dist_residuals - 1,
+  data = scots_races_resid
+)
+summary(lm_adjusted)
+``` 
+We find a coefficient of 6.35 with standard error 0.35, which matches that obtained in the original regression.
+
+We can get the partial correlation between `distance` and `time` by taking the empirical correlation between the residuals. We can compare this quantity to the usual correlation.
+```{r}
+scots_races_resid |>
+  summarise(cor(dist_residuals, time_residuals)) |>
+  pull()
+
+scots_races |>
+  summarise(cor(distance, time)) |>
+  pull()
+```
+In this case, the two correlation quantities are similar.
+
+To obtain the variance inflation factors defined in equation ([-@eq-vif]), we can use the `vif` function from the `car` package:
+```{r}
+vif(lm_fit)
+```
+Why are these two VIF values the same?

@@ -1,0 +1,88 @@
+# Global testing {#sec-global-testing}
+
+Recall that a global test is a test of the intersection null hypothesis $H_0 \equiv \cap_{j = 1}^m H_{0j}$. Let us first examine the naive global test, which rejects if any of the $p$-values are below $\alpha$:
+$$
+\phi_{\text{naive}}(p_1, \dots, p_m) = 1\left(p_j \leq \alpha \text{ for some } j = 1, \dots, m\right).
+$$ {#eq-naive-global-test}
+
+This test does not control the Type-I error. In fact, assuming the input $p$-values are independent, we have
+$$
+\mathbb{E}_{H_0}[\phi_{\text{naive}}(p_1, \dots, p_m)] = 1-(1-\alpha)^m \rightarrow 1 \quad \text{as} \quad m \rightarrow \infty.
+$$
+This is a manifestation of the multiplicity problem discussed before. In this section, we will discuss two ways of adjusting for multiplicity in the context of global testing:
+
+- Bonferroni test: Powerful against few strong signals.
+- Fisher combination test: Powerful against many weak signals.
+
+Each test is listed with the alternative against which it is powerful. Note that in the context of global testing and multiple testing, the alternative is a multivariate object. The main difference between the Bonferroni test and the Fisher combination test is how the signal (i.e., deviation from the null) is spread across the $m$ hypotheses being tested. If the signal is highly concentrated in a few non-null hypotheses, then the Bonferroni test is better. If the signal is spread out over many non-null hypotheses, then the Fisher combination test is better.
+
+## Bonferroni global test (Bonferroni, 1936 and Dunn, 1961) {#sec-bonferroni-global-test}
+
+### Test definition and validity
+
+The motivation for the Bonferroni global test is to find the strongest signal among the $p$-values and reject the global null if this signal is strong enough. It makes sense that such a strategy would be powerful against sparse alternatives. We define the Bonferroni test via
+$$
+\phi(p_1, \dots, p_m) \equiv 1\left(\min_{1 \leq j \leq m} p_j \leq \alpha/m\right).
+$$
+
+The Bonferroni global test rejects if any of the $p$-values cross the *multiplicity-adjusted* or *Bonferroni-adjusted* significance threshold of $\alpha/m$. This test can be viewed as a modified version of the naive test ([-@eq-naive-global-test]), but with the significance threshold $\alpha$ adjusted downward to $\alpha/m$. The more hypotheses we test, the more stringent the significance threshold must be.
+
+::: {#prp-bonferroni-fwer-control}
+The Bonferroni test controls the FWER at level $\alpha$ for any joint dependence structure among the $p$-values.
+:::
+
+::: {.proof}
+We can verify the Type-I error control of the Bonferroni test via a union bound:
+$$
+\mathbb{P}_{H_0}\left[\min_{1 \leq j \leq m} p_j \leq \alpha/m\right] \leq \sum_{j = 1}^m \mathbb{P}_{H_{0j}}\left[p_j \leq \alpha/m\right] = m \cdot \alpha/m = \alpha.
+$$
+:::
+
+### The impact of $p$-value dependence
+
+While the Bonferroni global test is valid for arbitrary $p$-value dependence structures, the underlying union bound may be loose for certain dependence structures. In particular, the Bonferroni bound derived above is tightest for independent $p$-values. Intuitively, the smallest $p$-value has the highest chance of being small if each $p$-value has its own independent source of randomness. Mathematically, let us compute the Type-I error of the Bonferroni global test under independence:
+$$
+\mathbb{P}_{H_0}\left[\min_{1 \leq j \leq m} p_j \leq \alpha/m\right] = 1 - (1-\alpha/m)^m \approx \alpha.
+$$
+Therefore, the Bonferroni test exhausts essentially its entire level under independence. On the other hand, under perfect dependence (i.e., $p_1 = \cdots = p_m$ almost surely), the Bonferroni test is quite conservative:
+$$
+\mathbb{P}_{H_0}\left[\min_{1 \leq j \leq m} p_j \leq \alpha/m\right] = \mathbb{P}_{H_{01}}\left[p_1 \leq \alpha/m\right] = \alpha/m.
+$$
+In this special case, the level is $m$ times lower than it should be, because no multiplicity adjustment is needed if the $p$-values are perfectly dependent.
+
+## Fisher combination test (Fisher, 1925) {#sec-fisher-combination-test}
+
+If, on the other hand, we expect the signal to be spread out over many non-null hypotheses, the valuable evidence against the alternative is missed if only the minimum $p$-value is considered. In such circumstances, the Fisher combination test may be more powerful than the Bonferroni global test.
+
+### Test definition and validity
+
+The Fisher combination test is based on the observation that
+$$
+\text{if } p \sim U[0,1], \quad \text{then} \quad -2\log p \sim \chi^2_2.
+$$
+Therefore, if $p_1, \dots, p_m$ are independent uniform random variables, then we have
+$$
+-2\sum_{j = 1}^m \log p_j \sim \chi^2_{2m}.
+$$
+This leads to the Fisher combination test:
+$$
+\phi(p_1, \dots, p_m) \equiv 1\left(-2\sum_{j = 1}^m \log p_j \geq \chi^2_{2m}(1-\alpha)\right).
+$$ {#eq-fishers-formula}
+
+::: {#prp-fisher-type1-control}
+The Fisher combination test controls Type-I error at level $\alpha$ ([-@eq-global-test-type-1-error]) if the $p$-values are independent.
+:::
+
+::: {.proof}
+Under the null, the $p$-values are stochastically larger than uniform ([-@eq-fishers-formula]). Therefore, $-2\sum_{j = 1}^m \log p_j$ is stochastically larger than $\chi^2_{2m}$, from which the conclusion follows.
+:::
+
+### Discussion
+
+The Fisher exact test has a similar flavor to another chi-squared test. Suppose $X_j \sim N(\mu_j, 1)$, and we would like to test $H_j: \mu_j = 0$. Under the global null, we have
+$$
+\text{if } X_1, \dots, X_m \overset{\text{i.i.d.}}\sim N(0,1), \text{ then } \sum_{j = 1}^m X_j^2 \sim \chi^2_m.
+$$ {#eq-chisquare-formula}
+It turns out that the tests based on ([-@eq-fishers-formula]) and ([-@eq-chisquare-formula]) are quite similar. This helps us build intuition for what the Fisher combination test is doing: it's averaging the strengths of the signal across hypotheses.
+
+The independence assumption of the Fisher combination test makes it significantly less broadly applicable than the Bonferroni global test. However, one common application of the Fisher combination test is *meta-analysis*: the combination of information across multiple studies of the same hypothesis (or very related hypotheses). In this setting, the $p$-values are independent across studies, and the Fisher combination test is a natural choice because the strength of the signal is roughly the same across studies since they are studying very related hypotheses.

@@ -1,0 +1,92 @@
+# Asymptotic methods {#sec-asymptotic-methods}
+
+Broadly speaking, approaches to fixing heteroskedastic or correlated errors can be divided into (1) those based on estimating $\boldsymbol{\Sigma}$ and (2) those based on resampling. Methods based on estimating $\boldsymbol{\Sigma}$ can use this estimate to either (i) build a better estimate $\boldsymbol{\widehat{\beta}}$ or (ii) build better standard errors for the least squares estimate. Resampling methods include the bootstrap (for estimation) and the permutation test (for testing).
+
+## Methods that build a better estimate of $\boldsymbol{\widehat{\beta}}$ {#sec-better-estimate}
+
+Suppose $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma})$. This is a *generalized least squares* problem for which inference can be carried out. The generalized least squares estimate is $\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{y}$, which is distributed as $\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1})$. This is the best linear unbiased estimate of $\boldsymbol{\beta}$, recovering efficiency. We can carry out inference based on the latter distributional result analogously to how we did so in Chapter 2. The issue, of course, is that we usually do not know $\boldsymbol{\Sigma}$. Therefore, we can consider the following approach: (1) estimate $\boldsymbol{\widehat{\beta}}$ using OLS, (2) use this estimate to get an estimate $\boldsymbol{\widehat{\Sigma}}$ of $\boldsymbol{\Sigma}$, (3) use $\boldsymbol{\widehat{\Sigma}}$ to get a (hopefully) more efficient estimator
+
+$$
+\boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
+$$ {#eq-fgls-estimate}
+
+This is called the *feasible generalized least squares estimate* (FGLS), to contrast it with the infeasible estimate that assumes $\boldsymbol{\Sigma}$ is known exactly. The procedure above can be iterated until convergence. To estimate $\boldsymbol{\widehat{\Sigma}}$, we usually need to make some parametric assumptions. For example, in the case of grouped structure, we might assume a *random effects model*. In the case of a temporal structure, we might assume an *AR(1) model*.
+
+## Methods that build better standard errors for OLS estimate {#sec-better-standard-errors}
+
+Sometimes we don't feel comfortable enough with our estimate of $\boldsymbol{\Sigma}$ to actually modify the least squares estimator. So we want to keep using our least squares estimator, but still get standard errors robust to heteroskedastic or correlated errors. There are several strategies to computing valid standard errors in such situations.
+
+### Sandwich standard errors {#sec-sandwich-errors}
+
+Let's say that $\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}$, where $\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})$. Then, we can compute that the covariance matrix of the least squares estimate $\boldsymbol{\widehat{\beta}}$ is
+
+$$
+\text{Var}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
+$$ {#eq-sandwich}
+
+Note that this expression reduces to the usual $\sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1}$ when $\boldsymbol{\Sigma} = \sigma^2 \boldsymbol{I}$. It is called the sandwich variance because we have the $(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})$ term sandwiched between two $(\boldsymbol{X}^T \boldsymbol{X})^{-1}$ terms. If we have some estimate $\boldsymbol{\widehat{\Sigma}}$ of the covariance matrix, we can construct
+
+$$
+\widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
+$$
+
+Different estimates $\boldsymbol{\widehat{\Sigma}}$ are appropriate in different situations. Below we consider three of the most common choices: one for heteroskedasticity (due to Huber-White), one for group-correlated errors (due to Liang-Zeger), and one for temporally-correlated errors (due to Newey-West).
+
+### Specific instances of sandwich standard errors {#sec-specific-sandwich-errors}
+
+**Huber-White standard errors.**
+
+Suppose $\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)$ for some variances $\sigma_1^2, \dots, \sigma_n^2 > 0$. The Huber-White sandwich estimator is defined by ([-@eq-sandwich]), with
+
+$$
+\boldsymbol{\widehat{\Sigma}} \equiv \text{diag}(\widehat{\sigma}_1^2, \dots, \widehat{\sigma}_n^2), \quad \text{where} \quad \widehat{\sigma}_i^2 = (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}})^2.
+$$
+
+While each estimator $\widehat{\sigma}_i^2$ is very poor, Huber and White's insight was that the resulting estimate of the (averaged) quantity $\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}$ is not bad. To see why, assume that $(\boldsymbol{x}_{i*}, y_i) \overset{\text{i.i.d.}}{\sim} F$ for some joint distribution $F$. Then, we have that
+
+$$
+\begin{split}
+\frac{1}{n}(\boldsymbol{X}^T \widehat{\boldsymbol{\Sigma}} \boldsymbol{X} - \boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X}) &= \frac{1}{n} \sum_{i=1}^n (\widehat{\sigma}_i^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
+&= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\widehat{\boldsymbol{\beta}} - \boldsymbol{\beta}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
+&= \frac{1}{n} \sum_{i=1}^n \epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T + o_p(1) \\
+&\to_p 0.
+\end{split}
+$$
+
+The last step holds by the law of large numbers, since $\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0$ for each $i$.
+
+**Liang-Zeger standard errors.**
+
+Next, let's consider the case of group-correlated errors. Suppose that the observations are *clustered*, with correlated errors among clusters but not between clusters. Suppose there are $C$ clusters of observations, with the $i$th observation belonging to cluster $c(i) \in \{1, \dots, C\}$. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let $\boldsymbol{\widehat{\epsilon}}_c$ be the vector of residuals in cluster $c$, so that $\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)$. Then, the true covariance matrix is $\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)$ for some positive definite $\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C$. The Liang-Zeger estimator is then defined by ([-@eq-sandwich]), with
+
+$$
+\boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
+$$
+
+Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each $\boldsymbol{\widehat{\Sigma}_c}$ is a poor estimator, the resulting estimate of the (averaged) quantity $\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}$ is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as "clustered standard errors" in the econometrics community.
+
+**Newey-West standard errors.**
+
+Finally, consider the case when our observations $i$ have a temporal structure, and we believe there to be nontrivial correlations between $\epsilon_{i1}$ and $\epsilon_{i2}$ for $|i1 - i2| \leq L$. Then, a natural extension of the Huber-White estimate of $\boldsymbol{\Sigma}$ is $\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ for each pair $(i1, i2)$ such that $|i1 - i2| \leq L$. Unfortunately, this is not guaranteed to give a positive semidefinite matrix $\boldsymbol{\widehat{\Sigma}}$. Therefore, Newey and West proposed a slightly modified estimator:
+
+$$
+\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
+$$
+
+This estimator shrinks the off-diagonal estimates $\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of $\boldsymbol{\widehat{\Sigma}}$.
+
+### Inference based on sandwich standard errors {#sec-sandwich-inference}
+
+We now have a matrix $\widehat{\boldsymbol{\Omega}}$ such that 
+
+$$
+\boldsymbol{\widehat{\beta}} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \widehat{\boldsymbol{\Omega}}).
+$$
+
+This allows us to construct confidence intervals and hypothesis tests for each $\beta_j$, by simply replacing $\text{SE}(\beta_j)$ with $\sqrt{\widehat{\Omega}_{jj}}$. For contrasts and prediction intervals, we can use the fact that $\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})$, so that $\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}$. It is less obvious how to use the matrix $\widehat{\boldsymbol{\Omega}}$ to test the hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Chapter 4). The Wald test statistic is
+
+$$
+W = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S,
+$$
+
+which is asymptotically distributed as $\chi^2_{|S|}$ under the null hypothesis. It turns out that the usual regression $F$-test is asymptotically equivalent to this Wald test.

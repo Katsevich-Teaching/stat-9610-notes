@@ -1,0 +1,204 @@
+# R demo {#sec-r-demo}
+
+## Crime data {#sec-crime-data}
+
+Let's revisit the crime data from Homework 2, this time fitting a logistic regression to it.
+
+```{r message=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# read crime data
+crime_data <- read_tsv("data/Statewide_crime.dat")
+
+# read and transform population data
+population_data <- read_csv("data/state-populations.csv")
+population_data <- population_data |>
+  filter(State != "Puerto Rico") |>
+  select(State, Pop) |>
+  rename(state_name = State, state_pop = Pop)
+
+# collate state abbreviations
+state_abbreviations <- tibble(
+  state_name = state.name,
+  state_abbrev = state.abb
+) |>
+  add_row(state_name = "District of Columbia", state_abbrev = "DC")
+
+# add CrimeRate to crime_data
+crime_data <- crime_data |>
+  mutate(STATE = ifelse(STATE == "IO", "IA", STATE)) |>
+  rename(state_abbrev = STATE) |>
+  filter(state_abbrev != "DC") |> # remove outlier
+  left_join(state_abbreviations, by = "state_abbrev") |>
+  left_join(population_data, by = "state_name") |>
+  mutate(CrimeRate = Violent / state_pop) |>
+  select(state_abbrev, CrimeRate, Metro, HighSchool, Poverty, state_pop)
+
+crime_data
+```
+
+We can fit a GLM using the `glm` command, specifying as additional arguments the observation weights as well as the exponential dispersion model. In this case, the weights are the state populations and the family is binomial:
+
+```{r}
+glm_fit <- glm(CrimeRate ~ Metro + HighSchool + Poverty,
+  weights = state_pop,
+  family = "binomial",
+  data = crime_data
+)
+```
+
+We can print the summary table as usual:
+
+```{r}
+summary(glm_fit)
+```
+
+Amazingly, everything is very significant! This is because the weights for each observation (the state populations) are very high, effectively making the sample size very high. But frankly, this is a bit suspicious. Glancing at the bottom of the regression summary, we see a residual deviance of 11742 on 46 degrees of freedom. This part of the summary refers to the deviance-based goodness of fit test. Under the null hypothesis that the model fits well, we expect that the residual deviance has a distribution of $\chi^2_{46}$, which has a mean of 46.
+
+Let's formally check the goodness of fit. We can extract the residual deviance and residual degrees of freedom from the GLM fit:
+
+```{r}
+glm_fit$deviance
+glm_fit$df.residual
+```
+
+We can then compute the chi-square $p$-value:
+
+```{r}
+# compute based on residual deviance from fit object
+pchisq(glm_fit$deviance,
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+
+# compute residual deviance as sum of squares of residuals
+pchisq(sum(resid(glm_fit, "deviance")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Wow, we get a $p$-value of zero! Let's try doing a score-based (i.e., Pearson) goodness of fit test:
+
+```{r}
+pchisq(sum(resid(glm_fit, "pearson")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Also zero. So we need to immediately stop using this model for inference about these data, since it fits the data very poorly. We will discuss how to build a better model for the crime data in the next unit. For now, we turn to analyzing a different dataset.
+
+## Noisy miner data {#sec-noisy-miner-data}
+
+_Credit: Generalized Linear Models With Examples in R textbook._
+
+Let's consider the noisy miner dataset. Noisy miners are a small but aggressive native Australian bird. We want to know how the number of these birds observed in a patch of land depends on various factors of that patch of land.
+
+```{r}
+library(GLMsData)
+data("nminer")
+nminer |> as_tibble()
+```
+
+Since the response is a count, we can model it as a Poisson random variable. Let's fit that GLM:
+
+```{r}
+glm_fit <- glm(Minerab ~ . - Miners, family = "poisson", data = nminer)
+summary(glm_fit)
+```
+
+We exclude `Miners` because this is just a binarized version of the response variable. Things look a bit better on the GOF front:
+
+```{r}
+pchisq(sum(resid(glm_fit, "deviance")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+
+pchisq(sum(resid(glm_fit, "pearson")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Still, there is some model misspecification, but for now, we still proceed with the rest of the analysis.
+
+The standard errors shown in the summary are based on the Wald test. We can get Wald confidence intervals based on these standard errors by using the formula:
+
+```{r}
+glm_fit |>
+  summary() |>
+  coef() |>
+  as.data.frame() |>
+  transmute(`2.5 %` = Estimate + qnorm(0.025)*`Std. Error`,
+            `97.5 %` = Estimate + qnorm(0.025)*`Std. Error`)
+```
+
+Or, we can simply use `confint.default()`:
+
+```{r}
+confint.default(glm_fit)
+```
+
+Or, we might want LRT-based confidence intervals, which are given by `confint()`:
+
+```{r}
+confint(glm_fit)
+```
+
+In this case, the two sets of confidence intervals seem fairly similar.
+
+Now, we can get prediction intervals, either on the linear predictor scale or on the mean scale:
+
+```{r}
+pred_linear <- predict(glm_fit, newdata = nminer[31,], se.fit = TRUE)
+pred_mean <- predict(glm_fit, newdata = nminer[31,], type = "response", se.fit = TRUE)
+
+pred_linear
+pred_mean
+log(pred_mean$fit)
+```
+
+We see that the prediction on the linear predictor scale is exactly the logarithm of the prediction on the mean scale. However, the standard error given on the mean scale uses the delta method. We prefer to directly transform the confidence interval from the linear scale using the inverse link function (in this case, the exponential):
+
+```{r}
+# using delta method
+c(pred_mean$fit + qnorm(0.025)*pred_mean$se.fit,
+  pred_mean$fit + qnorm(0.975)*pred_mean$se.fit)
+
+# using transformation
+exp(c(pred_linear$fit + qnorm(0.025)*pred_linear$se.fit,
+      pred_linear$fit + qnorm(0.975)*pred_linear$se.fit))
+```
+
+In this case, the intervals obtained are somewhat different. We can plot confidence intervals for the fit in a univariate case (e.g., regressing `Minerab` on `Eucs`) using `geom_smooth()`:
+
+```{r fig.width = 4, fig.height = 3, fig.align ='center'}
+nminer |>
+  ggplot(aes(x = Eucs, y = Minerab)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "glm",
+              method.args = list(family = "poisson"))
+```
+
+We can also test the coefficients in the model. The Wald tests for individual coefficients were already given by the regression summary above. We might want to carry out likelihood ratio tests for individual coefficients instead. For example, let's do this for `Eucs`:
+
+```{r}
+glm_fit_partial <- glm(Minerab ~ . - Miners - Eucs, family = "poisson", data = nminer)
+anova(glm_fit_partial, glm_fit, test = "LRT")
+```
+
+The `Eucs` variable is quite significant! We can manually carry out the LRT as a sanity check:
+
+```{r}
+deviance_partial <- glm_fit_partial$deviance
+deviance_full <- glm_fit$deviance
+lrt_stat <- deviance_partial - deviance_full
+p_value <- pchisq(lrt_stat, df = 1, lower.tail = FALSE)
+tibble(lrt_stat, p_value)
+```
+
+We can test groups of variables using the likelihood ratio test as well.

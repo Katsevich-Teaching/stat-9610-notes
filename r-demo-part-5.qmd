@@ -1,0 +1,215 @@
+# R demo {#sec-r-demo}
+
+## Contingency table analysis {#sec-contingency-table}
+
+Let's take a look at the UC Berkeley admissions data:
+
+```{r, message = FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+
+ucb_data <- UCBAdmissions |> as_tibble()
+ucb_data
+```
+
+It contains data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex. Let's see whether there is an association between `Gender` and `Admit`. Let's first aggregate over department:
+
+```{r}
+ucb_data_agg <- ucb_data |>
+  group_by(Admit, Gender) |>
+  summarise(n = sum(n), .groups = "drop")
+ucb_data_agg
+```
+
+Let's see what the admissions rates are by gender:
+
+```{r}
+ucb_data_agg |>
+  group_by(Gender) |>
+  summarise(`Admission rate` = sum(n*(Admit == "Admitted"))/sum(n))
+```
+
+This suggests that men have substantially higher admission rates than women. Let's see if we can confirm this using either a Fisher's exact test or a Pearson chi-square test.
+
+```{r}
+# first convert to 2x2 table format
+admit_vs_gender <- ucb_data_agg |>
+  pivot_wider(names_from = Gender, values_from = n) |>
+  column_to_rownames(var = "Admit")
+admit_vs_gender
+
+# Fisher exact test (note that the direction of the effect can be deduced)
+fisher.test(admit_vs_gender)
+
+# Chi-square test
+chisq.test(admit_vs_gender)
+```
+
+As a sanity check, let's run the Poisson regression underlying the chi-square test above.
+
+```{r}
+pois_fit <- glm(n ~ Admit + Gender + Admit*Gender,
+                family = "poisson",
+                data = ucb_data_agg)
+summary(pois_fit)
+```
+
+Based on all of these tests, there seems to be a very substantial difference in admissions rates based on gender. That is not good.
+
+But perhaps, women tend to apply to more selective departments? Let's look into this:
+
+```{r fig.width=3, fig.height = 3, fig.align='center'}
+ucb_data |>
+  group_by(Dept) |>
+  summarise(admissions_rate = sum(n*(Admit == "Admitted"))/sum(n),
+            prop_female_applicants = sum(n*(Gender == "Female"))/sum(n)) |>
+  ggplot(aes(x = admissions_rate, y = prop_female_applicants)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0, 1)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Admissions rate",
+       y = "Proportion female applicants")
+```
+
+Indeed, it does seem that female applicants typically applied to more selective departments! This suggests that it is very important to control for department when evaluating the association between admissions and gender. To do this, we can run a test for conditional independence in the $J \times K \times L$ table:
+
+```{r}
+pois_fit <- glm(n ~ Admit + Dept + Gender + Admit:Dept + Gender:Dept,
+                family = "poisson",
+                data = ucb_data)
+pchisq(sum(resid(pois_fit, "pearson")^2),
+  df = pois_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Still we find a significant effect! But what is the direction of the effect? The chi-square test does not tell us. We can simply compute the admissions rates by department and plot them:
+
+```{r fig.width=3, fig.height = 3, fig.align='center'}
+ucb_data |>
+  group_by(Dept, Gender) |>
+  summarise(`Admission rate` = sum(n*(Admit == "Admitted"))/sum(n),
+            .groups = "drop") |>
+  pivot_wider(names_from = Gender, values_from = `Admission rate`) |>
+  ggplot(aes(x = Female, y = Male, label = Dept)) +
+  geom_point() +
+  ggrepel::geom_text_repel() +
+  geom_abline(color = "red", linetype = "dashed") +
+  scale_x_continuous(limits = c(0, 1)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Female admission rate",
+       y = "Male admission rate")
+```
+
+Now the difference doesn't seem so huge, with most departments close to even and with department A heavily skewed towards admitting women!
+
+## Revisiting the crime data, again {#sec-crime-data}
+
+```{r message = FALSE}
+library(tidyverse)
+```
+Here we are again, face to face with the crime data, with one last chance to get the analysis right. Let's load and preprocess it, as before.
+
+```{r message = FALSE}
+# read crime data
+crime_data <- read_tsv("data/Statewide_crime.dat")
+
+# read and transform population data
+population_data <- read_csv("data/state-populations.csv")
+population_data <- population_data |>
+  filter(State != "Puerto Rico") |>
+  select(State, Pop) |>
+  rename(state_name = State, state_pop = Pop)
+
+# collate state abbreviations
+state_abbreviations <- tibble(
+  state_name = state.name,
+  state_abbrev = state.abb
+) |>
+  add_row(state_name = "District of Columbia", state_abbrev = "DC")
+
+# add CrimeRate to crime_data
+crime_data <- crime_data |>
+  mutate(STATE = ifelse(STATE == "IO", "IA", STATE)) |>
+  rename(state_abbrev = STATE) |>
+  filter(state_abbrev != "DC") |> # remove outlier
+  left_join(state_abbreviations, by = "state_abbrev") |>
+  left_join(population_data, by = "state_name") |>
+  select(state_abbrev, Violent, Metro, HighSchool, Poverty, state_pop)
+
+crime_data
+```
+
+Let's recall the logistic regression we ran on these data in Chapter 4:
+
+```{r}
+bin_fit <- glm(Violent / state_pop ~ Metro + HighSchool + Poverty,
+  weights = state_pop,
+  family = "binomial",
+  data = crime_data
+)
+```
+
+We had found very poor results from the goodness of fit test for this model. We have therefore omitted some important variables and/or we have serious overdispersion on our hands.
+
+We haven't discussed in any detail how to deal with overdispersion in logistic regression models, so let's try a Poisson model instead. The natural way to model rates using Poisson distributions is via offsets:
+
+```{r}
+pois_fit <- glm(Violent ~ Metro + HighSchool + Poverty + offset(log(state_pop)),
+  family = "poisson",
+  data = crime_data
+)
+summary(pois_fit)
+```
+
+Again, everything is significant, and again, the regression summary shows that we have a huge residual deviance. This was to be expected, given that $\text{Bin}(m, \pi) \approx \text{Poi}(m\pi)$ for large $m$ and small $\pi$. So, the natural thing to try is a negative binomial regression! Negative binomial regression is not implemented in the regular `glm` package, but `glm.nb()` from the `MASS` package is a dedicated function for this task. Let's see what we get:
+
+```{r}
+nb_fit <- MASS::glm.nb(Violent ~ Metro + HighSchool + Poverty + offset(log(state_pop)),
+  data = crime_data
+)
+summary(nb_fit)
+```
+
+Aha! Things are not looking so significant anymore! And the residual deviance is not as huge! Although, we must be careful! The residual deviance no longer has the usual $\chi^2$ distribution because of the estimated dispersion parameter. So we don't really have an easy goodness of fit test. The estimated value of $\gamma$ (confusingly called $\theta$ in the summary) is significantly different from zero, indicating overdispersion. Let's formally test for overdispersion using the nonstandard likelihood ratio test discussed above:
+
+```{r}
+T_LRT <- 2 * (as.numeric(logLik(nb_fit)) - as.numeric(logLik(pois_fit)))
+p_LRT <- pchisq(T_LRT, df = 1, lower.tail = FALSE)/2
+p_LRT
+```
+
+So at the very least the NB model fits much better than the Poisson model. Let's do some inference based on this model. For example, we can get Wald confidence intervals:
+
+```{r}
+confint.default(nb_fit)
+```
+
+Or we can get LRT-based (i.e. profile) confidence intervals:
+
+```{r}
+confint(nb_fit)
+```
+
+Or we can get confidence intervals for the predicted means:
+
+```{r}
+predict(nb_fit,
+  newdata = crime_data |> column_to_rownames(var = "state_abbrev"),
+  type = "response",
+  se.fit = TRUE
+)
+```
+
+We can carry out some hypothesis tests as well, e.g. to test $H_0: \beta_{\text{Metro}} = 0$:
+
+```{r}
+nb_fit_partial <- MASS::glm.nb(Violent ~ HighSchool + Poverty + offset(log(state_pop)),
+  data = crime_data
+)
+anova_fit <- anova(nb_fit_partial, nb_fit)
+anova_fit
+```

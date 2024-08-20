@@ -1,0 +1,79 @@
+# Introduction {-}
+
+## Welcome
+
+This is a set of lecture notes developed for the PhD statistics course "STAT 9610: Statistical Methodology" at the University of Pennsylvania. Much of the content is adapted from Alan Agresti's book *Foundations of Linear and Generalized Linear Models* (2015). These notes may contain typos and errors, and will be updated in subsequent iterations of STAT 9610.
+
+## Preview: Linear and generalized linear models
+
+*See also Agresti 1.1, Dunn and Smyth 1.1-1.2, 1.5-1.6, 1.8-1.12*
+
+The overarching statistical goal addressed in this class is to learn about relationships between a response $y$ and predictors $x_0, x_1, \dots, x_{p-1}$. This abstract formulation encompasses an extremely wide variety of applications. The most widely used set of statistical models to address such problems are _generalized linear models_, which are the focus of this class.
+
+Let's start by recalling the _linear model_, the most fundamental of the generalized linear models. In this case, the response is continuous ($y \in \mathbb{R}$) and modeled as:
+
+$$
+y = \beta_0 x_0 + \cdots + \beta_{p-1} x_{p-1} + \epsilon,
+$$ {#eq-lm1}
+
+where
+
+$$
+\epsilon \sim (0, \sigma^2), \quad \text{i.e.} \ \mathbb{E}[\epsilon] = 0 \ \text{and} \ \text{Var}[\epsilon] = \sigma^2.
+$$ {#eq-lm2}
+
+We view the predictors $x_0, \dots, x_{p-1}$ as fixed, so the only source of randomness in $y$ is $\epsilon$. Another way of writing the linear model is:
+
+$$
+\mu \equiv \mathbb{E}[y] = \beta_0 x_0 + \cdots + \beta_{p-1} x_{p-1} \equiv \eta.
+$$
+
+Not all responses are continuous, however. In some cases, we have binary responses ($y \in \{0,1\}$) or count responses ($y \in \mathbb{Z}$). In these cases, there is a mismatch between the:
+
+$$
+\textit{linear predictor } \eta \equiv \beta_0 x_0 + \cdots + \beta_{p-1} x_{p-1}
+$$
+
+and the
+
+$$
+\textit{mean response } \mu \equiv \mathbb{E}[y].
+$$
+
+The linear predictor can take arbitrary real values ($\eta \in \mathbb{R}$), but the mean response can lie in a restricted range, depending on the response type. For example, $\mu \in [0,1]$ for binary $y$ and $\mu \in [0, \infty)$ for count $y$.
+
+For these kinds of responses, it makes sense to model a _transformation_ of the mean as linear, rather than the mean itself:
+
+$$
+g(\mu) = g(\mathbb{E}[y]) = \beta_0 x_0 + \cdots + \beta_{p-1} x_{p-1} = \eta.
+$$
+
+This transformation $g$ is called the link function. For binary $y$, a common choice of link function is the _logit link_, which transforms a probability into a log-odds:
+
+$$
+\text{logit}(\pi) \equiv \log \frac{\pi}{1-\pi}.
+$$
+
+So the predictors contribute linearly on the log-odds scale rather than on the probability scale. For count $y$, a common choice of link function is the _log link_.
+
+Models of the form
+
+$$
+g(\mu) = \eta
+$$
+
+are called _generalized linear models_ (GLMs). They specialize to linear models for the identity link function, i.e., $g(\mu) = \mu$. The focus of this course is methodologies to learn about the coefficients $\boldsymbol{\beta} \equiv (\beta_0, \dots, \beta_{p-1})^T$ of a GLM based on a sample $(\boldsymbol{X}, \boldsymbol{y}) \equiv \{(x_{i,0}, \dots, x_{i,p-1}, y_i)\}_{i = 1}^n$ drawn from this distribution. Learning about the coefficient vector helps us learn about the relationship between the response and the predictors. 
+
+## Course outline
+
+This course is broken up into five units:
+
+- **Chapter 1. Linear model: Estimation.** The _least squares_ point estimate $\boldsymbol{\widehat \beta}$ of $\boldsymbol{\beta}$ based on a dataset $(\boldsymbol{X}, \boldsymbol{y})$ under the linear model assumptions.
+- **Chapter 2. Linear model: Inference.** Under the additional assumption that $\epsilon \sim N(0,\sigma^2)$, how to carry out statistical inference (hypothesis testing and confidence intervals) for the coefficients.
+- **Chapter 3. Linear model: Misspecification.** What to do when the linear model assumptions are not correct: What issues can arise, how to diagnose them, and how to fix them.
+- **Chapter 4. GLMs: General theory.** Estimation and inference for GLMs (generalizing Chapters 1 and 2). GLMs fit neatly into a unified theory based on _exponential families_.
+- **Chapter 5. GLMs: Special cases.** Looking more closely at the most important special cases of GLMs, including logistic regression and Poisson regression.
+
+## Notation
+
+We will use the following notations in this course. Vector and matrix quantities will be bolded, whereas scalar quantities will not be. Capital letters will be used for matrices, and lowercase for vectors and scalars. No notational distinction will be made between random quantities and their realizations. The letters $i = 1, \dots, n$ and $j = 0, \dots, p-1$ will index samples and predictors, respectively. The predictors $\{x_{ij}\}_{i,j}$ will be gathered into an $n \times p$ matrix $\boldsymbol{X}$. The rows of $\boldsymbol{X}$ correspond to samples, with the $i$th row denoted $\boldsymbol{x}_{i*}$. The columns of $\boldsymbol{X}$ correspond to predictors, with the $j$th column denoted $\boldsymbol{x}_{*j}$. The responses $\{y_i\}_i$ will be gathered into an $n \times 1$ response vector $\boldsymbol{y}$. The notation $\equiv$ will be used for definitions.

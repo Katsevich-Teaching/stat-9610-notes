@@ -1,0 +1,8 @@
+[1,"Installing 'GLMsData' ...\n"]
+[2,"trying URL 'https://cran.rstudio.com/bin/macosx/big-sur-x86_64/contrib/4.4/GLMsData_1.4.tgz'\n"]
+[2,"Content type 'application/x-gzip' length 367003 bytes (358 KB)\n==="]
+[2,"============================================="]
+[2,"==\ndownloaded 358 KB\n\n"]
+[1,"The downloaded binary packages are in\n"]
+[1,"\t/var/folders/wh/j0lkx_9d5zq75dljjxvvgb480000gn/T//RtmpBkJO1F/downloaded_packages\n"]
+[2,"\n\n✔ Package 'GLMsData' successfully installed.\n"]

@@ -1,0 +1,556 @@
+% (C) Brett Klamer - MIT - http://opensource.org/licenses/MIT
+% Please contact me if you find any errors or make improvements
+% Contact details at brettklamer.com
+
+\documentclass[11pt,letterpaper,english,oneside]{article} % article class is a standard class
+%==============================================================================
+%Load Packages
+%==============================================================================
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry} % easy page margins
+\usepackage[utf8]{inputenc} % editor uses utf-8 encoding
+\usepackage[T1]{fontenc} % T1 font pdf output
+\usepackage{lmodern} % Latin modern roman font
+\usepackage{bm, bbm} % bold and blackboard bold math symbols
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % math packages
+\usepackage[final]{microtype} % better microtypography
+\usepackage{graphicx} % for easier grahics handling
+\usepackage[hidelinks, colorlinks=true, linkcolor = blue, urlcolor = blue]{hyperref} % to create hyperlinks
+\usepackage{float} % tells floats to stay [H]ere!
+\usepackage{mdframed} % it's better than framed. knitr uses framed so settings won't conflict
+\usepackage{enumitem} % nice lists
+\usepackage{fancyhdr} % nice headers
+\usepackage{caption}  % to control figure and table captions
+
+\captionsetup{width=0.9\textwidth, justification = raggedright}
+
+%==============================================================================
+% Enter name and homework title here
+%==============================================================================
+\author{Eugene Katsevich}
+\title{Homework 1 Solutions}
+
+%==============================================================================
+% Put title and author in PDF properties
+%==============================================================================
+\makeatletter % change interpretation of @
+\hypersetup{pdftitle={\@title},pdfauthor={\@author}}
+
+
+%==============================================================================
+% Header settings
+%==============================================================================
+\pagestyle{fancy} % turns on fancy header styles
+\fancyhf{} % clear all header and footer fields
+\makeatletter
+\lhead{\@author} % left header
+\chead{\@title} % center header
+\makeatother
+\rhead{Page \thepage} % right header
+\setlength{\headheight}{13.6pt} % fixes minor warning
+\makeatother % change back interpretation of @
+
+%==============================================================================
+% List spacing
+%==============================================================================
+\setlist[itemize]{parsep=0em} % fix itemize spacing
+\setlist[enumerate]{parsep=0em} % fix enumerate spacing
+
+%==============================================================================
+% Float spacing (changes spacing of tables, graphs, etc)
+%==============================================================================
+%\setlength{\textfloatsep}{3pt}
+%\setlength{\intextsep}{3pt}
+
+%==============================================================================
+% Define Problem and Solution Environments
+%==============================================================================
+\theoremstyle{definition} % use definition's look
+\newtheorem{problem}{Problem}
+\newtheorem{solution}{Solution}
+\mdfsetup{ % box margin fix for mdframe and how it plays with parskip and others.
+innerleftmargin=4pt,
+innerrightmargin=4pt,
+innertopmargin=-1pt,
+innerbottommargin=4pt}
+% \newenvironment{prob}{\begin{mdframed}\begin{problem}\hspace{0pt}}{\end{problem}\end{mdframed}}
+\newenvironment{prob}{\begin{problem}\hspace{0pt}}{\end{problem}}
+\newenvironment{sol}{\begin{solution}\hspace{0pt}}{\end{solution}}
+
+%==============================================================================
+% set knitr options
+%==============================================================================
+% latex (change space before and after knitr kframe; based on framed package)
+\setlength{\OuterFrameSep}{0.3em}
+% R
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+# inline hook to process the output of \Sexpr{} statements to just 2 digits
+inline_hook <- function(x) {
+  if(is.numeric(x)) x <- round(x, 2)
+  paste(as.character(x), collapse=", ")
+}
+knit_hooks$set(inline = inline_hook)
+
+# cache all chunks
+opts_chunk$set(cache = TRUE)
+
+# create directory for figures
+if(!dir.exists("figures")){
+  dir.create("figures")
+}
+@
+
+\begin{document}
+
+
+\maketitle
+
+
+<<message=FALSE, cache = FALSE, echo = FALSE>>=
+library(tidyverse)
+@
+
+\begin{prob} \label{prob:change-of-basis}\textbf{Change of basis.} (Adapted from Agresti Ex. 1.17) \\
+
+\noindent Let $\bm X$ and $\bm X'$ be full-rank $n \times p$ model matrices.
+\begin{enumerate}
+\item[(a)]  Show that $C(\bm X) = C(\bm X')$ if and only if $\bm X' = \bm X \bm A$ for some nonsingular $p \times p$ matrix $\bm A$. In plain language, express what the operation $\bm X \mapsto \bm X \bm A$ does to the columns of $\bm X$ (one sentence is sufficient).
+\item[(b)] Let $\bm{\widehat \beta}$ and $\bm{\widehat \beta'}$ be the least squares solutions obtained from regressing a response vector $\bm y$ on $\bm X$ and $\bm X' \equiv \bm X \bm A$, respectively, where $\bm A$ is a nonsingular $p \times p$ matrix. What is the relationship between $\bm{\widehat \beta}$ and $\bm{\widehat \beta'}$ (express the latter in terms of the former)? Justify your answer. 
+\item[(c)] Consider the linear model
+\begin{equation}
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon; \quad \epsilon \sim (0, \sigma^2),
+\label{eq:two-predictors}
+\end{equation}
+so that $\bm X = [\bm 1, \bm x_{*1}, \bm x_{*2}]$ for columns $\bm x_{*j} \equiv (x_{1j}, \dots, x_{nj})^T$, $j \in \{1,2\}$. Sometimes it is useful to center the predictors by subtracting their means: 
+\begin{equation*}
+\bm x'_{*j} \equiv \bm x_{*j} - \bar x_j \bm 1; \quad \bar x_j \equiv \frac{1}{n}\sum_{i = 1}^n x_{ij}, \quad j \in \{1,2\}.
+\end{equation*}
+Defining $\bm X' \equiv [\bm 1, \bm x'_{*1}, \bm x'_{*2}]$, find the matrix $\bm A$ such that $\bm X' = \bm X \bm A$ ($\bm A$ may itself be expressed in terms of $\bm X$). Express the coefficient estimates from the centered regression ($\widehat \beta'_0$, $\widehat \beta'_1$, $\widehat \beta'_2$) in terms of those from the original regression ($\widehat \beta_0$, $\widehat \beta_1$, $\widehat \beta_2$).
+\item[(d)] Let $w \in \{a,b,c\}$ be a categorical variable with three levels. Define $x_1 \equiv \mathbbm 1(w = b)$ and $x_2 \equiv \mathbbm 1(w = c)$, and consider the linear regression~\eqref{eq:two-predictors}. This corresponds to regressing $y$ on the categorical variable $w$, with baseline category $a$. Sometimes a different baseline category may make more sense, e.g. category $b$. In this case, we would define $x'_1 \equiv \mathbbm 1(w = a)$ and $x'_2 \equiv \mathbbm 1(w = c)$. Defining $\bm X$ and $\bm X'$ as in part (c), find the matrix $\bm A$ such that $\bm X' = \bm X \bm A$. Express the coefficient estimates from the transformed regression ($\widehat \beta'_0$, $\widehat \beta'_1$, $\widehat \beta'_2$) in terms of those from the original regression ($\widehat \beta_0$, $\widehat \beta_1$, $\widehat \beta_2$). What are the interpretations of the original and transformed coefficients, and why do the relationships between these coefficients derived above make sense in terms of these interpretations? 
+
+\end{enumerate}
+
+\end{prob}
+
+\begin{sol}
+\begin{enumerate}
+\item[(a)] Suppose $C(\bm X) = C(\bm X')$. This means that for each $j \in \{1,\dots,p\}$, we have $\bm x'_{*j} \in C(\bm X') = C(\bm X)$, so by definition of $C(\bm X)$ there exists a vector $\bm a_{*j} \in \mathbb R^p$ such that $\bm x'_{*j} = \bm X \bm a_{*j}$. This implies that $\bm X' = \bm X \bm A$, where $\bm A \equiv [\bm a_{*1}, \dots, \bm a_{*p}].$ The matrix $\bm A$ must be nonsingular because $p = \text{rank}(\bm X') = \text{rank}(\bm X \bm A) \leq \text{rank}(\bm A)$, so $\text{rank}(\bm A) = p$. \\
+
+Conversely, suppose $\bm X' = \bm X \bm A$ for some nonsingular $p \times p$ matrix $\bm A$. Then, we have 
+\begin{equation*}
+C(\bm X') \equiv \{\bm X' \bm \beta: \bm \beta \in \mathbb R^p\} = \{\bm X \bm A \bm \beta: \bm \beta \in \mathbb R^p\} \subseteq C(\bm X).
+\end{equation*}
+On the other hand, $\bm X = \bm X' \bm A^{-1}$, so by the same reasoning we also have $C(\bm X) \subseteq C(\bm X')$. Therefore, $C(\bm X) = C(\bm X')$, which completes the proof. \\
+
+The columns of $\bm X \bm A$ are linear combinations of the columns of $\bm X$.
+
+\item[(b)] The fitted vectors $\bm X \bm{\widehat \beta}$ and $\bm X' \bm{\widehat \beta'}$ are the projections of the response vector $\bm y$ onto $C(\bm X)$ and $C(\bm X')$, respectively. Since these two model speces are the same, this implies that the fitted vectors are the same as well, i.e. $\bm X \bm{\widehat \beta} = \bm X' \bm{\widehat \beta'}$. Therefore, $\bm X \bm{\widehat \beta} = \bm X' \bm{\widehat \beta'} = \bm X \bm A \bm{\widehat \beta'}$. Since $\bm X$ is full rank, it follows that $\bm{\widehat \beta} = \bm A \bm{\widehat \beta'}$, so we conclude that $\bm{\widehat \beta}' = \bm A^{-1} \bm{\widehat \beta}$.
+
+\item[(c)] We have
+\begin{equation*}
+\bm X' \equiv (\bm 1, \bm x'_{*1}, \bm x'_{*2}) = (\bm 1, \bm x_{*1} - \bar x_1 \bm 1, \bm x_{*2} - \bar x_2 \bm 1) = (\bm 1, \bm x_{*1}, \bm x_{*2})
+\begin{pmatrix}
+1 & -\bar x_1 & -\bar x_2 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix} \equiv \bm X \bm A,
+\end{equation*}
+where
+\begin{equation*}
+\bm A \equiv \begin{pmatrix}
+1 & -\bar x_1 & -\bar x_2 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}.
+\end{equation*}
+The inverse of this matrix is easily seen to be
+\begin{equation*}
+\bm A^{-1} = \begin{pmatrix}
+1 & \bar x_1 & \bar x_2 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}.
+\end{equation*}
+Therefore, by part (b), we have
+\begin{equation}
+\begin{pmatrix}
+\widehat \beta'_0 \\
+\widehat \beta'_1 \\
+\widehat \beta'_2
+\end{pmatrix} = \bm A^{-1} \bm{\widehat \beta} = \begin{pmatrix}
+1 & \bar x_1 & \bar x_2 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}\begin{pmatrix}
+\widehat \beta_0 \\
+\widehat \beta_1 \\
+\widehat \beta_2
+\end{pmatrix} = \begin{pmatrix}
+\widehat \beta_0 + \bar x_1 \widehat \beta_1 + \bar x_2 \widehat \beta_2 \\
+\widehat \beta_1 \\
+\widehat \beta_2
+\end{pmatrix}.
+\label{eq:centering-transformation}
+\end{equation}
+
+\item[(d)] We have
+\begin{equation*}
+\begin{split}
+(1, x'_1, x'_2) &= (1, \mathbbm 1(w = a), \mathbbm 1(w = c)) \\
+&= (1, 1-\mathbbm 1(w = b) - \mathbbm 1(w = c), \mathbbm 1(w = c)) \\
+&= (1, 1-x_1-x_2,x_2) \\
+&= (1,x_1,x_2)\begin{pmatrix}
+1 & 1 & 0 \\
+0 & -1 & 0 \\
+0 & -1 & 1
+\end{pmatrix}.
+\end{split}
+\end{equation*}
+Therefore, $\bm X' = \bm X \bm A$ for 
+\begin{equation*}
+\bm A \equiv \begin{pmatrix}
+1 & 1 & 0 \\
+0 & -1 & 0 \\
+0 & -1 & 1
+\end{pmatrix}.
+\end{equation*}
+The inverse of this matrix is easily seen to be
+\begin{equation*}
+\bm A^{-1} = \bm A = \begin{pmatrix}
+1 & 1 & 0 \\
+0 & -1 & 0 \\
+0 & -1 & 1
+\end{pmatrix}.
+\end{equation*}
+Therefore, by part (b), we have
+\begin{equation*}
+\begin{pmatrix}
+\widehat \beta'_0 \\
+\widehat \beta'_1 \\
+\widehat \beta'_2
+\end{pmatrix} = \bm A^{-1} \bm{\widehat \beta} = \begin{pmatrix}
+1 & 1 & 0 \\
+0 & -1 & 0 \\
+0 & -1 & 1
+\end{pmatrix}\begin{pmatrix}
+\widehat \beta_0 \\
+\widehat \beta_1 \\
+\widehat \beta_2
+\end{pmatrix} = \begin{pmatrix}
+\widehat \beta_0 + \widehat \beta_1 \\
+-\widehat \beta_1 \\
+-\widehat \beta_1 + \widehat \beta_2
+\end{pmatrix}.
+\end{equation*}
+
+For the original regression, the coefficient $\beta_0$ is the mean response value in category $a$, the coefficient $\beta_1$ is the difference in mean response values between categories $b$ and $a$, and the coefficient $\beta_2$ is the difference in mean response values between categories $c$ and $a$. For the transformed regression, the coefficient $\beta'_0$ is the mean response value in category $b$, the coefficient $\beta'_1$ is the difference in mean response values between categories $a$ and $b$, and the coefficient $\beta_2$ is the difference in mean response values between categories $c$ and $b$. The relationships among the corresponding fitted coefficients derived above are consistent with these interpretations; for example, the estimated mean response value in category $b$ ($\widehat \beta'_0$) is the sum of the estimated mean response value in category $a$ ($\widehat \beta_0$) and the estimated difference in mean response values between categories $b$ and $a$ ($\widehat \beta_1$).
+
+
+\end{enumerate}
+\end{sol}
+
+\clearpage 
+
+\begin{prob} \textbf{Predictor correlation.} (Adapted from Agresti Ex. 2.9) \\
+
+\noindent Consider the linear regression
+\begin{equation*}
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon; \quad \epsilon \sim (0, \sigma^2),
+\end{equation*}
+with observed predictor vectors denoted $\bm x_{*1} \equiv (x_{11}, \dots, x_{n1})^T$ and $\bm x_{*2} \equiv (x_{12}, \dots, x_{n2})^T$. (This is the same setup as in Problem~\ref{prob:change-of-basis}(c).) 
+\begin{enumerate}
+\item[(a)] Suppose $\bm x_{*1}$ and $\bm x_{*2}$  have sample correlation $\rho \in (-1,1)$. In terms of $\rho$, what is the correlation between the estimates $\widehat \beta_1$ and $\widehat \beta_2$ (which are random variables due to the randomness in $\epsilon$)?
+\item[(b)] To build intuition for the preceding result, consider the extreme case when $\bm x_{*1} = \bm x_{*2}$. In this case, $\rho = 1$ and the regression is not identifiable. For a fixed parameter vector $(\beta_0^0, \beta_1^0, \beta_2^0)$, write down the set $\mathcal S$ of parameter vectors $(\beta_0, \beta_1, \beta_2)$ giving the same value of $\mathbb E[\bm y]$ as $(\beta_0, \beta_1, \beta_2) = (\beta_0^0, \beta_1^0, \beta_2^0)$. In what sense does the result in part (a) reflect the relationship between $\beta_1$ and $\beta_2$ for $(\beta_0, \beta_1, \beta_2) \in \mathcal S$? (Ignore the fact that the case $\rho = 1$ is not covered in part (a).)
+\item[(c)] Suppose $z_1, z_2 \overset{\text{i.i.d.}} \sim N(0,1)$, and $x_1 \equiv z_1 + 0.5z_2$ and $x_2 \equiv z_1 - 0.5z_2$. What is the correlation between the random variables $x_1$ and $x_2$? Suppose the predictors in each row $\{(x_{i1}, x_{i2})\}_{i = 1}^n$ are a sample from this joint distribution. Roughly what do we expect to be the sample correlation between $\bm x_{*1}$ and $\bm x_{*2}$? Fixing $\bm x_{*1}$ and $\bm x_{*2}$ at their realizations, roughly what do we expect to be the correlation between $\widehat \beta_1$ and $\widehat \beta_2$?
+\item[(d)] To check the conclusions in part (b), run a numerical simulation with $n = 100$, $\sigma^2 = 1$, $(\beta_0, \beta_1, \beta_2) = (0,1,2)$, and $\epsilon \sim N(0, \sigma^2)$. Sample one realization of $\bm x_{*1}$ and $\bm x_{*2}$, generate 250 realizations of the response $\bm y$, and for each realization calculate least squares estimates $\bm{\widehat \beta}$. Summarize the results of your simulation by creating scatter plots of $\bm x_{*2}$ versus $\bm x_{*1}$ and $\widehat \beta_{2}$ versus $\widehat \beta_{1}$, with the title of each plot containing the sample correlations of the data it displays. On the scatter plot of $\widehat \beta_{2}$ versus $\widehat \beta_{1}$, indicate the theoretical expected value of $(\widehat \beta_{1}, \widehat \beta_2)$ with a red point. Display these two scatter plots side by side using \texttt{cowplot::plot\_grid}. Do the sample correlations match what you predicted in part (c)?
+\end{enumerate}
+
+\end{prob}
+\begin{sol}
+
+\begin{enumerate}
+
+\item[(a)] Recall that $\bm{\widehat \beta} \sim (\beta, \sigma^2 (\bm X^T \bm X)^{-1})$. From conclusion~\eqref{eq:centering-transformation} in the solution of Problem~\ref{prob:change-of-basis}, we may assume without loss of generality that the predictors $\bm x_{*1}$ and $\bm x_{*2}$ are centered. Due to the resulting orthogonality between $\bm 1$ and $(\bm x_{*1}$, $\bm x_{*2})$, it follows that
+\begin{equation*}
+\bm X^T \bm X = 
+\begin{pmatrix}
+n & 0 & 0 \\
+0 & \bm x_{*1}^T \bm x_{*1} & \bm x_{*1}^T \bm x_{*2} \\
+0 & \bm x_{*2}^T \bm x_{*1} & \bm x_{*2}^T \bm x_{*2}
+\end{pmatrix} = 
+\begin{pmatrix}
+n & 0 & 0 \\
+0 & \bm \|x_{*1}\|^2 & \|x_{*1}\|\|x_{*2}\|\rho  \\
+0 & \bm \|x_{*1}\|\|x_{*2}\|\rho & \|x_{*2}\|^2
+\end{pmatrix}
+\end{equation*}
+Therefore, 
+\begin{equation*}
+(\bm X^T \bm X)^{-1} = 
+\begin{pmatrix}
+n^{-1} & 0 & 0 \\
+0 & \frac{\|\bm x_{*1}\|}{\sqrt{1-\rho^2}\|\bm x_{*2}\|} & \frac{-\rho}{\sqrt{1-\rho^2}} \\
+0 & \frac{-\rho}{\sqrt{1-\rho^2}} & \frac{\|\bm x_{*2}\|}{\sqrt{1-\rho^2}\|\bm x_{*1}\|}
+\end{pmatrix}.
+\end{equation*}
+Therefore, 
+\begin{equation*}
+{\widehat \beta_1 \choose \widehat \beta_2} \sim \left({\beta_1 \choose \beta_2}, \sigma^2
+\begin{pmatrix}
+\frac{\|\bm x_{*1}\|}{\sqrt{1-\rho^2}\|\bm x_{*2}\|} & \frac{-\rho}{\sqrt{1-\rho^2}} \\
+\frac{-\rho}{\sqrt{1-\rho^2}} & \frac{\|\bm x_{*2}\|}{\sqrt{1-\rho^2}\|\bm x_{*1}\|}
+\end{pmatrix}\right).
+\end{equation*}
+From this expression, we can read off that
+\begin{equation*}
+\text{Cor}[\widehat \beta_1, \widehat \beta_2] = \frac{\text{Cov}[\widehat \beta_1, \widehat \beta_2]}{\text{sd}[\widehat \beta_1]\text{sd}[\widehat \beta_2]} = \frac{\frac{-\rho}{\sqrt{1-\rho^2}}}{\left(\frac{\|\bm x_{*1}\|}{\sqrt{1-\rho^2}\|\bm x_{*2}\|}\right)^{1/2}\left(\frac{\|\bm x_{*2}\|}{\sqrt{1-\rho^2}\|\bm x_{*1}\|}\right)^{1/2}} = -\rho.
+\end{equation*}
+Therefore, if the sample correlation between $\bm x_{*1}$ and $\bm x_{*2}$ is $\rho$, then the correlation between $\widehat \beta_1$ and $\widehat \beta_2$ is $-\rho$.
+
+\item[(b)] We have $\mathbb E[\bm y] = \beta_0 \bm 1 + \beta_1 \bm x_{*1} + \beta_2 \bm x_{*2} = \beta_0 \bm 1 + (\beta_1 + \beta_2)\bm x_{*1}$. Therefore, 
+\begin{equation*}
+\mathcal S = \{(\beta_0, \beta_1, \beta_2): \beta_0 = \beta^0_0, \beta_1 + \beta_2 = \beta_1^0 + \beta_2^0\} = \{(\beta_0^0, \beta_1^0 - C, \beta_2^0 + C): C \in \mathbb R\}.
+\end{equation*}
+Since $\rho = 1$, part (a) suggests that $\text{Cor}[\widehat \beta_1, \widehat \beta_2] = -1$. This is consistent with the fact that $(\beta_1, \beta_2) = (\beta_1^0 - C, \beta_2^0 + C)$ have a perfect inverse relationship. 
+
+\item[(c)] We have
+\begin{equation*}
+\begin{split}
+\text{Cor}[x_1, x_2] &= \frac{\text{Cov}[x_1, x_2]}{(\text{Var}[x_1])^{1/2}(\text{Var}[x_2])^{1/2}} \\
+&= \frac{\mathbb E[(z_1 + 0.5z_2)(z_1 - 0.5z_2)]}{(\text{Var}[z_1 + 0.5z_2])^{1/2}(\text{Var}[z_1 - 0.5z_2])^{1/2}} = \frac{0.75}{1.25^{1/2}1.25^{1/2}} = 0.6.
+\end{split}
+\end{equation*}
+We therefore expect the sample correlation between $\bm x_{*1}$ and $\bm x_{*2}$ to be approximately 0.6. By part (a), we expect the correlation between $\widehat \beta_1$ and $\widehat \beta_2$ to be approximately -0.6.
+
+\item[(d)]
+
+First we run the numerical simulation:
+<<>>=
+# simulation parameters
+n = 100     # samples size
+beta_0 = 0  # true regression coefficients
+beta_1 = 1 
+beta_2 = 2
+sigma = 1   # noise standard deviation
+reps = 250  # number of random realizations
+
+# set seed for reproducibility
+set.seed(961)
+
+# generate predictors
+z1 = rnorm(n)
+z2 = rnorm(n)
+x1 = z1 + 0.5*z2
+x2 = z1 - 0.5*z2
+
+# run simulation
+beta_1_hat = numeric(reps)        # initialize vectors for fitted coefficients
+beta_2_hat = numeric(reps)
+for(rep in 1:reps){               # loop over random realizations
+  eps = rnorm(n)                  # generate data for this realization
+  data = tibble(x1,               
+                x2, 
+                y = beta_0 + beta_1*x1 + beta_2*x2 + eps)
+  lm_fit = lm(y ~ ., data = data) # run linear regression
+  coefs = coef(lm_fit)            # extract coefficients
+  beta_1_hat[rep] = coefs["x1"]   # record first coefficient
+  beta_2_hat[rep] = coefs["x2"]   # record second coefficient
+}
+@
+
+Next we summarize the results of the simulation:
+<<>>=
+# create scatter plot of x2 versus x1 
+p1 = tibble(x1, x2) %>%
+  ggplot(aes(x = x1, y = x2)) + 
+  geom_point() + 
+  labs(x = quote(x[1]),
+       y = quote(x[2]),
+       title = sprintf("Correlation = %0.2f", cor(x1, x2))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5))
+
+# create scatter plot of beta_2_hat versus beta_1_hat
+p2 = tibble(beta_1_hat, beta_2_hat) %>% 
+  ggplot(aes(x = beta_1_hat, y = beta_2_hat)) + 
+  geom_point() + 
+  geom_point(x = beta_1, y = beta_2, colour = "red") + 
+  labs(x = quote(widehat(beta)[1]),
+       y = quote(widehat(beta)[2]),
+       title = sprintf("Correlation = %0.2f", cor(beta_1_hat, beta_2_hat)))+
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5))
+
+# concatenate the plots side by side
+p = cowplot::plot_grid(p1, p2, labels = "auto", align = "hv")
+
+# save final plot
+ggsave(filename = "figures/predictor-correlation.png", plot = p, device = "png", 
+       width = 5, height = 2.75)
+@
+
+Figure~\ref{fig:predictor-correlation} displays the results of the numerical simulation. The correlations of 0.61 and -0.53 in these scatter plots are roughly what was predicted in part (c) ($\rho \approx 0.6$ and $-\rho \approx -0.6$, respectively).
+
+\begin{figure}[h!]
+\includegraphics[width = \textwidth]{figures/predictor-correlation.png}
+\vspace{-0.75cm}
+\caption{Simulation results: Positively correlated predictors (a) lead to negatively correlated coefficient estimates (b).}
+\label{fig:predictor-correlation}
+\end{figure}
+\end{enumerate}
+
+\end{sol}
+
+\clearpage 
+
+\begin{prob} \textbf{Data analysis: Anorexia treatment.} (Adapted from Agresti Ex. 1.24) \\
+
+\noindent For 72 young girls suffering from anorexia, the \texttt{Anorexia.dat} file under \texttt{stat-961-fall-2021/data} shows their weights before and after an experimental period: 
+<<>>=
+anorexia_data = read_tsv("Anorexia.dat", col_types = "ifdd")
+print(anorexia_data, n = 5)
+@
+\noindent The girls were randomly assigned to receive one of three therapies during this period. A control group received the standard therapy, which was compared to family therapy and cognitive behavioral therapy. The goal of the study is to compare the effectiveness of the therapies in increasing the girls' weights. 
+
+\begin{enumerate}
+\item[(a)] Prepare the data by (1) removing the \texttt{subj} variable, (2) re-coding the factor levels of \texttt{therapy} as \texttt{behavioral}, \texttt{family}, and \texttt{control}, (3) renaming \texttt{before} and \texttt{after} to \texttt{weight\_before} and \texttt{weight\_after}, respectively, and (4) adding a variable called \texttt{weight\_gain} defined as the difference of \texttt{weight\_after} and \texttt{weight\_before}. Print the resulting tibble.
+\item[(b)] Explore the data by (1) making box plots of \texttt{weight\_gain} as a function of \texttt{therapy}, (2) making a scatter plot of \texttt{weight\_gain} against \texttt{weight\_before}, coloring points based on \texttt{therapy} and (3) creating a table displaying, for each \texttt{therapy} group, the mean weight gain, maximum weight gain, and fraction gained weight. Based on these summaries: What therapy appears overall the most successful and why? How effective does the standard therapy appear to be? What is the greatest weight gain observed in this study? Which girls tended to gain most weight, based on their weight before therapy? Why might this be the case? 
+
+\item[(c)] Run a linear regression of \texttt{weight\_gain} on \texttt{therapy} and print the regression summary (print in \texttt{R}, without using \texttt{kable}). Identify the base category chosen by \texttt{R} and discuss the interpretations of the fitted coefficients. It makes more sense to choose \texttt{control} as the base category. Recode the factor levels so that \texttt{control} is the first (and therefore will be chosen as the base category), rerun the linear regression, and print the summary again. Do the relationships among the fitted coefficients in these two regressions match what was found in Problem~\ref{prob:change-of-basis}d? 
+
+\item[(d)] Directly compute the between-groups, within-groups, and corrected total sums of squares (without appealing to the \texttt{aov} function or equivalent) and verify that the first two add up to the third. What is the  ratio of the between-groups sum of squares and the corrected total sum of squares? What is the interpretation of this quantity, and what quantity in the regression summaries printed in part (c) is it equivalent to? Finally, compute an unbiased estimate for the error variance in the regression.
+
+\end{enumerate}
+
+\end{prob}
+
+\begin{sol}
+
+\begin{enumerate}
+\item[(a)] 
+<<>>=
+anorexia_data = anorexia_data %>%
+  select(-subj) %>%                    # remove subj variable
+  mutate(therapy = 
+           factor(therapy,             # recode therapy variable
+                  labels = c("behavioral", 
+                             "family", 
+                             "control"))) %>%
+  rename(weight_before = before,       # rename before and after variables
+         weight_after = after) %>%
+  mutate(weight_gain =                 # create weight_gain variable
+           weight_after - weight_before) 
+
+print(anorexia_data, n = 5)
+@
+
+\item[(b)] 
+
+<<>>=
+# (1) box plots of weight_gain versus therapy
+p1 = anorexia_data %>% 
+  ggplot(aes(x = therapy, y = weight_gain, fill = therapy)) + 
+  geom_boxplot() + 
+  labs(x = "Therapy",
+       y = "Weight gain (lbs)") + 
+  theme_bw() + theme(legend.position = "none")
+
+# (2) scatter plot of weight_gain versus weight_before
+p2 =  anorexia_data %>%
+  ggplot(aes(x = weight_before, 
+             y = weight_gain, 
+             colour = therapy)) + 
+  geom_point() +
+  labs(x = "Weight before therapy (lbs)",
+       y = "Weight gain (lbs)",
+       colour = "Therapy") + 
+  theme_bw()
+
+# concatenate the first two plots side by side
+p = cowplot::plot_grid(p1, p2, labels = "auto", align = "h",
+                       rel_widths = c(1,2))
+ggsave(filename = "figures/summary-anorexia-fig.png", plot = p, device = "png", 
+       width = 6.5, height = 3)
+
+# (3) table with summary statistics for each therapy group
+summary_table = anorexia_data %>% 
+  group_by(therapy) %>% 
+  summarise(`Mean weight gain` = mean(weight_gain),
+            `Max weight gain` = max(weight_gain),
+            `Frac. gained weight` = mean(weight_gain > 0)) %>%
+  rename(Therapy = therapy)
+
+# save table
+summary_table %>% 
+  kableExtra::kable(format = "latex", row.names = NA, 
+                  booktabs = TRUE, digits = 2) %>%
+  kableExtra::save_kable("figures/summary-anorexia-tab.png")
+@
+
+Figure~\ref{fig:summary-anorexia} and Table~\ref{tab:summary-anorexia} explore how \texttt{weight\_gain} depends on \texttt{therapy} and \texttt{weight\_before}. Overall, the family therapy appears most successful; it has the greatest mean weight gain (7.26 pounds), maximum weight gain (21.5 pounds), and fraction gaining weight (76\%) among the three therapies. The standard therapy does not appear effective at all, resulting in a loss of weight on average. The greatest weight gain observed in the study was 21.5 pounds, and based on Figure~\ref{fig:summary-anorexia} it appears that girls who weighed the less before therapy tended to gain more weight. This might be the case because these girls were further from a normal weight to begin with and thus had more weight to gain. 
+
+\begin{figure}[h!]
+\includegraphics[width = \textwidth]{figures/summary-anorexia-fig.png}
+\vspace{-0.75cm}
+\caption{Summary plots for the anorexia data: Weight gain by therapy (a) and relationship between weight gain and weight before therapy (b). It appears that family therapy was most successful, and girls who weighed the less before therapy tended to gain more weight.}
+\label{fig:summary-anorexia}
+\end{figure}
+
+\begin{table}
+\centering
+\includegraphics[width = 0.75\textwidth]{figures/summary-anorexia-tab.png}
+\caption{Summaries of weight gain by therapy group. Family therapy was most successful across all three metrics.}
+\label{tab:summary-anorexia}
+\end{table}
+
+\item[(c)] 
+<<>>=
+lm_fit = lm(weight_gain ~ therapy, data = anorexia_data)
+summary(lm_fit)
+@
+
+We see that the base category chosen by \texttt{R} is \texttt{behavioral}. The intercept is therefore the mean weight gain for the \texttt{behavioral} category, and the other two coefficients are the increases in mean weight gain in the \texttt{family} and \texttt{control} categories, relative to the \texttt{behavioral} category. These categories have about 4.3 lbs more and 3.5 lbs less weight gain than the \texttt{behavioral} category, respectively. 
+
+<<>>=
+anorexia_data = anorexia_data %>%
+  mutate(therapy = 
+           factor(therapy, levels = c("control", "behavioral", "family")))
+lm_fit = lm(weight_gain ~ therapy, data = anorexia_data)
+summary(lm_fit)
+@
+
+Re-running the regression using \texttt{control} as a base category, we get the coefficient estimates above. These are indeed related to the coefficients in the first regression by the rules derived in Problem~\ref{prob:change-of-basis}(d). For example, the coefficient of \texttt{family} in the second regression (7.7, the improvement of this treatment over \texttt{control}) is the difference between the coefficient of \texttt{family} (4.3) and the coefficient of \texttt{control} (-3.5) in the first regression. 
+
+\item[(d)] 
+
+<<>>=
+# compute sum of squared quantities
+SS_table = anorexia_data %>%
+  group_by(therapy) %>%
+  mutate(weight_gain_therapy = mean(weight_gain)) %>%
+  ungroup() %>%
+  mutate(weight_gain_mean = mean(weight_gain)) %>%
+  summarise(`Between-groups` = sum((weight_gain_therapy-weight_gain_mean)^2),
+            `Within-groups` = sum((weight_gain - weight_gain_therapy)^2),
+            `Total` = sum((weight_gain - weight_gain_mean)^2))
+
+# save table
+SS_table %>% 
+  kableExtra::kable(format = "latex", row.names = NA, 
+                  booktabs = TRUE, digits = 2) %>%
+  kableExtra::save_kable("figures/ss-anorexia.png")
+@
+\begin{table}[h!]
+\centering
+\includegraphics[width = 0.5\textwidth]{figures/ss-anorexia.png}
+\caption{Sum-of-squared quantities for the anorexia data.}
+\label{tab:ss-anorexia}
+\end{table}
+
+
+Table~\ref{tab:ss-anorexia} displays the three sum-of-squared quantities, and indeed it is the case that the sum of the first two equals the third: 614.64 + 3910.74 = 4525.39 (up to rounding). The ratio of the between-groups and total sums of squares is 614.64/4525.39 = 0.136; this quantity is the fraction of the variance in weight gain explained by the therapy variable. This is the same as the $R^2$ quantity from the linear regressions run in part (c), as can be seen by inspecting the regression summaries.
+
+\end{enumerate}
+
+
+\end{sol}
+
+\end{document}

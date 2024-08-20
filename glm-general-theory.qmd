@@ -1,0 +1,1037 @@
+# Generalized linear models: General theory {#ch-glm-theory}
+
+Chapters 1-3 focused on the most common class of models used in applications: linear models. Despite their versatility, linear models do not apply in all situations. In particular, they are not designed to deal with binary or count responses. In Chapter 4, we introduce *generalized linear models* (GLMs), a generalization of linear models that encompasses a wide variety of incredibly useful models, including logistic regression and Poisson regression.
+
+We'll start Chapter 4 by introducing exponential dispersion models (Section [@sec-edm]), a generalization of the Gaussian distribution that serves as the backbone of GLMs. Then we formally define a GLM, demonstrating logistic regression and Poisson regression as special cases (Section [@sec-glm-def]). Next, we discuss maximum likelihood inference in GLMs (Section [@sec-glm-max-lik]). Finally, we discuss how to carry out statistical inference in GLMs (Section [@sec-glm-inf]).
+
+## Exponential dispersion model (EDM) distributions {#sec-edm}
+
+### Definition
+
+Let's start with the Gaussian distribution. If $y \sim N(\mu, \sigma^2)$, then it has the following density with respect to the Lebesgue measure $\nu$ on $\mathbb{R}$:
+
+$$
+f_{\mu, \sigma^2}(y) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) = \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+$$ 
+
+We can consider a more general class of densities with respect to any measure $\nu$:
+
+$$
+f_{\theta, \phi}(y) \equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi), \quad \theta \in \Theta \subseteq \mathbb{R}, \ \phi > 0.
+$$ {#eq-edm-def}
+
+Here $\theta$ is called the *natural parameter*, $\psi$ is called the *log-partition function*, $\Theta \equiv \{\theta: \psi(\theta) < \infty\}$ is called the natural parameter space, $\phi > 0$ is called the *dispersion parameter*, and $h$ is called the *base density*. The distribution with density $f_{\theta, \phi}$ with respect to a measure $\nu$ on $\mathbb{R}$ is called an *exponential dispersion model* (EDM). Sometimes, we parameterize this distribution using its mean and dispersion, writing
+
+$$
+y \sim \text{EDM}(\mu, \phi).
+$$
+
+When $\phi = 1$, the distribution becomes a *one-parameter natural exponential family*. The support of an EDM distribution remains fixed as $(\theta, \phi)$ vary.
+
+### Examples
+
+#### Normal distribution
+
+As derived above, $y \sim N(\mu, \sigma^2)$ is an EDM with
+
+$$
+\theta = \mu, \quad \psi(\theta) = -\frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+$$
+
+#### Bernoulli distribution
+
+Suppose $y \sim \text{Ber}(\mu)$. Then, we have
+
+$$
+f(y) = \mu^{y}(1-\mu)^{1-y} = \exp\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu) \right).
+$$
+
+Therefore, we have $\theta = \log \frac{\mu}{1-\mu}$, so that $\log(1-\mu) = -\log(1+e^\theta)$. It follows that
+
+$$
+\theta = \log \frac{\mu}{1-\mu}, \quad \psi(\theta) = \log(1+e^\theta), \quad \phi = 1, \quad h(y) = 1.
+$$
+
+Hence, the Bernoulli distribution is an EDM, as well as a one-parameter exponential family. Note that $\text{Ber}(0)$ and $\text{Ber}(1)$ are not included in this class of EDMs, because there is no $\theta \in \Theta = \mathbb{R}$ that gives rise to $\mu = 0$ or $\mu = 1$. Hence, $\mu \in (0,1)$, and the support of any Bernoulli EDM is $\{0,1\}$.
+
+#### Binomial distribution
+
+Consider the binomial proportion $y$: $my \sim \text{Bin}(m, \mu)$. We have
+
+$$
+f(y) = {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} = \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
+$$
+
+so
+
+$$
+\theta = \log\frac{\mu}{1-\mu}, \quad \psi(\theta) = \frac{e^{\theta}}{1 + e^{\theta}}, \quad \phi = 1/m, \quad h(y, \phi) = {m \choose my}.
+$$
+
+Note that $\text{Bin}(m, 0)$ and $\text{Bin}(m, 1)$ are not included in this class of EDMs, for the same reason as above. Hence, $\mu \in (0,1)$, and the support of any binomial EDM is $\{0,\frac{1}{m}, \frac{2}{m}, \dots, 1\}$.
+
+#### Poisson distribution
+
+Suppose $y \sim \text{Poi}(\mu)$. We have
+
+$$
+f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
+$$
+
+Therefore, we have $\theta = \log \mu$, so that $\mu = e^\theta$. It follows that
+
+$$
+\theta = \log \mu, \quad \psi(\theta) = e^\theta,\quad \phi = 1, \quad h(y) = \frac{1}{y!}.
+$$
+
+Hence, the Poisson distribution is an EDM, as well as a one-parameter exponential family. Note that $\text{Poi}(0)$ is not included in this class of EDMs, because there is no $\theta \in \Theta = \mathbb{R}$ that gives rise to $\mu = 0$. Hence, $\mu \in (0,\infty)$, and the support of any Poisson EDM is $\mathbb{N}$.
+
+Many other examples fall into this class, including the negative binomial, gamma, and inverse-Gaussian distributions. We will see at least some of these in the next chapter.
+
+### Moments of exponential dispersion model distributions
+
+It turns out that the derivatives of the log-partition function $\psi$ give the moments of $y$. Indeed, let's start with the relationship
+
+$$
+\int f_{\theta, \phi}(y)d\nu(y) = \int \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi) d\nu(y) = 1.
+$$
+
+Differentiating in $\theta$ and interchanging the derivative and the integral, we obtain
+
+$$
+0 = \frac{d}{d\theta} \int f_{\theta, \phi}(y)dy = \int \frac{y - \dot \psi(\theta)}{\phi}f_{\theta, \phi}(y) dy,
+$$
+
+from which it follows that
+
+$$
+\dot \psi(\theta) = \int \dot \psi(\theta)f_{\theta, \phi}(y)dy = \int y f_{\theta, \phi}(y)dy = \mathbb{E}[y] \equiv \mu.
+$$ {#eq-psi-dot}
+
+Thus, the first derivative of the log partition function is the mean of $y$. Differentiating again, we get
+
+$$
+\phi \cdot \ddot \psi(\theta) = \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) = \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) = \text{Var}[y].
+$$
+
+Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of $y$.
+
+### Relationships among the mean, variance, and natural parameter
+
+#### Relationship between the mean and the natural parameter
+
+The log-partition function $\psi$ induces a connection ([-@eq-psi-dot]) between the natural parameter $\theta$ and the mean $\mu$. Because
+
+$$
+\frac{d\mu}{d\theta} = \frac{d}{d\theta}\dot \psi(\theta) = \ddot \psi(\theta) = \frac{1}{\phi}\text{Var}[y] > 0,
+$$ {#eq-dmu-dtheta}
+
+it follows that $\mu$ is a strictly increasing function of $\theta$, so in particular the mapping between $\mu$ and $\theta$ is bijective. Therefore, we can think of equivalently parameterizing the distribution via $\mu$ or $\theta$. 
+
+#### Relationship between the mean and variance
+
+Note that the mean of an EDM, together with the dispersion parameter, determines its variance (since it determines the natural parameter $\theta$). Define
+
+$$
+V(\mu) \equiv \frac{d\mu}{d\theta},
+$$
+
+so that $\text{Var}[y] = \phi V(\mu)$. For example, a Poisson random variable with mean $\mu$ has variance $\mu$ and a Bernoulli random variable with mean $\mu$ has $V(\mu) = \mu(1-\mu)$. The mean-variance relationship turns out to characterize the EDM, i.e. an EDM with mean equal to its variance is the Poisson distribution. For all EDMs except the normal distribution, the variance depends nontrivially on the mean. Therefore, heteroskedasticity is a natural feature of EDMs (rather than a pathology that needs to be corrected for).
+
+### The unit deviance
+
+It's possible to rewrite the EDM distribution in terms of $\mu$ rather than in terms of $\theta$. Take the quantity in the numerator of the exponential in the EDM density ([-@eq-edm-def]) and call it $t(y, \mu)$:
+
+$$
+t(y, \mu) \equiv \theta y - \psi(\theta).
+$$
+
+Let's consider the shape of this function by taking the first two derivatives with respect to $\theta$:
+
+$$
+\frac{\partial}{\partial \theta}t(y, \mu) = y - \mu
+$$
+
+and
+
+$$
+\frac{\partial^2}{\partial \theta^2}t(y, \mu) = -V(\mu) < 0.
+$$
+
+Hence, $t(y, \mu)$ has a unique global maximum at $\mu = y$. We can then define the *unit deviance* $d(y, \mu)$ as twice the distance between the value $t(y, \mu)$ and the optimal value $t(y,y)$:
+
+$$
+d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
+$$
+
+The unit deviance is nonnegative, and minimized by $\mu = y$. For the normal distribution, the unit deviance is $d(y, \mu) = (y - \mu)^2$. The unit deviance can therefore be viewed as a  “distance” between the mean $\mu$ and the observation $y$.
+
+#### Example
+
+For the Poisson distribution, we have $t(y, \mu) = y\log \mu - \mu$, so
+
+$$
+d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)) = 2(y\log y - y - y \log \mu + \mu) = 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
+$$
+
+See Figure [@fig-poisson-unit-deviance] for an example of the shape of this function.
+
+![The Poisson unit deviance for $y = 4$.](figures/poisson-unit-deviance.pdf){#fig-poisson-unit-deviance width=50%}
+
+Note that the Poisson deviance is asymmetric about $\mu = y$. This is a consequence of the nontrivial mean-variance relationship for the Poisson distribution. In particular, the Poisson distribution's variance grows with its mean. Therefore, an observation of $y = 4$ is less likely to have come from a Poisson distribution with mean $\mu = 2$ than from a Poisson distribution with mean $\mu = 6$.
+
+### Small-dispersion approximations to an EDM
+
+If the dispersion $\phi$ is small, then that means that $y$ is a fairly precise estimate of $\mu$, similar to an average of multiple independent samples from a mean-$\mu$ distribution. Consider, for example, that $\frac{1}{m}\text{Bin}(m, \mu)$ is the mean of $m$ i.i.d. draws from $\text{Ber}(\mu)$. In this case, we can use either the normal approximation or the saddlepoint approximation to approximate the EDM density. For the sake of this section, we will abuse notation by denoting by $f_{\mu, \phi}$ the EDM with mean $\mu$ and dispersion $\phi$.
+
+#### The normal approximation
+
+##### The approximation
+
+For small values of $\phi$, we can hope to approximate $f_{\mu, \phi}$ with a normal distribution. Recall that the mean and variance of this distribution are $\mu$ and $\phi \cdot V(\mu)$, respectively. The central limit theorem gives
+
+$$
+\frac{y - \mu}{\sqrt{\phi \cdot V(\mu)}} \rightarrow_d N(0,1) \quad \text{as} \quad \phi \rightarrow 0,
+$$
+
+so
+
+$$
+y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_{\mu, \phi}.
+$$
+
+For example, we have
+
+$$
+\text{Poi}(\mu) \approx N(\mu, \mu).
+$$
+
+For the normal EDM, note that the normal approximation is exact. One consequence of the normal approximation is 
+
+$$
+\frac{(y - \mu)^2}{\phi \cdot V(\mu)} \overset \cdot \sim \chi^2_1.
+$$
+
+This fact will be useful to us as we carry out inference for GLMs.
+
+##### Approximation accuracy
+
+We have
+
+$$
+\tilde f^{\text{normal}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) + O(\sqrt{\phi}).
+$$
+
+In practice, the rule of thumb for the applicability of this approximation is that
+
+$$
+\tau \equiv \frac{\phi \cdot V(\mu)}{(\mu - \text{boundary})^2} \leq \frac{1}{5}.
+$$
+
+Here, “boundary” represents the nearest boundary of the parameter space to $\mu$. For example, if $y \sim \frac{1}{m}\text{Bin}(m, \mu)$, then we have
+
+$$
+\tau = \frac{\frac{1}{m} \cdot \mu \cdot (1-\mu)}{\min(\mu, 1-\mu)^2} = \frac{1}{m} \cdot \max\left(\frac{\mu}{1-\mu}, \frac{1-\mu}{\mu}\right) \approx \frac{1}{m} \cdot \max\left(\frac 1 \mu, \frac 1 {1-\mu}\right),
+$$
+
+so $\tau \leq 1/5$ roughly if $m \mu \leq 5$ and $m (1-\mu) \leq 5$. For Poisson distributions, we always have $\tau = 1$, but for some reason small-dispersion asymptotics still applies as $\mu \rightarrow \infty$ as opposed to $\tau \rightarrow 0$. The criterion $\tau \leq 1/5$ is satisfied when $\mu \leq 5$.
+
+#### The saddlepoint approximation
+
+##### The approximation
+
+Another approximation to the EDM density is the saddlepoint approximation, which tends to be more accurate than the normal approximation. The reason the normal approximation may be inaccurate is that the quality of the central limit approximation degrades as one enters the tails of the distribution. In particular, the normal approximation to $f_{\mu, \phi}(y)$ may be poor if $\mu$ is far from $y$. The saddlepoint approximation is built on the observation that the EDM density for $f_{\mu, \phi}(y)$ can be written in terms of the density $f_{y, \phi}(y)$; the latter density is by definition evaluated at its mean. Indeed,
+
+$$
+\begin{split}
+f_{\mu, \phi}(y) &\equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi) \\
+&= \exp\left(\frac{t(y, \mu)}{\phi}\right)h(y, \phi) \\
+&= \exp\left(\frac{-2(t(y, y) - t(y, \mu)) + 2t(y,y)}{2\phi}\right)h(y, \phi) \\
+&= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)\exp\left(\frac{t(y,y)}{\phi}\right) h(y, \phi) \\
+&= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)f_{y, \phi}(y).
+\end{split}
+$$ {#eq-deviance-form}
+
+Now, we apply the central limit theorem to approximate $f_{y, \phi}(y)$:
+
+$$
+f_{y, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}.
+$$
+
+Substituting this approximation into ([-@eq-deviance-form]), we obtain the *saddlepoint approximation*:
+
+$$
+f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \mu)}{2\phi}\right) \equiv \widetilde f^{\text{saddle}}_{\mu, \phi}(y).
+$$
+
+For the normal EDM, note that the normal approximation is exact. For the Poisson distribution, we get
+
+$$
+\widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(y \log \frac y \mu - (y - \mu)\right).
+$$
+
+The approximation can be shown to lead to the following consequence:
+
+$$
+\frac{d(y, \mu)}{\phi} \overset \cdot \sim \chi^2_1.
+$$
+
+Here, we are using the unit deviance rather than the squared distance to measure the deviation of $\mu$ from $y$. This fact will be useful to us as we carry out inference for GLMs.
+
+##### Approximation accuracy
+
+We have still used a normal approximation, but this time we have used it to approximate $f_{y, \phi}(y)$ instead of $f_{\mu, \phi}(y)$. Since the normal approximation is applied to a distribution ($f_{y, \phi}$) at its mean, we expect it to be more accurate than a normal approximation applied to a distribution ($f_{\mu, \phi}$) at a point potentially far from its mean. The saddlepoint approximation yields an approximation to the density that is *multiplicative* rather than *additive*, and of order $O(\phi)$ rather than $O(\sqrt{\phi})$:
+
+$$
+\tilde f^{\text{saddle}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) \cdot (1 + O(\phi)).
+$$
+
+In practice, the rule of thumb for the applicability of this approximation is that $\tau \leq 1/3$; the looser requirement on $\tau$ reflects the greater accuracy of the saddlepoint approximation. This translates to $m\mu \geq 3$ and $m(1-\mu) \geq 3$ for the binomial and $\mu \geq 3$ for the Poisson.
+
+#### Comparing the two approximations
+
+The saddlepoint approximation is more accurate than the normal approximation, as discussed above. However, the accuracy of the saddlepoint approximation relies on the assumption that the entire parametric form of the EDM is correctly specified. On the other hand, the accuracy of the normal distribution requires only that the first two moments of the EDM are correctly specified.
+
+## Generalized linear models and examples {#sec-glm-def}
+
+In this class, the focus is on building models that tie a vector of predictors $(\boldsymbol{x_{i*}})$ to a response $y_i$. For linear regression, the mean of $y$ was modeled as a linear combination of the predictors $\boldsymbol{x_{i*}^T} \boldsymbol{\beta}$: $\mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}$. More generally, we might want to model *a function* of the mean $\eta_i = g(\mu_i)$ as a linear combination of the predictors; $g$ is called the *link function* and $\eta_i$ the *linear predictor*. Pairing a link function with an EDM gives us a *generalized linear model* (GLM):
+
+### Definition
+
+We define $\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n$ as following a generalized linear model based on the exponential dispersion model $f_{\theta, \phi}$, monotonic and differentiable link function $g$, and observation weights $w_i$ if
+
+$$
+y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+$$ {#eq-glm-def}
+
+The offset terms $o_i$ and observation weights $w_i$ are both known in advance. The free parameters in a GLM are the coefficients $\boldsymbol{\beta}$ and, possibly, the parameter $\phi_0$ controlling the dispersion. We will see examples where $\phi_0$ is known (e.g. Poisson regression) and those where $\phi_0$ is unknown (e.g. linear regression).
+
+The “default” choice for the link function $g$ is the *canonical link function*
+
+$$
+g(\mu) = \dot \psi^{-1}(\mu),
+$$
+
+which, given the relationship ([-@eq-psi-dot]), gives $\eta = \dot \psi^{-1}(\mu) = \theta$, i.e. the linear predictor coincides with the natural parameter. As discussed in the context of equation ([-@eq-dmu-dtheta]), $\dot \psi^{-1}$ is a valid link function because it is monotonic and differentiable. Canonical link functions are very commonly used with EDMs because they lead to various nice properties that general EDMs do not enjoy (e.g. concave log-likelihood).
+
+#### Example: Linear regression model
+
+The linear regression model is a special case of a GLM, with $\phi_0 = \sigma^2$ (unknown), $w_i = 1$, $o_i = 0$, and identity (canonical) link function:
+
+$$
+y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+$$
+
+#### Example: Weighted linear regression model
+
+If each observation $y_i$ is the mean of $m_i$ independent repeated observations, then we get a weighted linear regression model, with $\phi_0 = \sigma^2$ (unknown), $w_i = m_i$, $o_i = 0$, and identity (canonical) link function:
+
+$$
+y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+$$
+
+#### Example: Ungrouped logistic regression model
+
+The *ungrouped logistic regression model* is the GLM based on the Bernoulli EDM with $\phi_0 = 1$ (known), $w_i = 1$, $o_i = 0$, and the canonical link function:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+$$
+
+Thus the canonical link function for logistic regression is the *logistic link function* $g(\mu) = \log \frac{\mu}{1-\mu}$.
+
+#### Example: Grouped logistic regression model
+
+Suppose $y_i$ is a binomial proportion based on $m_i$ trials. The *grouped logistic regression model* is the GLM based on the binomial EDM with $\phi_0 = 1$ (known), $w_i = 1/m_i$, $o_i = 0$, and the canonical link function:
+
+$$
+m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+$$
+
+Note that a binomial proportion $y_i$ based on $m_i$ trials and a success probability of $\mu_i$ can be equivalently represented as $m_i$ independent Bernoulli draws with the same success probability $\mu_i$. Therefore, any grouped logistic regression model can be equivalently represented as an ungrouped logistic regression model with $\sum_{i = 1}^n m_i$ observations. We will see that, despite this equivalence, grouped logistic regression models have some useful properties that ungrouped logistic regression models do not.
+
+#### Example: Poisson regression model
+
+*Poisson regression* is the Poisson EDM with $\phi_0 = 1$ (known), $w_i = 1$, $o_i = 0$, and the canonical link function:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+$$
+
+Thus the canonical link function for Poisson regression is the *log link function* $g(\mu) = \log \mu$.
+
+## Parameter estimation in GLMs {#sec-glm-max-lik}
+
+### The GLM likelihood, score, and Fisher information {#sec-glm-likelihood}
+
+The log-likelihood of a GLM is:
+
+$$
+\log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{\theta_i y_i - \psi(\theta_i)}{\phi_0/w_i} + \sum_{i = 1}^n \log h(y_i, \phi_0/w_i).
+$$ {#eq-glm-log-likelihood}
+
+Let's differentiate this with respect to $\boldsymbol{\beta}$, using the chain rule:
+
+$$
+\begin{split}
+  \frac{\partial \log \mathcal L(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} &= \frac{\partial \log \mathcal L(\boldsymbol{\beta})}{\partial \boldsymbol{\theta}}\frac{\partial \boldsymbol{\theta}}{\partial \boldsymbol{\mu}} \frac{\partial \boldsymbol{\mu}}{\partial \boldsymbol{\eta}}\frac{\partial \boldsymbol{\eta}}{\partial \boldsymbol{\beta}} \\
+  &=  (\boldsymbol{y} - \boldsymbol{\mu})^T \text{diag}(\phi_0/w_i)^{-1} \cdot \text{diag}(\ddot{\psi}(\theta_i))^{-1} \cdot \text{diag}\left(\frac{\partial\mu_i}{\partial \eta_i}\right) \cdot \boldsymbol{X}\\
+  &= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\mu})^T \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right)\cdot \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right) \cdot \boldsymbol{X} \\
+  &\equiv \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\mu})^T \boldsymbol{W} \boldsymbol{M} \boldsymbol{X}.
+\end{split}
+$$
+
+Here, $\boldsymbol{W} \equiv \text{diag}(W_i)$ is a diagonal matrix of *working weights* and $\boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right) = \text{diag}(g'(\mu_i))$ is a diagonal matrix of link derivatives. Transposing, we get the score vector:
+
+$$
+\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}).
+$$ {#eq-glm-score}
+
+To get the Fisher information matrix, note first that:
+
+$$
+\text{Var}[\boldsymbol{y}] = \text{diag}\left(\phi_0\frac{V(\mu_i)}{w_i}\right) = \phi_0 \boldsymbol{W}^{-1} \boldsymbol{M}^{-2}
+$$ {#eq-glm-variance-y}
+
+we can compute the covariance matrix of the score vector:
+
+$$
+\begin{split}
+\boldsymbol{I}(\boldsymbol{\beta}) = \text{Var}[\boldsymbol{U}(\boldsymbol{\beta})] &= \frac{1}{\phi^2_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} \text{Var}[\boldsymbol{y}] \boldsymbol{M} \boldsymbol{W} \boldsymbol{X} \\
+&= \frac{1}{\phi^2_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} \phi_0 \boldsymbol{W}^{-1}\boldsymbol{M}^{-2} \boldsymbol{M} \boldsymbol{W} \boldsymbol{X} \\
+&= \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X}.
+\end{split}
+$$ {#eq-glm-fisher-info}
+
+### Maximum likelihood estimation of $\boldsymbol{\beta}$ {#sec-mle-glm}
+
+To estimate $\boldsymbol{\beta}$, we can set the score vector to zero:
+
+$$
+\frac{1}{\phi_0}\boldsymbol{X}^T \widehat{\boldsymbol{M}} \widehat{\boldsymbol{W}} (\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0 \quad \Longleftrightarrow \quad \boldsymbol{X}^T \text{diag}\left(\frac{w_i}{V(\widehat \mu_i)g'(\widehat \mu_i)}\right)(\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0.
+$$
+
+These equations are called the *normal equations*. Unfortunately, unlike least squares, the normal equations cannot be solved analytically for $\widehat{\boldsymbol{\beta}}$. They are solved numerically instead; see Section [-@sec-irls]. Note that $\phi_0$ cancels from the normal equations, and therefore the coefficients $\boldsymbol{\beta}$ can be estimated without estimating the dispersion. Recall that we have seen this phenomenon for least squares. Also note that the normal equations simplify when the canonical link function is used, so that $\eta_i = \theta_i$. Assuming additionally that $w_i = 1$, we get:
+
+$$
+\boldsymbol{\widehat M} \boldsymbol{\widehat W} = \text{diag}\left(\frac{\widehat{\partial \mu_i/\partial \theta_i}}{V(\widehat \mu_i)}\right) = \frac{\ddot{\psi}(\widehat \theta_i)}{\ddot{\psi}(\widehat \theta_i)} = 1,
+$$
+
+so the normal equations reduce to:
+
+$$
+\boldsymbol{X}^T (\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0.
+$$ {#eq-canonical-normal-equations}
+
+We recognize these as the normal equation for linear regression. Since both ungrouped logistic regression and Poisson regression also use canonical links and have unit weights, the simplified normal equations [-@eq-canonical-normal-equations] apply to the latter regressions as well.
+
+In the linear regression case, we interpreted the normal equations [-@eq-canonical-normal-equations] as an orthogonality statement: $\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})$. In the case of GLMs, the $C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}$ is no longer a linear space. In fact, it is a nonlinear transformation of the column space of $\boldsymbol{X}$ (a $p$-dimensional manifold in $\mathbb{R}^n$):
+
+$$
+C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\} = \{g^{-1}(\boldsymbol{X} \boldsymbol{\beta}): \boldsymbol{\beta} \in \mathbb{R}^p\}.
+$$
+
+Therefore, we cannot view the mapping $\boldsymbol{y} \mapsto \boldsymbol{\widehat \mu}$ as a linear projection. Nevertheless, it is possible to interpret $\boldsymbol{\widehat \mu}$ as the "closest" point (in some sense) to $\boldsymbol{y}$ in $C(\boldsymbol{X})$. To see this, recall the deviance form of the EDM density [-@eq-deviance-form]. Taking a logarithm and summing over $i = 1, \dots, n$, we find the following expression for the negative log likelihood:
+
+$$
+-\log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C = \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
+$$ {#eq-glm-likelihood-via-deviance}
+
+$D(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *deviance* or the *total deviance*, and it can be interpreted as a kind of distance between the mean vector $\boldsymbol{\mu}$ and the observation vector $\boldsymbol{y}$. For example, in the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2$. The quantity $D^*(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *scaled deviance.* In the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}$. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:
+
+$$
+\boldsymbol{\widehat \beta} = \underset{\boldsymbol{\beta}}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}(\boldsymbol{\beta})), \quad \text{so that} \quad \boldsymbol{\widehat \mu} = \underset{\boldsymbol{\mu} \in C(\boldsymbol{X})}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}).
+$$
+
+### Iteratively reweighted least squares {#sec-irls}
+
+#### Log-concavity of GLM likelihood
+
+Before talking about maximizing the GLM log-likelihood, we investigate the concavity of this function. We claim that, in the case when the canonical link is used, $\log \mathcal L(\boldsymbol{\beta})$ is a concave function of $\boldsymbol{\beta}$, which implies that this function is "easy to optimize", i.e., has no local maxima.
+
+::: {#prp-log-concavity}
+**Proposition:** If $g$ is the canonical link function, then the function $\log \mathcal L(\boldsymbol{\beta})$ defined in [-@eq-glm-log-likelihood] is concave in $\boldsymbol{\beta}$.
+:::
+
+::: {.proof}
+It suffices to show that $\psi$ is a convex function since then $\log \mathcal L(\boldsymbol{\beta})$ would be the sum of a linear function of $\boldsymbol{\beta}$ and the composition of a concave function with a linear function. To verify that $\psi$ is convex, it suffices to recall that $\ddot{\psi}(\theta) = \frac{1}{\phi}\text{Var}_\theta[y] > 0$.
+:::
+
+Proposition [-@prp-log-concavity] gives us confidence that an iterative algorithm will converge to the global maximum of the likelihood. We present such an iterative algorithm next.
+
+#### Newton-Raphson {#sec-newton-raphson}
+
+We can maximize the log-likelihood [-@eq-glm-log-likelihood] via the Newton-Raphson algorithm, which involves the gradient and Hessian of the function we'd like to maximize. The gradient is the score vector [-@eq-glm-score], while the Hessian is the Fisher information [-@eq-glm-fisher-info]. The Newton-Raphson iteration is therefore:
+
+$$
+\begin{split}
+\boldsymbol{\widehat \beta}^{(t+1)} &= \boldsymbol{\widehat \beta}^{(t)} - (\nabla^2_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}))^{-1} \nabla_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}) \\
+&= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\widehat W}^{(t)}\boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
+\end{split}
+$$ {#eq-nr-iteration}
+
+See Figure [-@fig-newton-raphson].
+
+![Newton-Raphson iteratively approximates the log likelihood via a quadratic function and maximizing that function.](figures/newton-raphson.jpeg){#fig-newton-raphson width=60%}
+
+#### Iteratively reweighted least squares (IRLS) {#sec-irls-interpretation}
+
+A nice interpretation of the Newton-Raphson algorithm is as a sequence of weighted least squares fits, known as the iteratively reweighted least squares (IRLS) algorithm. Suppose that we have a current estimate $\boldsymbol{\widehat \beta}^{(t)}$, and suppose we are looking for a vector $\boldsymbol{\beta}$ near $\boldsymbol{\widehat \beta}^{(t)}$ that fits the model even better. We have:
+
+$$
+\mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] = g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
+$$
+
+and
+
+$$
+\text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2},
+$$
+
+recalling equation [-@eq-glm-variance-y]. Thus, up to the first two moments, near $\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}$ the distribution of $\boldsymbol{y}$ is approximately:
+
+$$
+\boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim N\left(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2}\right),
+$$
+
+or, equivalently:
+
+$$
+\boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \quad \boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
+$$ {#eq-second-order-approximation}
+
+The regression of the *adjusted response variable* $\boldsymbol{z}^{(t)}$ on $\boldsymbol{X}$ leaves us with a weighted linear regression (hence the name *working weights* for $W_i$), whose maximum likelihood estimate is:
+
+$$
+\boldsymbol{\widehat \beta}^{(t+1)} = (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)} \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)} \boldsymbol{z}^{(t)},
+$$ {#eq-irls-iteration}
+
+which we define as our next iterate. It's easy to verify that the IRLS iteration [-@eq-irls-iteration] is equivalent to the Newton-Raphson iteration [-@eq-nr-iteration]. Note that we have derived these algorithms for canonical links; they each can be derived for non-canonical links but need not be equivalent in this more general case.
+
+#### Estimation of $\phi_0$ and GLM residuals {#sec-glm-residuals}
+
+While sometimes the parameter $\phi_0$ is known (e.g., for binomial or Poisson GLMs), in other cases $\phi_0$ must be estimated (e.g., for the normal linear model). Recall from the linear model that we estimated $\sigma^2 = \phi_0$ by taking the sum of the squares of the residuals: $\widehat \sigma^2 = \frac{1}{n-p}\|\boldsymbol{y} - \boldsymbol{\widehat \mu}\|^2$. However, it's unclear in the GLM context exactly how to define a residual. In fact, there are two common ways of doing so, called *deviance residuals* and *Pearson residuals*. Deviance residuals are defined in terms of the unit deviance:
+
+$$
+  r^D_i \equiv \text{sign}(y_i - \widehat \mu_i)\sqrt{w_i d(y_i, \widehat \mu_i)}.
+$$
+
+On the other hand, Pearson residuals are defined as variance-normalized residuals:
+
+$$
+  r^P_i \equiv \frac{y_i - \widehat \mu_i}{\sqrt{V(\widehat \mu_i)/w_i}}.
+$$
+
+These residuals can be viewed as residuals from the (converged) weighted linear regression model [-@eq-second-order-approximation]. In the normal case, these residuals coincide, but in the general case, they do not. Based on these two notions of GLM residuals, we can define two estimators of $\phi_0$. One, based on the deviance residuals, is the *mean deviance estimator of dispersion*:
+
+$$
+\widetilde \phi^D_0 \equiv \frac{1}{n-p}\|r^D\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i d(y_i, \widehat \mu_i) \equiv \frac{1}{n-p}D(\boldsymbol{y}; \boldsymbol{\widehat \mu});
+$$
+
+recall that the total deviance $D(\boldsymbol{y}; \boldsymbol{\widehat \mu})$ is a generalization of the residual sum of squares. The other, based on the Pearson residuals, is called the *Pearson estimator of dispersion*:
+
+$$
+\widetilde \phi^P_0 \equiv \frac{1}{n-p}X^2 \equiv \frac{1}{n-p}\|r^P\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
+$$ {#eq-pearson-estimator-dispersion}
+
+$X^2$ is known as the Pearson $X^2$ statistic. The deviance-based estimator can be more accurate than the Pearson estimator under small-dispersion asymptotics. However, the Pearson estimator is more robust when only the first two moments of the EDM model are correct and in the absence of small-dispersion asymptotics. For these reasons, the Pearson estimator is generally preferred.
+
+## Inference in GLMs {#sec-glm-inf}
+
+### Preliminaries {#sec-preliminaries}
+
+#### Inferential goals {#sec-inferential-goals}
+
+There are two types of inferential goals: hypothesis testing and confidence interval/region construction.
+
+##### Hypothesis testing {#sec-hypothesis-testing}
+
+1. **Single coefficient**: $H_0: \beta_j = \beta_j^0$ versus $H_1: \beta_j \neq \beta_j^0$ for some $\beta_j^0 \in \mathbb{R}$.
+2. **Group of coefficients**: $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$ versus $H_1: \boldsymbol{\beta}_S \neq \boldsymbol{\beta}_S^0$ for some $S \subset \{0,\dots,p-1\}$ and some $\boldsymbol{\beta}_S^0 \in \mathbb{R}^{|S|}$.
+3. **Goodness of fit**: The goodness of fit null hypothesis is that the GLM [@eq-glm-def] is correctly specified. Consider the *saturated model*:
+  
+$$
+y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \quad i = 1,\dots,n.
+$$ {#eq-saturated-model}
+
+Let
+
+$$
+\mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: \mu_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
+$$
+
+be the set of mean vectors consistent with the GLM. Then, the goodness of fit testing problem is $H_0: \boldsymbol{\mu} \in \mathcal{M}^{\text{GLM}}$ versus $H_1: \boldsymbol{\mu} \notin \mathcal{M}^{\text{GLM}}$.
+
+##### Confidence interval/region construction {#sec-confidence-interval-region}
+
+1. **Confidence interval for a single coefficient**: Here, the goal is to produce a confidence interval $\text{CI}(\beta_j)$ for a coefficient $\beta_j$.
+2. **Confidence region for a group of coefficients**: Here, the goal is to produce a confidence region $\text{CR}(\boldsymbol{\beta}_S)$ for a group of coefficients $\boldsymbol{\beta}_S$.
+3. **Confidence interval for a fitted value**: In GLMs, fitted values can either be considered for parameters on the linear scale ($\eta_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i$) or the mean scale ($\mu_i = g^{-1}(\boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i)$). The goal, then, is to produce confidence intervals $\text{CI}(\eta_i)$ or $\text{CI}(\mu_i)$ for $\eta_i$ or $\mu_i$, respectively.
+
+#### Inferential tools {#sec-inferential-tools}
+
+Inference in GLMs is based on asymptotic likelihood theory. These asymptotics can be based on *large-sample asymptotics* or *small-dispersion asymptotics*. Large-sample asymptotics are applicable for testing hypotheses and estimating parameters within models where the number of parameters is fixed while the sample size grows. Small-dispersion asymptotics are applicable for testing hypotheses and estimating parameters within models where the dispersion is small, regardless of the sample size. Large-sample asymptotics apply to testing and estimating coefficients in GLMs [@eq-glm-def] with a fixed number of parameters as the sample size grows, but not to testing goodness of fit. Indeed, goodness-of-fit tests refer to the saturated model [@eq-saturated-model], whose number of parameters grows with $n$. Small-dispersion asymptotics, on the other hand, apply to goodness-of-fit testing.
+
+Hypothesis tests (and, by inversion, confidence intervals) can be constructed in three asymptotically equivalent ways: Wald tests, likelihood ratio tests (LRT), and score tests. These tests can be justified using either large-sample or small-dispersion asymptotics, depending on the context. Despite their asymptotic equivalence, in finite samples, some tests may be preferable to others (though for normal linear models, these tests are equivalent in finite samples as well). See Figure @fig-trinity-comparison.
+
+![A comparison of the three asymptotic methods for GLM inference.](figures/trinity-comparison.png){#fig-trinity-comparison width=100%}
+
+### Wald inference {#sec-wald-inference}
+
+Wald inference is based on the following asymptotic normality statement:
+
+$$
+\boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \boldsymbol{I}^{-1}(\boldsymbol{\beta})) = N(\boldsymbol{\beta}, \phi_0(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}),
+$$ {#eq-wald-approximation}
+
+recalling our derivation of the Fisher information from equation [@eq-glm-fisher-info]. This approximation can be justified via *large-sample asymptotics* or *small-dispersion asymptotics*. Wald inference is easy to carry out, and for this reason, it is considered the default type of inference. However, as we will see in Unit 5, it also tends to be the least accurate in small samples. Furthermore, Wald tests are usually not applied for testing goodness of fit.
+
+#### Wald test for $\beta_j = \beta_j^0$ (known $\phi_0$) {#sec-wald-test-single-coeff}
+
+Based on the Wald approximation [@eq-wald-approximation], under the null hypothesis, we have:
+
+$$
+\widehat \beta_j \overset{\cdot}{\sim} N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{jj}) \approx N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}) \equiv N(0, \text{SE}(\beta_j)^2),
+$$
+
+where we have used a plug-in estimator of the variance. This leads us to the Wald $z$-test:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > z_{1-\alpha/2}\right).
+$$
+
+Since a one-dimensional parameter is being tested, we can make the test one-sided if desired.
+
+#### Wald test for $\boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$ (known $\phi_0$) {#sec-wald-test-group-coeff}
+
+Extending the reasoning above, we have under the null hypothesis that:
+
+$$
+\boldsymbol{\widehat \beta}_S \overset{\cdot}{\sim} N(\boldsymbol{\beta}_S^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{S,S}) \approx N(\boldsymbol{\beta}_S^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}),
+$$
+
+and therefore:
+
+$$
+\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) \overset{\cdot}{\sim} \chi^2_{|S|}.
+$$
+
+Hence, we have the Wald $\chi^2$ test:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) > \chi^2_{|S|}(1-\alpha)\right).
+$$
+
+#### Wald confidence interval for $\beta_j$ (known $\phi_0$) {#sec-wald-ci-single-coeff}
+
+Inverting the Wald test for $\beta_j$, we get a Wald confidence interval:
+
+$$
+\text{CI}(\beta_j) \equiv \widehat \beta_j \pm z_{1-\alpha/2} \cdot \text{SE}(\beta_j), \quad \text{where} \quad \text{SE}(\beta_j) \equiv \sqrt{\phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}.
+$$ {#eq-conf-int-beta}
+
+#### Wald confidence region for $\boldsymbol{\beta}_S$ (known $\phi_0$) {#sec-wald-cr-group-coeff}
+
+By inverting the test of $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$, we get the Wald confidence region:
+
+$$
+\text{CR}(\boldsymbol{\beta}_S) \equiv \left\{\boldsymbol{\beta}_S: \frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S) \leq \chi^2_{|S|}(1-\alpha)\right\}.
+$$
+
+If $S = \{0, 1, \dots, p-1\}$, we are left with:
+
+$$
+\text{CR}(\boldsymbol{\beta}_S) \equiv \left\{\boldsymbol{\beta}: \frac{1}{\phi_0} (\boldsymbol{\widehat \beta} - \boldsymbol{\beta})^T \boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X} (\boldsymbol{\widehat \beta} - \boldsymbol{\beta}) \leq \chi^2_{p}(1-\alpha)\right\}.
+$$
+
+#### Wald confidence intervals for $\eta_i$ and $\mu_i$ (known $\phi_0$) {#sec-wald-ci-fitted-values}
+
+Given the Wald approximation [@eq-wald-approximation], we have:
+
+$$
+\widehat \eta_i \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\eta_i, \phi_0 \cdot \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}) \equiv N(\eta_i, \text{SE}(\eta_i)^2).
+$$
+
+Hence, the Wald interval for $\eta_i$ is:
+
+$$
+\text{CI}(\eta_i) \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat\beta} \pm z_{1-\alpha/2} \cdot \text{SE}(\eta_i), \quad \text{SE}(\eta_i) \equiv \sqrt{\phi_0 \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}}.
+$$
+
+A confidence interval for $\mu_i \equiv \mathbb{E}_{\boldsymbol{\beta}}[y_i] = g^{-1}(\eta_i)$ can be obtained by applying the monotonic function $g^{-1}$ to the endpoints of the confidence interval for $\eta_i$. Note that the resulting confidence interval may be asymmetric. We can get a symmetric interval by applying the delta method, but this interval would be less accurate because it involves the delta method approximation in addition to the Wald approximation.
+
+#### Wald inference when $\phi_0$ is unknown {#sec-wald-inference-unknown-dispersion}
+
+When $\phi_0$ is unknown, we need to plug in an estimate $\widetilde \phi_0$ (e.g. the deviance-based or Pearson-based estimate). Now our standard errors are $\text{SE}(\beta_j) \equiv \sqrt{\widetilde \phi_0 \cdot [(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}$, and our test statistic for $H_0: \beta_j = \beta_j^0$ is:
+
+$$
+\frac{\widehat \beta_j - \beta_j^0}{\sqrt{\widetilde \phi_0}\sqrt{[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}}.
+$$
+
+Unlike linear regression, it is not the case in general that $\boldsymbol{\widehat \beta}$ and $\widetilde \phi_0$ are independent. Nevertheless, they are *asymptotically independent*. Therefore, the above statistic is *approximately* distributed as $t_{n-p}$. Hence, the test for $H_0: \beta_j = \beta_j^0$ is:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > t_{n-p}(1-\alpha/2)\right).
+$$
+
+Likewise, we would replace $z_{1-\alpha}$ by $t_{n-p}(1-\alpha/2)$ for all tests and confidence intervals concerning univariate quantities. For multivariate quantities, we will get approximate $F$ distributions instead of approximate $\chi^2$ distributions. For example:
+
+$$
+\frac{\frac{1}{|S|}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)}{\widetilde \phi_0} \overset{\cdot}{\sim} F_{|S|, n-p}.
+$$
+### Likelihood ratio inference {#sec-likelihood-ratio-inference}
+
+#### Testing one or more coefficients ($\phi_0$ known) {#sec-likelihood-ratio-coeff-known}
+
+Let $\ell(\boldsymbol{y}, \boldsymbol{\mu}) = -\frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C$ be the GLM log-likelihood (recall equation [@eq-glm-likelihood-via-deviance]). Let $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$ be a null hypothesis about some subset of variables $S \subset \{0, 1, \dots, p-1\}$, and let $\boldsymbol{\widehat{\mu}}_{\text{-}S}$ be the maximum likelihood estimate under the null hypothesis. Likelihood ratio inference is based on the following asymptotic chi-square distribution:
+
+$$
+2(\ell(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}) - \ell(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S})) = \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} \overset{\cdot}{\sim} \chi^2_{|S|}.
+$$ {#eq-likelihood-ratio-approximation}
+
+This approximation holds either in large samples (large-sample asymptotics) or in small samples but with small dispersion (small-dispersion asymptotics). The latter has to do with the fact that under small-dispersion asymptotics,
+
+$$
+\frac{d(y_i, \mu_i)}{\phi_0/w_i} \overset{\cdot}{\sim} \chi^2_1,
+$$
+
+so
+
+$$
+\frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{\phi_0} = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{\phi_0/w_i} \overset{\cdot}{\sim} \chi^2_n.
+$$
+
+Suppose we wish to test the null hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$. Then, based on the approximation [@eq-likelihood-ratio-approximation], we can define the likelihood ratio test:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} > \chi^2_{|S|}(1-\alpha)\right).
+$$
+
+#### Confidence interval for a single coefficient {#sec-likelihood-ratio-ci-single-coeff}
+
+We can obtain a confidence interval for $\beta_j$ by inverting the likelihood ratio test. Let $\boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j^0)$ be the fitted mean vector under the constraint $\beta_j = \beta_j^0$. Then, inverting the likelihood ratio test gives us the confidence interval:
+
+$$
+\text{CI}(\beta_j) \equiv \left\{\beta_j: \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j)) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} \leq \chi^2_{|S|}(1-\alpha)\right\}.
+$$
+
+Likelihood ratio-based confidence intervals tend to be more accurate than Wald intervals, especially when the parameter is near the edge of the parameter space, but they require more computation because $\boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j)$ must be computed on a large grid of $\beta_j$ values. If we wanted to create *confidence regions* for groups of parameters, this would become computationally intensive due to the curse of dimensionality.
+
+#### Goodness of fit testing ($\phi_0$ known) {#sec-likelihood-ratio-goodness-of-fit}
+
+For $\phi_0$ known, we can also construct a goodness of fit test. To this end, we compare the deviances of the GLM and saturated model:
+
+$$
+\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}) - D(\boldsymbol{y}, \boldsymbol{y})}{\phi_0} = \frac{D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}})}{\phi_0} \overset{\cdot}{\sim} \chi^2_{n-p}.
+$$
+
+Note that the goodness of fit test is a significance test with respect to the saturated model [@eq-saturated-model], which has $n$ free parameters. Therefore, the number of free parameters increases with the sample size, so large-sample asymptotics cannot justify this test. Instead, we must rely on small-dispersion asymptotics.
+
+#### Likelihood ratio inference for $\phi_0$ unknown {#sec-likelihood-ratio-unknown-dispersion}
+
+If $\phi_0$ is unknown, we can estimate it as discussed above and construct an $F$-statistic as follows:
+
+$$
+F \equiv \frac{(D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}))/|S|}{\widetilde{\phi}_0}.
+$$
+
+In normal linear model theory, the null distribution of $F$ is *exactly* $F_{|S|, n-p}$. For GLMs, the null distribution of $F$ is *approximately* $F_{|S|, n-p}$. We can use this $F$ distribution to construct hypothesis tests for groups of coefficients, or invert it to get a confidence interval for a single coefficient. We cannot construct a goodness of fit test in the case that $\phi_0$ is unknown because the residual degrees of freedom would be used up to estimate $\phi_0$ rather than to carry out inference.
+
+### Score-based inference {#sec-score-inference}
+
+Score-based inference can be used for the same set of inferential tasks as likelihood ratio inference.
+
+#### Testing multiple coefficients ($\phi_0$ known) {#sec-score-test-multiple-coeff}
+
+Let $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$ be a null hypothesis about a subset of variables $S$, and let $\boldsymbol{\widehat{\beta}}^0$ be the maximum likelihood estimate under this null hypothesis. Score test inference is based on the asymptotic approximation:
+
+$$
+U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) \overset{\cdot}{\sim} \chi^2_{|S|},
+$$
+
+recalling that $U(\boldsymbol{\beta}) = \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}$ is the score vector. This approximation can be justified either by small-dispersion asymptotics or large-sample asymptotics (both based on the central limit theorem). Since:
+
+$$
+\boldsymbol{\widehat{\beta}}^0_{\text{-}S} = \underset{\boldsymbol{\beta}_{\text{-}S}}{\arg \max}\ \ell(\boldsymbol{\beta}^0_{S}, \boldsymbol{\beta}_{\text{-}S}),
+$$
+
+it follows that:
+
+$$
+[U(\boldsymbol{\widehat{\beta}}^0)]_{\text{-}S} \equiv \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\widehat{\beta}}^0) = \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\beta}^0_{S}, \boldsymbol{\widehat{\beta}}_{\text{-}S}) = 0.
+$$
+
+Hence, we have:
+
+$$
+U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = [U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S.
+$$
+
+Recalling the expressions [@eq-glm-score] and [@eq-glm-fisher-info] for the score vector and information matrix, we have that:
+
+$$
+U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
+$$
+
+Therefore, we arrive at the score test for $H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0$:
+
+$$
+\small
+\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) > \phi_0 \chi^2_{|S|}(1-\alpha)\right).
+$$
+
+The nice thing about a score test is that the model need only be fit under the null hypothesis. If there are several variables one is considering adding to a model, the model need not be refit upon the addition of each variable.
+
+#### Testing a single coefficient ($\phi_0$ known) {#sec-score-test-single-coeff}
+
+If $S = \{j\}$, the score test becomes univariate and can be based on the following normal approximation:
+
+$$
+\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} \overset{\cdot}{\sim} N(0, 1).
+$$ {#eq-score-test-univariate}
+
+Unlike its multivariate counterparts, we can construct not just a two-sided test but also one-sided tests based on this normal approximation. For example, below is a right-sided score test for $H_0: \beta_j = \beta_j^0$:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > z_{1-\alpha}\right).
+$$
+
+#### Confidence interval for a single coefficient ($\phi_0$ known) {#sec-score-ci-single-coeff}
+
+Just as with the likelihood ratio test, it is possible to invert a score test for a single coefficient to obtain a confidence interval. It is uncommon to invert a multivariate test to obtain a confidence region for multiple coordinates of $\boldsymbol{\beta}$, given the computationally expensive search across a grid of possible $\boldsymbol{\beta}$ values.
+
+#### Goodness of fit testing ($\phi_0$ known) {#sec-score-goodness-of-fit}
+
+We can view goodness of fit testing as testing a hypothesis about the coefficients in a GLM with $\boldsymbol{X} = \boldsymbol{I}_{n \times n}$, which amounts to the saturated model that allows unrestricted means for each observation. Furthermore, the coefficient vector fitted under the null hypothesis amounts to fitting the GLM as usual. Therefore, we have:
+
+$$
+\begin{split}
+U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{-1} U(\boldsymbol{\widehat{\beta}}) &= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}} \boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{\widehat{M}} \boldsymbol{\widehat{W}} (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
+&= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}}^2 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
+&= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \text{diag}\left( \frac{w_i}{V(\widehat{\mu}_i)} \right) (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
+&= \frac{1}{\phi_0}\sum_{i=1}^n \frac{w_i (y_i - \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)} \equiv \frac{1}{\phi_0} X^2,
+\end{split}
+$$
+
+where $X^2$ is the Pearson chi-square statistic. Therefore, the score test for goodness of fit is:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(X^2 \phi_0 > \chi^2_{n-p}(1-\alpha)\right).
+$$
+
+In the context of contingency table analysis (see the next chapter), this test reduces to the Pearson chi-square test of independence between two categorical variables. This test was proposed in 1900; it was only pointed out about a century later that this is a score test (Smyth 2003).
+
+#### Score test inference for $\phi_0$ unknown {#sec-score-test-unknown-dispersion}
+
+Score test inference for one or more coefficients $\boldsymbol{\beta}_S$ can be achieved by replacing $\phi_0$ with one of its estimators and replacing the normal and chi-square distributions with $t$ and $F$ distributions, respectively. For example, the score test for a single coefficient $\beta_j$ is:
+
+$$
+\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > t_{n-p}(1-\alpha)\right).
+$$
+
+The $t$ and $F$ distributions are not exact in finite samples, but are better approximations than the normal and chi-square distributions. The score test for goodness of fit is not applicable in the case when $\phi_0$ is unknown, similarly to the likelihood ratio test. Indeed, note the relationship between the Pearson goodness of fit test, which rejects when $\frac{1}{\phi_0}X^2 > \chi^2_{n-p}(1-\alpha)$, and the Pearson estimator of the dispersion parameter: $\widetilde{\phi}_0 \equiv \frac{X^2}{n-p}$. If we try to plug in the Pearson estimator for the dispersion into the Pearson goodness of fit test, we end up with a test statistic deterministically equal to $n-p$. This reflects the fact that the residual degrees of freedom can either be used to estimate the dispersion or to test goodness of fit; they cannot be used for both.
+
+## R demo {#sec-r-demo}
+
+### Crime data {#sec-crime-data}
+
+Let's revisit the crime data from Homework 2, this time fitting a logistic regression to it.
+
+```{r message=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+# read crime data
+crime_data <- read_tsv("data/Statewide_crime.dat")
+
+# read and transform population data
+population_data <- read_csv("data/state-populations.csv")
+population_data <- population_data |>
+  filter(State != "Puerto Rico") |>
+  select(State, Pop) |>
+  rename(state_name = State, state_pop = Pop)
+
+# collate state abbreviations
+state_abbreviations <- tibble(
+  state_name = state.name,
+  state_abbrev = state.abb
+) |>
+  add_row(state_name = "District of Columbia", state_abbrev = "DC")
+
+# add CrimeRate to crime_data
+crime_data <- crime_data |>
+  mutate(STATE = ifelse(STATE == "IO", "IA", STATE)) |>
+  rename(state_abbrev = STATE) |>
+  filter(state_abbrev != "DC") |> # remove outlier
+  left_join(state_abbreviations, by = "state_abbrev") |>
+  left_join(population_data, by = "state_name") |>
+  mutate(CrimeRate = Violent / state_pop) |>
+  select(state_abbrev, CrimeRate, Metro, HighSchool, Poverty, state_pop)
+
+crime_data
+```
+
+We can fit a GLM using the `glm` command, specifying as additional arguments the observation weights as well as the exponential dispersion model. In this case, the weights are the state populations and the family is binomial:
+
+```{r}
+glm_fit <- glm(CrimeRate ~ Metro + HighSchool + Poverty,
+  weights = state_pop,
+  family = "binomial",
+  data = crime_data
+)
+```
+
+We can print the summary table as usual:
+
+```{r}
+summary(glm_fit)
+```
+
+Amazingly, everything is very significant! This is because the weights for each observation (the state populations) are very high, effectively making the sample size very high. But frankly, this is a bit suspicious. Glancing at the bottom of the regression summary, we see a residual deviance of 11742 on 46 degrees of freedom. This part of the summary refers to the deviance-based goodness of fit test. Under the null hypothesis that the model fits well, we expect that the residual deviance has a distribution of $\chi^2_{46}$, which has a mean of 46.
+
+Let's formally check the goodness of fit. We can extract the residual deviance and residual degrees of freedom from the GLM fit:
+
+```{r}
+glm_fit$deviance
+glm_fit$df.residual
+```
+
+We can then compute the chi-square $p$-value:
+
+```{r}
+# compute based on residual deviance from fit object
+pchisq(glm_fit$deviance,
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+
+# compute residual deviance as sum of squares of residuals
+pchisq(sum(resid(glm_fit, "deviance")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Wow, we get a $p$-value of zero! Let's try doing a score-based (i.e., Pearson) goodness of fit test:
+
+```{r}
+pchisq(sum(resid(glm_fit, "pearson")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Also zero. So we need to immediately stop using this model for inference about these data, since it fits the data very poorly. We will discuss how to build a better model for the crime data in the next unit. For now, we turn to analyzing a different dataset.
+
+### Noisy miner data {#sec-noisy-miner-data}
+
+_Credit: Generalized Linear Models With Examples in R textbook._
+
+Let's consider the noisy miner dataset. Noisy miners are a small but aggressive native Australian bird. We want to know how the number of these birds observed in a patch of land depends on various factors of that patch of land.
+
+```{r}
+library(GLMsData)
+data("nminer")
+nminer |> as_tibble()
+```
+
+Since the response is a count, we can model it as a Poisson random variable. Let's fit that GLM:
+
+```{r}
+glm_fit <- glm(Minerab ~ . - Miners, family = "poisson", data = nminer)
+summary(glm_fit)
+```
+
+We exclude `Miners` because this is just a binarized version of the response variable. Things look a bit better on the GOF front:
+
+```{r}
+pchisq(sum(resid(glm_fit, "deviance")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+
+pchisq(sum(resid(glm_fit, "pearson")^2),
+  df = glm_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Still, there is some model misspecification, but for now, we still proceed with the rest of the analysis.
+
+The standard errors shown in the summary are based on the Wald test. We can get Wald confidence intervals based on these standard errors by using the formula:
+
+```{r}
+glm_fit |>
+  summary() |>
+  coef() |>
+  as.data.frame() |>
+  transmute(`2.5 %` = Estimate + qnorm(0.025)*`Std. Error`,
+            `97.5 %` = Estimate + qnorm(0.025)*`Std. Error`)
+```
+
+Or, we can simply use `confint.default()`:
+
+```{r}
+confint.default(glm_fit)
+```
+
+Or, we might want LRT-based confidence intervals, which are given by `confint()`:
+
+```{r}
+confint(glm_fit)
+```
+
+In this case, the two sets of confidence intervals seem fairly similar.
+
+Now, we can get prediction intervals, either on the linear predictor scale or on the mean scale:
+
+```{r}
+pred_linear <- predict(glm_fit, newdata = nminer[31,], se.fit = TRUE)
+pred_mean <- predict(glm_fit, newdata = nminer[31,], type = "response", se.fit = TRUE)
+
+pred_linear
+pred_mean
+log(pred_mean$fit)
+```
+
+We see that the prediction on the linear predictor scale is exactly the logarithm of the prediction on the mean scale. However, the standard error given on the mean scale uses the delta method. We prefer to directly transform the confidence interval from the linear scale using the inverse link function (in this case, the exponential):
+
+```{r}
+# using delta method
+c(pred_mean$fit + qnorm(0.025)*pred_mean$se.fit,
+  pred_mean$fit + qnorm(0.975)*pred_mean$se.fit)
+
+# using transformation
+exp(c(pred_linear$fit + qnorm(0.025)*pred_linear$se.fit,
+      pred_linear$fit + qnorm(0.975)*pred_linear$se.fit))
+```
+
+In this case, the intervals obtained are somewhat different. We can plot confidence intervals for the fit in a univariate case (e.g., regressing `Minerab` on `Eucs`) using `geom_smooth()`:
+
+```{r fig.width = 4, fig.height = 3, fig.align ='center'}
+nminer |>
+  ggplot(aes(x = Eucs, y = Minerab)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "glm",
+              method.args = list(family = "poisson"))
+```
+
+We can also test the coefficients in the model. The Wald tests for individual coefficients were already given by the regression summary above. We might want to carry out likelihood ratio tests for individual coefficients instead. For example, let's do this for `Eucs`:
+
+```{r}
+glm_fit_partial <- glm(Minerab ~ . - Miners - Eucs, family = "poisson", data = nminer)
+anova(glm_fit_partial, glm_fit, test = "LRT")
+```
+
+The `Eucs` variable is quite significant! We can manually carry out the LRT as a sanity check:
+
+```{r}
+deviance_partial <- glm_fit_partial$deviance
+deviance_full <- glm_fit$deviance
+lrt_stat <- deviance_partial - deviance_full
+p_value <- pchisq(lrt_stat, df = 1, lower.tail = FALSE)
+tibble(lrt_stat, p_value)
+```
+
+We can test groups of variables using the likelihood ratio test as well.

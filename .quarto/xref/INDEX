@@ -1,0 +1,23 @@
+{
+  "index.qmd": {
+    "index.html": "6724695f"
+  },
+  "linear-models-estimation.qmd": {
+    "linear-models-estimation.html": "a054bdc0"
+  },
+  "linear-models-inference.qmd": {
+    "linear-models-inference.html": "6e5ae488"
+  },
+  "linear-models-misspecification.qmd": {
+    "linear-models-misspecification.html": "85f990ec"
+  },
+  "glm-general-theory.qmd": {
+    "glm-general-theory.html": "1415a1bc"
+  },
+  "glm-special-cases.qmd": {
+    "glm-special-cases.html": "3751b6b8"
+  },
+  "multiple-testing.qmd": {
+    "multiple-testing.html": "431a269f"
+  }
+}

@@ -1,0 +1,973 @@
+# Generalized linear models: Special cases {#sec-glms-special-cases}
+
+Chapter 4 developed a general theory for GLMs. In Chapter 5, we specialize this theory to several important cases, including logistic regression and Poisson regression.
+
+## Logistic regression {#sec-logistic-regression}
+
+### Model definition and interpretation {#sec-logistic-model}
+
+#### Model definition. 
+Recall from Chapter 4 that the logistic regression model is
+$$
+m_i y_i \overset{\text{ind}} \sim \text{Bin}(m_i, \pi_i); \quad \text{logit}(\pi_i) = \log\frac{\pi_i}{1-\pi_i} = \boldsymbol{x}^T_{i*}\boldsymbol{\beta}.
+$$
+Here we use the canonical logit link function, although other link functions are possible. We also set the offsets to 0. The interpretation of the parameter $\beta_j$ is that a unit increase in $x_j$—other predictors held constant—is associated with an (additive) increase of $\beta_j$ on the log-odds scale or a multiplicative increase of $e^{\beta_j}$ on the odds scale. Note that logistic regression data come in two formats: *ungrouped* and *grouped*. For ungrouped data, we have $m_1 = \dots = m_n = 1$, so $y_i \in \{0,1\}$ are Bernoulli random variables. For grouped data, we can have several independent Bernoulli observations per predictor $\boldsymbol{x}_{i*}$, which give rise to binomial proportions $y_i \in [0,1]$. This happens most often when all the predictors are discrete. You can always convert grouped data into ungrouped data, but not necessarily vice versa. We'll discuss below that the grouped and ungrouped formulations of logistic regression have the same MLE and standard errors but different deviances.
+
+#### Generative model equivalent.
+Consider the following generative model for $(\boldsymbol{x}, y) \in \mathbb{R}^{p-1} \times \{0,1\}$:
+$$
+y \sim \text{Ber}(\pi); \quad \boldsymbol{x}|y \sim \begin{cases} N(\boldsymbol{\mu}_0, \boldsymbol{V}) \quad \text{if } y = 0 \\ N(\boldsymbol{\mu}_1, \boldsymbol{V}) \quad \text{if } y = 1 \end{cases}.
+$$
+Then, we can derive that $y|\boldsymbol{x}$ follows a logistic regression model (called a *discriminative* model because it conditions on $\boldsymbol{x}$). Indeed,
+$$
+\begin{aligned}
+\text{logit}(p(y = 1|\boldsymbol{x})) &= \log\frac{p(y = 1)p(\boldsymbol{x}|y = 1)}{p(y = 0)p(\boldsymbol{x}|y = 0)} \\
+&= \log\frac{\pi \exp\left(-\frac12(\boldsymbol{x} - \boldsymbol{\mu}_1)^T \boldsymbol{V}^{-1}(\boldsymbol{x} - \boldsymbol{\mu}_1)\right)}{(1-\pi) \exp\left(-\frac12(\boldsymbol{x} - \boldsymbol{\mu}_0)^T \boldsymbol{V}^{-1}(\boldsymbol{x} - \boldsymbol{\mu}_0)\right)} \\
+&= \beta_0 + \boldsymbol{x}^T \boldsymbol{V}^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_0) \\
+&\equiv \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+\end{aligned}
+$$
+This is another natural route to motivating the logistic regression model.
+
+#### Special case: $2 \times 2$ contingency table. {#sec-2x2-contingency}
+
+Suppose that $x \in \{0,1\}$, and consider the logistic regression model $\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i$. For example, suppose that $x \in \{0,1\}$ encodes treatment (1) and control (0) in a clinical trial, and $y_i \in \{0,1\}$ encodes success (1) and failure (0). We make $n$ observations of $(x_i, y_i)$ in this ungrouped setup. The parameter $e^{\beta_1}$ can be interpreted as the *odds ratio*:
+$$
+e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 1|x=0]/\mathbb{P}[y = 0|x=0]}.
+$$
+This parameter is the multiple by which the odds of success increase when going from control to treatment. We can summarize such data via the $2 \times 2$ *contingency table* (@tbl-2-by-2-table). A grouped version of this data would be $\{(x_1, y_1) = (0, 7/24), (x_2, y_2) = (1, 9/21)\}$. The null hypothesis $H_0: \beta_1 = 0 \Longleftrightarrow H_0: e^{\beta_1} = 1$ states that the success probability in both rows of the table is the same.
+
+|         | Success | Failure | Total |
+|---------|---------|---------|-------|
+| Treatment| 9       | 12      | 21    |
+| Control  | 7       | 17      | 24    |
+| Total    | 16      | 29      | 45    |
+
+: An example of a $2 \times 2$ contingency table. {#tbl-2-by-2-table}
+
+### Logistic regression with case-control studies {#sec-logistic-case-control}
+
+In a prospective study (e.g. a clinical trial), we assign treatment or control (i.e., $x$) to individuals, and then observe a binary outcome (i.e., $y$). Sometimes, the outcome $y$ takes a long time to measure or has a highly imbalanced distribution in the population (e.g., the development of lung cancer). In this case, an appealing study design is the *retrospective study*, where individuals are sampled based on their *response values* (e.g., presence of lung cancer) rather than their treatment/exposure status (e.g., smoking). It turns out that a logistic regression model is appropriate for such retrospective study designs as well. 
+
+Indeed, suppose that $y|\boldsymbol{x}$ follows a logistic regression model. Let's try to figure out the distribution of $y|\boldsymbol{x}$ in the retrospectively gathered sample. Letting $z \in \{0,1\}$ denote the indicator that an observation is sampled, define $\rho_1 \equiv \mathbb{P}[z = 1|y = 1]$ and $\rho_0 \equiv \mathbb{P}[z = 1|y = 0]$, and assume that $\mathbb{P}[z = 1, y, \boldsymbol{x}] = \mathbb{P}[z = 1 | y]$. The latter assumption states that the predictors $\boldsymbol{x}$ were not used in the retrospective sampling process. Then,
+
+$$
+\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) = \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} = \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) = \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+$$
+
+Thus, conditioning on retrospective sampling changes only the intercept term, but preserves the coefficients of $\boldsymbol{x}$. Therefore, we can carry out inference for $\boldsymbol{\beta}_{-0}$ in the same way regardless of whether the study design is prospective or retrospective.
+
+## Estimation and inference {#sec-estimation-inference}
+
+### Score and Fisher information {#sec-score-fisher}
+
+Recall from Chapter 4 that
+
+$$
+\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+$$
+
+where
+
+$$
+\begin{aligned}
+\boldsymbol{W} &\equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right), \\
+\boldsymbol{M} &\equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+\end{aligned}
+$$
+
+Since logistic regression uses a canonical link function, we get the following simplifications:
+
+$$
+\begin{aligned}
+\boldsymbol{W} &= \text{diag}\left(w_i V(\mu_i)\right) = \text{diag}\left(m_i \pi_i(1-\pi_i)\right), \\
+\boldsymbol{M} &= \text{diag}\left(\frac{1}{\pi_i(1-\pi_i)}\right).
+\end{aligned}
+$$
+
+Here we have substituted the notation $\boldsymbol{\pi}$ for $\boldsymbol{\mu}$, and recall that for logistic regression, $\phi_0 = 1$, $w_i = m_i$, and $V(\pi_i) = \pi_i(1-\pi_i)$. Therefore, the score equations for logistic regression are
+
+$$
+0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0, \quad j = 0, \dots, p-1.
+$$ {#eq-logistic-score-equations}
+
+We can solve these equations using IRLS. The Fisher information is
+
+$$
+\boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \text{diag}\left(m_i \pi_i(1-\pi_i)\right) \boldsymbol{X}.
+$$
+
+### Wald inference {#sec-wald-inference}
+
+Using the results in the previous paragraph, we can carry out Wald inference based on the normal approximation
+
+$$
+\boldsymbol{\widehat \beta} \overset \cdot \sim N\left(\boldsymbol \beta, \left(\boldsymbol X^T\text{diag}(m_i \widehat \pi_i(1-\widehat \pi_i))\boldsymbol X\right)^{-1}\right).
+$$
+
+This approximation holds for $\sum_{i = 1}^n m_i \rightarrow \infty$. 
+
+#### Example: $2 \times 2$ contingency table. {#sec-2x2-contingency-table}
+
+Suppose we have a $2 \times 2$ contingency table. The grouped logistic regression formulation of these data is
+
+$$
+y_0 \sim \frac{1}{m_0}\text{Bin}(m_0, \pi_0); \quad y_1 \sim \frac{1}{m_1}\text{Bin}(m_1, \pi_1); \quad \text{logit}(\pi_i) = \beta_0 + \beta_1 x_i.
+$$
+
+In this case, we have $n = p = 2$, so the grouped logistic regression model is saturated. Therefore, we have
+
+$$
+\hat \pi_0 = y_0, \quad \text{and} \quad \hat \pi_1 = y_1, \quad \text{so} \quad \hat \beta_1 = \log \frac{\hat \pi_1 / (1 - \hat \pi_1)}{\hat \pi_0 / (1 - \hat \pi_0)} = \log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}.
+$$
+
+The squared Wald standard error for $\hat \beta_1$ is
+
+$$
+\begin{split}
+\text{SE}^2(\widehat \beta_1) &\equiv \left[\left(\boldsymbol X^T\text{diag}(m_i \widehat \pi_i(1-\widehat \pi_i))\boldsymbol X\right)^{-1}\right]_{22} \\
+&= \left[\left(\begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}^T\begin{pmatrix} m_0y_0(1-y_0) & 0 \\ 0 & m_1y_1(1-y_1) \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}\right)^{-1}\right]_{22} \\
+&= \left[\left(\begin{pmatrix} m_0 y_0 (1-y_0) + m_1 y_1 (1-y_1) & m_1 y_1(1-y_1) \\ m_1 y_1(1-y_1) & m_1 y_1(1-y_1) \end{pmatrix}\right)^{-1}\right]_{22} \\
+&= \frac{m_0 y_0 (1-y_0) + m_1 y_1 (1-y_1)}{m_0y_0(1-y_0) \cdot m_1y_1(1-y_1)} \\
+&= \frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}.
+\end{split}
+$$
+
+Therefore, the Wald test for $H_0: \beta_1 = 0$ rejects if
+
+$$
+\left|\frac{\hat \beta_1}{\text{SE}(\hat \beta_1)}\right| = \left|\frac{\log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}}{\sqrt{\frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}}}\right| > z_{1-\alpha/2}.
+$$
+
+#### Hauck-Donner effect. {#sec-hauck-donner-effect}
+
+Unfortunately, Wald inference in finite samples does not always perform very well. The Wald test above is known to be conservative if one or more of the mean parameters (in this case, $\pi_i$) tends to the edge of the parameter space (in this case, $\pi_i \rightarrow 0$ or $\pi_i \rightarrow 1$). This is called the *Hauck-Donner effect*. As an example, consider testing $H_0: \beta_0 = 0$ in the intercept-only model
+
+$$
+my \sim \text{Bin}(m, \pi); \quad \text{logit}(\pi) = \beta_0.
+$$
+
+The Wald test statistic is $z \equiv \widehat \beta/\text{SE} = \text{logit}(y)\sqrt{my(1-y)}$. This test statistic actually tends to *decrease* as $y \rightarrow 1$ (see @fig-hauck-donner), since the standard error grows faster than the estimate itself. So the test statistic becomes less significant as we go further away from the null! A similar situation arises in the $2 \times 2$ contingency table example above, where the Wald test for $H_0: \beta_1 = 0$ becomes less significant as $y_0 \rightarrow 0$ and $y_1 \rightarrow 1$. As a limiting case of this, the Wald test is undefined if $y_0 = 0$ and $y_1 = 1$. This situation is a special case of *perfect separability* in logistic regression: when a hyperplane in covariate space separates observations with $y_i = 0$ from those with $y_i = 1$. Some of the maximum likelihood coefficient estimates are infinite in this case, causing the Wald test to be undefined since it uses these coefficient estimates as test statistics.
+
+![The Hauck-Donner effect: The Wald statistic for testing $H_0: \pi = 0.5$ within the model $my \sim \text{Bin}(m, \pi)$ decreases as the proportion $y$ approaches 1. Here, $m = 25$.](figures/hauck-donner.pdf){#fig-hauck-donner width=50%}
+
+### Likelihood ratio inference {#sec-likelihood-ratio-inference}
+
+#### The Bernoulli and binomial deviance. {#sec-bernoulli-binomial-deviance}
+
+Let's first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. The unit deviance is
+
+$$
+t(y, \pi) = y \log \pi + (1-y)\log(1-\pi).
+$$
+
+Hence, we have
+
+$$
+t(y, y) = y \log y + (1-y) \log(1-y).
+$$
+
+Hence, the unit deviance is
+
+$$
+d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
+$$
+
+The total deviance, therefore, is
+
+$$
+D(\boldsymbol y, \hat{\boldsymbol \pi}) \equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
+$$ {#eq-logistic-deviance}
+
+#### Comparing the deviances of grouped and ungrouped logistic regression models. {#sec-comparing-deviances}
+
+Let us pause to compare the total deviances of grouped and ungrouped logistic regression models. Consider the following grouped and ungrouped models:
+
+$$
+y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i, \quad \text{where} \quad \text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
+$$
+
+The relationship between the grouped and ungrouped observations is that
+
+$$
+y^{\text{grp}}_i = \frac{1}{m_i}\sum_{k = 1}^{m_i} y^{\text{ungrp}}_{ik} \equiv \bar y^{\text{ungrp}}_i.
+$$
+
+Since the grouped and ungrouped logistic regression models have the same likelihoods, it follows that they have the same maximum likelihood estimates $\widehat{\boldsymbol \beta}$ and $\widehat{\boldsymbol \pi}$. However, the total deviances of the two models are different. The total deviance of the grouped model is given by ([-@eq-logistic-deviance]):
+
+$$
+D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) = 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
+$$ {#eq-total-deviance-grouped}
+
+On the other hand, the total deviance of the ungrouped model is
+
+$$
+\begin{split}
+D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) &= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
+&= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{1}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1}{1-\widehat \pi_i}\right) \\
+&= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{1}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1}{1-\widehat \pi_i}\right).
+\end{split}
+$$ {#eq-total-deviance-ungrouped}
+
+In the second line, we used the fact that $y \log y \rightarrow 0$ and $(1-y)\log(1-y) \rightarrow 0$ as $y \rightarrow 0$ or $y \rightarrow 1$. Comparing the grouped ([-@eq-total-deviance-grouped]) and ungrouped ([-@eq-total-deviance-ungrouped]) total deviances, we see that these are given by related, but different expressions. Because small dispersion asymptotics applies to the grouped model but not the ungrouped model, we have that
+
+$$
+\text{under small-dispersion asymptotics,} \quad D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
+$$
+
+#### Likelihood ratio inference for one or more coefficients. {#sec-likelihood-ratio-test}
+
+Letting $\boldsymbol{\widehat \pi}_0$ and $\boldsymbol{\widehat \pi}_1$ be the MLEs from two nested models, we can then express the likelihood ratio statistic as
+
+$$
+D(\boldsymbol y, \boldsymbol{\widehat \pi}_0) - D(\boldsymbol y, \boldsymbol{\widehat \pi}_1) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{\widehat \pi_{i1}}{\widehat \pi_{i0}} + m_i(1-y_i) \log\frac{1-\widehat \pi_{i1}}{1-\widehat \pi_{i0}}\right).
+$$
+
+Note that this expression holds for grouped or ungrouped logistic regression models. We can then construct a likelihood ratio test in the usual way. Likelihood ratio inference can be justified by either large-sample or small-dispersion asymptotics.
+
+## Goodness of fit testing {#sec-goodness-of-fit}
+
+In grouped logistic regression, we can also use the likelihood ratio test to test goodness of fit. To do so, we compare the total deviance of the fitted model [-@eq-logistic-deviance] to a chi-squared quantile. In particular, the deviance-based goodness of fit test rejects when:
+
+$$
+D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) > \chi^2_{n-p}(1-\alpha).
+$$ {#eq-goodness-of-fit}
+
+This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when $\min(m_i \pi_i, (1-m_i)\pi_i) \geq 3$ for each $i$.
+
+## Example: $2 \times 2$ table {#sec-example-2x2-table}
+
+Let us revisit the example of the $2 \times 2$ table model, within which we would like to test $H_0: \beta_1 = 0$. Note that we can view this as a goodness of fit test of the intercept-only model in a grouped logistic regression model since the alternative model is the saturated model (it has two observations and two parameters). To compute the likelihood ratio statistic, we first need to fit the intercept-only model. The score equations [-@eq-logistic-score-equations] reduce to:
+
+$$
+m_0 (y_0 - \hat \pi) + m_1 (y_1 - \hat \pi) = 0 \quad \Longrightarrow \quad \hat \pi_0 = \hat \pi_1 = \hat \pi = \frac{m_0 y_0 + m_1 y_1}{m_0 + m_1}.
+$$
+
+Therefore, the deviance-based test of $H_0: \beta_1 = 0$ rejects when:
+
+$$
+\begin{split}
+D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) \\
+&= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
+&> \chi^2_{1}(1-\alpha).
+\end{split}
+$$
+
+Likelihood ratio inference can give nontrivial conclusions in cases when Wald inference cannot, e.g. in the case of perfect separability. In the above example, suppose $y_0 = 0$ and $y_1 = 1$, giving perfect separability. Then, we can use the fact that $y \log y \rightarrow 0$ and $(1-y)\log(1-y) \rightarrow 0$ as $y \rightarrow 0$ or $y \rightarrow 1$ to see that:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) = 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) = 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
+$$ {#eq-perfect-separability}
+
+This gives us a finite value, which we can compare to $\chi^2_{1}(1-\alpha)$ to test $H_0: \beta_1 = 0$. Even though the likelihood ratio statistic is still defined, we do still have to be careful because the data may suggest that the parameters are too close to the boundary of the parameter space. However, the rate at which the test breaks down as the parameters approach this boundary is slower than the rate at which the Wald test breaks down.
+
+### Score-based inference {#sec-score-based-inference}
+
+Here we present only the score-based goodness-of-fit test. Recalling Section @sec-score-tests-1, the score statistic for goodness of fit is Pearson's $X^2$ statistic:
+
+$$
+X^2 = \sum_{i = 1}^n \frac{w_i (y_i - \widehat \mu_i)^2}{V(\widehat \mu_i)} = \sum_{i = 1}^n \frac{m_i(y_i - \widehat \pi_i)^2}{\widehat \pi_i(1-\widehat \pi_i)}.
+$$ {#eq-pearson-statistic}
+
+This test is justified by small-dispersion asymptotics based on the central limit theorem, which is decent when $\min(m_i \pi_i, (1-m_i)\pi_i) \geq 5$ for each $i$.
+
+### Fisher's exact test {#sec-fisher-exact-test}
+
+As an alternative to asymptotic tests for logistic regression, in the case of $2 \times 2$ tables, there is an *exact* test of $H_0: \beta_1 = 0$. Suppose we have:
+
+$$
+s_1 = m_1y_1 \sim \text{Bin}(m_1, \pi_1) \quad \text{and} \quad s_2 = m_2y_2 \sim \text{Bin}(m_2, \pi_2).
+$$ {#eq-binomial}
+
+The trick is to conduct inference *conditional on* $s_1 + s_2$. Note that under $H_0: \pi_1 = \pi_2$, we have:
+
+$$
+\begin{split}
+\mathbb{P}[s_1 = t | s_1+s_2 = v] &= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
+&= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
+&= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
+&= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
+\end{split}
+$$ {#eq-exact-test}
+
+Therefore, a finite-sample $p$-value to test $H_0: \pi_1 = \pi_2$ versus $H_1: \pi_1 > \pi_2$ is $\mathbb{P}[s_1 \geq t | s_1 + s_2]$, which can be computed exactly based on the formula above.
+
+# Poisson regression {#sec-poisson-regression}
+
+## Model definition and interpretation {#sec-model-definition}
+
+The Poisson regression model (with offsets) is:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\beta}.
+$$ {#eq-poisson-with-offsets}
+
+Because the log of the mean is linear in the predictors, Poisson regression models are often called *loglinear models*. To interpret the coefficients, note that a unit increase in $x_j$ (while keeping the other variables fixed) is associated with an increase in the predicted mean by a factor of $e^{\beta_j}$.
+
+## Example: Modeling rates {#sec-example-modeling-rates}
+
+One cool feature of the Poisson model is that rates can be easily modeled with the help of offsets. Let's say that the count $y_i$ is collected over the course of a time interval of length $t_i$, or a spatial region with area $t_i$, or a population of size $t_i$, etc. Then, it is meaningful to model:
+
+$$
+y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
+$$
+
+where $\pi_i$ represents the rate of events per day / per square mile / per capita, etc. In other words:
+
+$$
+y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
+$$
+
+which is exactly equation [-@eq-poisson-with-offsets] with offsets $o_i = \log t_i$. For example, in single-cell RNA-sequencing, $y_i$ is the number of reads aligning to a gene in cell $i$ and $t_i$ is the total number of reads measured in the cell, a quantity called the *sequencing depth*. We might use a Poisson regression model to carry out a *differential expression analysis* between two cell types.
+
+## Estimation and inference {#sec-estimation-inference}
+
+### Score, Fisher information, and Wald inference {#sec-wald-inference}
+
+We found in Chapter @ch-glm-theory that the score and Fisher information for Poisson regression are:
+
+$$
+\boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),
+$$
+
+and:
+
+$$
+\boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X} = \boldsymbol{X}^T \text{diag}(V(\mu_i))\boldsymbol{X} = \boldsymbol{X}^T \text{diag}(\mu_i)\boldsymbol{X},
+$$
+
+respectively. Hence, the normal equations for the MLE are:
+
+$$
+\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\hat \mu}).
+$$
+
+Wald inference is based on the approximation:
+
+$$
+\boldsymbol{\hat \beta} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \text{diag}(\hat \mu_i)\boldsymbol{X})^{-1}).
+$$
+
+### Likelihood ratio inference {#sec-likelihood-ratio-inference}
+
+For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:
+
+$$
+d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
+$$
+
+Hence, the total deviance is:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
+$$
+
+The residual deviance is then:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
+$$
+
+The last equality holds for any model containing the intercept, since by the normal equations we have $\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0$. We can carry out a likelihood ratio test for $H_0: \boldsymbol{\beta_S} = \boldsymbol{0}$ via:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat \mu^0}) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
+$$
+
+We can carry out a goodness-of-fit test via:
+
+$$
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+$$
+
+### Score-based inference {#sec-score-based-inference}
+
+Recalling equation [-@eq-score-test-univariate], the score test for $H_0: \beta_j = 0$ is based on:
+
+$$
+\frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).
+$$
+
+On the other hand, the score test for goodness-of-fit is based on the Pearson $X^2$ statistic:
+
+$$
+X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+$$
+
+## Relationship between Poisson and multinomial distributions {#sec-poisson-multinomial}
+
+Suppose that $y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i)$ for $i = 1, \dots, n$. Then,
+
+$$
+\begin{split}
+\mathbb{P}\left[y_1 = m_1, \dots, y_n = m_n \left| \sum_{i}y_i = m\right.\right] &= \frac{\mathbb{P}[y_1 = m_1, \dots, y_n = m_n]}{\mathbb{P}[\sum_{i}y_i = m]} \\
+&= \frac{\prod_{i = 1}^n e^{-\mu_i}\frac{\mu_i^{m_i}}{m_i!}}{e^{-\sum_i \mu_i}\frac{(\sum_i \mu_i)^m}{m!}} \\
+&= {m \choose m_1, \dots, m_n} \prod_{i = 1}^n \pi_i^{m_i}; \quad \pi_i \equiv \frac{\mu_i}{\sum_{i' = 1}^n \mu_{i'}}.
+\end{split}
+$$
+
+We recognize the last expression as the probability mass function of the multinomial distribution with parameters $(\pi_1, \dots, \pi_n)$ summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.
+
+## Example: $2 \times 2$ contingency tables {#sec-example-2x2-tables}
+
+### Poisson model for $2 \times 2$ contingency tables {#sec-poisson-2x2}
+
+Let's say that we have two binary random variables $x_1, x_2 \in \{0,1\}$ with joint distribution $\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}$ for $j,k \in \{0,1\}$. We collect a total of $n$ samples from this joint distribution and summarize the counts in a $2 \times 2$ table, where $y_{jk}$ is the number of times we observed $(x_1, x_2) = (j,k)$, so that:
+
+$$
+(y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
+$$
+
+Our primary question is whether these two random variables are independent, i.e.
+
+$$
+\pi_{jk} = \pi_{j+}\pi_{+k}, \quad \text{where} \quad \pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
+$$ {#eq-null-product-formulation}
+
+We can express this equivalently as:
+
+$$
+\pi_{00}\pi_{11} = \pi_{01}\pi_{10}.
+$$
+
+In other words, we can express the independence hypothesis concisely as:
+
+$$
+H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
+$$ {#eq-independence-2}
+
+Let's arbitrarily assume that, additionally, $n \sim \text{Poi}(\mu_{++})$. Then, by the relationship between Poisson and multinomial distributions, we have:
+
+$$
+y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
+$$
+
+Let $i \in \{1,2,3,4\}$ index the four pairs $(x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\}$, so that:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2}, \quad i = 1, \dots, 4,
+$$ {#eq-2x2-poisson-reg}
+
+where:
+
+$$
+\beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \quad \beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
+$$ {#eq-2x2-poisson-reg-coefs}
+
+Note that the independence hypothesis [-@eq-independence-2] reduces to the hypothesis $H_0: \beta_{12} = 0$:
+
+$$
+H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1 \quad \Longleftrightarrow \quad H_0: \beta_{12} = 0.
+$$
+
+So the presence of an interaction in the Poisson regression is equivalent to a lack of independence between $x_1$ and $x_2$. We can test the latter hypothesis using our standard tools for Poisson regression.
+
+For example, we can use the Pearson $X^2$ goodness-of-fit test. To apply this test, we must find the fitted means under the null hypothesis model:
+
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}, \quad i = 1, \dots, 4.
+$$ {#eq-2x2-poisson-reg-null}
+
+The normal equations give us the following:
+
+$$
+y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \quad y_{+1} \equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \quad y_{1+} \equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
+$$
+
+By combining these equations, we arrive at:
+
+$$
+\hat \mu_{++} = y_{++}; \quad \hat \mu_{j+} = y_{j+} \text{ for all } j \in \{0, 1\}; \quad \hat \mu_{+k} = y_{+k} \text{ for all } k \in \{0, 1\}.
+$$
+
+Therefore, the fitted means under the null hypothesis model [-@eq-2x2-poisson-reg-null] are:
+
+$$
+\hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
+$$
+
+Hence, we have:
+
+$$
+X^2 = \sum_{j,k = 0}^1 \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} = \sum_{j, k = 0}^1 \frac{(y_{jk} - y_{j+}y_{+k}/y_{++})^2}{y_{j+}y_{+k}/y_{++}}.
+$$
+
+Alternatively, we can use the likelihood ratio test, which gives:
+
+$$
+G^2 = 2\sum_{j,k = 0}^1 y_{jk}\log\frac{y_{jk}}{\widehat \mu_{jk}} = 2\sum_{j, k = 0}^1 y_{jk}\log\frac{y_{jk}}{y_{j+}y_{+k}/y_{++}}.
+$$
+
+We would compare both $X^2$ and $G^2$ to a $\chi^2_1$ distribution.
+
+### Inference is the same regardless of conditioning on margins {#sec-inference-conditioning-margins}
+
+Now, our data might actually have been collected such that $n \sim \text{Poi}(\mu_{++})$, or maybe $n$ was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:
+
+$$
+p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
+$$
+
+so:
+
+$$
+\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) = \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+$$
+
+In other words, the log-likelihoods of the Poisson and multinomial models, as a function of $\boldsymbol{\pi}$, differ from each other by a constant. Therefore, any likelihood-based inference in these models is equivalent. The same argument shows that conditioning on the row or column totals (as opposed to the overall total) also yields the same exact inference. Therefore, regardless of the sampling mechanism, we can always conduct an independence test in a $2 \times 2$ table via a Poisson regression.
+
+### Equivalence among Poisson and logistic regressions {#sec-poisson-logistic-equivalence}
+
+We've talked about two ways to view a $2 \times 2$ contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations [-@eq-2x2-poisson-reg] and [-@eq-2x2-poisson-reg-coefs] that $x_1 \perp \!\!\! \perp x_2$ if and only if $\beta_{12} = 0$ in the Poisson regression:
+
+$$
+\log y_i \overset{\text{ind}}{\sim} \text{Poi}(\mu_i), \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12} x_{i1}x_{i2}, \quad i = 1, \dots, 4.
+$$
+
+However, we have:
+
+$$
+\beta_{12} = \log \frac{\pi_{11}\pi_{00}}{\pi_{01}\pi_{10}} = \log \frac{\pi_{11}/\pi_{01}}{\pi_{01}/\pi_{00}} = \log \frac{\mathbb{P}[x_2 = 1 \mid x_1 = 1] / \mathbb{P}[x_2 = 0 \mid x_1 = 1]}{\mathbb{P}[x_2 = 1 \mid x_1 = 0] / \mathbb{P}[x_2 = 0 \mid x_1 = 0]}.
+$$
+
+Recalling the logistic regression of $x_2$ on $x_1$:
+
+$$
+\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
+$$ {#eq-2x2-logistic-reg}
+
+and that $\tilde{\beta_1}$ is the log odds ratio, we conclude that:
+
+$$
+\beta_{12} = \tilde{\beta_1},
+$$
+
+so $x_1 \perp \!\!\! \perp x_2$ if and only if $\tilde{\beta_1} = 0$. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio $\beta_{12}$ (or $\tilde{\beta_1}$) obtained from Poisson and logistic regressions will be the same.
+
+## Example: Poisson models for $J \times K$ contingency tables {#sec-poisson-jk-tables}
+
+Suppose now that $x_1 \in \{1, \dots, J\}$ and $x_2 \in \{1, \dots, K\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $j$ and $k$, which amounts to a goodness-of-fit test for the Poisson model:
+
+$$
+y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
+$$
+
+The score (Pearson) and deviance-based goodness-of-fit statistics for this test are:
+
+$$
+X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 1}^J \sum_{k = 1}^K y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
+$$
+
+where $\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}$. Like with the $2 \times 2$ case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is $JK$, while the degrees of freedom in the partial model is $J + K - 1$, so the degrees of freedom for the goodness-of-fit test is $JK - J - K + 1 = (J - 1)(K - 1)$. Pearson erroneously concluded that the test had $JK - 1$ degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.
+
+## Example: Poisson models for $J \times K \times L$ contingency tables {#sec-poisson-jkl-tables}
+
+These ideas can be extended to multi-way tables, for example, three-way tables. If we have $x_1 \in \{1, \dots, J\}$, $x_2 \in \{1, \dots, K\}$, $x_3 \in \{1, \dots, L\}$, then we might be interested in testing several kinds of null hypotheses:
+
+- Mutual independence: $H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3$.
+- Joint independence: $H_0: x_1 \perp \!\!\! \perp (x_2, x_3)$.
+- Conditional independence: $H_0: x_1 \perp \!\!\! \perp x_2 \mid x_3$.
+
+These three null hypotheses can be shown to be equivalent to the Poisson regression model:
+
+$$
+y_{jkl} \overset{\text{ind}}\sim \text{Poi}(\mu_{jkl}),
+$$
+
+where:
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
+$$
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
+$$
+
+$$
+\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_l \quad \text{(conditional independence)}.
+$$
+
+## Negative binomial regression {#sec-nb-regression}
+
+### Overdispersion
+
+A pervasive issue with Poisson regression is *overdispersion*: that the variances of observations are greater than the corresponding means. A common cause of overdispersion is omitted variable bias. Suppose that $y \sim \text{Poi}(\mu)$, where $\log \mu = \beta_0 + \beta_1 x_1 + \beta_2 x_2$. However, we omitted variable $x_2$ and are considering the GLM based on $\log \mu = \beta_0 + \beta_1 x_1$. If $\beta_2 \neq 0$ and $x_2$ is correlated with $x_1$, then we have a confounding issue. Let's consider the more benign situation that $x_2$ is independent of $x_1$. Then, we have
+
+$$
+\mathbb{E}[y|x_1] = \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] = \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] = e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+$$ {#eq-mean-variance}
+
+So in the model for the mean of $y$, the impact of omitted variable $x_2$ seems only to have impacted the intercept. Let's consider the variance of $y$:
+
+$$
+\text{Var}[y|x_1] = \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] = e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] > e^{\beta'_0 + \beta_1 x_1} = \mathbb{E}[y|x_1].
+$$ {#eq-var-greater-mean}
+
+So indeed, the variance is larger than what we would have expected under the Poisson model.
+
+### Hierarchical Poisson regression
+
+Let's say that $y|\boldsymbol{x} \sim \text{Poi}(\lambda)$, where $\lambda|\boldsymbol{x}$ is random due to the fluctuations of the omitted variables. A common distribution used to model nonnegative random variables is the *gamma* distribution $\Gamma(\mu, k)$, parameterized by a mean $\mu > 0$ and a *shape* $k > 0$. This distribution has probability density function
+
+$$
+f(\lambda; k, \mu) = \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1},
+$$ {#eq-gamma-pdf}
+
+with mean and variance given by
+
+$$
+\mathbb{E}[\lambda] = \mu; \quad \text{Var}[\lambda] = \mu^2/k.
+$$ {#eq-gamma-moments}
+
+Therefore, it makes sense to augment the Poisson regression model as follows:
+
+$$
+\lambda|\boldsymbol{x} \sim \Gamma(\mu, k), \quad \log \mu = \boldsymbol{x}^T \boldsymbol{\beta}, \quad y | \lambda \sim \text{Poi}(\lambda).
+$$ {#eq-nb-hierarchical}
+
+### Negative binomial distribution
+
+A simpler way to write the hierarchical model [-@eq-nb-hierarchical] would be to marginalize out $\lambda$. Doing so leaves us with a count distribution called the *negative binomial distribution*:
+
+$$
+\lambda \sim \Gamma(\mu, k),\  y | \lambda \sim \text{Poi}(\lambda) \quad \Longrightarrow \quad y \sim \text{NegBin}(\mu, k).
+$$ {#eq-nb-definition}
+
+The negative binomial probability mass function is
+
+$$
+p(y; \mu, k) = \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda = \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+$$ {#eq-nb-pmf}
+
+This random variable has mean and variance given by
+
+$$
+\mathbb{E}[y] = \mathbb{E}[\lambda] = \mu \quad \text{and} \quad \text{Var}[y] = \mathbb{E}[\lambda] + \text{Var}[\lambda] = \mu + \frac{\mu^2}{k}.
+$$ {#eq-nb-moments}
+
+As we send $k \rightarrow \infty$, the distribution of $\lambda$ tends to a point mass and the negative binomial distribution tends to $\text{Poi}(\mu)$.
+
+### Negative binomial as exponential dispersion model
+
+Let us see whether we can express the negative binomial model as an exponential dispersion model. First, let us write out the probability mass function:
+
+$$
+p(y; \mu, k) = \exp\left(y \log \frac{\mu}{\mu + k} - k \log \frac{\mu + k}{k}\right)\frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}.
+$$ {#eq-nb-edm}
+
+Unfortunately, we run into difficulties expressing this probability mass function in EDM form, because there is not a neat decoupling between the natural parameter and the dispersion parameter. Indeed, for unknown $k$, the negative binomial model is *not* an EDM. However, we can still express the negative binomial model as an EDM (in fact, a one-parameter exponential family) if we treat $k$ as known. In particular, we can read off that
+
+$$
+\theta = \log \frac{\mu}{\mu + k}, \quad \psi(\theta) = k\log \frac{\mu + k}{k} = -k\log(1-e^{\theta}).
+$$ {#eq-neg-bin-exp-fam}
+
+An alternate parameterization of the negative binomial model is via $\gamma = 1/k$. With this parameterization, we have
+
+$$
+\mathbb{E}[y] = \mu \quad \text{and} \quad \text{Var}[y] = \mu + \gamma \mu^2.
+$$ {#eq-nb-alt-param}
+
+Here, $\gamma$ acts as a kind of dispersion parameter, as the variance of $y$ grows with $\gamma$. Note that the relationship between $\text{Var}[y]$ and $\gamma$ is not exactly proportional, as it is in EDMs. Nevertheless, the $\gamma$ parameter is often called the negative binomial *dispersion*. Note that setting $\gamma = 0$ recovers the Poisson distribution.
+
+### Negative binomial regression
+
+Let's revisit the hierarchical model [-@eq-nb-hierarchical], writing it more succinctly in terms of the negative binomial distribution:
+
+$$
+y_i \overset{\text{ind}}{\sim} \text{NegBin}(\mu_i, \gamma), \quad \log \mu_i = \boldsymbol{x}^T \boldsymbol{\beta}.
+$$ {#eq-nb-regression}
+
+Notice that we typically assume that all observations share the same dispersion parameter $\gamma$. Reading off from equation [-@eq-neg-bin-exp-fam], we see that the canonical link function for the negative binomial distribution is $\mu \mapsto \log \frac{\mu}{\mu + k}$. However, typically for negative binomial regression we use the log link $g(\mu) = \log \mu$ instead. This is the link of Poisson regression, and leads to more interpretable coefficient estimates. This is our first example of a non-canonical link!
+
+### Score and Fisher information
+
+Recall from Chapter 4 that
+
+$$
+\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+$$ {#eq-score-fisher-info}
+
+where
+
+$$
+\boldsymbol{W} \equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right) \quad \text{and} \quad \boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+$$ {#eq-w-m-matrix}
+
+In our case, we have
+
+$$
+w_i = 1; \quad V(\mu_i) = \mu_i + \gamma \mu_i^2; \quad \frac{\partial\eta_i}{\partial \mu_i} = \frac{1}{\mu_i}.
+$$ {#eq-w-v-deriv}
+
+Putting this together, we find that
+
+$$
+\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{1 + \gamma \mu_i}\right).
+$$ {#eq-w-m-simplified}
+
+### Estimation in negative binomial regression
+
+Negative binomial regression is an EDM when $\gamma$ is known, but typically the dispersion parameter is unknown. Note that there is a dependency in $\psi$ on $k$ (i.e. on $\gamma$), which complicates things. It means that the estimate $\boldsymbol{\widehat{\beta}}$ depends on the parameter $\gamma$ (this does not happen, for example, in the normal linear model case).^[Having said that, the dependency between $\boldsymbol{\widehat{\beta}}$ and $\widehat{\gamma}$ is weak, as the two are asymptotically independent parameters.] Therefore, estimation in negative binomial regression is typically an iterative procedure, where at each step $\boldsymbol{\beta}$ is estimated for the current value of $\gamma$ and then $\gamma$ is estimated based on the updated value of $\boldsymbol{\beta}$. Let's discuss each of these tasks in turn. Given a value of $\widehat{\gamma}$, we have the normal equations:
+
+$$
+\boldsymbol{X}^T \text{diag}\left(\frac{1}{1 + \widehat{\gamma} \widehat{\mu}_i}\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) = 0.
+$$ {#eq-nb-normal-eq}
+
+This reduces to the Poisson normal equations when $\widehat{\gamma} = 0$. Solving these equations for a fixed value of $\widehat{\gamma}$ can be done via IRLS, as usual. Estimating $\gamma$ for a fixed value of $\boldsymbol{\widehat{\beta}}$ can be done in several ways, including setting to zero the derivative of the likelihood with respect to $\gamma$. This results in a nonlinear equation (not given here) that can be solved iteratively.
+
+### Wald inference
+
+Wald inference is based on
+
+$$
+\widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1}, \quad \text{where} \quad \boldsymbol{\widehat{W}} = \text{diag}\left(\frac{\widehat{\mu}_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
+$$ {#eq-wald-inference}
+
+### Likelihood ratio test inference
+
+The negative binomial deviance is
+
+$$
+D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\widehat{\mu}_i} - \left(y_i + \frac{1}{\widehat{\gamma}}\right)\log \frac{1 + \widehat{\gamma} y_i}{1 + \widehat{\gamma} \widehat{\mu}_i}\right).
+$$ {#eq-nb-deviance}
+
+We can use this for comparing nested models, **but not for goodness of fit testing!** The issue is that we have estimated the parameter $\gamma$, whereas goodness of fit tests are applicable only when the dispersion parameter is known.
+
+### Testing for overdispersion
+
+It is reasonable to want to test for overdispersion, i.e., to test the null hypothesis $H_0: \gamma = 0$. This is somewhat of a tricky task because $\gamma = 0$ is at the edge of the parameter space. We can do so using a likelihood ratio test. As it turns out, the likelihood ratio statistic $T^{\text{LRT}}$ has asymptotic null distribution
+
+$$
+T^{\text{LRT}} \equiv 2(\ell^{\text{NB}} - \ell^{\text{Poi}}) \overset \cdot \sim \frac{1}{2}\delta_0 + \frac{1}{2}\chi^2_1.
+$$ {#eq-lrt-null}
+
+Here, $\delta_0$ is the delta mass at zero. The reason for this is that, under the null, we can view the estimated dispersion parameter as being symmetrically distributed around 0. However, since the dispersion parameter is nonnegative, this means it gets rounded up to 0 with probability 1/2. Therefore, the likelihood ratio test for $H_0: \gamma = 0$ rejects when
+
+$$
+T^{\text{LRT}} > \chi^2_1(1-2\alpha).
+$$ {#eq-lrt-reject}
+
+Note that the above test for overdispersion can be viewed as a goodness of fit test for the Poisson GLM. It is different from the usual GLM goodness of fit tests, because the saturated model against which the latter tests stays in the Poisson family. Nevertheless, significant results in standard goodness of fit tests for Poisson GLMs are often an indication of overdispersion. Or, they may indicate omitted variable bias (e.g., you forgot to include an interaction), so it's somewhat tricky.
+
+### Overdispersion in logistic regression
+
+Note that overdispersion is potentially an issue not only in Poisson regression models but in logistic regression models as well. Dealing with overdispersion in the latter case is more tricky, because the analog of the negative binomial model (the beta-binomial model) is not an exponential family. An alternate route to dealing with overdispersion is quasi-likelihood modeling, but this topic is beyond the scope of the course.
+
+## R demo {#sec-r-demo}
+
+### Contingency table analysis {#sec-contingency-table}
+
+Let's take a look at the UC Berkeley admissions data:
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+
+ucb_data <- UCBAdmissions |> as_tibble()
+ucb_data
+```
+
+It contains data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex. Let's see whether there is an association between `Gender` and `Admit`. Let's first aggregate over department:
+
+```{r}
+ucb_data_agg <- ucb_data |>
+  group_by(Admit, Gender) |>
+  summarise(n = sum(n), .groups = "drop")
+ucb_data_agg
+```
+
+Let's see what the admissions rates are by gender:
+
+```{r}
+ucb_data_agg |>
+  group_by(Gender) |>
+  summarise(`Admission rate` = sum(n*(Admit == "Admitted"))/sum(n))
+```
+
+This suggests that men have substantially higher admission rates than women. Let's see if we can confirm this using either a Fisher's exact test or a Pearson chi-square test.
+
+```{r}
+# first convert to 2x2 table format
+admit_vs_gender <- ucb_data_agg |>
+  pivot_wider(names_from = Gender, values_from = n) |>
+  column_to_rownames(var = "Admit")
+admit_vs_gender
+
+# Fisher exact test (note that the direction of the effect can be deduced)
+fisher.test(admit_vs_gender)
+
+# Chi-square test
+chisq.test(admit_vs_gender)
+```
+
+As a sanity check, let's run the Poisson regression underlying the chi-square test above.
+
+```{r}
+pois_fit <- glm(n ~ Admit + Gender + Admit*Gender,
+                family = "poisson",
+                data = ucb_data_agg)
+summary(pois_fit)
+```
+
+Based on all of these tests, there seems to be a very substantial difference in admissions rates based on gender. That is not good.
+
+But perhaps, women tend to apply to more selective departments? Let's look into this:
+
+```{r fig.width=3, fig.height = 3, fig.align='center'}
+ucb_data |>
+  group_by(Dept) |>
+  summarise(admissions_rate = sum(n*(Admit == "Admitted"))/sum(n),
+            prop_female_applicants = sum(n*(Gender == "Female"))/sum(n)) |>
+  ggplot(aes(x = admissions_rate, y = prop_female_applicants)) +
+  geom_point() +
+  scale_x_continuous(limits = c(0, 1)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Admissions rate",
+       y = "Proportion female applicants")
+```
+
+Indeed, it does seem that female applicants typically applied to more selective departments! This suggests that it is very important to control for department when evaluating the association between admissions and gender. To do this, we can run a test for conditional independence in the $J \times K \times L$ table:
+
+```{r}
+pois_fit <- glm(n ~ Admit + Dept + Gender + Admit:Dept + Gender:Dept,
+                family = "poisson",
+                data = ucb_data)
+pchisq(sum(resid(pois_fit, "pearson")^2),
+  df = pois_fit$df.residual,
+  lower.tail = FALSE
+)
+```
+
+Still we find a significant effect! But what is the direction of the effect? The chi-square test does not tell us. We can simply compute the admissions rates by department and plot them:
+
+```{r fig.width=3, fig.height = 3, fig.align='center'}
+ucb_data |>
+  group_by(Dept, Gender) |>
+  summarise(`Admission rate` = sum(n*(Admit == "Admitted"))/sum(n),
+            .groups = "drop") |>
+  pivot_wider(names_from = Gender, values_from = `Admission rate`) |>
+  ggplot(aes(x = Female, y = Male, label = Dept)) +
+  geom_point() +
+  ggrepel::geom_text_repel() +
+  geom_abline(color = "red", linetype = "dashed") +
+  scale_x_continuous(limits = c(0, 1)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Female admission rate",
+       y = "Male admission rate")
+```
+
+Now the difference doesn't seem so huge, with most departments close to even and with department A heavily skewed towards admitting women!
+
+### Revisiting the crime data, again {#sec-crime-data}
+
+```{r message = FALSE}
+library(tidyverse)
+```
+Here we are again, face to face with the crime data, with one last chance to get the analysis right. Let's load and preprocess it, as before.
+
+```{r message = FALSE}
+# read crime data
+crime_data <- read_tsv("data/Statewide_crime.dat")
+
+# read and transform population data
+population_data <- read_csv("data/state-populations.csv")
+population_data <- population_data |>
+  filter(State != "Puerto Rico") |>
+  select(State, Pop) |>
+  rename(state_name = State, state_pop = Pop)
+
+# collate state abbreviations
+state_abbreviations <- tibble(
+  state_name = state.name,
+  state_abbrev = state.abb
+) |>
+  add_row(state_name = "District of Columbia", state_abbrev = "DC")
+
+# add CrimeRate to crime_data
+crime_data <- crime_data |>
+  mutate(STATE = ifelse(STATE == "IO", "IA", STATE)) |>
+  rename(state_abbrev = STATE) |>
+  filter(state_abbrev != "DC") |> # remove outlier
+  left_join(state_abbreviations, by = "state_abbrev") |>
+  left_join(population_data, by = "state_name") |>
+  select(state_abbrev, Violent, Metro, HighSchool, Poverty, state_pop)
+
+crime_data
+```
+
+Let's recall the logistic regression we ran on these data in Chapter 4:
+
+```{r}
+bin_fit <- glm(Violent / state_pop ~ Metro + HighSchool + Poverty,
+  weights = state_pop,
+  family = "binomial",
+  data = crime_data
+)
+```
+
+We had found very poor results from the goodness of fit test for this model. We have therefore omitted some important variables and/or we have serious overdispersion on our hands.
+
+We haven't discussed in any detail how to deal with overdispersion in logistic regression models, so let's try a Poisson model instead. The natural way to model rates using Poisson distributions is via offsets:
+
+```{r}
+pois_fit <- glm(Violent ~ Metro + HighSchool + Poverty + offset(log(state_pop)),
+  family = "poisson",
+  data = crime_data
+)
+summary(pois_fit)
+```
+
+Again, everything is significant, and again, the regression summary shows that we have a huge residual deviance. This was to be expected, given that $\text{Bin}(m, \pi) \approx \text{Poi}(m\pi)$ for large $m$ and small $\pi$. So, the natural thing to try is a negative binomial regression! Negative binomial regression is not implemented in the regular `glm` package, but `glm.nb()` from the `MASS` package is a dedicated function for this task. Let's see what we get:
+
+```{r}
+nb_fit <- MASS::glm.nb(Violent ~ Metro + HighSchool + Poverty + offset(log(state_pop)),
+  data = crime_data
+)
+summary(nb_fit)
+```
+
+Aha! Things are not looking so significant anymore! And the residual deviance is not as huge! Although, we must be careful! The residual deviance no longer has the usual $\chi^2$ distribution because of the estimated dispersion parameter. So we don't really have an easy goodness of fit test. The estimated value of $\gamma$ (confusingly called $\theta$ in the summary) is significantly different from zero, indicating overdispersion. Let's formally test for overdispersion using the nonstandard likelihood ratio test discussed above:
+
+```{r}
+T_LRT <- 2 * (as.numeric(logLik(nb_fit)) - as.numeric(logLik(pois_fit)))
+p_LRT <- pchisq(T_LRT, df = 1, lower.tail = FALSE)/2
+p_LRT
+```
+
+So at the very least the NB model fits much better than the Poisson model. Let's do some inference based on this model. For example, we can get Wald confidence intervals:
+
+```{r}
+confint.default(nb_fit)
+```
+
+Or we can get LRT-based (i.e. profile) confidence intervals:
+
+```{r}
+confint(nb_fit)
+```
+
+Or we can get confidence intervals for the predicted means:
+
+```{r}
+predict(nb_fit,
+  newdata = crime_data |> column_to_rownames(var = "state_abbrev"),
+  type = "response",
+  se.fit = TRUE
+)
+```
+
+We can carry out some hypothesis tests as well, e.g. to test $H_0: \beta_{\text{Metro}} = 0$:
+
+```{r}
+nb_fit_partial <- MASS::glm.nb(Violent ~ HighSchool + Poverty + offset(log(state_pop)),
+  data = crime_data
+)
+anova_fit <- anova(nb_fit_partial, nb_fit)
+anova_fit
+```
+
+

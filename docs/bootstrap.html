@@ -420,7 +420,7 @@ y_i^b = \boldsymbol{x}_{i, \text{-}S}^T \boldsymbol{\widehat{\beta}}_{\text{-}S}
 \]</span></p>
 <p>We can then build a null distribution by recomputing <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}^b)\)</span> for each <span class="math inline">\(b\)</span> and then define the bootstrap-based <span class="math inline">\(p\)</span>-value:</p>
 <p><span class="math display">\[
-p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
+p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B 1(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
 \]</span></p>
 </section>
 </section>

@@ -478,7 +478,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>where we have used a plug-in estimator of the variance. This leads us to the Wald <span class="math inline">\(z\)</span>-test:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| &gt; z_{1-\alpha/2}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| &gt; z_{1-\alpha/2}\right).
 \]</span></p>
 <p>Since a one-dimensional parameter is being tested, we can make the test one-sided if desired.</p>
 </section>
@@ -494,7 +494,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>Hence, we have the Wald <span class="math inline">\(\chi^2\)</span> test:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) &gt; \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) &gt; \chi^2_{|S|}(1-\alpha)\right).
 \]</span></p>
 </section>
 <section id="sec-wald-ci-single-coeff" class="level3" data-number="24.2.3">
@@ -535,7 +535,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>Unlike linear regression, it is not the case in general that <span class="math inline">\(\boldsymbol{\widehat \beta}\)</span> and <span class="math inline">\(\widetilde \phi_0\)</span> are independent. Nevertheless, they are <em>asymptotically independent</em>. Therefore, the above statistic is <em>approximately</em> distributed as <span class="math inline">\(t_{n-p}\)</span>. Hence, the test for <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span> is:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| &gt; t_{n-p}(1-\alpha/2)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| &gt; t_{n-p}(1-\alpha/2)\right).
 \]</span></p>
 <p>Likewise, we would replace <span class="math inline">\(z_{1-\alpha}\)</span> by <span class="math inline">\(t_{n-p}(1-\alpha/2)\)</span> for all tests and confidence intervals concerning univariate quantities. For multivariate quantities, we will get approximate <span class="math inline">\(F\)</span> distributions instead of approximate <span class="math inline">\(\chi^2\)</span> distributions. For example:</p>
 <p><span class="math display">\[
@@ -558,7 +558,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>Suppose we wish to test the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>. Then, based on the approximation (<a href="#eq-likelihood-ratio-approximation"><span>24.4</span></a>), we can define the likelihood ratio test:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} &gt; \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} &gt; \chi^2_{|S|}(1-\alpha)\right).
 \]</span></p>
 </section>
 <section id="sec-likelihood-ratio-ci-single-coeff" class="level3" data-number="24.2.8">
@@ -614,7 +614,7 @@ U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^
 <p>Therefore, we arrive at the score test for <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>:</p>
 <p><span class="math display">\[
 \small
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) &gt; \phi_0 \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) &gt; \phi_0 \chi^2_{|S|}(1-\alpha)\right).
 \]</span></p>
 <p>The nice thing about a score test is that the model need only be fit under the null hypothesis. If there are several variables one is considering adding to a model, the model need not be refit upon the addition of each variable.</p>
 </section>
@@ -626,7 +626,7 @@ U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^
 \tag{24.5}\]</span></span></p>
 <p>Unlike its multivariate counterparts, we can construct not just a two-sided test but also one-sided tests based on this normal approximation. For example, below is a right-sided score test for <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span>:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; z_{1-\alpha}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; z_{1-\alpha}\right).
 \]</span></p>
 </section>
 <section id="sec-score-ci-single-coeff" class="level3" data-number="24.3.3">
@@ -646,7 +646,7 @@ U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{
 \]</span></p>
 <p>where <span class="math inline">\(X^2\)</span> is the Pearson chi-square statistic. Therefore, the score test for goodness of fit is:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(X^2 \phi_0 &gt; \chi^2_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 \phi_0 &gt; \chi^2_{n-p}(1-\alpha)\right).
 \]</span></p>
 <p>In the context of contingency table analysis (see the next chapter), this test reduces to the Pearson chi-square test of independence between two categorical variables. This test was proposed in 1900; it was only pointed out about a century later that this is a score test (Smyth 2003).</p>
 </section>
@@ -654,7 +654,7 @@ U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{
 <h3 data-number="24.3.5" class="anchored" data-anchor-id="sec-score-test-unknown-dispersion"><span class="header-section-number">24.3.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
 <p>Score test inference for one or more coefficients <span class="math inline">\(\boldsymbol{\beta}_S\)</span> can be achieved by replacing <span class="math inline">\(\phi_0\)</span> with one of its estimators and replacing the normal and chi-square distributions with <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions, respectively. For example, the score test for a single coefficient <span class="math inline">\(\beta_j\)</span> is:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; t_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; t_{n-p}(1-\alpha)\right).
 \]</span></p>
 <p>The <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions are not exact in finite samples, but are better approximations than the normal and chi-square distributions. The score test for goodness of fit is not applicable in the case when <span class="math inline">\(\phi_0\)</span> is unknown, similarly to the likelihood ratio test. Indeed, note the relationship between the Pearson goodness of fit test, which rejects when <span class="math inline">\(\frac{1}{\phi_0}X^2 &gt; \chi^2_{n-p}(1-\alpha)\)</span>, and the Pearson estimator of the dispersion parameter: <span class="math inline">\(\widetilde{\phi}_0 \equiv \frac{X^2}{n-p}\)</span>. If we try to plug in the Pearson estimator for the dispersion into the Pearson goodness of fit test, we end up with a test statistic deterministically equal to <span class="math inline">\(n-p\)</span>. This reflects the fact that the residual degrees of freedom can either be used to estimate the dispersion or to test goodness of fit; they cannot be used for both.</p>
 

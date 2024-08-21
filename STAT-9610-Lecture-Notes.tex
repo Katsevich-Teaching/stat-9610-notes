@@ -173,10 +173,10 @@
 \usepackage{amsthm}
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{remark}
@@ -226,7 +226,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced, breakable, sharp corners, boxrule=0pt, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -246,8 +246,9 @@ This is a set of lecture notes developed for the PhD statistics course
 ``STAT 9610: Statistical Methodology'' at the University of
 Pennsylvania. Much of the content is adapted from Alan Agresti's book
 \emph{Foundations of Linear and Generalized Linear Models} (2015). These
-notes may contain typos and errors, and will be updated in subsequent
-iterations of STAT 9610.
+notes may contain typos and errors; if you find any such issues or have
+other suggestions for improvement, please email the instructor at
+\texttt{ekatsevi@wharton.upenn.edu}.
 
 \hypertarget{preview-linear-and-generalized-linear-models}{%
 \section{Preview: Linear and generalized linear
@@ -2948,437 +2949,166 @@ model selection leads us into some dicey inferential territory due to
 selection bias. This is the subject of ongoing research, and the jury is
 still out on the best way of doing this.
 
-\hypertarget{sec-R-demo-misspecification}{%
-\chapter{R demo}\label{sec-R-demo-misspecification}}
+\hypertarget{r-demo-1}{%
+\chapter{R demo}\label{r-demo-1}}
 
-We illustrate how to deal with heteroskedasticity, group-correlated
-errors, autocorrelated errors, and outliers in the following sections.
+\emph{See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14}
 
-\hypertarget{heteroskedasticity}{%
-\section{Heteroskedasticity}\label{heteroskedasticity}}
-
-Next, let's look at another dataset, from the Current Population Survey
-(CPS).
+Let's put into practice what we've learned in this chapter by analyzing
+data about house prices.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(readr)}
-\FunctionTok{library}\NormalTok{(ggplot2)}
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(tibble)}
-\FunctionTok{library}\NormalTok{(tidyr)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(GGally)}
 
-\NormalTok{cps\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/cps2.tsv"}\NormalTok{)}
-\NormalTok{cps\_data}
+\NormalTok{houses\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/Houses.dat"}\NormalTok{)}
+\NormalTok{houses\_data}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 1,000 x 10
-    wage  educ exper female black married union south fulltime metro
-   <dbl> <dbl> <dbl>  <dbl> <dbl>   <dbl> <dbl> <dbl>    <dbl> <dbl>
- 1  2.03    13     2      1     0       0     0     1        0     0
- 2  2.07    12     7      0     0       0     0     0        0     1
- 3  2.12    12    35      0     0       0     0     1        1     1
- 4  2.54    16    20      1     0       0     0     1        1     1
- 5  2.68    12    24      1     0       1     0     1        0     1
- 6  3.09    13     4      0     0       0     0     1        0     1
- 7  3.16    13     1      0     0       0     0     0        0     0
- 8  3.17    12    22      1     0       1     0     1        0     1
- 9  3.2     12    23      0     0       1     0     1        1     1
-10  3.27    12     4      1     0       0     0     0        1     1
-# i 990 more rows
+# A tibble: 100 x 7
+    case taxes  beds baths   new price  size
+   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1     1  3104     4     2     0  280.  2048
+ 2     2  1173     2     1     0  146.   912
+ 3     3  3076     4     2     0  238.  1654
+ 4     4  1608     3     2     0  200   2068
+ 5     5  1454     3     3     0  160.  1477
+ 6     6  2997     3     2     1  500.  3153
+ 7     7  4054     3     2     0  266.  1355
+ 8     8  3002     3     2     1  290.  2075
+ 9     9  6627     5     4     0  587   3990
+10    10   320     3     2     0   70   1160
+# i 90 more rows
 \end{verbatim}
 
-Suppose we want to regress \texttt{wage} on \texttt{educ},
-\texttt{exper}, and \texttt{metro}.
+\hypertarget{exploration-1}{%
+\section{Exploration}\label{exploration-1}}
+
+Let's first do a bit of exploration:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ }\SpecialCharTok{+}\NormalTok{ exper }\SpecialCharTok{+}\NormalTok{ metro, }\AttributeTok{data =}\NormalTok{ cps\_data)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{diagnostics}{%
-\subsection{Diagnostics}\label{diagnostics}}
-
-Let's take a look at the standard linear model diagnostic plots built
-into R.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residuals versus fitted}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-3-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residual QQ plot}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-3-2.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-3-3.pdf}
-
-}
-
-\end{figure}
-
-The residuals versus fitted plot suggests significant
-heteroskedasticity, with variance growing as a function of the fitted
-value.
-
-\hypertarget{sandwich-standard-errors}{%
-\subsection{Sandwich standard errors}\label{sandwich-standard-errors}}
-
-To get standard errors robust to this heteroskedasticity, we can use one
-of the robust estimators discussed in
-Section~\ref{sec-heteroskedasticity}. Most of the robust standard error
-constructions discussed in that section are implemented in the R package
-\texttt{sandwich}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(sandwich)}
-\end{Highlighting}
-\end{Shaded}
-
-For example, Huber-White's heteroskedasticity-consistent estimate
-\(\widehat{\text{Var}}[\boldsymbol{\widehat \beta}]\) can be obtained
-via \texttt{vcovHC}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{HW\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovHC}\NormalTok{(lm\_fit)}
-\NormalTok{HW\_cov}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-             (Intercept)          educ         exper         metro
-(Intercept)  1.484328645 -0.0967891868 -0.0096871141 -0.1218518012
-educ        -0.096789187  0.0070467982  0.0004037764  0.0018334348
-exper       -0.009687114  0.0004037764  0.0002517826  0.0008369831
-metro       -0.121851801  0.0018334348  0.0008369831  0.1197713348
-\end{verbatim}
-
-Compare this to the traditional estimate:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{usual\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovHC}\NormalTok{(lm\_fit, }\AttributeTok{type =} \StringTok{"const"}\NormalTok{)}
-\NormalTok{usual\_cov}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-             (Intercept)          educ         exper         metro
-(Intercept)  1.157049852 -0.0671656102 -0.0070323974 -0.1287058354
-educ        -0.067165610  0.0048945781  0.0001924359 -0.0018227782
-exper       -0.007032397  0.0001924359  0.0002320022  0.0001471354
-metro       -0.128705835 -0.0018227782  0.0001471354  0.1858394060
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# extract the variance estimates from the diagonal}
-\FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{variable =} \FunctionTok{rownames}\NormalTok{(usual\_cov),}
-  \AttributeTok{usual\_variance =} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(usual\_cov)),}
-  \AttributeTok{HW\_variance =} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(HW\_cov))}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 4 x 3
-  variable    usual_variance HW_variance
-  <chr>                <dbl>       <dbl>
-1 (Intercept)         1.08        1.22  
-2 educ                0.0700      0.0839
-3 exper               0.0152      0.0159
-4 metro               0.431       0.346 
-\end{verbatim}
-
-Bootstrap standard errors are also implemented in \texttt{sandwich}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# pairs bootstrap}
-\NormalTok{bootstrap\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovBS}\NormalTok{(lm\_fit, }\AttributeTok{type =} \StringTok{"xy"}\NormalTok{)}
-\FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{variable =} \FunctionTok{rownames}\NormalTok{(usual\_cov),}
-  \AttributeTok{usual\_variance =} \FunctionTok{diag}\NormalTok{(usual\_cov),}
-  \AttributeTok{HW\_variance =} \FunctionTok{diag}\NormalTok{(HW\_cov),}
-  \AttributeTok{bootstrap\_variance =} \FunctionTok{diag}\NormalTok{(bootstrap\_cov)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 4 x 4
-  variable    usual_variance HW_variance bootstrap_variance
-  <chr>                <dbl>       <dbl>              <dbl>
-1 (Intercept)       1.16        1.48               1.38    
-2 educ              0.00489     0.00705            0.00640 
-3 exper             0.000232    0.000252           0.000242
-4 metro             0.186       0.120              0.121   
-\end{verbatim}
-
-The covariance estimate produced by \texttt{sandwich} can be easily
-integrated into linear model inference using the package
-\texttt{lmtest}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(lmtest)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Loading required package: zoo
-\end{verbatim}
-
-\begin{verbatim}
-
-Attaching package: 'zoo'
-\end{verbatim}
-
-\begin{verbatim}
-The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# fit linear model as usual}
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ }\SpecialCharTok{+}\NormalTok{ exper }\SpecialCharTok{+}\NormalTok{ metro, }\AttributeTok{data =}\NormalTok{ cps\_data)}
-
-\CommentTok{\# robust t{-}tests for coefficients}
-\FunctionTok{coeftest}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ vcovHC)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-t test of coefficients:
-
-             Estimate Std. Error t value  Pr(>|t|)    
-(Intercept) -9.913984   1.218330 -8.1374 1.197e-15 ***
-educ         1.233964   0.083945 14.6996 < 2.2e-16 ***
-exper        0.133244   0.015868  8.3972 < 2.2e-16 ***
-metro        1.524104   0.346080  4.4039 1.178e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# robust confidence intervals for coefficients}
-\FunctionTok{coefci}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ vcovHC)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                  2.5 %     97.5 %
-(Intercept) -12.3047729 -7.5231954
-educ          1.0692342  1.3986938
-exper         0.1021058  0.1643816
-metro         0.8449747  2.2032337
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# robust F{-}test}
-\NormalTok{lm\_fit\_partial }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ, }\AttributeTok{data =}\NormalTok{ cps\_data) }\CommentTok{\# a partial model}
-\FunctionTok{waldtest}\NormalTok{(lm\_fit\_partial, lm\_fit, }\AttributeTok{vcov =}\NormalTok{ vcovHC)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Wald test
-
-Model 1: wage ~ educ
-Model 2: wage ~ educ + exper + metro
-  Res.Df Df      F    Pr(>F)    
-1    998                        
-2    996  2 40.252 < 2.2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\hypertarget{bootstrap-confidence-intervals}{%
-\subsection{Bootstrap confidence
-intervals}\label{bootstrap-confidence-intervals}}
-
-One R package for performing bootstrap inference is \texttt{simpleboot}.
-Let's see how to get pairs bootstrap distributions for the coefficient
-estimates.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(simpleboot)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Simple Bootstrap Routines (1.1-8)
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boot\_out }\OtherTok{\textless{}{-}} \FunctionTok{lm.boot}\NormalTok{(}
-  \AttributeTok{lm.object =}\NormalTok{ lm\_fit, }\CommentTok{\# input the fit object from lm()}
-  \AttributeTok{R =} \DecValTok{1000}
-\NormalTok{) }\CommentTok{\# R is the number of bootstrap replicates}
-\FunctionTok{perc}\NormalTok{(boot\_out) }\CommentTok{\# get the percentile 95\% confidence intervals}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-      (Intercept)     educ     exper     metro
-2.5%   -12.321867 1.075399 0.1026900 0.8236641
-97.5%   -7.533149 1.397388 0.1665347 2.1785376
-\end{verbatim}
-
-We can extract the resampling distributions for the coefficient
-estimates using the \texttt{samples} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{samples}\NormalTok{(boot\_out, }\AttributeTok{name =} \StringTok{"coef"}\NormalTok{)[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                    1           2          3          4          5
-(Intercept) -8.758145 -10.2146338 -9.7471101 -11.874538 -9.8246967
-educ         1.188527   1.2484078  1.1799435   1.380790  1.2090060
-exper        0.104212   0.1448643  0.1462231   0.136487  0.1578132
-metro        1.438395   1.5319595  1.9275520   1.461121  0.9129863
-\end{verbatim}
-
-We can plot these as follows:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{boot\_pctiles }\OtherTok{\textless{}{-}}\NormalTok{ boot\_out }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{perc}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{t}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(var }\SpecialCharTok{!=} \StringTok{"(Intercept)"}\NormalTok{)}
-
-\FunctionTok{samples}\NormalTok{(boot\_out, }\AttributeTok{name =} \StringTok{"coef"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(var }\SpecialCharTok{!=} \StringTok{"(Intercept)"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{var, }\AttributeTok{names\_to =} \StringTok{"resample"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"coefficient"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{group\_by}\NormalTok{(var) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ coefficient)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{data =}\NormalTok{ boot\_pctiles, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{data =}\NormalTok{ boot\_pctiles, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{var, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-11-1.pdf}
-
-}
-
-\end{figure}
-
-In this case, the bootstrap sampling distributions look roughly normal.
-
-\hypertarget{group-correlated-errors}{%
-\section{Group-correlated errors}\label{group-correlated-errors}}
-
-Credit for this data example:
-\url{https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/}.
-
-Let's consider the \texttt{nslwork} data from the \texttt{webuse}
-package:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(webuse)}
-\NormalTok{nlswork\_orig }\OtherTok{\textless{}{-}} \FunctionTok{webuse}\NormalTok{(}\StringTok{"nlswork"}\NormalTok{)}
-\NormalTok{nlswork }\OtherTok{\textless{}{-}}\NormalTok{ nlswork\_orig }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(idcode }\SpecialCharTok{\textless{}=} \DecValTok{100}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(idcode, year, ln\_wage, age, tenure, union) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{na.omit}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{union =} \FunctionTok{as.integer}\NormalTok{(union),}
-    \AttributeTok{idcode =} \FunctionTok{as.factor}\NormalTok{(idcode)}
+\CommentTok{\# visualize distribution of housing prices, superimposing the mean}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{30}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{mean}\NormalTok{(price)),}
+    \AttributeTok{colour =} \StringTok{"red"}\NormalTok{,}
+    \AttributeTok{linetype =} \StringTok{"dashed"}
 \NormalTok{  )}
-\NormalTok{nlswork}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# compare median and mean price}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{mean\_price =} \FunctionTok{mean}\NormalTok{(price),}
+    \AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 386 x 6
-   idcode  year ln_wage   age tenure union
-   <fct>  <dbl>   <dbl> <dbl>  <dbl> <int>
- 1 1         72    1.59    20  0.917     1
- 2 1         77    1.78    25  1.5       0
- 3 1         80    2.55    28  1.83      1
- 4 1         83    2.42    31  0.667     1
- 5 1         85    2.61    33  1.92      1
- 6 1         87    2.54    35  3.92      1
- 7 1         88    2.46    37  5.33      1
- 8 2         71    1.36    19  0.25      0
- 9 2         77    1.73    25  2.67      1
-10 2         78    1.69    26  3.67      1
-# i 376 more rows
+# A tibble: 1 x 2
+  mean_price median_price
+       <dbl>        <dbl>
+1       155.         133.
 \end{verbatim}
-
-The data comes from the US National Longitudinal Survey (NLS) and
-contains information about more than 4,000 young working women. We're
-interested in the relationship between wage (here as log-scaled
-GNP-adjusted wage) \texttt{ln\_wage} and survey participant's current
-age, job tenure in years, and union membership as independent variables.
-It's a longitudinal survey, so subjects were asked repeatedly between
-1968 and 1988, and each subject is identified by a unique idcode
-\texttt{idcode}. Here we restrict attention to the first 100 subjects
-and remove any rows with missing data.
-
-Let's start by fitting a linear regression of the log wage on
-\texttt{age}, \texttt{tenure}, \texttt{union}, and the interaction
-between \texttt{tenure} and \texttt{union}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ln\_wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ tenure }\SpecialCharTok{+}\NormalTok{ union }\SpecialCharTok{+}\NormalTok{ tenure}\SpecialCharTok{:}\NormalTok{union, }\AttributeTok{data =}\NormalTok{ nlswork)}
+\CommentTok{\# create a pairs plot of continuous variables}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(price, size, taxes) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggpairs}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-4-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# see how price relates to beds}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-5-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# see how price relates to baths}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-6-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# see how price relates to new}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(new), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-7-1.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{hypothesis-testing-1}{%
+\section{Hypothesis testing}\label{hypothesis-testing-1}}
+
+Let's run a linear regression and interpret the summary. But first, we
+must decide whether to model beds/baths as categorical or continuous? We
+should probably model these as categorical, given the potentially
+nonlinear trend observed in the box plots.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(baths) }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
+  \AttributeTok{data =}\NormalTok{ houses\_data}
+\NormalTok{)}
 \FunctionTok{summary}\NormalTok{(lm\_fit)}
 \end{Highlighting}
 \end{Shaded}
@@ -3386,203 +3116,417 @@ between \texttt{tenure} and \texttt{union}:
 \begin{verbatim}
 
 Call:
-lm(formula = ln_wage ~ age + tenure + union + tenure:union, data = nlswork)
+lm(formula = price ~ factor(beds) + factor(baths) + new + size, 
+    data = houses_data)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--1.42570 -0.28330  0.01694  0.27303  1.65052 
+-179.306  -32.037   -2.899   19.115  152.718 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   1.379103   0.099658  13.838  < 2e-16 ***
-age           0.013553   0.003388   4.000 7.60e-05 ***
-tenure        0.022175   0.008051   2.754  0.00617 ** 
-union         0.309936   0.070344   4.406 1.37e-05 ***
-tenure:union -0.009629   0.012049  -0.799  0.42473    
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     -19.26307   18.01344  -1.069 0.287730    
+factor(beds)3   -16.46430   15.04669  -1.094 0.276749    
+factor(beds)4   -12.48561   21.12357  -0.591 0.555936    
+factor(beds)5  -101.14581   55.83607  -1.811 0.073366 .  
+factor(baths)2    2.39872   15.44014   0.155 0.876885    
+factor(baths)3   -0.70410   26.45512  -0.027 0.978825    
+factor(baths)4  273.20079   83.65764   3.266 0.001540 ** 
+new              66.94940   18.50445   3.618 0.000487 ***
+size              0.10882    0.01234   8.822 7.46e-14 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.4099 on 381 degrees of freedom
-Multiple R-squared:  0.1811,    Adjusted R-squared:  0.1725 
-F-statistic: 21.07 on 4 and 381 DF,  p-value: 1.047e-15
+Residual standard error: 51.17 on 91 degrees of freedom
+Multiple R-squared:  0.7653,    Adjusted R-squared:  0.7446 
+F-statistic: 37.08 on 8 and 91 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Let's plot the residuals against the individuals:
+We can read off the test statistics and \(p\)-values for each variable
+from the regression summary, as well as for the \(F\)-test against the
+constant model from the bottom of the summary.
+
+Let's use an \(F\)-test to assess whether the categorical \texttt{baths}
+variable is important.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nlswork }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{resid =}\NormalTok{ lm\_fit}\SpecialCharTok{$}\NormalTok{residuals) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ idcode, }\AttributeTok{y =}\NormalTok{ resid)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Subject"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Residual"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-14-1.pdf}
-
-}
-
-\end{figure}
-
-Clearly, there is dependency among the residuals within subjects.
-Therefore, we have either model bias, or correlated errors, or both. To
-help assess whether we have model bias or not, we must check whether the
-variables of interest are correlated with the grouping variable
-\texttt{idcode}. We can check this with a plot, e.g., for the
-\texttt{tenure} variable:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{nlswork }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ idcode, }\AttributeTok{y =}\NormalTok{ tenure)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Subject"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Tenure"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-15-1.pdf}
-
-}
-
-\end{figure}
-
-Again, there seems to be nontrivial association between \texttt{tenure}
-and \texttt{idcode}. We can check this more formally with an ANOVA test:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(tenure }\SpecialCharTok{\textasciitilde{}}\NormalTok{ idcode, }\AttributeTok{data =}\NormalTok{ nlswork))}
+\NormalTok{lm\_fit\_partial }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
+  \AttributeTok{data =}\NormalTok{ houses\_data}
+\NormalTok{)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_partial, lm\_fit)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-             Df Sum Sq Mean Sq F value   Pr(>F)    
-idcode       81   2529  31.220   3.558 8.83e-16 ***
-Residuals   304   2668   8.775                     
+Analysis of Variance Table
+
+Model 1: price ~ factor(beds) + new + size
+Model 2: price ~ factor(beds) + factor(baths) + new + size
+  Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
+1     94 273722                                
+2     91 238289  3     35433 4.5104 0.005374 **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-So, in this case, we do have model bias on our hands. We can address
-this using fixed effects for each subject.
+What if we had not coded \texttt{baths} as a factor?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_FE }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ln\_wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ tenure }\SpecialCharTok{+}\NormalTok{ union }\SpecialCharTok{+}\NormalTok{ tenure}\SpecialCharTok{:}\NormalTok{union }\SpecialCharTok{+}\NormalTok{ idcode, }\AttributeTok{data =}\NormalTok{ nlswork)}
-\NormalTok{lm\_fit\_FE }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{summary}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{coef}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"idcode"}\NormalTok{, var)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# remove coefficients for fixed effects}
-  \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{)}
+\NormalTok{lm\_fit\_not\_factor }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+}\NormalTok{ baths }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
+  \AttributeTok{data =}\NormalTok{ houses\_data}
+\NormalTok{)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_partial, lm\_fit\_not\_factor)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-                Estimate  Std. Error   t value     Pr(>|t|)
-(Intercept)  1.882478232 0.131411504 14.325064 8.022367e-36
-age          0.005630809 0.003109803  1.810664 7.119315e-02
-tenure       0.020756426 0.006964417  2.980353 3.114742e-03
-union        0.174619394 0.060646038  2.879321 4.272027e-03
-tenure:union 0.014974113 0.009548509  1.568215 1.178851e-01
+Analysis of Variance Table
+
+Model 1: price ~ factor(beds) + new + size
+Model 2: price ~ factor(beds) + baths + new + size
+  Res.Df    RSS Df Sum of Sq      F Pr(>F)
+1     94 273722                           
+2     93 273628  1     94.33 0.0321 0.8583
 \end{verbatim}
 
-Note the changes in the standard errors and p-values. Sometimes, we may
-have remaining correlation among residuals even after adding cluster
-fixed effects. Therefore, it is common practice to compute clustered
-(i.e., Liang-Zeger) standard errors in conjunction with cluster fixed
-effects. We can get clustered standard errors via the \texttt{vcovCL}
-function from \texttt{sandwich}:
+If we want to test for the equality of means across groups of a
+categorical predictor, without adjusting for other variables, we can use
+the ANOVA \(F\)-test. There are several equivalent ways of doing so:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{LZ\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovCL}\NormalTok{(lm\_fit\_FE, }\AttributeTok{cluster =}\NormalTok{ nlswork}\SpecialCharTok{$}\NormalTok{idcode)}
-\FunctionTok{coeftest}\NormalTok{(lm\_fit\_FE, }\AttributeTok{vcov. =}\NormalTok{ LZ\_cov)[, ] }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"idcode"}\NormalTok{, var)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# remove coefficients for fixed effects}
-  \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                Estimate  Std. Error    t value     Pr(>|t|)
-(Intercept)  1.882478232 0.157611390 11.9437956 3.667970e-27
-age          0.005630809 0.006339777  0.8881715 3.751601e-01
-tenure       0.020756426 0.011149190  1.8616981 6.362342e-02
-union        0.174619394 0.101970509  1.7124500 8.784708e-02
-tenure:union 0.014974113 0.009646023  1.5523613 1.216301e-01
-\end{verbatim}
-
-Again, note the changes in the standard errors and p-values.
-
-\hypertarget{autocorrelated-errors}{%
-\section{Autocorrelated errors}\label{autocorrelated-errors}}
-
-Let's take a look at the \texttt{EuStockMarkets} data built into R,
-containing the daily closing prices of major European stock indices:
-Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE. Let's
-regress \texttt{DAX} on \texttt{FTSE} and take a look at the residuals:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(DAX }\SpecialCharTok{\textasciitilde{}}\NormalTok{ FTSE, }\AttributeTok{data =}\NormalTok{ EuStockMarkets)}
-\FunctionTok{summary}\NormalTok{(lm\_fit)}
+\CommentTok{\# just use the summary function}
+\NormalTok{lm\_fit\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{summary}\NormalTok{(lm\_fit\_baths)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 
 Call:
-lm(formula = DAX ~ FTSE, data = EuStockMarkets)
+lm(formula = price ~ factor(baths), data = houses_data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--408.43 -172.53  -45.71  137.68  989.96 
+-146.44  -45.88   -7.89   22.22  352.01 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -1.331e+03  2.109e+01  -63.12   <2e-16 ***
-FTSE         1.083e+00  5.705e-03  189.84   <2e-16 ***
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       90.21      19.51   4.624 1.17e-05 ***
+factor(baths)2    57.68      21.72   2.656  0.00927 ** 
+factor(baths)3   174.52      31.13   5.607 1.97e-07 ***
+factor(baths)4   496.79      82.77   6.002 3.45e-08 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 240.3 on 1858 degrees of freedom
-Multiple R-squared:  0.951, Adjusted R-squared:  0.9509 
-F-statistic: 3.604e+04 on 1 and 1858 DF,  p-value: < 2.2e-16
+Residual standard error: 80.44 on 96 degrees of freedom
+Multiple R-squared:  0.3881,    Adjusted R-squared:  0.369 
+F-statistic:  20.3 on 3 and 96 DF,  p-value: 2.865e-10
 \end{verbatim}
-
-We find an extremely significant association between the two stock
-indices. But let's examine the residuals for autocorrelation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{EuStockMarkets }\SpecialCharTok{|\textgreater{}}
+\CommentTok{\# use the anova function as before}
+\NormalTok{lm\_fit\_const }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_const, lm\_fit\_baths)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Model 1: price ~ 1
+Model 2: price ~ factor(baths)
+  Res.Df     RSS Df Sum of Sq      F    Pr(>F)    
+1     99 1015150                                  
+2     96  621130  3    394020 20.299 2.865e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# use the aov function}
+\NormalTok{aov\_fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{summary}\NormalTok{(aov\_fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              Df Sum Sq Mean Sq F value   Pr(>F)    
+factor(baths)  3 394020  131340    20.3 2.86e-10 ***
+Residuals     96 621130    6470                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+We can also use an \(F\)-test to test for the presence of an interaction
+with a multi-class categorical predictor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit\_interaction }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size }\SpecialCharTok{*} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{summary}\NormalTok{(lm\_fit\_interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = price ~ size * factor(beds), data = houses_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-232.643  -25.938   -0.942   19.172  155.517 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          50.12619   48.22282   1.039 0.301310    
+size                  0.05037    0.04210   1.197 0.234565    
+factor(beds)3      -103.85734   52.20373  -1.989 0.049620 *  
+factor(beds)4      -143.90213   67.31359  -2.138 0.035185 *  
+factor(beds)5      -507.88205  144.10191  -3.524 0.000663 ***
+size:factor(beds)3    0.07589    0.04368   1.738 0.085633 .  
+size:factor(beds)4    0.09234    0.04704   1.963 0.052638 .  
+size:factor(beds)5    0.21147    0.05957   3.550 0.000609 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 53.35 on 92 degrees of freedom
+Multiple R-squared:  0.7421,    Adjusted R-squared:  0.7225 
+F-statistic: 37.81 on 7 and 92 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit\_size }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_size, lm\_fit\_interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Model 1: price ~ size + factor(beds)
+Model 2: price ~ size * factor(beds)
+  Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
+1     95 300953                                
+2     92 261832  3     39121 4.5819 0.004905 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+Contrasts of regression coefficients can be tested using the
+\texttt{glht()} function from the \texttt{multcomp} package.
+
+\hypertarget{confidence-intervals-1}{%
+\section{Confidence intervals}\label{confidence-intervals-1}}
+
+We can construct pointwise confidence intervals for each coefficient
+using \texttt{confint()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(lm\_fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                       2.5 %      97.5 %
+(Intercept)     -55.04455734  16.5184161
+factor(beds)3   -46.35270691  13.4241025
+factor(beds)4   -54.44498235  29.4737689
+factor(beds)5  -212.05730801   9.7656895
+factor(baths)2  -28.27123130  33.0686620
+factor(baths)3  -53.25394742  51.8457394
+factor(baths)4  107.02516067 439.3764122
+new              30.19258305 103.7062177
+size              0.08431972   0.1333284
+\end{verbatim}
+
+To create simultaneous confidence intervals, we need a somewhat more
+manual approach. We start with the coefficients and standard errors:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(lm\_fit))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                   Estimate  Std. Error     t value     Pr(>|t|)
+(Intercept)     -19.2630706 18.01344052 -1.06937209 2.877304e-01
+factor(beds)3   -16.4643022 15.04669172 -1.09421410 2.767490e-01
+factor(beds)4   -12.4856067 21.12356937 -0.59107467 5.559357e-01
+factor(beds)5  -101.1458092 55.83607248 -1.81147786 7.336590e-02
+factor(baths)2    2.3987153 15.44014266  0.15535578 8.768849e-01
+factor(baths)3   -0.7041040 26.45511871 -0.02661504 9.788251e-01
+factor(baths)4  273.2007864 83.65764044  3.26570036 1.540093e-03
+new              66.9494004 18.50445029  3.61801617 4.872475e-04
+size              0.1088241  0.01233621  8.82151661 7.460814e-14
+\end{verbatim}
+
+Then we add lower and upper confidence interval endpoints based on the
+formula (\ref{eq-simultaneous-coordinatewise-se}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(houses\_data)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{coef}\NormalTok{(lm\_fit))}
+\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
+\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(lm\_fit)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"Variable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(Variable, Estimate, }\StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{date =} \FunctionTok{row\_number}\NormalTok{(),}
-    \AttributeTok{resid =}\NormalTok{ lm\_fit}\SpecialCharTok{$}\NormalTok{residuals}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ resid)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Day"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Residual"}
+    \AttributeTok{CI\_lower =}\NormalTok{ Estimate }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile),}
+    \AttributeTok{CI\_upper =}\NormalTok{ Estimate }\SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile)}
 \NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        Variable     Estimate  Std. Error      CI_lower    CI_upper
+1    (Intercept)  -19.2630706 18.01344052  -95.38917389  56.8630327
+2  factor(beds)3  -16.4643022 15.04669172  -80.05271036  47.1241059
+3  factor(beds)4  -12.4856067 21.12356937 -101.75533960  76.7841262
+4  factor(beds)5 -101.1458092 55.83607248 -337.11309238 134.8214739
+5 factor(baths)2    2.3987153 15.44014266  -62.85244495  67.6498756
+6 factor(baths)3   -0.7041040 26.45511871 -112.50535022 111.0971422
+7 factor(baths)4  273.2007864 83.65764044  -80.34245635 626.7440292
+8            new   66.9494004 18.50445029  -11.25174573 145.1505465
+9           size    0.1088241  0.01233621    0.05669037   0.1609578
+\end{verbatim}
+
+Note that the simultaneous intervals are substantially larger.
+
+To construct pointwise confidence intervals for the fit, we can use the
+\texttt{predict()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{interval =} \StringTok{"confidence"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        fit       lwr      upr
+1 193.52176 165.22213 221.8214
+2  79.98449  51.91430 108.0547
+3 150.64507 122.28397 179.0062
+4 191.71955 172.27396 211.1651
+5 124.30169  81.34488 167.2585
+6 376.74308 333.44559 420.0406
+\end{verbatim}
+
+To get pointwise prediction intervals, we switch \texttt{"confidence"}
+to \texttt{"prediction"}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        fit       lwr      upr
+1 193.52176  88.00908 299.0344
+2  79.98449 -25.46688 185.4359
+3 150.64507  45.11589 256.1743
+4 191.71955  88.22951 295.2096
+5 124.30169  13.95069 234.6527
+6 376.74308 266.25901 487.2271
+\end{verbatim}
+
+To construct simultaneous confidence intervals for the fit or
+predictions, we again need a slightly more manual approach. We call
+\texttt{predict()} again, but this time asking it for the standard
+errors rather than the confidence intervals:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{se.fit =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(predictions}\SpecialCharTok{$}\NormalTok{fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        1         2         3         4         5         6 
+193.52176  79.98449 150.64507 191.71955 124.30169 376.74308 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(predictions}\SpecialCharTok{$}\NormalTok{se.fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        1         2         3         4         5         6 
+14.246855 14.131352 14.277804  9.789472 21.625709 21.797212 
+\end{verbatim}
+
+Now we can construct the simultaneous confidence intervals via the
+formula (\ref{eq-simultaneous-fit-se}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{lower =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit }\SpecialCharTok{{-}}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile),}
+  \AttributeTok{upper =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit }\SpecialCharTok{+}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 100 x 2
+   lower upper
+   <dbl> <dbl>
+ 1 133.   254.
+ 2  20.3  140.
+ 3  90.3  211.
+ 4 150.   233.
+ 5  32.9  216.
+ 6 285.   469.
+ 7  82.8  145.
+ 8 188.   331.
+ 9 371.   803.
+10  57.3  128.
+# i 90 more rows
+\end{verbatim}
+
+In the case of simple linear regression, we can plot these pointwise and
+simultaneous confidence intervals as bands:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# to produce confidence intervals for fits in general, use the predict() function}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(houses\_data)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size, }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\NormalTok{predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{se.fit =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{t\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha }\SpecialCharTok{/} \DecValTok{2}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
+\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{fit =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit,}
+    \AttributeTok{se =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit,}
+    \AttributeTok{ptwise\_width =}\NormalTok{ t\_quantile }\SpecialCharTok{*}\NormalTok{ se,}
+    \AttributeTok{simultaneous\_width =} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile) }\SpecialCharTok{*}\NormalTok{ se}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ size)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{+}\NormalTok{ ptwise\_width, }\AttributeTok{color =} \StringTok{"Pointwise"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{{-}}\NormalTok{ ptwise\_width, }\AttributeTok{color =} \StringTok{"Pointwise"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{+}\NormalTok{ simultaneous\_width, }\AttributeTok{color =} \StringTok{"Simultaneous"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{{-}}\NormalTok{ simultaneous\_width, }\AttributeTok{color =} \StringTok{"Simultaneous"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(), }\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3594,12 +3538,19 @@ indices. But let's examine the residuals for autocorrelation:
 
 \end{figure}
 
-There is clearly some autocorrelation in the residuals. Let's quantify
-it using the autocorrelation function (\texttt{acf()} in R):
+\hypertarget{predictor-competition-and-collaboration}{%
+\section{Predictor competition and
+collaboration}\label{predictor-competition-and-collaboration}}
+
+Let's look at the power of detecting the association between
+\texttt{price} and \texttt{beds}. We can imagine that \texttt{beds} and
+\texttt{baths} are correlated:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{acf}\NormalTok{(lm\_fit}\SpecialCharTok{$}\NormalTok{residuals, }\AttributeTok{lag.max =} \DecValTok{1000}\NormalTok{)}
+\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ beds, }\AttributeTok{y =}\NormalTok{ baths)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_count}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3611,344 +3562,117 @@ it using the autocorrelation function (\texttt{acf()} in R):
 
 \end{figure}
 
-We see that the autocorrelation gets into a reasonably low range around
-lag 200. We can then construct Newey-West standard errors based on this
-lag:
+So let's see how significant \texttt{beds} is, with and without
+\texttt{baths} in the model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{NW\_cov }\OtherTok{\textless{}{-}} \FunctionTok{NeweyWest}\NormalTok{(lm\_fit)}
-\FunctionTok{coeftest}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ NW\_cov)}
+\NormalTok{lm\_fit\_only\_beds }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{summary}\NormalTok{(lm\_fit\_only\_beds)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 
-t test of coefficients:
+Call:
+lm(formula = price ~ factor(beds), data = houses_data)
 
-              Estimate Std. Error t value Pr(>|t|)
-(Intercept) -1331.2374  4398.3722 -0.3027   0.7622
-FTSE            1.0831     1.4645  0.7396   0.4597
-\end{verbatim}
-
-We see that the p-value for the association goes from \texttt{2e-16} to
-\texttt{0.46}, after accounting for autocorrelation.
-
-\hypertarget{outliers}{%
-\section{Outliers}\label{outliers}}
-
-Let's take a look at the crime data from HW2:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# read crime data}
-\NormalTok{crime\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/Statewide\_crime.dat"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Rows: 51 Columns: 6
--- Column specification --------------------------------------------------------
-Delimiter: "\t"
-chr (1): STATE
-dbl (5): Violent, Murder, Metro, HighSchool, Poverty
-
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# read and transform population data}
-\NormalTok{population\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/state{-}populations.csv"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Rows: 52 Columns: 9
--- Column specification --------------------------------------------------------
-Delimiter: ","
-chr (1): State
-dbl (8): rank, Pop, Growth, Pop2018, Pop2010, growthSince2010, Percent, density
-
-i Use `spec()` to retrieve the full column specification for this data.
-i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{population\_data }\OtherTok{\textless{}{-}}\NormalTok{ population\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(State }\SpecialCharTok{!=} \StringTok{"Puerto Rico"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(State, Pop) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\AttributeTok{state\_name =}\NormalTok{ State, }\AttributeTok{state\_pop =}\NormalTok{ Pop)}
-
-\CommentTok{\# collate state abbreviations}
-\NormalTok{state\_abbreviations }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{state\_name =}\NormalTok{ state.name,}
-  \AttributeTok{state\_abbrev =}\NormalTok{ state.abb}
-\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{add\_row}\NormalTok{(}\AttributeTok{state\_name =} \StringTok{"District of Columbia"}\NormalTok{, }\AttributeTok{state\_abbrev =} \StringTok{"DC"}\NormalTok{)}
-
-\CommentTok{\# add CrimeRate to crime\_data}
-\NormalTok{crime\_data }\OtherTok{\textless{}{-}}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{STATE =} \FunctionTok{ifelse}\NormalTok{(STATE }\SpecialCharTok{==} \StringTok{"IO"}\NormalTok{, }\StringTok{"IA"}\NormalTok{, STATE)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\AttributeTok{state\_abbrev =}\NormalTok{ STATE) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{left\_join}\NormalTok{(state\_abbreviations, }\AttributeTok{by =} \StringTok{"state\_abbrev"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{left\_join}\NormalTok{(population\_data, }\AttributeTok{by =} \StringTok{"state\_name"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{CrimeRate =}\NormalTok{ Violent }\SpecialCharTok{/}\NormalTok{ state\_pop) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(state\_abbrev, CrimeRate, Metro, HighSchool, Poverty)}
-
-\NormalTok{crime\_data}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 51 x 5
-   state_abbrev CrimeRate Metro HighSchool Poverty
-   <chr>            <dbl> <dbl>      <dbl>   <dbl>
- 1 AK           0.000819   65.6       90.2     8  
- 2 AL           0.0000871  55.4       82.4    13.7
- 3 AR           0.000150   52.5       79.2    12.1
- 4 AZ           0.0000682  88.2       84.4    11.9
- 5 CA           0.0000146  94.4       81.3    10.5
- 6 CO           0.0000585  84.5       88.3     7.3
- 7 CT           0.0000867  87.7       88.8     6.4
- 8 DE           0.000664   80.1       86.5     5.8
- 9 FL           0.0000333  89.3       85.9     9.7
-10 GA           0.0000419  71.6       85.2    10.8
-# i 41 more rows
-\end{verbatim}
-
-Let's fit the linear regression:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# note: we make the state abbreviations row names for better diagnostic plots}
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty, }\AttributeTok{data =}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}} \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"state\_abbrev"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-We can get the standard linear regression diagnostic plots as follows:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residuals versus fitted}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-25-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residual QQ plot}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-25-2.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
-\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-25-3.pdf}
-
-}
-
-\end{figure}
-
-The information underlying these diagnostic plots can be extracted as
-follows:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{state =}\NormalTok{ crime\_data}\SpecialCharTok{$}\NormalTok{state\_abbrev,}
-  \AttributeTok{std\_residual =} \FunctionTok{rstandard}\NormalTok{(lm\_fit),}
-  \AttributeTok{fitted\_value =} \FunctionTok{fitted.values}\NormalTok{(lm\_fit),}
-  \AttributeTok{leverage =} \FunctionTok{hatvalues}\NormalTok{(lm\_fit),}
-  \AttributeTok{cooks\_dist =} \FunctionTok{cooks.distance}\NormalTok{(lm\_fit)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 51 x 5
-   state std_residual fitted_value leverage cooks_dist
-   <chr>        <dbl>        <dbl>    <dbl>      <dbl>
- 1 AK           2.17     0.000227    0.0463   0.0574  
- 2 AL          -0.422    0.000200    0.0769   0.00371 
- 3 AR           1.10    -0.000132    0.153    0.0547  
- 4 AZ          -1.02     0.000344    0.0568   0.0156  
- 5 CA          -0.264    0.0000839   0.114    0.00224 
- 6 CO          -0.383    0.000163    0.0405   0.00155 
- 7 CT          -0.175    0.000134    0.0561   0.000456
- 8 DE           2.81    -0.0000888   0.0754   0.161   
- 9 FL          -0.804    0.000252    0.0452   0.00764 
-10 GA          -0.599    0.000207    0.0232   0.00213 
-# i 41 more rows
-\end{verbatim}
-
-Clearly, DC is an outlier. We can either run a robust estimation
-procedure or redo the analysis without DC. Let's try both. First, we try
-robust regression using \texttt{rlm()} from the \texttt{MASS} package:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rlm\_fit }\OtherTok{\textless{}{-}}\NormalTok{ MASS}\SpecialCharTok{::}\FunctionTok{rlm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty, }\AttributeTok{data =}\NormalTok{ crime\_data)}
-\FunctionTok{summary}\NormalTok{(rlm\_fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-Call: rlm(formula = CrimeRate ~ Metro + HighSchool + Poverty, data = crime_data)
 Residuals:
-       Min         1Q     Median         3Q        Max 
--8.297e-05 -3.787e-05 -2.249e-05  4.407e-05  2.063e-03 
+    Min      1Q  Median      3Q     Max 
+-234.35  -50.63  -15.69   24.56  365.86 
 
 Coefficients:
-            Value   Std. Error t value
-(Intercept) -0.0009  0.0004    -2.2562
-Metro        0.0000  0.0000    -1.2963
-HighSchool   0.0000  0.0000     2.6506
-Poverty      0.0000  0.0000     2.7546
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     105.94      21.48   4.931 3.43e-06 ***
+factor(beds)3    44.69      24.47   1.827 0.070849 .  
+factor(beds)4   105.70      32.35   3.268 0.001504 ** 
+factor(beds)5   246.71      69.62   3.544 0.000611 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 6.048e-05 on 47 degrees of freedom
+Residual standard error: 93.65 on 96 degrees of freedom
+Multiple R-squared:  0.1706,    Adjusted R-squared:  0.1447 
+F-statistic: 6.583 on 3 and 96 DF,  p-value: 0.0004294
 \end{verbatim}
-
-For some reason, the p-values are not computed automatically. We can
-compute them ourselves instead:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(rlm\_fit)}\SpecialCharTok{$}\NormalTok{coef }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Estimate =}\NormalTok{ Value) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{p value}\StringTok{\textasciigrave{}} \OtherTok{=} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{abs}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{t value}\StringTok{\textasciigrave{}}\NormalTok{)))}
+\NormalTok{lm\_fit\_only\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\NormalTok{lm\_fit\_beds\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_only\_baths, lm\_fit\_beds\_baths)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-                 Estimate   Std. Error   t value    p value
-(Intercept) -8.538466e-04 3.784466e-04 -2.256188 0.06260042
-Metro       -8.639252e-07 6.664623e-07 -1.296285 0.34439400
-HighSchool   1.037849e-05 3.915573e-06  2.650568 0.02378865
-Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833
+Analysis of Variance Table
+
+Model 1: price ~ factor(baths)
+Model 2: price ~ factor(beds) + factor(baths)
+  Res.Df    RSS Df Sum of Sq     F  Pr(>F)  
+1     96 621130                             
+2     93 572436  3     48693 2.637 0.05424 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-To see the robust estimation action visually, let's consider a
-univariate example:
+We see that the significance of \texttt{beds} dropped by two orders of
+magnitude. This is an example of predictor competition.
+
+On the other hand, note that the variable \texttt{new} is not very
+correlated with \texttt{beds}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro, }\AttributeTok{data =}\NormalTok{ crime\_data)}
-\NormalTok{rlm\_fit }\OtherTok{\textless{}{-}}\NormalTok{ MASS}\SpecialCharTok{::}\FunctionTok{rlm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro, }\AttributeTok{data =}\NormalTok{ crime\_data)}
-
-\CommentTok{\# collate the fits into a tibble}
-\NormalTok{line\_fits }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{method =} \FunctionTok{c}\NormalTok{(}\StringTok{"Usual"}\NormalTok{, }\StringTok{"Robust"}\NormalTok{),}
-  \AttributeTok{intercept =} \FunctionTok{c}\NormalTok{(}
-    \FunctionTok{coef}\NormalTok{(lm\_fit)[}\StringTok{"(Intercept)"}\NormalTok{],}
-    \FunctionTok{coef}\NormalTok{(rlm\_fit)[}\StringTok{"(Intercept)"}\NormalTok{]}
-\NormalTok{  ),}
-  \AttributeTok{slope =} \FunctionTok{c}\NormalTok{(}
-    \FunctionTok{coef}\NormalTok{(lm\_fit)[}\StringTok{"Metro"}\NormalTok{],}
-    \FunctionTok{coef}\NormalTok{(rlm\_fit)[}\StringTok{"Metro"}\NormalTok{]}
-\NormalTok{  )}
-\NormalTok{)}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(new }\SpecialCharTok{\textasciitilde{}}\NormalTok{ beds, }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{summary}\NormalTok{(lm\_fit)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = new ~ beds, data = houses_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.15762 -0.11000 -0.11000 -0.08619  0.91381 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  0.03857    0.14950   0.258    0.797
+beds         0.02381    0.04871   0.489    0.626
+
+Residual standard error: 0.3157 on 98 degrees of freedom
+Multiple R-squared:  0.002432,  Adjusted R-squared:  -0.007747 
+F-statistic: 0.2389 on 1 and 98 DF,  p-value: 0.6261
+\end{verbatim}
+
+but we know it has a substantial impact on \texttt{price}. Let's look at
+the significance of the test that \texttt{beds} is not important when we
+add \texttt{new} to the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# usual and robust univariate fits}
-\CommentTok{\# plot the fits}
-\NormalTok{crime\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Metro, }\AttributeTok{y =}\NormalTok{ CrimeRate)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_abline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{intercept =}\NormalTok{ intercept, }\AttributeTok{slope =}\NormalTok{ slope, }\AttributeTok{colour =}\NormalTok{ method), }\AttributeTok{data =}\NormalTok{ line\_fits)}
+\NormalTok{lm\_fit\_only\_new }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ new, }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\NormalTok{lm\_fit\_beds\_new }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ new }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
+\FunctionTok{anova}\NormalTok{(lm\_fit\_only\_new, lm\_fit\_beds\_new)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}[H]
+\begin{verbatim}
+Analysis of Variance Table
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-30-1.pdf}
+Model 1: price ~ new
+Model 2: price ~ new + factor(beds)
+  Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
+1     98 787781                                  
+2     95 619845  3    167936 8.5795 4.251e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
 
-}
-
-\end{figure}
-
-Next, let's try removing DC and running a usual linear regression.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm\_fit\_no\_dc }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty,}
-  \AttributeTok{data =}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{filter}\NormalTok{(state\_abbrev }\SpecialCharTok{!=} \StringTok{"DC"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"state\_abbrev"}\NormalTok{)}
-\NormalTok{)}
-
-\CommentTok{\# residuals versus fitted}
-\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-31-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residual QQ plot}
-\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-31-2.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
-\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-31-3.pdf}
-
-}
-
-\end{figure}
+Adding \texttt{new} to the model made the \(p\)-value more significant
+by a factor of 10. This is an example of predictor collaboration.
 
 \part{Linear models: Misspecification}
 
@@ -4634,7 +4358,7 @@ We can then build a null distribution by recomputing
 the bootstrap-based \(p\)-value:
 
 \[
-p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
+p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B 1(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
 \]
 
 \hypertarget{sec-pairs-bootstrap}{%
@@ -4856,62 +4580,73 @@ linearly as opposed to quadratically. We can then define:
 This is an \emph{M-estimator}; it is consistent and has an asymptotic
 normal distribution that can be used for inference.
 
-\hypertarget{r-demo-1}{%
-\chapter{R demo}\label{r-demo-1}}
+\hypertarget{sec-R-demo-misspecification}{%
+\chapter{R demo}\label{sec-R-demo-misspecification}}
 
-\emph{See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14}
+We illustrate how to deal with heteroskedasticity, group-correlated
+errors, autocorrelated errors, and outliers in the following sections.
 
-Let's put into practice what we've learned in this chapter by analyzing
-data about house prices.
+\hypertarget{heteroskedasticity}{%
+\section{Heteroskedasticity}\label{heteroskedasticity}}
+
+Next, let's look at another dataset, from the Current Population Survey
+(CPS).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(GGally)}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\FunctionTok{library}\NormalTok{(tidyr)}
 
-\NormalTok{houses\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/Houses.dat"}\NormalTok{)}
-\NormalTok{houses\_data}
+\NormalTok{cps\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/cps2.tsv"}\NormalTok{)}
+\NormalTok{cps\_data}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 100 x 7
-    case taxes  beds baths   new price  size
-   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
- 1     1  3104     4     2     0  280.  2048
- 2     2  1173     2     1     0  146.   912
- 3     3  3076     4     2     0  238.  1654
- 4     4  1608     3     2     0  200   2068
- 5     5  1454     3     3     0  160.  1477
- 6     6  2997     3     2     1  500.  3153
- 7     7  4054     3     2     0  266.  1355
- 8     8  3002     3     2     1  290.  2075
- 9     9  6627     5     4     0  587   3990
-10    10   320     3     2     0   70   1160
-# i 90 more rows
+# A tibble: 1,000 x 10
+    wage  educ exper female black married union south fulltime metro
+   <dbl> <dbl> <dbl>  <dbl> <dbl>   <dbl> <dbl> <dbl>    <dbl> <dbl>
+ 1  2.03    13     2      1     0       0     0     1        0     0
+ 2  2.07    12     7      0     0       0     0     0        0     1
+ 3  2.12    12    35      0     0       0     0     1        1     1
+ 4  2.54    16    20      1     0       0     0     1        1     1
+ 5  2.68    12    24      1     0       1     0     1        0     1
+ 6  3.09    13     4      0     0       0     0     1        0     1
+ 7  3.16    13     1      0     0       0     0     0        0     0
+ 8  3.17    12    22      1     0       1     0     1        0     1
+ 9  3.2     12    23      0     0       1     0     1        1     1
+10  3.27    12     4      1     0       0     0     0        1     1
+# i 990 more rows
 \end{verbatim}
 
-\hypertarget{exploration-1}{%
-\section{Exploration}\label{exploration-1}}
-
-Let's first do a bit of exploration:
+Suppose we want to regress \texttt{wage} on \texttt{educ},
+\texttt{exper}, and \texttt{metro}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# visualize distribution of housing prices, superimposing the mean}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ price)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{30}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{mean}\NormalTok{(price)),}
-    \AttributeTok{colour =} \StringTok{"red"}\NormalTok{,}
-    \AttributeTok{linetype =} \StringTok{"dashed"}
-\NormalTok{  )}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ }\SpecialCharTok{+}\NormalTok{ exper }\SpecialCharTok{+}\NormalTok{ metro, }\AttributeTok{data =}\NormalTok{ cps\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{diagnostics}{%
+\subsection{Diagnostics}\label{diagnostics}}
+
+Let's take a look at the standard linear model diagnostic plots built
+into R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residuals versus fitted}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-2-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-1.pdf}
 
 }
 
@@ -4919,103 +4654,363 @@ Let's first do a bit of exploration:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# compare median and mean price}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{summarise}\NormalTok{(}
-    \AttributeTok{mean\_price =} \FunctionTok{mean}\NormalTok{(price),}
-    \AttributeTok{median\_price =} \FunctionTok{median}\NormalTok{(price)}
-\NormalTok{  )}
+\CommentTok{\# residual QQ plot}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-3.pdf}
+
+}
+
+\end{figure}
+
+The residuals versus fitted plot suggests significant
+heteroskedasticity, with variance growing as a function of the fitted
+value.
+
+\hypertarget{sandwich-standard-errors}{%
+\subsection{Sandwich standard errors}\label{sandwich-standard-errors}}
+
+To get standard errors robust to this heteroskedasticity, we can use one
+of the robust estimators discussed in
+Section~\ref{sec-heteroskedasticity}. Most of the robust standard error
+constructions discussed in that section are implemented in the R package
+\texttt{sandwich}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(sandwich)}
+\end{Highlighting}
+\end{Shaded}
+
+For example, Huber-White's heteroskedasticity-consistent estimate
+\(\widehat{\text{Var}}[\boldsymbol{\widehat \beta}]\) can be obtained
+via \texttt{vcovHC}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{HW\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovHC}\NormalTok{(lm\_fit)}
+\NormalTok{HW\_cov}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 1 x 2
-  mean_price median_price
-       <dbl>        <dbl>
-1       155.         133.
+             (Intercept)          educ         exper         metro
+(Intercept)  1.484328645 -0.0967891868 -0.0096871141 -0.1218518012
+educ        -0.096789187  0.0070467982  0.0004037764  0.0018334348
+exper       -0.009687114  0.0004037764  0.0002517826  0.0008369831
+metro       -0.121851801  0.0018334348  0.0008369831  0.1197713348
+\end{verbatim}
+
+Compare this to the traditional estimate:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{usual\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovHC}\NormalTok{(lm\_fit, }\AttributeTok{type =} \StringTok{"const"}\NormalTok{)}
+\NormalTok{usual\_cov}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             (Intercept)          educ         exper         metro
+(Intercept)  1.157049852 -0.0671656102 -0.0070323974 -0.1287058354
+educ        -0.067165610  0.0048945781  0.0001924359 -0.0018227782
+exper       -0.007032397  0.0001924359  0.0002320022  0.0001471354
+metro       -0.128705835 -0.0018227782  0.0001471354  0.1858394060
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# create a pairs plot of continuous variables}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(price, size, taxes) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggpairs}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-4-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# see how price relates to beds}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-5-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# see how price relates to baths}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-6-1.pdf}
-
-}
-
-\end{figure}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# see how price relates to new}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(new), }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-7-1.pdf}
-
-}
-
-\end{figure}
-
-\hypertarget{hypothesis-testing-1}{%
-\section{Hypothesis testing}\label{hypothesis-testing-1}}
-
-Let's run a linear regression and interpret the summary. But first, we
-must decide whether to model beds/baths as categorical or continuous? We
-should probably model these as categorical, given the potentially
-nonlinear trend observed in the box plots.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(baths) }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
-  \AttributeTok{data =}\NormalTok{ houses\_data}
+\CommentTok{\# extract the variance estimates from the diagonal}
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{variable =} \FunctionTok{rownames}\NormalTok{(usual\_cov),}
+  \AttributeTok{usual\_variance =} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(usual\_cov)),}
+  \AttributeTok{HW\_variance =} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(HW\_cov))}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 3
+  variable    usual_variance HW_variance
+  <chr>                <dbl>       <dbl>
+1 (Intercept)         1.08        1.22  
+2 educ                0.0700      0.0839
+3 exper               0.0152      0.0159
+4 metro               0.431       0.346 
+\end{verbatim}
+
+Bootstrap standard errors are also implemented in \texttt{sandwich}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# pairs bootstrap}
+\NormalTok{bootstrap\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovBS}\NormalTok{(lm\_fit, }\AttributeTok{type =} \StringTok{"xy"}\NormalTok{)}
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{variable =} \FunctionTok{rownames}\NormalTok{(usual\_cov),}
+  \AttributeTok{usual\_variance =} \FunctionTok{diag}\NormalTok{(usual\_cov),}
+  \AttributeTok{HW\_variance =} \FunctionTok{diag}\NormalTok{(HW\_cov),}
+  \AttributeTok{bootstrap\_variance =} \FunctionTok{diag}\NormalTok{(bootstrap\_cov)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 4
+  variable    usual_variance HW_variance bootstrap_variance
+  <chr>                <dbl>       <dbl>              <dbl>
+1 (Intercept)       1.16        1.48               1.58    
+2 educ              0.00489     0.00705            0.00756 
+3 exper             0.000232    0.000252           0.000299
+4 metro             0.186       0.120              0.119   
+\end{verbatim}
+
+The covariance estimate produced by \texttt{sandwich} can be easily
+integrated into linear model inference using the package
+\texttt{lmtest}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lmtest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Loading required package: zoo
+\end{verbatim}
+
+\begin{verbatim}
+
+Attaching package: 'zoo'
+\end{verbatim}
+
+\begin{verbatim}
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fit linear model as usual}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ }\SpecialCharTok{+}\NormalTok{ exper }\SpecialCharTok{+}\NormalTok{ metro, }\AttributeTok{data =}\NormalTok{ cps\_data)}
+
+\CommentTok{\# robust t{-}tests for coefficients}
+\FunctionTok{coeftest}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ vcovHC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+t test of coefficients:
+
+             Estimate Std. Error t value  Pr(>|t|)    
+(Intercept) -9.913984   1.218330 -8.1374 1.197e-15 ***
+educ         1.233964   0.083945 14.6996 < 2.2e-16 ***
+exper        0.133244   0.015868  8.3972 < 2.2e-16 ***
+metro        1.524104   0.346080  4.4039 1.178e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# robust confidence intervals for coefficients}
+\FunctionTok{coefci}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ vcovHC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                  2.5 %     97.5 %
+(Intercept) -12.3047729 -7.5231954
+educ          1.0692342  1.3986938
+exper         0.1021058  0.1643816
+metro         0.8449747  2.2032337
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# robust F{-}test}
+\NormalTok{lm\_fit\_partial }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ educ, }\AttributeTok{data =}\NormalTok{ cps\_data) }\CommentTok{\# a partial model}
+\FunctionTok{waldtest}\NormalTok{(lm\_fit\_partial, lm\_fit, }\AttributeTok{vcov =}\NormalTok{ vcovHC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Wald test
+
+Model 1: wage ~ educ
+Model 2: wage ~ educ + exper + metro
+  Res.Df Df      F    Pr(>F)    
+1    998                        
+2    996  2 40.252 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{bootstrap-confidence-intervals}{%
+\subsection{Bootstrap confidence
+intervals}\label{bootstrap-confidence-intervals}}
+
+One R package for performing bootstrap inference is \texttt{simpleboot}.
+Let's see how to get pairs bootstrap distributions for the coefficient
+estimates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(simpleboot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Simple Bootstrap Routines (1.1-8)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boot\_out }\OtherTok{\textless{}{-}} \FunctionTok{lm.boot}\NormalTok{(}
+  \AttributeTok{lm.object =}\NormalTok{ lm\_fit, }\CommentTok{\# input the fit object from lm()}
+  \AttributeTok{R =} \DecValTok{1000}
+\NormalTok{) }\CommentTok{\# R is the number of bootstrap replicates}
+\FunctionTok{perc}\NormalTok{(boot\_out) }\CommentTok{\# get the percentile 95\% confidence intervals}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      (Intercept)     educ     exper     metro
+2.5%   -12.276856 1.080343 0.1022772 0.8619617
+97.5%   -7.782545 1.400941 0.1643651 2.1698803
+\end{verbatim}
+
+We can extract the resampling distributions for the coefficient
+estimates using the \texttt{samples} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{samples}\NormalTok{(boot\_out, }\AttributeTok{name =} \StringTok{"coef"}\NormalTok{)[, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                     1           2          3           4          5
+(Intercept) -9.3158853 -10.6042593 -7.9624359 -10.0600415 -9.7597527
+educ         1.2078218   1.2649403  1.1009697   1.2133903  1.2390569
+exper        0.1348207   0.1421023  0.1073898   0.1584009  0.1325274
+metro        1.2767812   1.9679952  1.4216923   1.6137102  1.3363671
+\end{verbatim}
+
+We can plot these as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{boot\_pctiles }\OtherTok{\textless{}{-}}\NormalTok{ boot\_out }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{perc}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{t}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(var }\SpecialCharTok{!=} \StringTok{"(Intercept)"}\NormalTok{)}
+
+\FunctionTok{samples}\NormalTok{(boot\_out, }\AttributeTok{name =} \StringTok{"coef"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(var }\SpecialCharTok{!=} \StringTok{"(Intercept)"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{var, }\AttributeTok{names\_to =} \StringTok{"resample"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"coefficient"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(var) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ coefficient)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{data =}\NormalTok{ boot\_pctiles, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =} \StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{data =}\NormalTok{ boot\_pctiles, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{var, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-11-1.pdf}
+
+}
+
+\end{figure}
+
+In this case, the bootstrap sampling distributions look roughly normal.
+
+\hypertarget{group-correlated-errors}{%
+\section{Group-correlated errors}\label{group-correlated-errors}}
+
+Credit for this data example:
+\url{https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/}.
+
+Let's consider the \texttt{nslwork} data from the \texttt{webuse}
+package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(webuse)}
+\NormalTok{nlswork\_orig }\OtherTok{\textless{}{-}} \FunctionTok{webuse}\NormalTok{(}\StringTok{"nlswork"}\NormalTok{)}
+\NormalTok{nlswork }\OtherTok{\textless{}{-}}\NormalTok{ nlswork\_orig }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(idcode }\SpecialCharTok{\textless{}=} \DecValTok{100}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(idcode, year, ln\_wage, age, tenure, union) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{na.omit}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{union =} \FunctionTok{as.integer}\NormalTok{(union),}
+    \AttributeTok{idcode =} \FunctionTok{as.factor}\NormalTok{(idcode)}
+\NormalTok{  )}
+\NormalTok{nlswork}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 386 x 6
+   idcode  year ln_wage   age tenure union
+   <fct>  <dbl>   <dbl> <dbl>  <dbl> <int>
+ 1 1         72    1.59    20  0.917     1
+ 2 1         77    1.78    25  1.5       0
+ 3 1         80    2.55    28  1.83      1
+ 4 1         83    2.42    31  0.667     1
+ 5 1         85    2.61    33  1.92      1
+ 6 1         87    2.54    35  3.92      1
+ 7 1         88    2.46    37  5.33      1
+ 8 2         71    1.36    19  0.25      0
+ 9 2         77    1.73    25  2.67      1
+10 2         78    1.69    26  3.67      1
+# i 376 more rows
+\end{verbatim}
+
+The data comes from the US National Longitudinal Survey (NLS) and
+contains information about more than 4,000 young working women. We're
+interested in the relationship between wage (here as log-scaled
+GNP-adjusted wage) \texttt{ln\_wage} and survey participant's current
+age, job tenure in years, and union membership as independent variables.
+It's a longitudinal survey, so subjects were asked repeatedly between
+1968 and 1988, and each subject is identified by a unique idcode
+\texttt{idcode}. Here we restrict attention to the first 100 subjects
+and remove any rows with missing data.
+
+Let's start by fitting a linear regression of the log wage on
+\texttt{age}, \texttt{tenure}, \texttt{union}, and the interaction
+between \texttt{tenure} and \texttt{union}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ln\_wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ tenure }\SpecialCharTok{+}\NormalTok{ union }\SpecialCharTok{+}\NormalTok{ tenure}\SpecialCharTok{:}\NormalTok{union, }\AttributeTok{data =}\NormalTok{ nlswork)}
 \FunctionTok{summary}\NormalTok{(lm\_fit)}
 \end{Highlighting}
 \end{Shaded}
@@ -5023,417 +5018,203 @@ nonlinear trend observed in the box plots.
 \begin{verbatim}
 
 Call:
-lm(formula = price ~ factor(beds) + factor(baths) + new + size, 
-    data = houses_data)
+lm(formula = ln_wage ~ age + tenure + union + tenure:union, data = nlswork)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--179.306  -32.037   -2.899   19.115  152.718 
+-1.42570 -0.28330  0.01694  0.27303  1.65052 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)     -19.26307   18.01344  -1.069 0.287730    
-factor(beds)3   -16.46430   15.04669  -1.094 0.276749    
-factor(beds)4   -12.48561   21.12357  -0.591 0.555936    
-factor(beds)5  -101.14581   55.83607  -1.811 0.073366 .  
-factor(baths)2    2.39872   15.44014   0.155 0.876885    
-factor(baths)3   -0.70410   26.45512  -0.027 0.978825    
-factor(baths)4  273.20079   83.65764   3.266 0.001540 ** 
-new              66.94940   18.50445   3.618 0.000487 ***
-size              0.10882    0.01234   8.822 7.46e-14 ***
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   1.379103   0.099658  13.838  < 2e-16 ***
+age           0.013553   0.003388   4.000 7.60e-05 ***
+tenure        0.022175   0.008051   2.754  0.00617 ** 
+union         0.309936   0.070344   4.406 1.37e-05 ***
+tenure:union -0.009629   0.012049  -0.799  0.42473    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 51.17 on 91 degrees of freedom
-Multiple R-squared:  0.7653,    Adjusted R-squared:  0.7446 
-F-statistic: 37.08 on 8 and 91 DF,  p-value: < 2.2e-16
+Residual standard error: 0.4099 on 381 degrees of freedom
+Multiple R-squared:  0.1811,    Adjusted R-squared:  0.1725 
+F-statistic: 21.07 on 4 and 381 DF,  p-value: 1.047e-15
 \end{verbatim}
 
-We can read off the test statistics and \(p\)-values for each variable
-from the regression summary, as well as for the \(F\)-test against the
-constant model from the bottom of the summary.
-
-Let's use an \(F\)-test to assess whether the categorical \texttt{baths}
-variable is important.
+Let's plot the residuals against the individuals:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_partial }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
-  \AttributeTok{data =}\NormalTok{ houses\_data}
-\NormalTok{)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_partial, lm\_fit)}
+\NormalTok{nlswork }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{resid =}\NormalTok{ lm\_fit}\SpecialCharTok{$}\NormalTok{residuals) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ idcode, }\AttributeTok{y =}\NormalTok{ resid)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Subject"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Residual"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
+}
+
+\end{figure}
+
+Clearly, there is dependency among the residuals within subjects.
+Therefore, we have either model bias, or correlated errors, or both. To
+help assess whether we have model bias or not, we must check whether the
+variables of interest are correlated with the grouping variable
+\texttt{idcode}. We can check this with a plot, e.g., for the
+\texttt{tenure} variable:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nlswork }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ idcode, }\AttributeTok{y =}\NormalTok{ tenure)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Subject"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Tenure"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-15-1.pdf}
+
+}
+
+\end{figure}
+
+Again, there seems to be nontrivial association between \texttt{tenure}
+and \texttt{idcode}. We can check this more formally with an ANOVA test:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{aov}\NormalTok{(tenure }\SpecialCharTok{\textasciitilde{}}\NormalTok{ idcode, }\AttributeTok{data =}\NormalTok{ nlswork))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Analysis of Variance Table
-
-Model 1: price ~ factor(beds) + new + size
-Model 2: price ~ factor(beds) + factor(baths) + new + size
-  Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
-1     94 273722                                
-2     91 238289  3     35433 4.5104 0.005374 **
+             Df Sum Sq Mean Sq F value   Pr(>F)    
+idcode       81   2529  31.220   3.558 8.83e-16 ***
+Residuals   304   2668   8.775                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-What if we had not coded \texttt{baths} as a factor?
+So, in this case, we do have model bias on our hands. We can address
+this using fixed effects for each subject.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_not\_factor }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+}\NormalTok{ baths }\SpecialCharTok{+}\NormalTok{ new }\SpecialCharTok{+}\NormalTok{ size,}
-  \AttributeTok{data =}\NormalTok{ houses\_data}
-\NormalTok{)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_partial, lm\_fit\_not\_factor)}
+\NormalTok{lm\_fit\_FE }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(ln\_wage }\SpecialCharTok{\textasciitilde{}}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ tenure }\SpecialCharTok{+}\NormalTok{ union }\SpecialCharTok{+}\NormalTok{ tenure}\SpecialCharTok{:}\NormalTok{union }\SpecialCharTok{+}\NormalTok{ idcode, }\AttributeTok{data =}\NormalTok{ nlswork)}
+\NormalTok{lm\_fit\_FE }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summary}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{coef}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"idcode"}\NormalTok{, var)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# remove coefficients for fixed effects}
+  \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Analysis of Variance Table
-
-Model 1: price ~ factor(beds) + new + size
-Model 2: price ~ factor(beds) + baths + new + size
-  Res.Df    RSS Df Sum of Sq      F Pr(>F)
-1     94 273722                           
-2     93 273628  1     94.33 0.0321 0.8583
+                Estimate  Std. Error   t value     Pr(>|t|)
+(Intercept)  1.882478232 0.131411504 14.325064 8.022367e-36
+age          0.005630809 0.003109803  1.810664 7.119315e-02
+tenure       0.020756426 0.006964417  2.980353 3.114742e-03
+union        0.174619394 0.060646038  2.879321 4.272027e-03
+tenure:union 0.014974113 0.009548509  1.568215 1.178851e-01
 \end{verbatim}
 
-If we want to test for the equality of means across groups of a
-categorical predictor, without adjusting for other variables, we can use
-the ANOVA \(F\)-test. There are several equivalent ways of doing so:
+Note the changes in the standard errors and p-values. Sometimes, we may
+have remaining correlation among residuals even after adding cluster
+fixed effects. Therefore, it is common practice to compute clustered
+(i.e., Liang-Zeger) standard errors in conjunction with cluster fixed
+effects. We can get clustered standard errors via the \texttt{vcovCL}
+function from \texttt{sandwich}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# just use the summary function}
-\NormalTok{lm\_fit\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{summary}\NormalTok{(lm\_fit\_baths)}
+\NormalTok{LZ\_cov }\OtherTok{\textless{}{-}} \FunctionTok{vcovCL}\NormalTok{(lm\_fit\_FE, }\AttributeTok{cluster =}\NormalTok{ nlswork}\SpecialCharTok{$}\NormalTok{idcode)}
+\FunctionTok{coeftest}\NormalTok{(lm\_fit\_FE, }\AttributeTok{vcov. =}\NormalTok{ LZ\_cov)[, ] }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"idcode"}\NormalTok{, var)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# remove coefficients for fixed effects}
+  \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"var"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                Estimate  Std. Error    t value     Pr(>|t|)
+(Intercept)  1.882478232 0.157611390 11.9437956 3.667970e-27
+age          0.005630809 0.006339777  0.8881715 3.751601e-01
+tenure       0.020756426 0.011149190  1.8616981 6.362342e-02
+union        0.174619394 0.101970509  1.7124500 8.784708e-02
+tenure:union 0.014974113 0.009646023  1.5523613 1.216301e-01
+\end{verbatim}
+
+Again, note the changes in the standard errors and p-values.
+
+\hypertarget{autocorrelated-errors}{%
+\section{Autocorrelated errors}\label{autocorrelated-errors}}
+
+Let's take a look at the \texttt{EuStockMarkets} data built into R,
+containing the daily closing prices of major European stock indices:
+Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE. Let's
+regress \texttt{DAX} on \texttt{FTSE} and take a look at the residuals:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(DAX }\SpecialCharTok{\textasciitilde{}}\NormalTok{ FTSE, }\AttributeTok{data =}\NormalTok{ EuStockMarkets)}
+\FunctionTok{summary}\NormalTok{(lm\_fit)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 
 Call:
-lm(formula = price ~ factor(baths), data = houses_data)
+lm(formula = DAX ~ FTSE, data = EuStockMarkets)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--146.44  -45.88   -7.89   22.22  352.01 
+-408.43 -172.53  -45.71  137.68  989.96 
 
 Coefficients:
-               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)       90.21      19.51   4.624 1.17e-05 ***
-factor(baths)2    57.68      21.72   2.656  0.00927 ** 
-factor(baths)3   174.52      31.13   5.607 1.97e-07 ***
-factor(baths)4   496.79      82.77   6.002 3.45e-08 ***
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -1.331e+03  2.109e+01  -63.12   <2e-16 ***
+FTSE         1.083e+00  5.705e-03  189.84   <2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 80.44 on 96 degrees of freedom
-Multiple R-squared:  0.3881,    Adjusted R-squared:  0.369 
-F-statistic:  20.3 on 3 and 96 DF,  p-value: 2.865e-10
+Residual standard error: 240.3 on 1858 degrees of freedom
+Multiple R-squared:  0.951, Adjusted R-squared:  0.9509 
+F-statistic: 3.604e+04 on 1 and 1858 DF,  p-value: < 2.2e-16
 \end{verbatim}
+
+We find an extremely significant association between the two stock
+indices. But let's examine the residuals for autocorrelation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# use the anova function as before}
-\NormalTok{lm\_fit\_const }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_const, lm\_fit\_baths)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Analysis of Variance Table
-
-Model 1: price ~ 1
-Model 2: price ~ factor(baths)
-  Res.Df     RSS Df Sum of Sq      F    Pr(>F)    
-1     99 1015150                                  
-2     96  621130  3    394020 20.299 2.865e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# use the aov function}
-\NormalTok{aov\_fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{summary}\NormalTok{(aov\_fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-              Df Sum Sq Mean Sq F value   Pr(>F)    
-factor(baths)  3 394020  131340    20.3 2.86e-10 ***
-Residuals     96 621130    6470                     
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-We can also use an \(F\)-test to test for the presence of an interaction
-with a multi-class categorical predictor.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm\_fit\_interaction }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size }\SpecialCharTok{*} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{summary}\NormalTok{(lm\_fit\_interaction)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-
-Call:
-lm(formula = price ~ size * factor(beds), data = houses_data)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--232.643  -25.938   -0.942   19.172  155.517 
-
-Coefficients:
-                     Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          50.12619   48.22282   1.039 0.301310    
-size                  0.05037    0.04210   1.197 0.234565    
-factor(beds)3      -103.85734   52.20373  -1.989 0.049620 *  
-factor(beds)4      -143.90213   67.31359  -2.138 0.035185 *  
-factor(beds)5      -507.88205  144.10191  -3.524 0.000663 ***
-size:factor(beds)3    0.07589    0.04368   1.738 0.085633 .  
-size:factor(beds)4    0.09234    0.04704   1.963 0.052638 .  
-size:factor(beds)5    0.21147    0.05957   3.550 0.000609 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 53.35 on 92 degrees of freedom
-Multiple R-squared:  0.7421,    Adjusted R-squared:  0.7225 
-F-statistic: 37.81 on 7 and 92 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm\_fit\_size }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_size, lm\_fit\_interaction)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Analysis of Variance Table
-
-Model 1: price ~ size + factor(beds)
-Model 2: price ~ size * factor(beds)
-  Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
-1     95 300953                                
-2     92 261832  3     39121 4.5819 0.004905 **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-Contrasts of regression coefficients can be tested using the
-\texttt{glht()} function from the \texttt{multcomp} package.
-
-\hypertarget{confidence-intervals-1}{%
-\section{Confidence intervals}\label{confidence-intervals-1}}
-
-We can construct pointwise confidence intervals for each coefficient
-using \texttt{confint()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{confint}\NormalTok{(lm\_fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                       2.5 %      97.5 %
-(Intercept)     -55.04455734  16.5184161
-factor(beds)3   -46.35270691  13.4241025
-factor(beds)4   -54.44498235  29.4737689
-factor(beds)5  -212.05730801   9.7656895
-factor(baths)2  -28.27123130  33.0686620
-factor(baths)3  -53.25394742  51.8457394
-factor(baths)4  107.02516067 439.3764122
-new              30.19258305 103.7062177
-size              0.08431972   0.1333284
-\end{verbatim}
-
-To create simultaneous confidence intervals, we need a somewhat more
-manual approach. We start with the coefficients and standard errors:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(lm\_fit))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                   Estimate  Std. Error     t value     Pr(>|t|)
-(Intercept)     -19.2630706 18.01344052 -1.06937209 2.877304e-01
-factor(beds)3   -16.4643022 15.04669172 -1.09421410 2.767490e-01
-factor(beds)4   -12.4856067 21.12356937 -0.59107467 5.559357e-01
-factor(beds)5  -101.1458092 55.83607248 -1.81147786 7.336590e-02
-factor(baths)2    2.3987153 15.44014266  0.15535578 8.768849e-01
-factor(baths)3   -0.7041040 26.45511871 -0.02661504 9.788251e-01
-factor(baths)4  273.2007864 83.65764044  3.26570036 1.540093e-03
-new              66.9494004 18.50445029  3.61801617 4.872475e-04
-size              0.1088241  0.01233621  8.82151661 7.460814e-14
-\end{verbatim}
-
-Then we add lower and upper confidence interval endpoints based on the
-formula (\ref{eq-simultaneous-coordinatewise-se}):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
-\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(houses\_data)}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{coef}\NormalTok{(lm\_fit))}
-\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
-\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(lm\_fit)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{EuStockMarkets }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rownames\_to\_column}\NormalTok{(}\AttributeTok{var =} \StringTok{"Variable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(Variable, Estimate, }\StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{CI\_lower =}\NormalTok{ Estimate }\SpecialCharTok{{-}} \StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile),}
-    \AttributeTok{CI\_upper =}\NormalTok{ Estimate }\SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{Std. Error}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile)}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        Variable     Estimate  Std. Error      CI_lower    CI_upper
-1    (Intercept)  -19.2630706 18.01344052  -95.38917389  56.8630327
-2  factor(beds)3  -16.4643022 15.04669172  -80.05271036  47.1241059
-3  factor(beds)4  -12.4856067 21.12356937 -101.75533960  76.7841262
-4  factor(beds)5 -101.1458092 55.83607248 -337.11309238 134.8214739
-5 factor(baths)2    2.3987153 15.44014266  -62.85244495  67.6498756
-6 factor(baths)3   -0.7041040 26.45511871 -112.50535022 111.0971422
-7 factor(baths)4  273.2007864 83.65764044  -80.34245635 626.7440292
-8            new   66.9494004 18.50445029  -11.25174573 145.1505465
-9           size    0.1088241  0.01233621    0.05669037   0.1609578
-\end{verbatim}
-
-Note that the simultaneous intervals are substantially larger.
-
-To construct pointwise confidence intervals for the fit, we can use the
-\texttt{predict()} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{interval =} \StringTok{"confidence"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        fit       lwr      upr
-1 193.52176 165.22213 221.8214
-2  79.98449  51.91430 108.0547
-3 150.64507 122.28397 179.0062
-4 191.71955 172.27396 211.1651
-5 124.30169  81.34488 167.2585
-6 376.74308 333.44559 420.0406
-\end{verbatim}
-
-To get pointwise prediction intervals, we switch \texttt{"confidence"}
-to \texttt{"prediction"}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        fit       lwr      upr
-1 193.52176  88.00908 299.0344
-2  79.98449 -25.46688 185.4359
-3 150.64507  45.11589 256.1743
-4 191.71955  88.22951 295.2096
-5 124.30169  13.95069 234.6527
-6 376.74308 266.25901 487.2271
-\end{verbatim}
-
-To construct simultaneous confidence intervals for the fit or
-predictions, we again need a slightly more manual approach. We call
-\texttt{predict()} again, but this time asking it for the standard
-errors rather than the confidence intervals:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{newdata =}\NormalTok{ houses\_data, }\AttributeTok{se.fit =} \ConstantTok{TRUE}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(predictions}\SpecialCharTok{$}\NormalTok{fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        1         2         3         4         5         6 
-193.52176  79.98449 150.64507 191.71955 124.30169 376.74308 
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(predictions}\SpecialCharTok{$}\NormalTok{se.fit)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-        1         2         3         4         5         6 
-14.246855 14.131352 14.277804  9.789472 21.625709 21.797212 
-\end{verbatim}
-
-Now we can construct the simultaneous confidence intervals via the
-formula (\ref{eq-simultaneous-fit-se}):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
-\FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{lower =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit }\SpecialCharTok{{-}}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile),}
-  \AttributeTok{upper =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit }\SpecialCharTok{+}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile)}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 100 x 2
-   lower upper
-   <dbl> <dbl>
- 1 133.   254.
- 2  20.3  140.
- 3  90.3  211.
- 4 150.   233.
- 5  32.9  216.
- 6 285.   469.
- 7  82.8  145.
- 8 188.   331.
- 9 371.   803.
-10  57.3  128.
-# i 90 more rows
-\end{verbatim}
-
-In the case of simple linear regression, we can plot these pointwise and
-simultaneous confidence intervals as bands:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# to produce confidence intervals for fits in general, use the predict() function}
-\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(houses\_data)}
-\NormalTok{p }\OtherTok{\textless{}{-}} \DecValTok{2}
-\NormalTok{alpha }\OtherTok{\textless{}{-}} \FloatTok{0.05}
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ size, }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\NormalTok{predictions }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(lm\_fit, }\AttributeTok{se.fit =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{t\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha }\SpecialCharTok{/} \DecValTok{2}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
-\NormalTok{f\_quantile }\OtherTok{\textless{}{-}} \FunctionTok{qf}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha, }\AttributeTok{df1 =}\NormalTok{ p, }\AttributeTok{df2 =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p)}
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{fit =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{fit,}
-    \AttributeTok{se =}\NormalTok{ predictions}\SpecialCharTok{$}\NormalTok{se.fit,}
-    \AttributeTok{ptwise\_width =}\NormalTok{ t\_quantile }\SpecialCharTok{*}\NormalTok{ se,}
-    \AttributeTok{simultaneous\_width =} \FunctionTok{sqrt}\NormalTok{(p }\SpecialCharTok{*}\NormalTok{ f\_quantile) }\SpecialCharTok{*}\NormalTok{ se}
+    \AttributeTok{date =} \FunctionTok{row\_number}\NormalTok{(),}
+    \AttributeTok{resid =}\NormalTok{ lm\_fit}\SpecialCharTok{$}\NormalTok{residuals}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ size)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit), }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{+}\NormalTok{ ptwise\_width, }\AttributeTok{color =} \StringTok{"Pointwise"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{{-}}\NormalTok{ ptwise\_width, }\AttributeTok{color =} \StringTok{"Pointwise"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{+}\NormalTok{ simultaneous\_width, }\AttributeTok{color =} \StringTok{"Simultaneous"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ fit }\SpecialCharTok{{-}}\NormalTok{ simultaneous\_width, }\AttributeTok{color =} \StringTok{"Simultaneous"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(), }\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ resid)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Day"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Residual"}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5445,19 +5226,12 @@ simultaneous confidence intervals as bands:
 
 \end{figure}
 
-\hypertarget{predictor-competition-and-collaboration}{%
-\section{Predictor competition and
-collaboration}\label{predictor-competition-and-collaboration}}
-
-Let's look at the power of detecting the association between
-\texttt{price} and \texttt{beds}. We can imagine that \texttt{beds} and
-\texttt{baths} are correlated:
+There is clearly some autocorrelation in the residuals. Let's quantify
+it using the autocorrelation function (\texttt{acf()} in R):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{houses\_data }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ beds, }\AttributeTok{y =}\NormalTok{ baths)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_count}\NormalTok{()}
+\FunctionTok{acf}\NormalTok{(lm\_fit}\SpecialCharTok{$}\NormalTok{residuals, }\AttributeTok{lag.max =} \DecValTok{1000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5469,117 +5243,344 @@ Let's look at the power of detecting the association between
 
 \end{figure}
 
-So let's see how significant \texttt{beds} is, with and without
-\texttt{baths} in the model:
+We see that the autocorrelation gets into a reasonably low range around
+lag 200. We can then construct Newey-West standard errors based on this
+lag:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_only\_beds }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{summary}\NormalTok{(lm\_fit\_only\_beds)}
+\NormalTok{NW\_cov }\OtherTok{\textless{}{-}} \FunctionTok{NeweyWest}\NormalTok{(lm\_fit)}
+\FunctionTok{coeftest}\NormalTok{(lm\_fit, }\AttributeTok{vcov. =}\NormalTok{ NW\_cov)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 
-Call:
-lm(formula = price ~ factor(beds), data = houses_data)
+t test of coefficients:
 
+              Estimate Std. Error t value Pr(>|t|)
+(Intercept) -1331.2374  4398.3722 -0.3027   0.7622
+FTSE            1.0831     1.4645  0.7396   0.4597
+\end{verbatim}
+
+We see that the p-value for the association goes from \texttt{2e-16} to
+\texttt{0.46}, after accounting for autocorrelation.
+
+\hypertarget{outliers}{%
+\section{Outliers}\label{outliers}}
+
+Let's take a look at the crime data from HW2:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read crime data}
+\NormalTok{crime\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_tsv}\NormalTok{(}\StringTok{"data/Statewide\_crime.dat"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 51 Columns: 6
+-- Column specification --------------------------------------------------------
+Delimiter: "\t"
+chr (1): STATE
+dbl (5): Violent, Murder, Metro, HighSchool, Poverty
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# read and transform population data}
+\NormalTok{population\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/state{-}populations.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 52 Columns: 9
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+chr (1): State
+dbl (8): rank, Pop, Growth, Pop2018, Pop2010, growthSince2010, Percent, density
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{population\_data }\OtherTok{\textless{}{-}}\NormalTok{ population\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(State }\SpecialCharTok{!=} \StringTok{"Puerto Rico"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(State, Pop) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{state\_name =}\NormalTok{ State, }\AttributeTok{state\_pop =}\NormalTok{ Pop)}
+
+\CommentTok{\# collate state abbreviations}
+\NormalTok{state\_abbreviations }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{state\_name =}\NormalTok{ state.name,}
+  \AttributeTok{state\_abbrev =}\NormalTok{ state.abb}
+\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_row}\NormalTok{(}\AttributeTok{state\_name =} \StringTok{"District of Columbia"}\NormalTok{, }\AttributeTok{state\_abbrev =} \StringTok{"DC"}\NormalTok{)}
+
+\CommentTok{\# add CrimeRate to crime\_data}
+\NormalTok{crime\_data }\OtherTok{\textless{}{-}}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{STATE =} \FunctionTok{ifelse}\NormalTok{(STATE }\SpecialCharTok{==} \StringTok{"IO"}\NormalTok{, }\StringTok{"IA"}\NormalTok{, STATE)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{state\_abbrev =}\NormalTok{ STATE) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(state\_abbreviations, }\AttributeTok{by =} \StringTok{"state\_abbrev"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{left\_join}\NormalTok{(population\_data, }\AttributeTok{by =} \StringTok{"state\_name"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{CrimeRate =}\NormalTok{ Violent }\SpecialCharTok{/}\NormalTok{ state\_pop) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(state\_abbrev, CrimeRate, Metro, HighSchool, Poverty)}
+
+\NormalTok{crime\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 51 x 5
+   state_abbrev CrimeRate Metro HighSchool Poverty
+   <chr>            <dbl> <dbl>      <dbl>   <dbl>
+ 1 AK           0.000819   65.6       90.2     8  
+ 2 AL           0.0000871  55.4       82.4    13.7
+ 3 AR           0.000150   52.5       79.2    12.1
+ 4 AZ           0.0000682  88.2       84.4    11.9
+ 5 CA           0.0000146  94.4       81.3    10.5
+ 6 CO           0.0000585  84.5       88.3     7.3
+ 7 CT           0.0000867  87.7       88.8     6.4
+ 8 DE           0.000664   80.1       86.5     5.8
+ 9 FL           0.0000333  89.3       85.9     9.7
+10 GA           0.0000419  71.6       85.2    10.8
+# i 41 more rows
+\end{verbatim}
+
+Let's fit the linear regression:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# note: we make the state abbreviations row names for better diagnostic plots}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty, }\AttributeTok{data =}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}} \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"state\_abbrev"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+We can get the standard linear regression diagnostic plots as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residuals versus fitted}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residual QQ plot}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
+\FunctionTok{plot}\NormalTok{(lm\_fit, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-3.pdf}
+
+}
+
+\end{figure}
+
+The information underlying these diagnostic plots can be extracted as
+follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{state =}\NormalTok{ crime\_data}\SpecialCharTok{$}\NormalTok{state\_abbrev,}
+  \AttributeTok{std\_residual =} \FunctionTok{rstandard}\NormalTok{(lm\_fit),}
+  \AttributeTok{fitted\_value =} \FunctionTok{fitted.values}\NormalTok{(lm\_fit),}
+  \AttributeTok{leverage =} \FunctionTok{hatvalues}\NormalTok{(lm\_fit),}
+  \AttributeTok{cooks\_dist =} \FunctionTok{cooks.distance}\NormalTok{(lm\_fit)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 51 x 5
+   state std_residual fitted_value leverage cooks_dist
+   <chr>        <dbl>        <dbl>    <dbl>      <dbl>
+ 1 AK           2.17     0.000227    0.0463   0.0574  
+ 2 AL          -0.422    0.000200    0.0769   0.00371 
+ 3 AR           1.10    -0.000132    0.153    0.0547  
+ 4 AZ          -1.02     0.000344    0.0568   0.0156  
+ 5 CA          -0.264    0.0000839   0.114    0.00224 
+ 6 CO          -0.383    0.000163    0.0405   0.00155 
+ 7 CT          -0.175    0.000134    0.0561   0.000456
+ 8 DE           2.81    -0.0000888   0.0754   0.161   
+ 9 FL          -0.804    0.000252    0.0452   0.00764 
+10 GA          -0.599    0.000207    0.0232   0.00213 
+# i 41 more rows
+\end{verbatim}
+
+Clearly, DC is an outlier. We can either run a robust estimation
+procedure or redo the analysis without DC. Let's try both. First, we try
+robust regression using \texttt{rlm()} from the \texttt{MASS} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rlm\_fit }\OtherTok{\textless{}{-}}\NormalTok{ MASS}\SpecialCharTok{::}\FunctionTok{rlm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty, }\AttributeTok{data =}\NormalTok{ crime\_data)}
+\FunctionTok{summary}\NormalTok{(rlm\_fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call: rlm(formula = CrimeRate ~ Metro + HighSchool + Poverty, data = crime_data)
 Residuals:
-    Min      1Q  Median      3Q     Max 
--234.35  -50.63  -15.69   24.56  365.86 
+       Min         1Q     Median         3Q        Max 
+-8.297e-05 -3.787e-05 -2.249e-05  4.407e-05  2.063e-03 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)     105.94      21.48   4.931 3.43e-06 ***
-factor(beds)3    44.69      24.47   1.827 0.070849 .  
-factor(beds)4   105.70      32.35   3.268 0.001504 ** 
-factor(beds)5   246.71      69.62   3.544 0.000611 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+            Value   Std. Error t value
+(Intercept) -0.0009  0.0004    -2.2562
+Metro        0.0000  0.0000    -1.2963
+HighSchool   0.0000  0.0000     2.6506
+Poverty      0.0000  0.0000     2.7546
 
-Residual standard error: 93.65 on 96 degrees of freedom
-Multiple R-squared:  0.1706,    Adjusted R-squared:  0.1447 
-F-statistic: 6.583 on 3 and 96 DF,  p-value: 0.0004294
+Residual standard error: 6.048e-05 on 47 degrees of freedom
 \end{verbatim}
+
+For some reason, the p-values are not computed automatically. We can
+compute them ourselves instead:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_only\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\NormalTok{lm\_fit\_beds\_baths }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(beds) }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(baths), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_only\_baths, lm\_fit\_beds\_baths)}
+\FunctionTok{summary}\NormalTok{(rlm\_fit)}\SpecialCharTok{$}\NormalTok{coef }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Estimate =}\NormalTok{ Value) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{p value}\StringTok{\textasciigrave{}} \OtherTok{=} \DecValTok{2} \SpecialCharTok{*} \FunctionTok{dnorm}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{abs}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{t value}\StringTok{\textasciigrave{}}\NormalTok{)))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Analysis of Variance Table
-
-Model 1: price ~ factor(baths)
-Model 2: price ~ factor(beds) + factor(baths)
-  Res.Df    RSS Df Sum of Sq     F  Pr(>F)  
-1     96 621130                             
-2     93 572436  3     48693 2.637 0.05424 .
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                 Estimate   Std. Error   t value    p value
+(Intercept) -8.538466e-04 3.784466e-04 -2.256188 0.06260042
+Metro       -8.639252e-07 6.664623e-07 -1.296285 0.34439400
+HighSchool   1.037849e-05 3.915573e-06  2.650568 0.02378865
+Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833
 \end{verbatim}
 
-We see that the significance of \texttt{beds} dropped by two orders of
-magnitude. This is an example of predictor competition.
-
-On the other hand, note that the variable \texttt{new} is not very
-correlated with \texttt{beds}:
+To see the robust estimation action visually, let's consider a
+univariate example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(new }\SpecialCharTok{\textasciitilde{}}\NormalTok{ beds, }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{summary}\NormalTok{(lm\_fit)}
+\NormalTok{lm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro, }\AttributeTok{data =}\NormalTok{ crime\_data)}
+\NormalTok{rlm\_fit }\OtherTok{\textless{}{-}}\NormalTok{ MASS}\SpecialCharTok{::}\FunctionTok{rlm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro, }\AttributeTok{data =}\NormalTok{ crime\_data)}
+
+\CommentTok{\# collate the fits into a tibble}
+\NormalTok{line\_fits }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{method =} \FunctionTok{c}\NormalTok{(}\StringTok{"Usual"}\NormalTok{, }\StringTok{"Robust"}\NormalTok{),}
+  \AttributeTok{intercept =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{coef}\NormalTok{(lm\_fit)[}\StringTok{"(Intercept)"}\NormalTok{],}
+    \FunctionTok{coef}\NormalTok{(rlm\_fit)[}\StringTok{"(Intercept)"}\NormalTok{]}
+\NormalTok{  ),}
+  \AttributeTok{slope =} \FunctionTok{c}\NormalTok{(}
+    \FunctionTok{coef}\NormalTok{(lm\_fit)[}\StringTok{"Metro"}\NormalTok{],}
+    \FunctionTok{coef}\NormalTok{(rlm\_fit)[}\StringTok{"Metro"}\NormalTok{]}
+\NormalTok{  )}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-
-Call:
-lm(formula = new ~ beds, data = houses_data)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.15762 -0.11000 -0.11000 -0.08619  0.91381 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)
-(Intercept)  0.03857    0.14950   0.258    0.797
-beds         0.02381    0.04871   0.489    0.626
-
-Residual standard error: 0.3157 on 98 degrees of freedom
-Multiple R-squared:  0.002432,  Adjusted R-squared:  -0.007747 
-F-statistic: 0.2389 on 1 and 98 DF,  p-value: 0.6261
-\end{verbatim}
-
-but we know it has a substantial impact on \texttt{price}. Let's look at
-the significance of the test that \texttt{beds} is not important when we
-add \texttt{new} to the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm\_fit\_only\_new }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ new, }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\NormalTok{lm\_fit\_beds\_new }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(price }\SpecialCharTok{\textasciitilde{}}\NormalTok{ new }\SpecialCharTok{+} \FunctionTok{factor}\NormalTok{(beds), }\AttributeTok{data =}\NormalTok{ houses\_data)}
-\FunctionTok{anova}\NormalTok{(lm\_fit\_only\_new, lm\_fit\_beds\_new)}
+\CommentTok{\# usual and robust univariate fits}
+\CommentTok{\# plot the fits}
+\NormalTok{crime\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Metro, }\AttributeTok{y =}\NormalTok{ CrimeRate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{intercept =}\NormalTok{ intercept, }\AttributeTok{slope =}\NormalTok{ slope, }\AttributeTok{colour =}\NormalTok{ method), }\AttributeTok{data =}\NormalTok{ line\_fits)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-Analysis of Variance Table
+\begin{figure}[H]
 
-Model 1: price ~ new
-Model 2: price ~ new + factor(beds)
-  Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
-1     98 787781                                  
-2     95 619845  3    167936 8.5795 4.251e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-30-1.pdf}
 
-Adding \texttt{new} to the model made the \(p\)-value more significant
-by a factor of 10. This is an example of predictor collaboration.
+}
+
+\end{figure}
+
+Next, let's try removing DC and running a usual linear regression.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm\_fit\_no\_dc }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(CrimeRate }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Metro }\SpecialCharTok{+}\NormalTok{ HighSchool }\SpecialCharTok{+}\NormalTok{ Poverty,}
+  \AttributeTok{data =}\NormalTok{ crime\_data }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{filter}\NormalTok{(state\_abbrev }\SpecialCharTok{!=} \StringTok{"DC"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+    \FunctionTok{column\_to\_rownames}\NormalTok{(}\AttributeTok{var =} \StringTok{"state\_abbrev"}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# residuals versus fitted}
+\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residual QQ plot}
+\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# residuals versus leverage (with Cook\textquotesingle{}s distance)}
+\FunctionTok{plot}\NormalTok{(lm\_fit\_no\_dc, }\AttributeTok{which =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-3.pdf}
+
+}
+
+\end{figure}
 
 \part{Generalized linear models: General theory}
 
@@ -6613,7 +6614,7 @@ where we have used a plug-in estimator of the variance. This leads us to
 the Wald \(z\)-test:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > z_{1-\alpha/2}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > z_{1-\alpha/2}\right).
 \]
 
 Since a one-dimensional parameter is being tested, we can make the test
@@ -6639,7 +6640,7 @@ and therefore:
 Hence, we have the Wald \(\chi^2\) test:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) > \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) > \chi^2_{|S|}(1-\alpha)\right).
 \]
 
 \hypertarget{sec-wald-ci-single-coeff}{%
@@ -6721,7 +6722,7 @@ Therefore, the above statistic is \emph{approximately} distributed as
 \(t_{n-p}\). Hence, the test for \(H_0: \beta_j = \beta_j^0\) is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > t_{n-p}(1-\alpha/2)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > t_{n-p}(1-\alpha/2)\right).
 \]
 
 Likewise, we would replace \(z_{1-\alpha}\) by \(t_{n-p}(1-\alpha/2)\)
@@ -6773,7 +6774,7 @@ the approximation (\ref{eq-likelihood-ratio-approximation}), we can
 define the likelihood ratio test:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} > \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} > \chi^2_{|S|}(1-\alpha)\right).
 \]
 
 \hypertarget{sec-likelihood-ratio-ci-single-coeff}{%
@@ -6891,7 +6892,7 @@ Therefore, we arrive at the score test for
 
 \[
 \small
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) > \phi_0 \chi^2_{|S|}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) > \phi_0 \chi^2_{|S|}(1-\alpha)\right).
 \]
 
 The nice thing about a score test is that the model need only be fit
@@ -6916,7 +6917,7 @@ approximation. For example, below is a right-sided score test for
 \(H_0: \beta_j = \beta_j^0\):
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > z_{1-\alpha}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > z_{1-\alpha}\right).
 \]
 
 \hypertarget{sec-score-ci-single-coeff}{%
@@ -6955,7 +6956,7 @@ where \(X^2\) is the Pearson chi-square statistic. Therefore, the score
 test for goodness of fit is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv \mathbbm{1}\left(X^2 \phi_0 > \chi^2_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 \phi_0 > \chi^2_{n-p}(1-\alpha)\right).
 \]
 
 In the context of contingency table analysis (see the next chapter),
@@ -6975,7 +6976,7 @@ distributions with \(t\) and \(F\) distributions, respectively. For
 example, the score test for a single coefficient \(\beta_j\) is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = \mathbbm{1}\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > t_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > t_{n-p}(1-\alpha)\right).
 \]
 
 The \(t\) and \(F\) distributions are not exact in finite samples, but
@@ -9831,7 +9832,7 @@ remaining proofs are left as exercises. The weighted Bonferroni global
 test is as follows:
 
 \[
-\phi(p_1, \dots, p_m) \equiv \mathbbm{1}\left(\min_{1 \leq j \leq m} \frac{p_j}{w_j} \leq \frac{\alpha}{m}\right).
+\phi(p_1, \dots, p_m) \equiv 1\left(\min_{1 \leq j \leq m} \frac{p_j}{w_j} \leq \frac{\alpha}{m}\right).
 \]
 
 It follows that

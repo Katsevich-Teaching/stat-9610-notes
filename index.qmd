@@ -2,7 +2,7 @@
 
 ## Welcome
 
-This is a set of lecture notes developed for the PhD statistics course "STAT 9610: Statistical Methodology" at the University of Pennsylvania. Much of the content is adapted from Alan Agresti's book *Foundations of Linear and Generalized Linear Models* (2015). These notes may contain typos and errors, and will be updated in subsequent iterations of STAT 9610.
+This is a set of lecture notes developed for the PhD statistics course "STAT 9610: Statistical Methodology" at the University of Pennsylvania. Much of the content is adapted from Alan Agresti's book *Foundations of Linear and Generalized Linear Models* (2015). These notes may contain typos and errors; if you find any such issues or have other suggestions for improvement, please email the instructor at `ekatsevi@wharton.upenn.edu`.
 
 ## Preview: Linear and generalized linear models
 

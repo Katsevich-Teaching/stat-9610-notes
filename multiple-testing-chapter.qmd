@@ -151,7 +151,7 @@ The weighted variants of the Bonferroni global test, the Bonferroni FWER procedu
 Here, we prove the statement just for the Bonferroni global test; the remaining proofs are left as exercises. The weighted Bonferroni global test is as follows:
 
 $$
-\phi(p_1, \dots, p_m) \equiv \mathbbm{1}\left(\min_{1 \leq j \leq m} \frac{p_j}{w_j} \leq \frac{\alpha}{m}\right).
+\phi(p_1, \dots, p_m) \equiv 1\left(\min_{1 \leq j \leq m} \frac{p_j}{w_j} \leq \frac{\alpha}{m}\right).
 $$
 
 It follows that

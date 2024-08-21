@@ -25,7 +25,7 @@ $$
 We can then build a null distribution by recomputing $T(\boldsymbol{X}, \boldsymbol{y}^b)$ for each $b$ and then define the bootstrap-based $p$-value:
 
 $$
-p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B \mathbbm{1}(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
+p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B 1(T(\boldsymbol{X}, \boldsymbol{y}^b) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
 $$
 
 ## Pairs bootstrap {#sec-pairs-bootstrap}

@@ -1,257 +1,405 @@
-# R demo
+# R demo {#sec-R-demo-misspecification}
 
-*See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14*
+We illustrate how to deal with heteroskedasticity, group-correlated errors, autocorrelated errors, and outliers in the following sections.
 
-Let's put into practice what we've learned in this chapter by analyzing data about house prices.
+## Heteroskedasticity
+
+Next, let's look at another dataset, from the Current Population Survey (CPS).
 
 ```{r, message = FALSE}
-library(tidyverse)
-library(GGally)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tibble)
+library(tidyr)
 
-houses_data <- read_tsv("data/Houses.dat")
-houses_data
+cps_data <- read_tsv("data/cps2.tsv")
+cps_data
 ```
 
-## Exploration
-
-Let's first do a bit of exploration:
-
-```{r, fig.width = 4, fig.height = 3}
-# visualize distribution of housing prices, superimposing the mean
-houses_data |>
-  ggplot(aes(x = price)) +
-  geom_histogram(color = "black", bins = 30) +
-  geom_vline(aes(xintercept = mean(price)),
-    colour = "red",
-    linetype = "dashed"
-  )
-```
+Suppose we want to regress `wage` on `educ`, `exper`, and `metro`.
 
 ```{r}
-# compare median and mean price
-houses_data |>
-  summarise(
-    mean_price = mean(price),
-    median_price = median(price)
-  )
+lm_fit <- lm(wage ~ educ + exper + metro, data = cps_data)
 ```
 
-```{r, fig.width = 4.5, fig.height = 4}
-# create a pairs plot of continuous variables
-houses_data |>
-  select(price, size, taxes) |>
-  ggpairs()
-```
+### Diagnostics
 
-```{r, fig.width = 3, fig.height = 3}
-# see how price relates to beds
-houses_data |>
-  ggplot(aes(x = factor(beds), y = price)) +
-  geom_boxplot(fill = "dodgerblue")
-```
-
-```{r, fig.width = 3, fig.height = 3}
-# see how price relates to baths
-houses_data |>
-  ggplot(aes(x = factor(baths), y = price)) +
-  geom_boxplot(fill = "dodgerblue")
-```
-
-```{r, fig.width = 2, fig.height = 3}
-# see how price relates to new
-houses_data |>
-  ggplot(aes(x = factor(new), y = price)) +
-  geom_boxplot(fill = "dodgerblue")
-```
-
-## Hypothesis testing
-
-Let's run a linear regression and interpret the summary. But first, we must decide whether to model beds/baths as categorical or continuous? We should probably model these as categorical, given the potentially nonlinear trend observed in the box plots.
+Let's take a look at the standard linear model diagnostic plots built into R.
 
 ```{r}
-lm_fit <- lm(price ~ factor(beds) + factor(baths) + new + size,
-  data = houses_data
-)
-summary(lm_fit)
+# residuals versus fitted
+plot(lm_fit, which = 1)
+
+# residual QQ plot
+plot(lm_fit, which = 2)
+
+# residuals versus leverage (with Cook's distance)
+plot(lm_fit, which = 5)
 ```
 
-We can read off the test statistics and $p$-values for each variable from the regression summary, as well as for the $F$-test against the constant model from the bottom of the summary.
+The residuals versus fitted plot suggests significant heteroskedasticity, with variance growing as a function of the fitted value.
 
-Let's use an $F$-test to assess whether the categorical `baths` variable is important.
+### Sandwich standard errors
+
+To get standard errors robust to this heteroskedasticity, we can use one of the robust estimators discussed in @sec-heteroskedasticity. Most of the robust standard error constructions discussed in that section are implemented in the R package `sandwich`.
 
 ```{r}
-lm_fit_partial <- lm(price ~ factor(beds) + new + size,
-  data = houses_data
-)
-anova(lm_fit_partial, lm_fit)
+library(sandwich)
 ```
 
-What if we had not coded `baths` as a factor?
+For example, Huber-White's heteroskedasticity-consistent estimate $\widehat{\text{Var}}[\boldsymbol{\widehat \beta}]$ can be obtained via `vcovHC`:
 
 ```{r}
-lm_fit_not_factor <- lm(price ~ factor(beds) + baths + new + size,
-  data = houses_data
-)
-anova(lm_fit_partial, lm_fit_not_factor)
+HW_cov <- vcovHC(lm_fit)
+HW_cov
 ```
 
-If we want to test for the equality of means across groups of a categorical predictor, without adjusting for other variables, we can use the ANOVA $F$-test. There are several equivalent ways of doing so:
+Compare this to the traditional estimate:
 
 ```{r}
-# just use the summary function
-lm_fit_baths <- lm(price ~ factor(baths), data = houses_data)
-summary(lm_fit_baths)
+usual_cov <- vcovHC(lm_fit, type = "const")
+usual_cov
 
-# use the anova function as before
-lm_fit_const <- lm(price ~ 1, data = houses_data)
-anova(lm_fit_const, lm_fit_baths)
-
-# use the aov function
-aov_fit <- aov(price ~ factor(baths), data = houses_data)
-summary(aov_fit)
-```
-
-We can also use an $F$-test to test for the presence of an interaction with a multi-class categorical predictor.
-
-```{r}
-lm_fit_interaction <- lm(price ~ size * factor(beds), data = houses_data)
-summary(lm_fit_interaction)
-
-lm_fit_size <- lm(price ~ size + factor(beds), data = houses_data)
-anova(lm_fit_size, lm_fit_interaction)
-```
-
-Contrasts of regression coefficients can be tested using the `glht()` function from the `multcomp` package.
-
-## Confidence intervals
-
-We can construct pointwise confidence intervals for each coefficient using `confint()`:
-
-```{r}
-confint(lm_fit)
-```
-
-To create simultaneous confidence intervals, we need a somewhat more manual approach. We start with the coefficients and standard errors:
-
-```{r}
-coef(summary(lm_fit))
-```
-
-Then we add lower and upper confidence interval endpoints based on the formula ([-@eq-simultaneous-coordinatewise-se]):
-
-```{r}
-alpha <- 0.05
-n <- nrow(houses_data)
-p <- length(coef(lm_fit))
-f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
-coef(summary(lm_fit)) |>
-  as.data.frame() |>
-  rownames_to_column(var = "Variable") |>
-  select(Variable, Estimate, `Std. Error`) |>
-  mutate(
-    CI_lower = Estimate - `Std. Error` * sqrt(p * f_quantile),
-    CI_upper = Estimate + `Std. Error` * sqrt(p * f_quantile)
-  )
-```
-
-Note that the simultaneous intervals are substantially larger.
-
-To construct pointwise confidence intervals for the fit, we can use the `predict()` function:
-
-```{r}
-predict(lm_fit, newdata = houses_data, interval = "confidence") |> head()
-```
-
-To get pointwise prediction intervals, we switch `"confidence"` to `"prediction"`:
-
-```{r}
-predict(lm_fit, newdata = houses_data, interval = "prediction") |> head()
-```
-
-To construct simultaneous confidence intervals for the fit or predictions, we again need a slightly more manual approach. We call `predict()` again, but this time asking it for the standard errors rather than the confidence intervals:
-
-```{r}
-predictions <- predict(lm_fit, newdata = houses_data, se.fit = TRUE)
-head(predictions$fit)
-head(predictions$se.fit)
-```
-
-Now we can construct the simultaneous confidence intervals via the formula ([-@eq-simultaneous-fit-se]):
-
-```{r}
-f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
+# extract the variance estimates from the diagonal
 tibble(
-  lower = predictions$fit - predictions$se.fit * sqrt(p * f_quantile),
-  upper = predictions$fit + predictions$se.fit * sqrt(p * f_quantile)
+  variable = rownames(usual_cov),
+  usual_variance = sqrt(diag(usual_cov)),
+  HW_variance = sqrt(diag(HW_cov))
 )
 ```
 
-In the case of simple linear regression, we can plot these pointwise and simultaneous confidence intervals as bands:
+Bootstrap standard errors are also implemented in `sandwich`:
 
-```{r, fig.width = 3, fig.height = 3}
-# to produce confidence intervals for fits in general, use the predict() function
-n <- nrow(houses_data)
-p <- 2
-alpha <- 0.05
-lm_fit <- lm(price ~ size, data = houses_data)
-predictions <- predict(lm_fit, se.fit = TRUE)
-t_quantile <- qt(1 - alpha / 2, df = n - p)
-f_quantile <- qf(1 - alpha, df1 = p, df2 = n - p)
-houses_data |>
+```{r}
+# pairs bootstrap
+bootstrap_cov <- vcovBS(lm_fit, type = "xy")
+tibble(
+  variable = rownames(usual_cov),
+  usual_variance = diag(usual_cov),
+  HW_variance = diag(HW_cov),
+  bootstrap_variance = diag(bootstrap_cov)
+)
+```
+
+The covariance estimate produced by `sandwich` can be easily integrated into linear model inference using the package `lmtest`.
+
+```{r}
+library(lmtest)
+
+# fit linear model as usual
+lm_fit <- lm(wage ~ educ + exper + metro, data = cps_data)
+
+# robust t-tests for coefficients
+coeftest(lm_fit, vcov. = vcovHC)
+
+# robust confidence intervals for coefficients
+coefci(lm_fit, vcov. = vcovHC)
+
+# robust F-test
+lm_fit_partial <- lm(wage ~ educ, data = cps_data) # a partial model
+waldtest(lm_fit_partial, lm_fit, vcov = vcovHC)
+```
+
+### Bootstrap confidence intervals
+
+One R package for performing bootstrap inference is `simpleboot`. Let's see how to get pairs bootstrap distributions for the coefficient estimates.
+
+```{r}
+library(simpleboot)
+boot_out <- lm.boot(
+  lm.object = lm_fit, # input the fit object from lm()
+  R = 1000
+) # R is the number of bootstrap replicates
+perc(boot_out) # get the percentile 95% confidence intervals
+```
+
+We can extract the resampling distributions for the coefficient estimates using the `samples` function:
+
+```{r}
+samples(boot_out, name = "coef")[, 1:5]
+```
+
+We can plot these as follows:
+
+```{r}
+boot_pctiles <- boot_out |>
+  perc() |>
+  t() |>
+  as.data.frame() |>
+  rownames_to_column(var = "var") |>
+  filter(var != "(Intercept)")
+
+samples(boot_out, name = "coef") |>
+  as.data.frame() |>
+  rownames_to_column(var = "var") |>
+  filter(var != "(Intercept)") |>
+  pivot_longer(-var, names_to = "resample", values_to = "coefficient") |>
+  group_by(var) |>
+  ggplot(aes(x = coefficient)) +
+  geom_histogram(bins = 30, colour = "black") +
+  geom_vline(aes(xintercept = `2.5%`), data = boot_pctiles, linetype = "dashed") +
+  geom_vline(aes(xintercept = `97.5%`), data = boot_pctiles, linetype = "dashed") +
+  facet_wrap(~var, scales = "free")
+```
+
+In this case, the bootstrap sampling distributions look roughly normal.
+
+## Group-correlated errors
+
+Credit for this data example: [https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/](https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/).
+
+Let's consider the `nslwork` data from the `webuse` package:
+
+```{r}
+library(webuse)
+nlswork_orig <- webuse("nlswork")
+nlswork <- nlswork_orig |>
+  filter(idcode <= 100) |>
+  select(idcode, year, ln_wage, age, tenure, union) |>
+  na.omit() |>
   mutate(
-    fit = predictions$fit,
-    se = predictions$se.fit,
-    ptwise_width = t_quantile * se,
-    simultaneous_width = sqrt(p * f_quantile) * se
-  ) |>
-  ggplot(aes(x = size)) +
-  geom_point(aes(y = price)) +
-  geom_line(aes(y = fit), color = "blue") +
-  geom_line(aes(y = fit + ptwise_width, color = "Pointwise")) +
-  geom_line(aes(y = fit - ptwise_width, color = "Pointwise")) +
-  geom_line(aes(y = fit + simultaneous_width, color = "Simultaneous")) +
-  geom_line(aes(y = fit - simultaneous_width, color = "Simultaneous")) +
-  theme(legend.title = element_blank(), legend.position = "bottom")
+    union = as.integer(union),
+    idcode = as.factor(idcode)
+  )
+nlswork
 ```
 
-## Predictor competition and collaboration
+The data comes from the US National Longitudinal Survey (NLS) and contains information about more than 4,000 young working women. We’re interested in the relationship between wage (here as log-scaled GNP-adjusted wage) `ln_wage` and survey participant’s current age, job tenure in years, and union membership as independent variables. It’s a longitudinal survey, so subjects were asked repeatedly between 1968 and 1988, and each subject is identified by a unique idcode `idcode`. Here we restrict attention to the first 100 subjects and remove any rows with missing data.
 
-Let's look at the power of detecting the association between `price` and `beds`. We can imagine that `beds` and `baths` are correlated:
-
-```{r, fig.width = 3.5, fig.height = 3}
-houses_data |>
-  ggplot(aes(x = beds, y = baths)) +
-  geom_count()
-```
-
-So let's see how significant `beds` is, with and without `baths` in the model:
+Let's start by fitting a linear regression of the log wage on `age`, `tenure`, `union`, and the interaction between `tenure` and `union`:
 
 ```{r}
-lm_fit_only_beds <- lm(price ~ factor(beds), data = houses_data)
-summary(lm_fit_only_beds)
-```
-
-```{r}
-lm_fit_only_baths <- lm(price ~ factor(baths), data = houses_data)
-lm_fit_beds_baths <- lm(price ~ factor(beds) + factor(baths), data = houses_data)
-anova(lm_fit_only_baths, lm_fit_beds_baths)
-```
-
-We see that the significance of `beds` dropped by two orders of magnitude. This is an example of predictor competition.
-
-On the other hand, note that the variable `new` is not very correlated with `beds`:
-
-```{r}
-lm_fit <- lm(new ~ beds, data = houses_data)
+lm_fit <- lm(ln_wage ~ age + tenure + union + tenure:union, data = nlswork)
 summary(lm_fit)
 ```
 
-but we know it has a substantial impact on `price`. Let's look at the significance of the test that `beds` is not important when we add `new` to the model.
+Let's plot the residuals against the individuals:
 
 ```{r}
-lm_fit_only_new <- lm(price ~ new, data = houses_data)
-lm_fit_beds_new <- lm(price ~ new + factor(beds), data = houses_data)
-anova(lm_fit_only_new, lm_fit_beds_new)
+nlswork |>
+  mutate(resid = lm_fit$residuals) |>
+  ggplot(aes(x = idcode, y = resid)) +
+  geom_boxplot() +
+  labs(
+    x = "Subject",
+    y = "Residual"
+  ) +
+  theme(axis.text.x = element_blank())
 ```
 
-Adding `new` to the model made the $p$-value more significant by a factor of 10. This is an example of predictor collaboration.
+Clearly, there is dependency among the residuals within subjects. Therefore, we have either model bias, or correlated errors, or both. To help assess whether we have model bias or not, we must check whether the variables of interest are correlated with the grouping variable `idcode`. We can check this with a plot, e.g., for the `tenure` variable:
+
+```{r}
+nlswork |>
+  ggplot(aes(x = idcode, y = tenure)) +
+  geom_boxplot() +
+  labs(
+    x = "Subject",
+    y = "Tenure"
+  ) +
+  theme(axis.text.x = element_blank())
+```
+
+Again, there seems to be nontrivial association between `tenure` and `idcode`. We can check this more formally with an ANOVA test:
+
+```{r}
+summary(aov(tenure ~ idcode, data = nlswork))
+```
+
+So, in this case, we do have model bias on our hands. We can address this using fixed effects for each subject.
+
+```{r}
+lm_fit_FE <- lm(ln_wage ~ age + tenure + union + tenure:union + idcode, data = nlswork)
+lm_fit_FE |>
+  summary() |>
+  coef() |>
+  as.data.frame() |>
+  rownames_to_column(var = "var") |>
+  filter(!grepl("idcode", var)) |> # remove coefficients for fixed effects
+  column_to_rownames(var = "var")
+```
+
+Note the changes in the standard errors and p-values. Sometimes, we may have remaining correlation among residuals even after adding cluster fixed effects. Therefore, it is common practice to compute clustered (i.e., Liang-Zeger) standard errors in conjunction with cluster fixed effects. We can get clustered standard errors via the `vcovCL` function from `sandwich`:
+
+```{r}
+LZ_cov <- vcovCL(lm_fit_FE, cluster = nlswork$idcode)
+coeftest(lm_fit_FE, vcov. = LZ_cov)[, ] |>
+  as.data.frame() |>
+  rownames_to_column(var = "var") |>
+  filter(!grepl("idcode", var)) |> # remove coefficients for fixed effects
+  column_to_rownames(var = "var")
+```
+
+Again, note the changes in the standard errors and p-values.
+
+## Autocorrelated errors
+
+Let's take a look at the `EuStockMarkets` data built into R, containing the daily closing prices of major European stock indices: Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE. Let's regress `DAX` on `FTSE` and take a look at the residuals:
+
+```{r}
+lm_fit <- lm(DAX ~ FTSE, data = EuStockMarkets)
+summary(lm_fit)
+```
+
+We find an extremely significant association between the two stock indices. But let's examine the residuals for autocorrelation:
+
+```{r}
+EuStockMarkets |>
+  as.data.frame() |>
+  mutate(
+    date = row_number(),
+    resid = lm_fit$residuals
+  ) |>
+  ggplot(aes(x = date, y = resid)) +
+  geom_line() +
+  labs(
+    x = "Day",
+    y = "Residual"
+  )
+```
+
+There is clearly some autocorrelation in the residuals. Let's quantify it using the autocorrelation function (`acf()` in R):
+
+```{r}
+acf(lm_fit$residuals, lag.max = 1000)
+```
+
+We see that the autocorrelation gets into a reasonably low range around lag 200. We can then construct Newey-West standard errors based on this lag:
+
+```{r}
+NW_cov <- NeweyWest(lm_fit)
+coeftest(lm_fit, vcov. = NW_cov)
+```
+
+We see that the p-value for the association goes from `2e-16` to `0.46`, after accounting for autocorrelation.
+
+## Outliers
+
+Let's take a look at the crime data from HW2:
+
+```{r}
+# read crime data
+crime_data <- read_tsv("data/Statewide_crime.dat")
+
+# read and transform population data
+population_data <- read_csv("data/state-populations.csv")
+population_data <- population_data |>
+  filter(State != "Puerto Rico") |>
+  select(State, Pop) |>
+  rename(state_name = State, state_pop = Pop)
+
+# collate state abbreviations
+state_abbreviations <- tibble(
+  state_name = state.name,
+  state_abbrev = state.abb
+) |>
+  add_row(state_name = "District of Columbia", state_abbrev = "DC")
+
+# add CrimeRate to crime_data
+crime_data <- crime_data |>
+  mutate(STATE = ifelse(STATE == "IO", "IA", STATE)) |>
+  rename(state_abbrev = STATE) |>
+  left_join(state_abbreviations, by = "state_abbrev") |>
+  left_join(population_data, by = "state_name") |>
+  mutate(CrimeRate = Violent / state_pop) |>
+  select(state_abbrev, CrimeRate, Metro, HighSchool, Poverty)
+
+crime_data
+```
+
+Let's fit the linear regression:
+
+```{r}
+# note: we make the state abbreviations row names for better diagnostic plots
+lm_fit <- lm(CrimeRate ~ Metro + HighSchool + Poverty, data = crime_data |> column_to_rownames(var = "state_abbrev"))
+```
+
+We can get the standard linear regression diagnostic plots as follows:
+
+```{r}
+# residuals versus fitted
+plot(lm_fit, which = 1)
+
+# residual QQ plot
+plot(lm_fit, which = 2)
+
+# residuals versus leverage (with Cook's distance)
+plot(lm_fit, which = 5)
+```
+
+The information underlying these diagnostic plots can be extracted as follows:
+
+```{r}
+tibble(
+  state = crime_data$state_abbrev,
+  std_residual = rstandard(lm_fit),
+  fitted_value = fitted.values(lm_fit),
+  leverage = hatvalues(lm_fit),
+  cooks_dist = cooks.distance(lm_fit)
+)
+```
+
+Clearly, DC is an outlier. We can either run a robust estimation procedure or redo the analysis without DC. Let's try both. First, we try robust regression using `rlm()` from the `MASS` package:
+
+```{r}
+rlm_fit <- MASS::rlm(CrimeRate ~ Metro + HighSchool + Poverty, data = crime_data)
+summary(rlm_fit)
+```
+
+For some reason, the p-values are not computed automatically. We can compute them ourselves instead:
+
+```{r}
+summary(rlm_fit)$coef |>
+  as.data.frame() |>
+  rename(Estimate = Value) |>
+  mutate(`p value` = 2 * dnorm(-abs(`t value`)))
+```
+
+To see the robust estimation action visually, let's consider a univariate example:
+
+```{r}
+lm_fit <- lm(CrimeRate ~ Metro, data = crime_data)
+rlm_fit <- MASS::rlm(CrimeRate ~ Metro, data = crime_data)
+
+# collate the fits into a tibble
+line_fits <- tibble(
+  method = c("Usual", "Robust"),
+  intercept = c(
+    coef(lm_fit)["(Intercept)"],
+    coef(rlm_fit)["(Intercept)"]
+  ),
+  slope = c(
+    coef(lm_fit)["Metro"],
+    coef(rlm_fit)["Metro"]
+  )
+)
+```
+
+```{r}
+# usual and robust univariate fits
+# plot the fits
+crime_data |>
+  ggplot() +
+  geom_point(aes(x = Metro, y = CrimeRate)) +
+  geom_abline(aes(intercept = intercept, slope = slope, colour = method), data = line_fits)
+```
+
+Next, let's try removing DC and running a usual linear regression.
+
+```{r}
+lm_fit_no_dc <- lm(CrimeRate ~ Metro + HighSchool + Poverty,
+  data = crime_data |>
+    filter(state_abbrev != "DC") |>
+    column_to_rownames(var = "state_abbrev")
+)
+
+# residuals versus fitted
+plot(lm_fit_no_dc, which = 1)
+
+# residual QQ plot
+plot(lm_fit_no_dc, which = 2)
+
+# residuals versus leverage (with Cook's distance)
+plot(lm_fit_no_dc, which = 5)
+```

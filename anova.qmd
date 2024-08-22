@@ -1,5 +1,10 @@
 # Analysis of variance {#sec-anova}
 
+```{r, echo = FALSE}
+ggplot2::theme_set(ggplot2::theme_bw())
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 *See also Agresti 2.4.2, 2.4.3, 2.4.6, Dunn and Smyth 2.9*
 
 ## Analysis of variance

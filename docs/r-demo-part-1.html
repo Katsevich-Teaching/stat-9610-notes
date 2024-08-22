@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-3_3424ecdae23dc8b45589d200344c2950">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read the data into R</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/ScotsRaces.dat"</span>) <span class="co"># read_tsv from readr for data import</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>scots_races</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploration" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="exploration"><span class="header-section-number">6.1</span> Exploration</h2>
 <p>Before modeling our data, let’s first explore it.</p>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-1_cache/html/unnamed-chunk-4_fd053299d221268adb35f24be105c81c">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs plot</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What are the typical ranges of the variables?</span></span>
@@ -471,7 +471,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -485,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>scots_races <span class="ot">&lt;-</span> scots_races <span class="sc">|&gt;</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mile_time =</span> time <span class="sc">/</span> distance) <span class="co"># mutate() from dplyr to add column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-1_cache/html/unnamed-chunk-5_40404bc2b5644e1e8a7ff3613900a3d4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot mile time versus distance</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time)) <span class="sc">+</span></span>
@@ -493,12 +493,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-1_cache/html/unnamed-chunk-6_0ca4baa51c9e564783001238c650b397">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add climb information as point color</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time, <span class="at">colour =</span> climb)) <span class="sc">+</span></span>
@@ -506,12 +506,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="432"></p>
+<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="432"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-1_cache/html/unnamed-chunk-7_bb0103ff8c4dfa935de073073c7cdf0d">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># highlight extreme points</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>scots_races_extreme <span class="ot">&lt;-</span> scots_races <span class="sc">|&gt;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(distance <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">|</span> mile_time <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="co"># filter() from dplyr to subset rows</span></span>
@@ -524,12 +524,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="432"></p>
+<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="432"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-1_cache/html/unnamed-chunk-8_8bdb192f9af34fcaead50c631b4ae994">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># clean up plot</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>scots_races <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> distance, <span class="at">y =</span> mile_time, <span class="at">label =</span> race, <span class="at">color =</span> climb)) <span class="sc">+</span></span>
@@ -543,7 +543,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="528"></p>
+<p><img src="r-demo-part-1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="528"></p>
 </figure>
 </div>
 </div>
@@ -552,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="linear-model-coefficient-interpretation" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="linear-model-coefficient-interpretation"><span class="header-section-number">6.2</span> Linear model coefficient interpretation</h2>
 <p>Let’s fit some linear models and interpret the coefficients.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-9_e29dc84c4268510213fff245a8776045">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What is the effect of an extra mile of distance on time?</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance <span class="sc">+</span> climb, <span class="at">data =</span> scots_races)</span>
@@ -562,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  -13.108551    6.350955   11.780133 </code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-10_18a7f154a3e83f35b0ae4518a49a76ce">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model with interaction</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q: What is the effect of an extra mile of distance on time</span></span>
@@ -586,8 +586,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1       0.3       7.5</code></pre>
 </div>
 </div>
-<p>Let’s take a look at the regression summary for :</p>
-<div class="cell">
+<p>Let’s take a look at the regression summary for <code>lm_fit</code>:</p>
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-11_4e408309d5859f120f2536a7a7024e32">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance <span class="sc">+</span> climb, <span class="at">data =</span> scots_races)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -617,14 +617,14 @@ F-statistic: 549.9 on 2 and 32 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="r2-and-sum-of-squared-decompositions." class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="r2-and-sum-of-squared-decompositions."><span class="header-section-number">6.3</span> <span class="math inline">\(R^2\)</span> and sum-of-squared decompositions.</h2>
 <p>We can extract the <span class="math inline">\(R^2\)</span> from this fit by reading it off from the bottom of the summary, or by typing</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-12_7228dd3ea24af8ffdab3d33e86f56f93">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.971725</code></pre>
 </div>
 </div>
 <p>We can construct sum-of-squares decompositions (<a href="anova.html#eq-pythagorean-theorem"><span>4.1</span></a>) using the <code>anova</code> function. This function takes as arguments the partial model and the full model. For example, consider the partial model <code>time ~ distance</code>.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-13_51f999be22e5cc45102629e5b31c173b">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lm_fit_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> distance, <span class="at">data =</span> scots_races)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_partial, lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -640,7 +640,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>We find that adding the predictor <code>climb</code> reduces the RSS by 7106, from 9547 to 2441. As another example, we can compute the <span class="math inline">\(R^2\)</span> by comparing the full model with the null model:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-14_92d2df3bc120cc9039f517e9307cb4ad">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit_null <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> scots_races)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_null, lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -659,8 +659,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="adjustment-and-collinearity." class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="adjustment-and-collinearity."><span class="header-section-number">6.4</span> Adjustment and collinearity.</h2>
-<p>We can also test the adjustment formula (<a href="collinearity.html#eq-orthogonal-univariate"><span>5.3</span></a>) numerically. Let’s consider the coefficient of in the regression . We can obtain this coefficient by first regressing out of and :</p>
-<div class="cell">
+<p>We can also test the adjustment formula (<a href="collinearity.html#eq-orthogonal-univariate"><span>5.3</span></a>) numerically. Let’s consider the coefficient of <code>distance</code> in the regression <code>time ~ distance + climb</code>. We can obtain this coefficient by first regressing <code>climb</code> out of <code>distance</code> and <code>time</code>:</p>
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-15_c1c682b15535c68b080174407365c28a">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lm_dist_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lm_time_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -695,7 +695,7 @@ F-statistic: 334.8 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>We find a coefficient of 6.35 with standard error 0.35, which matches that obtained in the original regression.</p>
 <p>We can get the partial correlation between <code>distance</code> and <code>time</code> by taking the empirical correlation between the residuals. We can compare this quantity to the usual correlation.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-16_874ddfad577dd5e78be2a0189c509984">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>scots_races_resid <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">cor</span>(dist_residuals, time_residuals)) <span class="sc">|&gt;</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -711,7 +711,7 @@ F-statistic: 334.8 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>In this case, the two correlation quantities are similar.</p>
 <p>To obtain the variance inflation factors defined in equation (<a href="collinearity.html#eq-vif"><span>5.5</span></a>), we can use the <code>vif</code> function from the <code>car</code> package:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-17_053d96cf99c07ef5315c41a4c0febfd7">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>distance    climb 

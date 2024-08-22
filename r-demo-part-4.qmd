@@ -1,5 +1,10 @@
 # R demo {#sec-r-demo}
 
+```{r, echo = FALSE}
+ggplot2::theme_set(ggplot2::theme_bw())
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 ## Crime data {#sec-crime-data}
 
 Let's revisit the crime data from Homework 2, this time fitting a logistic regression to it.

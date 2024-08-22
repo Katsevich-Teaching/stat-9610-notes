@@ -422,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-crime-data" class="level2" data-number="23.1">
 <h2 data-number="23.1" class="anchored" data-anchor-id="sec-crime-data"><span class="header-section-number">23.1</span> Crime data</h2>
 <p>Let’s revisit the crime data from Homework 2, this time fitting a logistic regression to it.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-2_1774ce941e677f4d797fffe1f613f854">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -473,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can fit a GLM using the <code>glm</code> command, specifying as additional arguments the observation weights as well as the exponential dispersion model. In this case, the weights are the state populations and the family is binomial:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-3_af14a2047697d91338c7abe5d5d7d2f1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> state_pop,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>,</span>
@@ -481,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can print the summary table as usual:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-4_c494125c09895ff8f8cb8afc5ed265ad">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -509,7 +509,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p>Amazingly, everything is very significant! This is because the weights for each observation (the state populations) are very high, effectively making the sample size very high. But frankly, this is a bit suspicious. Glancing at the bottom of the regression summary, we see a residual deviance of 11742 on 46 degrees of freedom. This part of the summary refers to the deviance-based goodness of fit test. Under the null hypothesis that the model fits well, we expect that the residual deviance has a distribution of <span class="math inline">\(\chi^2_{46}\)</span>, which has a mean of 46.</p>
 <p>Let’s formally check the goodness of fit. We can extract the residual deviance and residual degrees of freedom from the GLM fit:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-5_4c4739a08111578d45067f95c8b5df12">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>glm_fit<span class="sc">$</span>deviance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11742.28</code></pre>
@@ -520,7 +520,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <p>We can then compute the chi-square <span class="math inline">\(p\)</span>-value:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-6_f9ca069c51b342e00066003f418e6b62">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute based on residual deviance from fit object</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(glm_fit<span class="sc">$</span>deviance,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> glm_fit<span class="sc">$</span>df.residual,</span>
@@ -539,7 +539,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <p>Wow, we get a <span class="math inline">\(p\)</span>-value of zero! Let’s try doing a score-based (i.e., Pearson) goodness of fit test:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-7_ba2d1b048bd25ab9d8a2d12583bf9eab">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fu">sum</span>(<span class="fu">resid</span>(glm_fit, <span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span>),</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> glm_fit<span class="sc">$</span>df.residual,</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
@@ -554,7 +554,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <h2 data-number="23.2" class="anchored" data-anchor-id="sec-noisy-miner-data"><span class="header-section-number">23.2</span> Noisy miner data</h2>
 <p><em>Credit: Generalized Linear Models With Examples in R textbook.</em></p>
 <p>Let’s consider the noisy miner dataset. Noisy miners are a small but aggressive native Australian bird. We want to know how the number of these birds observed in a patch of land depends on various factors of that patch of land.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-8_f3b1f5114432b9c35f04deeaf93fa574">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GLMsData)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"nminer"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>nminer <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -576,7 +576,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 <p>Since the response is a count, we can model it as a Poisson random variable. Let’s fit that GLM:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-9_d3ce5c65deb2f9d4657acd16c02eb41c">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Minerab <span class="sc">~</span> . <span class="sc">-</span> Miners, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> nminer)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -606,7 +606,7 @@ Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 </div>
 <p>We exclude <code>Miners</code> because this is just a binarized version of the response variable. Things look a bit better on the GOF front:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-10_1464cd946a612f627b89d814348cc2f1">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fu">sum</span>(<span class="fu">resid</span>(glm_fit, <span class="st">"deviance"</span>)<span class="sc">^</span><span class="dv">2</span>),</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> glm_fit<span class="sc">$</span>df.residual,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
@@ -624,7 +624,7 @@ Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 <p>Still, there is some model misspecification, but for now, we still proceed with the rest of the analysis.</p>
 <p>The standard errors shown in the summary are based on the Wald test. We can get Wald confidence intervals based on these standard errors by using the formula:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-11_a87e9745f970d0bb20f7dec34df89e1d">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>() <span class="sc">|&gt;</span></span>
@@ -643,7 +643,7 @@ Timber      -0.024565751 -0.024565751</code></pre>
 </div>
 </div>
 <p>Or, we can simply use <code>confint.default()</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-12_a327da7030e5b88018ea81df0421cd6a">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint.default</span>(glm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   2.5 %       97.5 %
@@ -657,7 +657,7 @@ Timber      -0.024565751  0.011002885</code></pre>
 </div>
 </div>
 <p>Or, we might want LRT-based confidence intervals, which are given by <code>confint()</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-13_b4880de69e6992b6a18539d6782dff76">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(glm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Waiting for profiling to be done...</code></pre>
@@ -675,7 +675,7 @@ Timber      -0.02483241  0.010820749</code></pre>
 </div>
 <p>In this case, the two sets of confidence intervals seem fairly similar.</p>
 <p>Now, we can get prediction intervals, either on the linear predictor scale or on the mean scale:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-14_54183ca4b3960664bd75844471a9eb5c">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pred_linear <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm_fit, <span class="at">newdata =</span> nminer[<span class="dv">31</span>,], <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>pred_mean <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm_fit, <span class="at">newdata =</span> nminer[<span class="dv">31</span>,], <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -711,7 +711,7 @@ $residual.scale
 </div>
 </div>
 <p>We see that the prediction on the linear predictor scale is exactly the logarithm of the prediction on the mean scale. However, the standard error given on the mean scale uses the delta method. We prefer to directly transform the confidence interval from the linear scale using the inverse link function (in this case, the exponential):</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-15_d6bfddf828dd362a1675338b0c86776f">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using delta method</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pred_mean<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>)<span class="sc">*</span>pred_mean<span class="sc">$</span>se.fit,</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  pred_mean<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>pred_mean<span class="sc">$</span>se.fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -728,7 +728,7 @@ $residual.scale
 </div>
 </div>
 <p>In this case, the intervals obtained are somewhat different. We can plot confidence intervals for the fit in a univariate case (e.g., regressing <code>Minerab</code> on <code>Eucs</code>) using <code>geom_smooth()</code>:</p>
-<div class="cell" data-layout-align="center">
+<div class="cell" data-layout-align="center" data-hash="r-demo-part-4_cache/html/unnamed-chunk-16_28b6dd13f6d97f51b3dfff233afb5ee2">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>nminer <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Eucs, <span class="at">y =</span> Minerab)) <span class="sc">+</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -740,13 +740,13 @@ $residual.scale
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="r-demo-part-4_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="r-demo-part-4_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We can also test the coefficients in the model. The Wald tests for individual coefficients were already given by the regression summary above. We might want to carry out likelihood ratio tests for individual coefficients instead. For example, let’s do this for <code>Eucs</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-17_7855362fb85c3741e3c305d728eb4196">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>glm_fit_partial <span class="ot">&lt;-</span> <span class="fu">glm</span>(Minerab <span class="sc">~</span> . <span class="sc">-</span> Miners <span class="sc">-</span> Eucs, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">data =</span> nminer)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(glm_fit_partial, glm_fit, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -764,7 +764,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>The <code>Eucs</code> variable is quite significant! We can manually carry out the LRT as a sanity check:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-4_cache/html/unnamed-chunk-18_e4ad0b0d8b2ff8ae39b20f928164a774">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>deviance_partial <span class="ot">&lt;-</span> glm_fit_partial<span class="sc">$</span>deviance</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>deviance_full <span class="ot">&lt;-</span> glm_fit<span class="sc">$</span>deviance</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>lrt_stat <span class="ot">&lt;-</span> deviance_partial <span class="sc">-</span> deviance_full</span>

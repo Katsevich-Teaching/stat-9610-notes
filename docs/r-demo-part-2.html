@@ -423,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p><em>See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14</em></p>
 <p>Let’s put into practice what we’ve learned in this chapter by analyzing data about house prices.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-2_ae623229209413eb14b2874294b60d65">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -449,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exploration" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="exploration"><span class="header-section-number">12.1</span> Exploration</h2>
 <p>Let’s first do a bit of exploration:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-3_bb2c94fdffe15a70f15b2b2a72ec938a">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize distribution of housing prices, superimposing the mean</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
@@ -459,10 +459,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="384"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-4_18e044142cb3c4490d6ddd14300c6c8b">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare median and mean price</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -476,47 +476,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1       155.         133.</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-5_0790341cd96b96c1d8231066379e486e">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a pairs plot of continuous variables</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, size, taxes) <span class="sc">|&gt;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="432"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="432"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-6_00f8e8e7e2e22f8b58bc296dbc816ea3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to beds</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(beds), <span class="at">y =</span> price)) <span class="sc">+</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="288"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-7_29d7673ec796ff728e67862fd89974a3">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to baths</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(baths), <span class="at">y =</span> price)) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="288"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-8_ce76d91793cb6fb8a6a5910e65d3a581">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to new</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(new), <span class="at">y =</span> price)) <span class="sc">+</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="192"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="192"></p>
 </div>
 </div>
 </section>
 <section id="hypothesis-testing" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">12.2</span> Hypothesis testing</h2>
 <p>Let’s run a linear regression and interpret the summary. But first, we must decide whether to model beds/baths as categorical or continuous? We should probably model these as categorical, given the potentially nonlinear trend observed in the box plots.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-9_9f65c72c47759cb437ceb1f7f98048b4">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> <span class="fu">factor</span>(baths) <span class="sc">+</span> new <span class="sc">+</span> size,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -552,7 +552,7 @@ F-statistic: 37.08 on 8 and 91 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>We can read off the test statistics and <span class="math inline">\(p\)</span>-values for each variable from the regression summary, as well as for the <span class="math inline">\(F\)</span>-test against the constant model from the bottom of the summary.</p>
 <p>Let’s use an <span class="math inline">\(F\)</span>-test to assess whether the categorical <code>baths</code> variable is important.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-10_05fc70b7d73893f5275b1c171aa04557">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm_fit_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> new <span class="sc">+</span> size,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -570,7 +570,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>What if we had not coded <code>baths</code> as a factor?</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-11_c66d46880b964312c2775747856beeca">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lm_fit_not_factor <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> baths <span class="sc">+</span> new <span class="sc">+</span> size,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -586,7 +586,7 @@ Model 2: price ~ factor(beds) + baths + new + size
 </div>
 </div>
 <p>If we want to test for the equality of means across groups of a categorical predictor, without adjusting for other variables, we can use the ANOVA <span class="math inline">\(F\)</span>-test. There are several equivalent ways of doing so:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-12_2aea618208f86b7ef9b6937f06746b8f">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># just use the summary function</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>lm_fit_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_baths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -638,7 +638,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>We can also use an <span class="math inline">\(F\)</span>-test to test for the presence of an interaction with a multi-class categorical predictor.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-13_d888baeeffddf5b0f8a4a8db07c372ca">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit_interaction <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size <span class="sc">*</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_interaction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -686,7 +686,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="confidence-intervals" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">12.3</span> Confidence intervals</h2>
 <p>We can construct pointwise confidence intervals for each coefficient using <code>confint()</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-14_d2991154b9e6aec749225005b62807f8">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       2.5 %      97.5 %
@@ -702,7 +702,7 @@ size              0.08431972   0.1333284</code></pre>
 </div>
 </div>
 <p>To create simultaneous confidence intervals, we need a somewhat more manual approach. We start with the coefficients and standard errors:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-15_59d0fb03e3522aa625952c13d1845738">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(lm_fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   Estimate  Std. Error     t value     Pr(&gt;|t|)
@@ -718,7 +718,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
 <p>Then we add lower and upper confidence interval endpoints based on the formula (<a href="confidence-intervals.html#eq-simultaneous-coordinatewise-se"><span>10.8</span></a>):</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-16_b33d627b2178b7461d44becf6850649d">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses_data)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(lm_fit))</span>
@@ -746,7 +746,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 <p>Note that the simultaneous intervals are substantially larger.</p>
 <p>To construct pointwise confidence intervals for the fit, we can use the <code>predict()</code> function:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-17_0de82b3cb9842e57e16cd833503a866b">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">interval =</span> <span class="st">"confidence"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr      upr
@@ -759,7 +759,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
 <p>To get pointwise prediction intervals, we switch <code>"confidence"</code> to <code>"prediction"</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-18_f336a2bec4198016edc21e8ec26c7b98">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">interval =</span> <span class="st">"prediction"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        fit       lwr      upr
@@ -772,7 +772,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
 <p>To construct simultaneous confidence intervals for the fit or predictions, we again need a slightly more manual approach. We call <code>predict()</code> again, but this time asking it for the standard errors rather than the confidence intervals:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-19_9660ab4e635fcc01c9fd5a5184a2697b">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predictions<span class="sc">$</span>fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -786,7 +786,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
 <p>Now we can construct the simultaneous confidence intervals via the formula (<a href="confidence-intervals.html#eq-simultaneous-fit-se"><span>10.7</span></a>):</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-20_7e7dcfeddfe3844dd2d0bdf1a90dbb79">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>f_quantile <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n <span class="sc">-</span> p)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> predictions<span class="sc">$</span>fit <span class="sc">-</span> predictions<span class="sc">$</span>se.fit <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile),</span>
@@ -810,7 +810,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
 <p>In the case of simple linear regression, we can plot these pointwise and simultaneous confidence intervals as bands:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-21_3209d585bbdd62681da2ed92f4e140b9">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to produce confidence intervals for fits in general, use the predict() function</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses_data)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span></span>
@@ -835,23 +835,23 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 <span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit <span class="sc">-</span> simultaneous_width, <span class="at">color =</span> <span class="st">"Simultaneous"</span>)) <span class="sc">+</span></span>
 <span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="288"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
 </section>
 <section id="predictor-competition-and-collaboration" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="predictor-competition-and-collaboration"><span class="header-section-number">12.4</span> Predictor competition and collaboration</h2>
 <p>Let’s look at the power of detecting the association between <code>price</code> and <code>beds</code>. We can imagine that <code>beds</code> and <code>baths</code> are correlated:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-22_be1c1c21a05d4b6421c01e0ed03840c9">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beds, <span class="at">y =</span> baths)) <span class="sc">+</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="336"></p>
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="336"></p>
 </div>
 </div>
 <p>So let’s see how significant <code>beds</code> is, with and without <code>baths</code> in the model:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-23_cbb0bdedec6d84a999bdfde4eead3bd6">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_beds <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_only_beds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -877,7 +877,7 @@ Multiple R-squared:  0.1706,    Adjusted R-squared:  0.1447
 F-statistic: 6.583 on 3 and 96 DF,  p-value: 0.0004294</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-24_8f75ae2ccaf85a9b6d574648f182a161">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>lm_fit_beds_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_only_baths, lm_fit_beds_baths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -895,7 +895,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>We see that the significance of <code>beds</code> dropped by two orders of magnitude. This is an example of predictor competition.</p>
 <p>On the other hand, note that the variable <code>new</code> is not very correlated with <code>beds</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-25_f60cacc70e5d1e6bfa6503ddb5de5b8b">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(new <span class="sc">~</span> beds, <span class="at">data =</span> houses_data)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -918,7 +918,7 @@ F-statistic: 0.2389 on 1 and 98 DF,  p-value: 0.6261</code></pre>
 </div>
 </div>
 <p>but we know it has a substantial impact on <code>price</code>. Let’s look at the significance of the test that <code>beds</code> is not important when we add <code>new</code> to the model.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-26_64edd27c4c65649066d8dd577a7a79bb">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new, <span class="at">data =</span> houses_data)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>lm_fit_beds_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new <span class="sc">+</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_only_new, lm_fit_beds_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

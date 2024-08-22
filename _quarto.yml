@@ -54,6 +54,7 @@ book:
         - multiple-testing-intro.qmd
         - global-testing.qmd
         - multiple-testing-chapter.qmd
+
 format:
   html:
     theme:

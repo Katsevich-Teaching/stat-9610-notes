@@ -1,5 +1,10 @@
 # R demo {#sec-r-demo}
 
+```{r, echo = FALSE}
+ggplot2::theme_set(ggplot2::theme_bw())
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 ## Contingency table analysis {#sec-contingency-table}
 
 Let's take a look at the UC Berkeley admissions data:

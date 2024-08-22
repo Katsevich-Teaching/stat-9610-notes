@@ -1,5 +1,11 @@
 # R demo {#sec-r-demo-part-1}
 
+```{r, echo = FALSE}
+ggplot2::theme_set(ggplot2::theme_bw())
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+
 *See also Agresti 2.6, Dunn and Smyth 2.6*
 
 The R demo will be based on the `ScotsRaces` data from the Agresti textbook. Data description (quoted from the textbook):
@@ -114,7 +120,7 @@ scots_races |>
   summarise(min_climb = min(climb), max_climb = max(climb))
 ```
 
-Let's take a look at the regression summary for \verb|lm_fit|:
+Let's take a look at the regression summary for `lm_fit`:
 ```{r}
 lm_fit <- lm(time ~ distance + climb, data = scots_races)
 summary(lm_fit)
@@ -143,7 +149,7 @@ Therefore, the $R^2$ is 83899/86340 = 0.972, consistent with the above regressio
 
 ## Adjustment and collinearity.
 
-We can also test the adjustment formula ([-@eq-orthogonal-univariate]) numerically. Let's consider the coefficient of \verb|distance| in the regression \verb|time ~ distance + climb|. We can obtain this coefficient by first regressing \verb|climb| out of \verb|distance| and \verb|time|:
+We can also test the adjustment formula ([-@eq-orthogonal-univariate]) numerically. Let's consider the coefficient of `distance` in the regression `time ~ distance + climb`. We can obtain this coefficient by first regressing `climb` out of `distance` and `time`:
 ```{r}
 lm_dist_on_climb <- lm(distance ~ climb, data = scots_races)
 lm_time_on_climb <- lm(time ~ climb, data = scots_races)

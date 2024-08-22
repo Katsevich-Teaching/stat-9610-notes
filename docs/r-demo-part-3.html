@@ -430,7 +430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="heteroskedasticity" class="level2" data-number="18.1">
 <h2 data-number="18.1" class="anchored" data-anchor-id="heteroskedasticity"><span class="header-section-number">18.1</span> Heteroskedasticity</h2>
 <p>Next, let’s look at another dataset, from the Current Population Survey (CPS).</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-2_fe7839f711792c34141995dc8574b286">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -457,27 +457,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Suppose we want to regress <code>wage</code> on <code>educ</code>, <code>exper</code>, and <code>metro</code>.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-3_78a4f5be47c643b06566ff2b130cf5fd">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> educ <span class="sc">+</span> exper <span class="sc">+</span> metro, <span class="at">data =</span> cps_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="diagnostics" class="level3" data-number="18.1.1">
 <h3 data-number="18.1.1" class="anchored" data-anchor-id="diagnostics"><span class="header-section-number">18.1.1</span> Diagnostics</h3>
 <p>Let’s take a look at the standard linear model diagnostic plots built into R.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-4_17249a02446fb8071eea89b1ea5d5cc6">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The residuals versus fitted plot suggests significant heteroskedasticity, with variance growing as a function of the fitted value.</p>
@@ -485,11 +485,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sandwich-standard-errors" class="level3" data-number="18.1.2">
 <h3 data-number="18.1.2" class="anchored" data-anchor-id="sandwich-standard-errors"><span class="header-section-number">18.1.2</span> Sandwich standard errors</h3>
 <p>To get standard errors robust to this heteroskedasticity, we can use one of the robust estimators discussed in <a href="misspecification-overview.html#sec-heteroskedasticity"><span>Section&nbsp;13.2</span></a>. Most of the robust standard error constructions discussed in that section are implemented in the R package <code>sandwich</code>.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-5_b105f296d00656d9349030b4428c81b5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For example, Huber-White’s heteroskedasticity-consistent estimate <span class="math inline">\(\widehat{\text{Var}}[\boldsymbol{\widehat \beta}]\)</span> can be obtained via <code>vcovHC</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-6_cb02c52e6a3b73ad8759492d2112d60a">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>HW_cov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(lm_fit)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>HW_cov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -501,7 +501,7 @@ metro       -0.121851801  0.0018334348  0.0008369831  0.1197713348</code></pre>
 </div>
 </div>
 <p>Compare this to the traditional estimate:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-7_4a8d93778c9e8be72279cd8a99874651">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>usual_cov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(lm_fit, <span class="at">type =</span> <span class="st">"const"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>usual_cov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -528,7 +528,7 @@ metro       -0.128705835 -0.0018227782  0.0001471354  0.1858394060</code></pre>
 </div>
 </div>
 <p>Bootstrap standard errors are also implemented in <code>sandwich</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-8_2ae15ff637f453f380919cf67a0cf2b1">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pairs bootstrap</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>bootstrap_cov <span class="ot">&lt;-</span> <span class="fu">vcovBS</span>(lm_fit, <span class="at">type =</span> <span class="st">"xy"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
@@ -541,14 +541,14 @@ metro       -0.128705835 -0.0018227782  0.0001471354  0.1858394060</code></pre>
 <pre><code># A tibble: 4 × 4
   variable    usual_variance HW_variance bootstrap_variance
   &lt;chr&gt;                &lt;dbl&gt;       &lt;dbl&gt;              &lt;dbl&gt;
-1 (Intercept)       1.16        1.48               1.55    
-2 educ              0.00489     0.00705            0.00765 
+1 (Intercept)       1.16        1.48               1.54    
+2 educ              0.00489     0.00705            0.00769 
 3 exper             0.000232    0.000252           0.000245
-4 metro             0.186       0.120              0.123   </code></pre>
+4 metro             0.186       0.120              0.116   </code></pre>
 </div>
 </div>
 <p>The covariance estimate produced by <code>sandwich</code> can be easily integrated into linear model inference using the package <code>lmtest</code>.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-9_fdb4b3c3fc48e7ccb735b41a4b11e48f">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: zoo</code></pre>
@@ -607,7 +607,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="bootstrap-confidence-intervals" class="level3" data-number="18.1.3">
 <h3 data-number="18.1.3" class="anchored" data-anchor-id="bootstrap-confidence-intervals"><span class="header-section-number">18.1.3</span> Bootstrap confidence intervals</h3>
 <p>One R package for performing bootstrap inference is <code>simpleboot</code>. Let’s see how to get pairs bootstrap distributions for the coefficient estimates.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-10_6714f3f9c1b8a24848742025cd3b023e">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(simpleboot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Simple Bootstrap Routines (1.1-8)</code></pre>
@@ -619,23 +619,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">perc</span>(boot_out) <span class="co"># get the percentile 95% confidence intervals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      (Intercept)     educ     exper     metro
-2.5%   -12.544097 1.082007 0.1052334 0.8458714
-97.5%   -7.675267 1.415323 0.1669324 2.1993269</code></pre>
+2.5%   -12.593797 1.071418 0.1031716 0.8449157
+97.5%   -7.645662 1.417886 0.1681944 2.1429463</code></pre>
 </div>
 </div>
 <p>We can extract the resampling distributions for the coefficient estimates using the <code>samples</code> function:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-11_34b9219b64455cfecd5ad31124977ddf">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">samples</span>(boot_out, <span class="at">name =</span> <span class="st">"coef"</span>)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                      1          2         3          4          5
-(Intercept) -10.4634567 -9.5553539 -7.966759 -8.5543259 -8.7586206
-educ          1.2694682  1.2233863  1.139755  1.1540665  1.1516034
-exper         0.1462424  0.1147231  0.111902  0.1308002  0.1126054
-metro         1.4222687  1.4822758  1.125187  0.9830835  1.7844290</code></pre>
+<pre><code>                    1          2          3           4           5
+(Intercept) -9.506667 -9.9339448 -7.8354993 -11.5963414 -11.2588844
+educ         1.174144  1.2300298  1.1084766   1.3158311   1.3653399
+exper        0.149829  0.1301164  0.1103397   0.1497207   0.1170897
+metro        1.866064  1.5479406  1.6266666   1.8888379   1.7062736</code></pre>
 </div>
 </div>
 <p>We can plot these as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-12_d2613ecfbc7ffc17154a007afc06f2df">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>boot_pctiles <span class="ot">&lt;-</span> boot_out <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">perc</span>() <span class="sc">|&gt;</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
@@ -655,7 +655,7 @@ metro         1.4222687  1.4822758  1.125187  0.9830835  1.7844290</code></pre>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="st">`</span><span class="at">97.5%</span><span class="st">`</span>), <span class="at">data =</span> boot_pctiles, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>var, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In this case, the bootstrap sampling distributions look roughly normal.</p>
@@ -665,7 +665,7 @@ metro         1.4222687  1.4822758  1.125187  0.9830835  1.7844290</code></pre>
 <h2 data-number="18.2" class="anchored" data-anchor-id="group-correlated-errors"><span class="header-section-number">18.2</span> Group-correlated errors</h2>
 <p>Credit for this data example: <a href="https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/">https://www.r-bloggers.com/2021/05/clustered-standard-errors-with-r/</a>.</p>
 <p>Let’s consider the <code>nslwork</code> data from the <code>webuse</code> package:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-13_d22c87efd5ea0c9d229512f4cb9d4d08">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webuse)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>nlswork_orig <span class="ot">&lt;-</span> <span class="fu">webuse</span>(<span class="st">"nlswork"</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>nlswork <span class="ot">&lt;-</span> nlswork_orig <span class="sc">|&gt;</span></span>
@@ -696,7 +696,7 @@ metro         1.4222687  1.4822758  1.125187  0.9830835  1.7844290</code></pre>
 </div>
 <p>The data comes from the US National Longitudinal Survey (NLS) and contains information about more than 4,000 young working women. We’re interested in the relationship between wage (here as log-scaled GNP-adjusted wage) <code>ln_wage</code> and survey participant’s current age, job tenure in years, and union membership as independent variables. It’s a longitudinal survey, so subjects were asked repeatedly between 1968 and 1988, and each subject is identified by a unique idcode <code>idcode</code>. Here we restrict attention to the first 100 subjects and remove any rows with missing data.</p>
 <p>Let’s start by fitting a linear regression of the log wage on <code>age</code>, <code>tenure</code>, <code>union</code>, and the interaction between <code>tenure</code> and <code>union</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-14_ae651ca7402021907c2228635c97e6c4">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ln_wage <span class="sc">~</span> age <span class="sc">+</span> tenure <span class="sc">+</span> union <span class="sc">+</span> tenure<span class="sc">:</span>union, <span class="at">data =</span> nlswork)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -724,7 +724,7 @@ F-statistic: 21.07 on 4 and 381 DF,  p-value: 1.047e-15</code></pre>
 </div>
 </div>
 <p>Let’s plot the residuals against the individuals:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-15_163826ac88fc8e348d69a744309d7072">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>nlswork <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resid =</span> lm_fit<span class="sc">$</span>residuals) <span class="sc">|&gt;</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> idcode, <span class="at">y =</span> resid)) <span class="sc">+</span></span>
@@ -735,11 +735,11 @@ F-statistic: 21.07 on 4 and 381 DF,  p-value: 1.047e-15</code></pre>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Clearly, there is dependency among the residuals within subjects. Therefore, we have either model bias, or correlated errors, or both. To help assess whether we have model bias or not, we must check whether the variables of interest are correlated with the grouping variable <code>idcode</code>. We can check this with a plot, e.g., for the <code>tenure</code> variable:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-16_7a3489de423d881a26a3c4846bcd296c">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>nlswork <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> idcode, <span class="at">y =</span> tenure)) <span class="sc">+</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
@@ -749,11 +749,11 @@ F-statistic: 21.07 on 4 and 381 DF,  p-value: 1.047e-15</code></pre>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Again, there seems to be nontrivial association between <code>tenure</code> and <code>idcode</code>. We can check this more formally with an ANOVA test:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-17_80c506ee914d4d1c4fae07bbff8c52ca">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(tenure <span class="sc">~</span> idcode, <span class="at">data =</span> nlswork))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -764,7 +764,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>So, in this case, we do have model bias on our hands. We can address this using fixed effects for each subject.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-18_4d721262724a1ed1c5a1324df084b3eb">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>lm_fit_FE <span class="ot">&lt;-</span> <span class="fu">lm</span>(ln_wage <span class="sc">~</span> age <span class="sc">+</span> tenure <span class="sc">+</span> union <span class="sc">+</span> tenure<span class="sc">:</span>union <span class="sc">+</span> idcode, <span class="at">data =</span> nlswork)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>lm_fit_FE <span class="sc">|&gt;</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span></span>
@@ -783,7 +783,7 @@ tenure:union 0.014974113 0.009548509  1.568215 1.178851e-01</code></pre>
 </div>
 </div>
 <p>Note the changes in the standard errors and p-values. Sometimes, we may have remaining correlation among residuals even after adding cluster fixed effects. Therefore, it is common practice to compute clustered (i.e., Liang-Zeger) standard errors in conjunction with cluster fixed effects. We can get clustered standard errors via the <code>vcovCL</code> function from <code>sandwich</code>:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-19_8068cb6d26fd497b1181b531f0416249">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>LZ_cov <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(lm_fit_FE, <span class="at">cluster =</span> nlswork<span class="sc">$</span>idcode)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_fit_FE, <span class="at">vcov. =</span> LZ_cov)[, ] <span class="sc">|&gt;</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
@@ -804,7 +804,7 @@ tenure:union 0.014974113 0.009646023  1.5523613 1.216301e-01</code></pre>
 <section id="autocorrelated-errors" class="level2" data-number="18.3">
 <h2 data-number="18.3" class="anchored" data-anchor-id="autocorrelated-errors"><span class="header-section-number">18.3</span> Autocorrelated errors</h2>
 <p>Let’s take a look at the <code>EuStockMarkets</code> data built into R, containing the daily closing prices of major European stock indices: Germany DAX (Ibis), Switzerland SMI, France CAC, and UK FTSE. Let’s regress <code>DAX</code> on <code>FTSE</code> and take a look at the residuals:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-20_3349f9b60894454693eee0877a83183a">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(DAX <span class="sc">~</span> FTSE, <span class="at">data =</span> EuStockMarkets)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -829,7 +829,7 @@ F-statistic: 3.604e+04 on 1 and 1858 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>We find an extremely significant association between the two stock indices. But let’s examine the residuals for autocorrelation:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-21_c18a8f62df7e9cb8a73e9eafdea094e1">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>EuStockMarkets <span class="sc">|&gt;</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -843,18 +843,18 @@ F-statistic: 3.604e+04 on 1 and 1858 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residual"</span></span>
 <span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>There is clearly some autocorrelation in the residuals. Let’s quantify it using the autocorrelation function (<code>acf()</code> in R):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_fit<span class="sc">$</span>residuals, <span class="at">lag.max =</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
 <p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>There is clearly some autocorrelation in the residuals. Let’s quantify it using the autocorrelation function (<code>acf()</code> in R):</p>
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-22_950280de27402d45d13cebbd071d265d">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_fit<span class="sc">$</span>residuals, <span class="at">lag.max =</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>We see that the autocorrelation gets into a reasonably low range around lag 200. We can then construct Newey-West standard errors based on this lag:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-23_a9ec8e3b655b7830d09538c6b7295ce9">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>NW_cov <span class="ot">&lt;-</span> <span class="fu">NeweyWest</span>(lm_fit)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(lm_fit, <span class="at">vcov. =</span> NW_cov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -871,7 +871,7 @@ FTSE            1.0831     1.4645  0.7396   0.4597</code></pre>
 <section id="outliers" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="outliers"><span class="header-section-number">18.4</span> Outliers</h2>
 <p>Let’s take a look at the crime data from HW2:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-24_6f71904e7f37c900ab0cec567f866bb6">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read crime data</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>crime_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/Statewide_crime.dat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -936,30 +936,30 @@ dbl (8): rank, Pop, Growth, Pop2018, Pop2010, growthSince2010, Percent, density
 </div>
 </div>
 <p>Let’s fit the linear regression:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-25_4c3903cac1cefb3548b905213e54eefb">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note: we make the state abbreviations row names for better diagnostic plots</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty, <span class="at">data =</span> crime_data <span class="sc">|&gt;</span> <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"state_abbrev"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can get the standard linear regression diagnostic plots as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-26_014ae1b870e1ec21768bade4999fc3a9">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-26-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The information underlying these diagnostic plots can be extracted as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-27_5a01d3674394c634541ee2294c81c0a3">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> crime_data<span class="sc">$</span>state_abbrev,</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">std_residual =</span> <span class="fu">rstandard</span>(lm_fit),</span>
@@ -985,7 +985,7 @@ dbl (8): rank, Pop, Growth, Pop2018, Pop2010, growthSince2010, Percent, density
 </div>
 </div>
 <p>Clearly, DC is an outlier. We can either run a robust estimation procedure or redo the analysis without DC. Let’s try both. First, we try robust regression using <code>rlm()</code> from the <code>MASS</code> package:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-28_bc9accc68b3dbfa9528b47423e5ed272">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>rlm_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty, <span class="at">data =</span> crime_data)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1006,7 +1006,7 @@ Residual standard error: 6.048e-05 on 47 degrees of freedom</code></pre>
 </div>
 </div>
 <p>For some reason, the p-values are not computed automatically. We can compute them ourselves instead:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-29_994b0bba790e838c7a96d83ba3a8dabd">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_fit)<span class="sc">$</span>coef <span class="sc">|&gt;</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Estimate =</span> Value) <span class="sc">|&gt;</span></span>
@@ -1020,7 +1020,7 @@ Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833</code></pre>
 </div>
 </div>
 <p>To see the robust estimation action visually, let’s consider a univariate example:</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-30_86a50936b6153b7f64d0197021403b89">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro, <span class="at">data =</span> crime_data)</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>rlm_fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(CrimeRate <span class="sc">~</span> Metro, <span class="at">data =</span> crime_data)</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1037,7 +1037,7 @@ Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833</code></pre>
 <span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-31_a70dc4c81c565b54b93e0287f5c19a2d">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usual and robust univariate fits</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the fits</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>crime_data <span class="sc">|&gt;</span></span>
@@ -1045,11 +1045,11 @@ Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833</code></pre>
 <span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> Metro, <span class="at">y =</span> CrimeRate)) <span class="sc">+</span></span>
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> intercept, <span class="at">slope =</span> slope, <span class="at">colour =</span> method), <span class="at">data =</span> line_fits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Next, let’s try removing DC and running a usual linear regression.</p>
-<div class="cell">
+<div class="cell" data-hash="r-demo-part-3_cache/html/unnamed-chunk-32_8b55c611d4f201b039daba4398319c37">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>lm_fit_no_dc <span class="ot">&lt;-</span> <span class="fu">lm</span>(CrimeRate <span class="sc">~</span> Metro <span class="sc">+</span> HighSchool <span class="sc">+</span> Poverty,</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> crime_data <span class="sc">|&gt;</span></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(state_abbrev <span class="sc">!=</span> <span class="st">"DC"</span>) <span class="sc">|&gt;</span></span>
@@ -1059,17 +1059,17 @@ Poverty      1.252839e-05 4.548172e-06  2.754600 0.01795833</code></pre>
 <span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus fitted</span></span>
 <span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residual QQ plot</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-31-2.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-32-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># residuals versus leverage (with Cook's distance)</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_fit_no_dc, <span class="at">which =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-31-3.png" class="img-fluid" width="672"></p>
+<p><img src="r-demo-part-3_files/figure-html/unnamed-chunk-32-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

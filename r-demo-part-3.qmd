@@ -1,5 +1,10 @@
 # R demo {#sec-R-demo-misspecification}
 
+```{r, echo = FALSE}
+ggplot2::theme_set(ggplot2::theme_bw())
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 We illustrate how to deal with heteroskedasticity, group-correlated errors, autocorrelated errors, and outliers in the following sections.
 
 ## Heteroskedasticity

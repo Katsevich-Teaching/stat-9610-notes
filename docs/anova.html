@@ -486,7 +486,7 @@ R^2 \equiv \frac{\text{SSR}}{\text{SST}} = \frac{\sum_{i = 1}^n (\widehat{\mu}_i
 <section id="anova-decomposition-for-c-groups-model" class="level4" data-number="4.4.1.1">
 <h4 data-number="4.4.1.1" class="anchored" data-anchor-id="anova-decomposition-for-c-groups-model"><span class="header-section-number">4.4.1.1</span> ANOVA decomposition for <span class="math inline">\(C\)</span> groups model</h4>
 <p>Let’s consider the special case of the ANOVA decomposition (<a href="#eq-anova"><span>4.2</span></a>) when the model matrix <span class="math inline">\(\boldsymbol{X}\)</span> represents a single categorical predictor <span class="math inline">\(w\)</span>. In this case, each observation <span class="math inline">\(i\)</span> is associated with one of the <span class="math inline">\(C\)</span> classes of <span class="math inline">\(w\)</span>, which we denote <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Let’s consider the <span class="math inline">\(C\)</span> groups of observations <span class="math inline">\(\{i: c(i) = c\}\)</span> for <span class="math inline">\(c \in \{1, \dots, C\}\)</span>. For example, <span class="math inline">\(w\)</span> may be the type of a car (compact, midsize, minivan, etc.) and <span class="math inline">\(y\)</span> might be its fuel efficiency in miles per gallon.</p>
-<div class="cell">
+<div class="cell" data-hash="anova_cache/html/unnamed-chunk-2_24b3b0987ef8a3d2ffe6563ecb1c05ee">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -494,7 +494,7 @@ R^2 \equiv \frac{\text{SSR}}{\text{SST}} = \frac{\sum_{i = 1}^n (\widehat{\mu}_i
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Car class"</span>, <span class="at">y =</span> <span class="st">"Gas mileage (mpg)"</span>) <span class="sc">+</span> </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="anova_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="anova_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It is easy to check that the least squares fitted values <span class="math inline">\(\widehat{\mu}_i\)</span> are simply the means of the corresponding groups:</p>

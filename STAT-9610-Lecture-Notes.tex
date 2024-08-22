@@ -171,10 +171,10 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{plain}
@@ -226,7 +226,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, boxrule=0pt, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden, sharp corners, interior hidden, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -977,7 +977,7 @@ etc.) and \(y\) might be its fuel efficiency in miles per gallon.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{anova_files/figure-pdf/unnamed-chunk-1-1.pdf}
+{\centering \includegraphics{anova_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
 }
 
@@ -1457,7 +1457,7 @@ Before modeling our data, let's first explore it.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-3-1.pdf}
+{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 }
 
@@ -1488,7 +1488,7 @@ Before modeling our data, let's first explore it.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-4-1.pdf}
+{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
 }
 
@@ -1505,7 +1505,7 @@ Before modeling our data, let's first explore it.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-5-1.pdf}
+{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
 }
 
@@ -1527,7 +1527,7 @@ Before modeling our data, let's first explore it.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-6-1.pdf}
+{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-7-1.pdf}
 
 }
 
@@ -1550,7 +1550,7 @@ Before modeling our data, let's first explore it.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-7-1.pdf}
+{\centering \includegraphics{r-demo-part-1_files/figure-pdf/unnamed-chunk-8-1.pdf}
 
 }
 
@@ -1610,7 +1610,7 @@ Let's fit some linear models and interpret the coefficients.
 1       0.3       7.5
 \end{verbatim}
 
-Let's take a look at the regression summary for \verb|lm_fit|:
+Let's take a look at the regression summary for \texttt{lm\_fit}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1718,10 +1718,10 @@ regression summary.
 collinearity.}\label{adjustment-and-collinearity.}}
 
 We can also test the adjustment formula (\ref{eq-orthogonal-univariate})
-numerically. Let's consider the coefficient of \verb|distance| in the
-regression \verb|time ~ distance + climb|. We can obtain this
-coefficient by first regressing \verb|climb| out of \verb|distance| and
-\verb|time|:
+numerically. Let's consider the coefficient of \texttt{distance} in the
+regression \texttt{time\ \textasciitilde{}\ distance\ +\ climb}. We can
+obtain this coefficient by first regressing \texttt{climb} out of
+\texttt{distance} and \texttt{time}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3018,7 +3018,7 @@ Let's first do a bit of exploration:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-2-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-3-1.pdf}
 
 }
 
@@ -3053,7 +3053,7 @@ Let's first do a bit of exploration:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-4-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
 }
 
@@ -3070,7 +3070,7 @@ Let's first do a bit of exploration:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-5-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
 }
 
@@ -3087,7 +3087,7 @@ Let's first do a bit of exploration:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-6-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-7-1.pdf}
 
 }
 
@@ -3104,7 +3104,7 @@ Let's first do a bit of exploration:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-7-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-8-1.pdf}
 
 }
 
@@ -3546,7 +3546,7 @@ simultaneous confidence intervals as bands:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-20-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-21-1.pdf}
 
 }
 
@@ -3570,7 +3570,7 @@ Let's look at the power of detecting the association between
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-21-1.pdf}
+{\centering \includegraphics{r-demo-part-2_files/figure-pdf/unnamed-chunk-22-1.pdf}
 
 }
 
@@ -4660,7 +4660,7 @@ into R.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 }
 
@@ -4675,7 +4675,7 @@ into R.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-2.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-4-2.pdf}
 
 }
 
@@ -4690,7 +4690,7 @@ into R.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-3-3.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-4-3.pdf}
 
 }
 
@@ -4791,10 +4791,10 @@ Bootstrap standard errors are also implemented in \texttt{sandwich}:
 # A tibble: 4 x 4
   variable    usual_variance HW_variance bootstrap_variance
   <chr>                <dbl>       <dbl>              <dbl>
-1 (Intercept)       1.16        1.48               1.59    
-2 educ              0.00489     0.00705            0.00764 
-3 exper             0.000232    0.000252           0.000264
-4 metro             0.186       0.120              0.123   
+1 (Intercept)       1.16        1.48               1.56    
+2 educ              0.00489     0.00705            0.00736 
+3 exper             0.000232    0.000252           0.000266
+4 metro             0.186       0.120              0.111   
 \end{verbatim}
 
 The covariance estimate produced by \texttt{sandwich} can be easily
@@ -4910,8 +4910,8 @@ Simple Bootstrap Routines (1.1-8)
 
 \begin{verbatim}
       (Intercept)     educ     exper     metro
-2.5%   -12.433359 1.075845 0.1040949 0.8047474
-97.5%   -7.644596 1.407899 0.1650408 2.1954377
+2.5%   -12.365466 1.075378 0.1034755 0.8985245
+97.5%   -7.532934 1.407756 0.1642828 2.1715691
 \end{verbatim}
 
 We can extract the resampling distributions for the coefficient
@@ -4924,11 +4924,11 @@ estimates using the \texttt{samples} function:
 \end{Shaded}
 
 \begin{verbatim}
-                     1          2          3           4           5
-(Intercept) -8.9101587 -9.5454944 -9.8744423 -10.0884694 -10.1832496
-educ         1.2317454  1.2142570  1.2255034   1.2550234   1.2247120
-exper        0.1347504  0.1318947  0.1368782   0.1325528   0.1608834
-metro        0.5290319  1.9020785  1.4234100   1.5489530   1.1643109
+                     1           2          3          4          5
+(Intercept) -8.5183938 -10.1137042 -9.6244521 -9.6637688 -9.7635183
+educ         1.1589410   1.2808242  1.2344501  1.2127978  1.2161110
+exper        0.1090993   0.1097745  0.1196861  0.1243353  0.1467017
+metro        1.5474578   1.9319631  1.6930226  1.8578930  1.3720004
 \end{verbatim}
 
 We can plot these as follows:
@@ -4958,7 +4958,7 @@ We can plot these as follows:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-11-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-12-1.pdf}
 
 }
 
@@ -5071,7 +5071,7 @@ Let's plot the residuals against the individuals:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-14-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-15-1.pdf}
 
 }
 
@@ -5099,7 +5099,7 @@ variables of interest are correlated with the grouping variable
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-15-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-16-1.pdf}
 
 }
 
@@ -5234,7 +5234,7 @@ indices. But let's examine the residuals for autocorrelation:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-20-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-21-1.pdf}
 
 }
 
@@ -5251,7 +5251,7 @@ it using the autocorrelation function (\texttt{acf()} in R):
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-21-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-22-1.pdf}
 
 }
 
@@ -5385,7 +5385,7 @@ We can get the standard linear regression diagnostic plots as follows:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-26-1.pdf}
 
 }
 
@@ -5400,7 +5400,7 @@ We can get the standard linear regression diagnostic plots as follows:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-2.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-26-2.pdf}
 
 }
 
@@ -5415,7 +5415,7 @@ We can get the standard linear regression diagnostic plots as follows:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-25-3.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-26-3.pdf}
 
 }
 
@@ -5537,7 +5537,7 @@ univariate example:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-30-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-1.pdf}
 
 }
 
@@ -5560,7 +5560,7 @@ Next, let's try removing DC and running a usual linear regression.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-1.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-32-1.pdf}
 
 }
 
@@ -5575,7 +5575,7 @@ Next, let's try removing DC and running a usual linear regression.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-2.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-32-2.pdf}
 
 }
 
@@ -5590,7 +5590,7 @@ Next, let's try removing DC and running a usual linear regression.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-31-3.pdf}
+{\centering \includegraphics{r-demo-part-3_files/figure-pdf/unnamed-chunk-32-3.pdf}
 
 }
 
@@ -7480,7 +7480,7 @@ confidence intervals for the fit in a univariate case (e.g., regressing
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-4_files/figure-pdf/unnamed-chunk-15-1.pdf}
+{\centering \includegraphics{r-demo-part-4_files/figure-pdf/unnamed-chunk-16-1.pdf}
 
 }
 
@@ -8894,7 +8894,7 @@ look into this:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-5_files/figure-pdf/unnamed-chunk-6-1.pdf}
+{\centering \includegraphics{r-demo-part-5_files/figure-pdf/unnamed-chunk-7-1.pdf}
 
 }
 
@@ -8946,7 +8946,7 @@ admissions rates by department and plot them:
 
 \begin{figure}[H]
 
-{\centering \includegraphics{r-demo-part-5_files/figure-pdf/unnamed-chunk-8-1.pdf}
+{\centering \includegraphics{r-demo-part-5_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
 }
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 11&nbsp; Power</title>
+<title>STAT 9610 Lecture Notes - 9&nbsp; Power</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./power.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./power.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,9 +360,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-power-of-a-t-test" id="toc-the-power-of-a-t-test" class="nav-link active" data-scroll-target="#the-power-of-a-t-test"><span class="header-section-number">11.1</span> The power of a <span class="math inline">\(t\)</span>-test</a></li>
-  <li><a href="#the-power-of-an-f-test" id="toc-the-power-of-an-f-test" class="nav-link" data-scroll-target="#the-power-of-an-f-test"><span class="header-section-number">11.2</span> The power of an <span class="math inline">\(F\)</span>-test</a></li>
-  <li><a href="#power-of-the-t-test-when-predictors-are-added-to-the-model" id="toc-power-of-the-t-test-when-predictors-are-added-to-the-model" class="nav-link" data-scroll-target="#power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">11.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</a></li>
+  <li><a href="#the-power-of-a-t-test" id="toc-the-power-of-a-t-test" class="nav-link active" data-scroll-target="#the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</a></li>
+  <li><a href="#the-power-of-an-f-test" id="toc-the-power-of-an-f-test" class="nav-link" data-scroll-target="#the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</a></li>
+  <li><a href="#power-of-the-t-test-when-predictors-are-added-to-the-model" id="toc-power-of-the-t-test-when-predictors-are-added-to-the-model" class="nav-link" data-scroll-target="#power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</a></li>
   </ul>
 </nav>
     </div>
@@ -383,7 +371,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-power" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></h1>
+<h1 class="title"><span id="sec-power" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></h1>
 </div>
 
 
@@ -400,12 +388,12 @@ ul.task-list li input[type="checkbox"] {
 
 <p><em>See also Agresti 3.2.5</em></p>
 <p>So far we’ve been focused on finding the null distributions of various test statistics in order to construct tests with Type-I error control. Now let’s shift our attention to examining the power of these tests.</p>
-<section id="the-power-of-a-t-test" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="the-power-of-a-t-test"><span class="header-section-number">11.1</span> The power of a <span class="math inline">\(t\)</span>-test</h2>
+<section id="the-power-of-a-t-test" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</h2>
 <p>Consider the <span class="math inline">\(t\)</span>-test of the null hypothesis <span class="math inline">\(H_0: \beta_j = 0\)</span>. Suppose that, in reality, <span class="math inline">\(\beta_j \neq 0\)</span>. What is the probability the <span class="math inline">\(t\)</span>-test will reject the null hypothesis? To answer this question, recall that <span class="math inline">\(\widehat \beta_j \sim N(\beta_j, \sigma^2/s_j^2)\)</span>. Therefore,</p>
 <p><span id="eq-t-alt-dist-1"><span class="math display">\[
 t = \frac{\widehat \beta_j}{\text{SE}(\widehat \beta_j)} = \frac{\beta_j}{\text{SE}(\widehat \beta_j)} + \frac{\widehat \beta_j - \beta_j}{\text{SE}(\widehat \beta_j)} \overset{\cdot}{\sim} N\left(\frac{\beta_j s_j}{\sigma}, 1\right)
-\tag{11.1}\]</span></span></p>
+\tag{9.1}\]</span></span></p>
 <p>Here we have made the approximation <span class="math inline">\(\text{SE}(\widehat \beta_j) \approx \frac{\sigma}{s_j}\)</span>, which is pretty good when <span class="math inline">\(n-p\)</span> is large. Therefore, the power of the two-sided <span class="math inline">\(t\)</span>-test is</p>
 <p><span class="math display">\[
 \mathbb{E}[\phi_t] = \mathbb{P}[\phi_t = 1] \approx \mathbb{P}[|t| &gt; z_{1-\alpha/2}] \approx \mathbb{P}\left[\left|N\left(\frac{\beta_j s_j}{\sigma}, 1\right)\right| &gt; z_{1-\alpha/2}\right]
@@ -418,25 +406,25 @@ t = \frac{\widehat \beta_j}{\text{SE}(\widehat \beta_j)} = \frac{\beta_j}{\text{
 <p><span class="math display">\[
 s_j^2 \equiv \|\boldsymbol{x}_{*j}^\perp\|^2 \approx n\mathbb{E}[(x_j-\mathbb{E}[x_j|\boldsymbol{x}_{\text{-}j}])^2] = n\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]].
 \]</span></p>
-<p>Hence, we can rewrite the alternative distribution (<a href="#eq-t-alt-dist-1"><span>11.1</span></a>) as</p>
+<p>Hence, we can rewrite the alternative distribution (<a href="#eq-t-alt-dist-1"><span>9.1</span></a>) as</p>
 <p><span id="eq-t-alt-dist-2"><span class="math display">\[
 t \overset{\cdot}{\sim} N\left(\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]}}{\sigma}, 1\right)
-\tag{11.2}\]</span></span></p>
+\tag{9.2}\]</span></span></p>
 <p>We can see clearly now how the power of the <span class="math inline">\(t\)</span>-test varies with the effect size <span class="math inline">\(\beta_j\)</span>, the sample size <span class="math inline">\(n\)</span>, the degree of collinearity <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span>, and the noise standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 </section>
-<section id="the-power-of-an-f-test" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="the-power-of-an-f-test"><span class="header-section-number">11.2</span> The power of an <span class="math inline">\(F\)</span>-test</h2>
+<section id="the-power-of-an-f-test" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</h2>
 <p>Now let’s turn our attention to computing the power of the <span class="math inline">\(F\)</span>-test. We have</p>
 <p><span class="math display">\[
 F = \frac{\|\boldsymbol{X}\boldsymbol{\widehat \beta} - \boldsymbol{X}_{*, \text{-}S}\boldsymbol{\widehat \beta}_{-S}\|^2/|S|}{\|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat \beta}\|^2/|n-p|} = \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\|(\boldsymbol{I} - \boldsymbol{H})\boldsymbol{y}\|^2/|n-p|} \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2}.
 \]</span></p>
 <p>To calculate the distribution of the numerator, we need to introduce the notion of a non-central chi-squared random variable.</p>
 <div id="def-noncentral-chi-square" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 11.1 </strong></span>For some vector <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^d\)</span>, suppose <span class="math inline">\(\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)\)</span>. Then, we define the distribution of <span class="math inline">\(\|\boldsymbol{z}\|^2\)</span> as the noncentral chi-square random variable with <span class="math inline">\(d\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\|\boldsymbol{\mu}\|^2\)</span> and denote this distribution by <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span>.</p>
+<p><span class="theorem-title"><strong>Definition 9.1 </strong></span>For some vector <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^d\)</span>, suppose <span class="math inline">\(\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)\)</span>. Then, we define the distribution of <span class="math inline">\(\|\boldsymbol{z}\|^2\)</span> as the noncentral chi-square random variable with <span class="math inline">\(d\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\|\boldsymbol{\mu}\|^2\)</span> and denote this distribution by <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span>.</p>
 </div>
 <p>The following proposition states two useful facts about noncentral chi-square distributions.</p>
 <div id="prp-noncentral-chi-square" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 11.1 </strong></span>The following two relations hold: 1. The mean of a <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span> random variable is <span class="math inline">\(d + \|\boldsymbol{\mu}\|^2\)</span>. 2. If <span class="math inline">\(\boldsymbol{P}\)</span> is a projection matrix and <span class="math inline">\(\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).\)</span></p>
+<p><span class="theorem-title"><strong>Proposition 9.1 </strong></span>The following two relations hold: 1. The mean of a <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span> random variable is <span class="math inline">\(d + \|\boldsymbol{\mu}\|^2\)</span>. 2. If <span class="math inline">\(\boldsymbol{P}\)</span> is a projection matrix and <span class="math inline">\(\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).\)</span></p>
 </div>
 <p>It therefore follows that</p>
 <p><span class="math display">\[
@@ -450,14 +438,14 @@ F \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2
 <p><span class="math display">\[
 F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)
 \]</span></p>
-<p>which is similar in spirit to equation (<a href="#eq-t-alt-dist-2"><span>11.2</span></a>). To get a better sense of what this relationship implies for the power of the <span class="math inline">\(F\)</span>-test, we find from the first part of <a href="#prp-noncentral-chi-square">Proposition&nbsp;<span>11.1</span></a> that, under the alternative,</p>
+<p>which is similar in spirit to equation (<a href="#eq-t-alt-dist-2"><span>9.2</span></a>). To get a better sense of what this relationship implies for the power of the <span class="math inline">\(F\)</span>-test, we find from the first part of <a href="#prp-noncentral-chi-square">Proposition&nbsp;<span>9.1</span></a> that, under the alternative,</p>
 <p><span class="math display">\[
 \mathbb{E}[F] \approx \mathbb{E}\left[\frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)\right] = 1 + \frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{|S| \cdot \sigma^2}.
 \]</span></p>
 <p>By contrast, under the null, the mean of the <span class="math inline">\(F\)</span>-statistic is 1. The <span class="math inline">\(|S|\)</span> term in the denominator above suggests that testing larger sets of variables explaining the same amount of variation in <span class="math inline">\(\boldsymbol{y}\)</span> will hurt power. The test must accommodate for the fact that larger sets of variables will explain more of the variability in <span class="math inline">\(y\)</span> even under the null hypothesis.</p>
 </section>
-<section id="power-of-the-t-test-when-predictors-are-added-to-the-model" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">11.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</h2>
+<section id="power-of-the-t-test-when-predictors-are-added-to-the-model" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</h2>
 <p>As we know, the outcome of a regression is a function of the predictors that are used. What happens to the <span class="math inline">\(t\)</span>-test <span class="math inline">\(p\)</span>-value for <span class="math inline">\(H_0: \beta_j = 0\)</span> when a predictor is added to the model? To keep things simple, let’s consider the</p>
 <p><span class="math display">\[
 \text{true underlying model:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
@@ -716,12 +704,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./hypothesis-testing.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./confidence-intervals.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

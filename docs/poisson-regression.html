@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 27&nbsp; Poisson regression</title>
+<title>STAT 9610 Lecture Notes - 25&nbsp; Poisson regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-special-cases.html">Generalized linear models: Special cases</a></li><li class="breadcrumb-item"><a href="./poisson-regression.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-special-cases.html">Generalized linear models: Special cases</a></li><li class="breadcrumb-item"><a href="./poisson-regression.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,23 +360,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-model-definition" id="toc-sec-model-definition" class="nav-link active" data-scroll-target="#sec-model-definition"><span class="header-section-number">27.1</span> Model definition and interpretation</a></li>
-  <li><a href="#sec-example-modeling-rates" id="toc-sec-example-modeling-rates" class="nav-link" data-scroll-target="#sec-example-modeling-rates"><span class="header-section-number">27.2</span> Example: Modeling rates</a></li>
-  <li><a href="#sec-estimation-inference" id="toc-sec-estimation-inference" class="nav-link" data-scroll-target="#sec-estimation-inference"><span class="header-section-number">27.3</span> Estimation and inference</a>
+  <li><a href="#sec-model-definition" id="toc-sec-model-definition" class="nav-link active" data-scroll-target="#sec-model-definition"><span class="header-section-number">25.1</span> Model definition and interpretation</a></li>
+  <li><a href="#sec-example-modeling-rates" id="toc-sec-example-modeling-rates" class="nav-link" data-scroll-target="#sec-example-modeling-rates"><span class="header-section-number">25.2</span> Example: Modeling rates</a></li>
+  <li><a href="#sec-estimation-inference" id="toc-sec-estimation-inference" class="nav-link" data-scroll-target="#sec-estimation-inference"><span class="header-section-number">25.3</span> Estimation and inference</a>
   <ul class="collapse">
-  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">27.3.1</span> Score, Fisher information, and Wald inference</a></li>
-  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">27.3.2</span> Likelihood ratio inference</a></li>
-  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">27.3.3</span> Score-based inference</a></li>
+  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">25.3.1</span> Score, Fisher information, and Wald inference</a></li>
+  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">25.3.2</span> Likelihood ratio inference</a></li>
+  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">25.3.3</span> Score-based inference</a></li>
   </ul></li>
-  <li><a href="#sec-poisson-multinomial" id="toc-sec-poisson-multinomial" class="nav-link" data-scroll-target="#sec-poisson-multinomial"><span class="header-section-number">27.4</span> Relationship between Poisson and multinomial distributions</a></li>
-  <li><a href="#sec-example-2x2-tables" id="toc-sec-example-2x2-tables" class="nav-link" data-scroll-target="#sec-example-2x2-tables"><span class="header-section-number">27.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</a>
+  <li><a href="#sec-poisson-multinomial" id="toc-sec-poisson-multinomial" class="nav-link" data-scroll-target="#sec-poisson-multinomial"><span class="header-section-number">25.4</span> Relationship between Poisson and multinomial distributions</a></li>
+  <li><a href="#sec-example-2x2-tables" id="toc-sec-example-2x2-tables" class="nav-link" data-scroll-target="#sec-example-2x2-tables"><span class="header-section-number">25.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</a>
   <ul class="collapse">
-  <li><a href="#sec-poisson-2x2" id="toc-sec-poisson-2x2" class="nav-link" data-scroll-target="#sec-poisson-2x2"><span class="header-section-number">27.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</a></li>
-  <li><a href="#sec-inference-conditioning-margins" id="toc-sec-inference-conditioning-margins" class="nav-link" data-scroll-target="#sec-inference-conditioning-margins"><span class="header-section-number">27.5.2</span> Inference is the same regardless of conditioning on margins</a></li>
-  <li><a href="#sec-poisson-logistic-equivalence" id="toc-sec-poisson-logistic-equivalence" class="nav-link" data-scroll-target="#sec-poisson-logistic-equivalence"><span class="header-section-number">27.5.3</span> Equivalence among Poisson and logistic regressions</a></li>
+  <li><a href="#sec-poisson-2x2" id="toc-sec-poisson-2x2" class="nav-link" data-scroll-target="#sec-poisson-2x2"><span class="header-section-number">25.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</a></li>
+  <li><a href="#sec-inference-conditioning-margins" id="toc-sec-inference-conditioning-margins" class="nav-link" data-scroll-target="#sec-inference-conditioning-margins"><span class="header-section-number">25.5.2</span> Inference is the same regardless of conditioning on margins</a></li>
+  <li><a href="#sec-poisson-logistic-equivalence" id="toc-sec-poisson-logistic-equivalence" class="nav-link" data-scroll-target="#sec-poisson-logistic-equivalence"><span class="header-section-number">25.5.3</span> Equivalence among Poisson and logistic regressions</a></li>
   </ul></li>
-  <li><a href="#sec-poisson-jk-tables" id="toc-sec-poisson-jk-tables" class="nav-link" data-scroll-target="#sec-poisson-jk-tables"><span class="header-section-number">27.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</a></li>
-  <li><a href="#sec-poisson-jkl-tables" id="toc-sec-poisson-jkl-tables" class="nav-link" data-scroll-target="#sec-poisson-jkl-tables"><span class="header-section-number">27.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</a></li>
+  <li><a href="#sec-poisson-jk-tables" id="toc-sec-poisson-jk-tables" class="nav-link" data-scroll-target="#sec-poisson-jk-tables"><span class="header-section-number">25.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</a></li>
+  <li><a href="#sec-poisson-jkl-tables" id="toc-sec-poisson-jkl-tables" class="nav-link" data-scroll-target="#sec-poisson-jkl-tables"><span class="header-section-number">25.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</a></li>
   </ul>
 </nav>
     </div>
@@ -397,7 +385,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-poisson-regression" class="quarto-section-identifier"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></h1>
+<h1 class="title"><span id="sec-poisson-regression" class="quarto-section-identifier"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></h1>
 </div>
 
 
@@ -412,16 +400,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="sec-model-definition" class="level2" data-number="27.1">
-<h2 data-number="27.1" class="anchored" data-anchor-id="sec-model-definition"><span class="header-section-number">27.1</span> Model definition and interpretation</h2>
+<section id="sec-model-definition" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="sec-model-definition"><span class="header-section-number">25.1</span> Model definition and interpretation</h2>
 <p>The Poisson regression model (with offsets) is:</p>
 <p><span id="eq-poisson-with-offsets"><span class="math display">\[
 y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\beta}.
-\tag{27.1}\]</span></span></p>
+\tag{25.1}\]</span></span></p>
 <p>Because the log of the mean is linear in the predictors, Poisson regression models are often called <em>loglinear models</em>. To interpret the coefficients, note that a unit increase in <span class="math inline">\(x_j\)</span> (while keeping the other variables fixed) is associated with an increase in the predicted mean by a factor of <span class="math inline">\(e^{\beta_j}\)</span>.</p>
 </section>
-<section id="sec-example-modeling-rates" class="level2" data-number="27.2">
-<h2 data-number="27.2" class="anchored" data-anchor-id="sec-example-modeling-rates"><span class="header-section-number">27.2</span> Example: Modeling rates</h2>
+<section id="sec-example-modeling-rates" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="sec-example-modeling-rates"><span class="header-section-number">25.2</span> Example: Modeling rates</h2>
 <p>One cool feature of the Poisson model is that rates can be easily modeled with the help of offsets. Let’s say that the count <span class="math inline">\(y_i\)</span> is collected over the course of a time interval of length <span class="math inline">\(t_i\)</span>, or a spatial region with area <span class="math inline">\(t_i\)</span>, or a population of size <span class="math inline">\(t_i\)</span>, etc. Then, it is meaningful to model:</p>
 <p><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
@@ -430,12 +418,12 @@ y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsym
 <p><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
 \]</span></p>
-<p>which is exactly equation (<a href="#eq-poisson-with-offsets"><span>27.1</span></a>) with offsets <span class="math inline">\(o_i = \log t_i\)</span>. For example, in single-cell RNA-sequencing, <span class="math inline">\(y_i\)</span> is the number of reads aligning to a gene in cell <span class="math inline">\(i\)</span> and <span class="math inline">\(t_i\)</span> is the total number of reads measured in the cell, a quantity called the <em>sequencing depth</em>. We might use a Poisson regression model to carry out a <em>differential expression analysis</em> between two cell types.</p>
+<p>which is exactly equation (<a href="#eq-poisson-with-offsets"><span>25.1</span></a>) with offsets <span class="math inline">\(o_i = \log t_i\)</span>. For example, in single-cell RNA-sequencing, <span class="math inline">\(y_i\)</span> is the number of reads aligning to a gene in cell <span class="math inline">\(i\)</span> and <span class="math inline">\(t_i\)</span> is the total number of reads measured in the cell, a quantity called the <em>sequencing depth</em>. We might use a Poisson regression model to carry out a <em>differential expression analysis</em> between two cell types.</p>
 </section>
-<section id="sec-estimation-inference" class="level2" data-number="27.3">
-<h2 data-number="27.3" class="anchored" data-anchor-id="sec-estimation-inference"><span class="header-section-number">27.3</span> Estimation and inference</h2>
-<section id="sec-wald-inference" class="level3" data-number="27.3.1">
-<h3 data-number="27.3.1" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">27.3.1</span> Score, Fisher information, and Wald inference</h3>
+<section id="sec-estimation-inference" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="sec-estimation-inference"><span class="header-section-number">25.3</span> Estimation and inference</h2>
+<section id="sec-wald-inference" class="level3" data-number="25.3.1">
+<h3 data-number="25.3.1" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">25.3.1</span> Score, Fisher information, and Wald inference</h3>
 <p>We found in Chapter <span class="citation" data-cites="ch-glm-theory">@ch-glm-theory</span> that the score and Fisher information for Poisson regression are:</p>
 <p><span class="math display">\[
 \boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),
@@ -453,8 +441,8 @@ y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \
 \boldsymbol{\hat \beta} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \text{diag}(\hat \mu_i)\boldsymbol{X})^{-1}).
 \]</span></p>
 </section>
-<section id="sec-likelihood-ratio-inference" class="level3" data-number="27.3.2">
-<h3 data-number="27.3.2" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">27.3.2</span> Likelihood ratio inference</h3>
+<section id="sec-likelihood-ratio-inference" class="level3" data-number="25.3.2">
+<h3 data-number="25.3.2" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">25.3.2</span> Likelihood ratio inference</h3>
 <p>For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:</p>
 <p><span class="math display">\[
 d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
@@ -476,9 +464,9 @@ D(\boldsymbol{y}, \boldsymbol{\hat \mu^0}) - D(\boldsymbol{y}, \boldsymbol{\hat 
 D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
 \]</span></p>
 </section>
-<section id="sec-score-based-inference" class="level3" data-number="27.3.3">
-<h3 data-number="27.3.3" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">27.3.3</span> Score-based inference</h3>
-<p>Recalling equation (<a href="glm-inference.html#eq-score-test-univariate"><span>24.5</span></a>), the score test for <span class="math inline">\(H_0: \beta_j = 0\)</span> is based on:</p>
+<section id="sec-score-based-inference" class="level3" data-number="25.3.3">
+<h3 data-number="25.3.3" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">25.3.3</span> Score-based inference</h3>
+<p>Recalling equation (<a href="glm-inference.html#eq-score-test-univariate"><span>22.5</span></a>), the score test for <span class="math inline">\(H_0: \beta_j = 0\)</span> is based on:</p>
 <p><span class="math display">\[
 \frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).
 \]</span></p>
@@ -488,8 +476,8 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 \]</span></p>
 </section>
 </section>
-<section id="sec-poisson-multinomial" class="level2" data-number="27.4">
-<h2 data-number="27.4" class="anchored" data-anchor-id="sec-poisson-multinomial"><span class="header-section-number">27.4</span> Relationship between Poisson and multinomial distributions</h2>
+<section id="sec-poisson-multinomial" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="sec-poisson-multinomial"><span class="header-section-number">25.4</span> Relationship between Poisson and multinomial distributions</h2>
 <p>Suppose that <span class="math inline">\(y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i)\)</span> for <span class="math inline">\(i = 1, \dots, n\)</span>. Then,</p>
 <p><span class="math display">\[
 \begin{split}
@@ -500,10 +488,10 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 \]</span></p>
 <p>We recognize the last expression as the probability mass function of the multinomial distribution with parameters <span class="math inline">\((\pi_1, \dots, \pi_n)\)</span> summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.</p>
 </section>
-<section id="sec-example-2x2-tables" class="level2" data-number="27.5">
-<h2 data-number="27.5" class="anchored" data-anchor-id="sec-example-2x2-tables"><span class="header-section-number">27.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</h2>
-<section id="sec-poisson-2x2" class="level3" data-number="27.5.1">
-<h3 data-number="27.5.1" class="anchored" data-anchor-id="sec-poisson-2x2"><span class="header-section-number">27.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</h3>
+<section id="sec-example-2x2-tables" class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="sec-example-2x2-tables"><span class="header-section-number">25.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</h2>
+<section id="sec-poisson-2x2" class="level3" data-number="25.5.1">
+<h3 data-number="25.5.1" class="anchored" data-anchor-id="sec-poisson-2x2"><span class="header-section-number">25.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</h3>
 <p>Let’s say that we have two binary random variables <span class="math inline">\(x_1, x_2 \in \{0,1\}\)</span> with joint distribution <span class="math inline">\(\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}\)</span> for <span class="math inline">\(j,k \in \{0,1\}\)</span>. We collect a total of <span class="math inline">\(n\)</span> samples from this joint distribution and summarize the counts in a <span class="math inline">\(2 \times 2\)</span> table, where <span class="math inline">\(y_{jk}\)</span> is the number of times we observed <span class="math inline">\((x_1, x_2) = (j,k)\)</span>, so that:</p>
 <p><span class="math display">\[
 (y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
@@ -511,7 +499,7 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 <p>Our primary question is whether these two random variables are independent, i.e.</p>
 <p><span id="eq-null-product-formulation"><span class="math display">\[
 \pi_{jk} = \pi_{j+}\pi_{+k}, \quad \text{where} \quad \pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
-\tag{27.2}\]</span></span></p>
+\tag{25.2}\]</span></span></p>
 <p>We can express this equivalently as:</p>
 <p><span class="math display">\[
 \pi_{00}\pi_{11} = \pi_{01}\pi_{10}.
@@ -519,7 +507,7 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 <p>In other words, we can express the independence hypothesis concisely as:</p>
 <p><span id="eq-independence-2"><span class="math display">\[
 H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
-\tag{27.3}\]</span></span></p>
+\tag{25.3}\]</span></span></p>
 <p>Let’s arbitrarily assume that, additionally, <span class="math inline">\(n \sim \text{Poi}(\mu_{++})\)</span>. Then, by the relationship between Poisson and multinomial distributions, we have:</p>
 <p><span class="math display">\[
 y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
@@ -527,12 +515,12 @@ y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
 <p>Let <span class="math inline">\(i \in \{1,2,3,4\}\)</span> index the four pairs <span class="math inline">\((x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\}\)</span>, so that:</p>
 <p><span id="eq-2x2-poisson-reg"><span class="math display">\[
 y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2}, \quad i = 1, \dots, 4,
-\tag{27.4}\]</span></span></p>
+\tag{25.4}\]</span></span></p>
 <p>where:</p>
 <p><span id="eq-2x2-poisson-reg-coefs"><span class="math display">\[
 \beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \quad \beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
-\tag{27.5}\]</span></span></p>
-<p>Note that the independence hypothesis (<a href="#eq-independence-2"><span>27.3</span></a>) reduces to the hypothesis <span class="math inline">\(H_0: \beta_{12} = 0\)</span>:</p>
+\tag{25.5}\]</span></span></p>
+<p>Note that the independence hypothesis (<a href="#eq-independence-2"><span>25.3</span></a>) reduces to the hypothesis <span class="math inline">\(H_0: \beta_{12} = 0\)</span>:</p>
 <p><span class="math display">\[
 H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1 \quad \Longleftrightarrow \quad H_0: \beta_{12} = 0.
 \]</span></p>
@@ -540,7 +528,7 @@ H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1 \quad \Longleftrightarrow \qu
 <p>For example, we can use the Pearson <span class="math inline">\(X^2\)</span> goodness-of-fit test. To apply this test, we must find the fitted means under the null hypothesis model:</p>
 <p><span id="eq-2x2-poisson-reg-null"><span class="math display">\[
 y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2}, \quad i = 1, \dots, 4.
-\tag{27.6}\]</span></span></p>
+\tag{25.6}\]</span></span></p>
 <p>The normal equations give us the following:</p>
 <p><span class="math display">\[
 y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \quad y_{+1} \equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \quad y_{1+} \equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
@@ -549,7 +537,7 @@ y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv 
 <p><span class="math display">\[
 \hat \mu_{++} = y_{++}; \quad \hat \mu_{j+} = y_{j+} \text{ for all } j \in \{0, 1\}; \quad \hat \mu_{+k} = y_{+k} \text{ for all } k \in \{0, 1\}.
 \]</span></p>
-<p>Therefore, the fitted means under the null hypothesis model <a href="#eq-2x2-poisson-reg-null"><span>27.6</span></a> are:</p>
+<p>Therefore, the fitted means under the null hypothesis model <a href="#eq-2x2-poisson-reg-null"><span>25.6</span></a> are:</p>
 <p><span class="math display">\[
 \hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
 \]</span></p>
@@ -563,8 +551,8 @@ G^2 = 2\sum_{j,k = 0}^1 y_{jk}\log\frac{y_{jk}}{\widehat \mu_{jk}} = 2\sum_{j, k
 \]</span></p>
 <p>We would compare both <span class="math inline">\(X^2\)</span> and <span class="math inline">\(G^2\)</span> to a <span class="math inline">\(\chi^2_1\)</span> distribution.</p>
 </section>
-<section id="sec-inference-conditioning-margins" class="level3" data-number="27.5.2">
-<h3 data-number="27.5.2" class="anchored" data-anchor-id="sec-inference-conditioning-margins"><span class="header-section-number">27.5.2</span> Inference is the same regardless of conditioning on margins</h3>
+<section id="sec-inference-conditioning-margins" class="level3" data-number="25.5.2">
+<h3 data-number="25.5.2" class="anchored" data-anchor-id="sec-inference-conditioning-margins"><span class="header-section-number">25.5.2</span> Inference is the same regardless of conditioning on margins</h3>
 <p>Now, our data might actually have been collected such that <span class="math inline">\(n \sim \text{Poi}(\mu_{++})\)</span>, or maybe <span class="math inline">\(n\)</span> was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:</p>
 <p><span class="math display">\[
 p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
@@ -575,9 +563,9 @@ p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\p
 \]</span></p>
 <p>In other words, the log-likelihoods of the Poisson and multinomial models, as a function of <span class="math inline">\(\boldsymbol{\pi}\)</span>, differ from each other by a constant. Therefore, any likelihood-based inference in these models is equivalent. The same argument shows that conditioning on the row or column totals (as opposed to the overall total) also yields the same exact inference. Therefore, regardless of the sampling mechanism, we can always conduct an independence test in a <span class="math inline">\(2 \times 2\)</span> table via a Poisson regression.</p>
 </section>
-<section id="sec-poisson-logistic-equivalence" class="level3" data-number="27.5.3">
-<h3 data-number="27.5.3" class="anchored" data-anchor-id="sec-poisson-logistic-equivalence"><span class="header-section-number">27.5.3</span> Equivalence among Poisson and logistic regressions</h3>
-<p>We’ve talked about two ways to view a <span class="math inline">\(2 \times 2\)</span> contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations <a href="#eq-2x2-poisson-reg"><span>27.4</span></a> and <a href="#eq-2x2-poisson-reg-coefs"><span>27.5</span></a> that <span class="math inline">\(x_1 \perp \!\!\! \perp x_2\)</span> if and only if <span class="math inline">\(\beta_{12} = 0\)</span> in the Poisson regression:</p>
+<section id="sec-poisson-logistic-equivalence" class="level3" data-number="25.5.3">
+<h3 data-number="25.5.3" class="anchored" data-anchor-id="sec-poisson-logistic-equivalence"><span class="header-section-number">25.5.3</span> Equivalence among Poisson and logistic regressions</h3>
+<p>We’ve talked about two ways to view a <span class="math inline">\(2 \times 2\)</span> contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations <a href="#eq-2x2-poisson-reg"><span>25.4</span></a> and <a href="#eq-2x2-poisson-reg-coefs"><span>25.5</span></a> that <span class="math inline">\(x_1 \perp \!\!\! \perp x_2\)</span> if and only if <span class="math inline">\(\beta_{12} = 0\)</span> in the Poisson regression:</p>
 <p><span class="math display">\[
 \log y_i \overset{\text{ind}}{\sim} \text{Poi}(\mu_i), \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12} x_{i1}x_{i2}, \quad i = 1, \dots, 4.
 \]</span></p>
@@ -588,7 +576,7 @@ p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\p
 <p>Recalling the logistic regression of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span>:</p>
 <p><span id="eq-2x2-logistic-reg"><span class="math display">\[
 \text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
-\tag{27.7}\]</span></span></p>
+\tag{25.7}\]</span></span></p>
 <p>and that <span class="math inline">\(\tilde{\beta_1}\)</span> is the log odds ratio, we conclude that:</p>
 <p><span class="math display">\[
 \beta_{12} = \tilde{\beta_1},
@@ -596,8 +584,8 @@ p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\p
 <p>so <span class="math inline">\(x_1 \perp \!\!\! \perp x_2\)</span> if and only if <span class="math inline">\(\tilde{\beta_1} = 0\)</span>. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio <span class="math inline">\(\beta_{12}\)</span> (or <span class="math inline">\(\tilde{\beta_1}\)</span>) obtained from Poisson and logistic regressions will be the same.</p>
 </section>
 </section>
-<section id="sec-poisson-jk-tables" class="level2" data-number="27.6">
-<h2 data-number="27.6" class="anchored" data-anchor-id="sec-poisson-jk-tables"><span class="header-section-number">27.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</h2>
+<section id="sec-poisson-jk-tables" class="level2" data-number="25.6">
+<h2 data-number="25.6" class="anchored" data-anchor-id="sec-poisson-jk-tables"><span class="header-section-number">25.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</h2>
 <p>Suppose now that <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span> and <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>. Then, we denote <span class="math inline">\(\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}\)</span>. We still are interested in testing for independence between <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, which amounts to a goodness-of-fit test for the Poisson model:</p>
 <p><span class="math display">\[
 y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
@@ -608,8 +596,8 @@ X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\wideh
 \]</span></p>
 <p>where <span class="math inline">\(\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}\)</span>. Like with the <span class="math inline">\(2 \times 2\)</span> case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is <span class="math inline">\(JK\)</span>, while the degrees of freedom in the partial model is <span class="math inline">\(J + K - 1\)</span>, so the degrees of freedom for the goodness-of-fit test is <span class="math inline">\(JK - J - K + 1 = (J - 1)(K - 1)\)</span>. Pearson erroneously concluded that the test had <span class="math inline">\(JK - 1\)</span> degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.</p>
 </section>
-<section id="sec-poisson-jkl-tables" class="level2" data-number="27.7">
-<h2 data-number="27.7" class="anchored" data-anchor-id="sec-poisson-jkl-tables"><span class="header-section-number">27.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</h2>
+<section id="sec-poisson-jkl-tables" class="level2" data-number="25.7">
+<h2 data-number="25.7" class="anchored" data-anchor-id="sec-poisson-jkl-tables"><span class="header-section-number">25.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</h2>
 <p>These ideas can be extended to multi-way tables, for example, three-way tables. If we have <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span>, <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>, <span class="math inline">\(x_3 \in \{1, \dots, L\}\)</span>, then we might be interested in testing several kinds of null hypotheses:</p>
 <ul>
 <li>Mutual independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3\)</span>.</li>
@@ -871,12 +859,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./logistic-regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./negative-binomial-regression.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

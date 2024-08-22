@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 32&nbsp; Multiple testing</title>
+<title>STAT 9610 Lecture Notes - 30&nbsp; Multiple testing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./multiple-testing.html">Multiple testing</a></li><li class="breadcrumb-item"><a href="./multiple-testing-chapter.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./multiple-testing.html">Multiple testing</a></li><li class="breadcrumb-item"><a href="./multiple-testing-chapter.html"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -120,44 +120,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -174,37 +162,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -221,37 +209,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -268,31 +256,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -309,25 +297,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -344,19 +332,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -371,16 +359,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-bonferroni-fwer" id="toc-sec-bonferroni-fwer" class="nav-link active" data-scroll-target="#sec-bonferroni-fwer"><span class="header-section-number">32.1</span> The Bonferroni procedure for FWER control</a></li>
-  <li><a href="#sec-bh-fdr" id="toc-sec-bh-fdr" class="nav-link" data-scroll-target="#sec-bh-fdr"><span class="header-section-number">32.2</span> The Benjamini-Hochberg procedure for FDR control</a>
+  <li><a href="#sec-bonferroni-fwer" id="toc-sec-bonferroni-fwer" class="nav-link active" data-scroll-target="#sec-bonferroni-fwer"><span class="header-section-number">30.1</span> The Bonferroni procedure for FWER control</a></li>
+  <li><a href="#sec-bh-fdr" id="toc-sec-bh-fdr" class="nav-link" data-scroll-target="#sec-bh-fdr"><span class="header-section-number">30.2</span> The Benjamini-Hochberg procedure for FDR control</a>
   <ul class="collapse">
-  <li><a href="#procedure" id="toc-procedure" class="nav-link" data-scroll-target="#procedure"><span class="header-section-number">32.2.1</span> Procedure</a></li>
-  <li><a href="#sec-fdr-control-independence" id="toc-sec-fdr-control-independence" class="nav-link" data-scroll-target="#sec-fdr-control-independence"><span class="header-section-number">32.2.2</span> FDR control under independence</a></li>
-  <li><a href="#sec-fdr-control-dependence" id="toc-sec-fdr-control-dependence" class="nav-link" data-scroll-target="#sec-fdr-control-dependence"><span class="header-section-number">32.2.3</span> FDR control under dependence</a></li>
+  <li><a href="#procedure" id="toc-procedure" class="nav-link" data-scroll-target="#procedure"><span class="header-section-number">30.2.1</span> Procedure</a></li>
+  <li><a href="#sec-fdr-control-independence" id="toc-sec-fdr-control-independence" class="nav-link" data-scroll-target="#sec-fdr-control-independence"><span class="header-section-number">30.2.2</span> FDR control under independence</a></li>
+  <li><a href="#sec-fdr-control-dependence" id="toc-sec-fdr-control-dependence" class="nav-link" data-scroll-target="#sec-fdr-control-dependence"><span class="header-section-number">30.2.3</span> FDR control under dependence</a></li>
   </ul></li>
-  <li><a href="#sec-additional-topics" id="toc-sec-additional-topics" class="nav-link" data-scroll-target="#sec-additional-topics"><span class="header-section-number">32.3</span> Additional topics</a>
+  <li><a href="#sec-additional-topics" id="toc-sec-additional-topics" class="nav-link" data-scroll-target="#sec-additional-topics"><span class="header-section-number">30.3</span> Additional topics</a>
   <ul class="collapse">
-  <li><a href="#sec-weighted-multiple-testing" id="toc-sec-weighted-multiple-testing" class="nav-link" data-scroll-target="#sec-weighted-multiple-testing"><span class="header-section-number">32.3.1</span> Weighted multiple testing procedures</a></li>
+  <li><a href="#sec-weighted-multiple-testing" id="toc-sec-weighted-multiple-testing" class="nav-link" data-scroll-target="#sec-weighted-multiple-testing"><span class="header-section-number">30.3.1</span> Weighted multiple testing procedures</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -390,7 +378,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-multiple-testing" class="quarto-section-identifier"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></h1>
+<h1 class="title"><span id="sec-multiple-testing" class="quarto-section-identifier"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></h1>
 </div>
 
 
@@ -406,14 +394,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Here we present one method each for FWER and FDR control.</p>
-<section id="sec-bonferroni-fwer" class="level2" data-number="32.1">
-<h2 data-number="32.1" class="anchored" data-anchor-id="sec-bonferroni-fwer"><span class="header-section-number">32.1</span> The Bonferroni procedure for FWER control</h2>
+<section id="sec-bonferroni-fwer" class="level2" data-number="30.1">
+<h2 data-number="30.1" class="anchored" data-anchor-id="sec-bonferroni-fwer"><span class="header-section-number">30.1</span> The Bonferroni procedure for FWER control</h2>
 <p>We discussed the Bonferroni test for the global null. This test can be extended to an FWER-controlling procedure:</p>
 <p><span id="eq-bonferroni"><span class="math display">\[
 \hat S \equiv \{j: p_j \leq \alpha/m\}
-\tag{32.1}\]</span></span></p>
+\tag{30.1}\]</span></span></p>
 <div id="prp-bonferroni" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 32.1 </strong></span>The Bonferroni procedure controls the FWER at level <span class="math inline">\(\alpha\)</span> for arbitrary <span class="math inline">\(p\)</span>-value dependence structures.</p>
+<p><span class="theorem-title"><strong>Proposition 30.1 </strong></span>The Bonferroni procedure controls the FWER at level <span class="math inline">\(\alpha\)</span> for arbitrary <span class="math inline">\(p\)</span>-value dependence structures.</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>We have</p>
@@ -424,26 +412,26 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Note that the FWER is actually controlled at the level <span class="math inline">\(\frac{|\mathcal H_0|}{m}\alpha \leq \alpha\)</span>, making the Bonferroni test conservative to the extent that <span class="math inline">\(|\mathcal H_0| &lt; m\)</span>. The null proportion <span class="math inline">\(\frac{|\mathcal H_0|}{m}\)</span> has such an effect on the performance of many multiple testing procedures. Not all global tests can be extended to FWER-controlling procedures in this way. For example, the Fisher combination test does not single out any of the hypotheses, as it only aggregates the <span class="math inline">\(p\)</span>-values. By contrast, the Bonferroni test searches for <span class="math inline">\(p\)</span>-values that are individually very small, allowing it to double as an FWER-controlling procedure.</p>
 </section>
-<section id="sec-bh-fdr" class="level2" data-number="32.2">
-<h2 data-number="32.2" class="anchored" data-anchor-id="sec-bh-fdr"><span class="header-section-number">32.2</span> The Benjamini-Hochberg procedure for FDR control</h2>
-<p>Designing procedures with FDR control, as well as verifying the latter property, is typically harder than for FWER control. It is harder to decouple the effects of the individual hypotheses, as the denominator <span class="math inline">\(|S|\)</span> in the FDR definition (<a href="multiple-testing-intro.html#eq-fdr-def"><span>30.3</span></a>) couples them together. Both the FDR criterion and the most popular FDR-controlling procedure were proposed by Benjamini and Hochberg in 1995.</p>
-<section id="procedure" class="level3" data-number="32.2.1">
-<h3 data-number="32.2.1" class="anchored" data-anchor-id="procedure"><span class="header-section-number">32.2.1</span> Procedure</h3>
+<section id="sec-bh-fdr" class="level2" data-number="30.2">
+<h2 data-number="30.2" class="anchored" data-anchor-id="sec-bh-fdr"><span class="header-section-number">30.2</span> The Benjamini-Hochberg procedure for FDR control</h2>
+<p>Designing procedures with FDR control, as well as verifying the latter property, is typically harder than for FWER control. It is harder to decouple the effects of the individual hypotheses, as the denominator <span class="math inline">\(|S|\)</span> in the FDR definition (<a href="multiple-testing-intro.html#eq-fdr-def"><span>28.3</span></a>) couples them together. Both the FDR criterion and the most popular FDR-controlling procedure were proposed by Benjamini and Hochberg in 1995.</p>
+<section id="procedure" class="level3" data-number="30.2.1">
+<h3 data-number="30.2.1" class="anchored" data-anchor-id="procedure"><span class="header-section-number">30.2.1</span> Procedure</h3>
 <p>To define the BH procedure, consider thresholding the <span class="math inline">\(p\)</span>-values at <span class="math inline">\(t \in [0,1]\)</span>. We would expect <span class="math inline">\(\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t\)</span> false discoveries among <span class="math inline">\(\{j: p_j \leq t\}\)</span>. Since <span class="math inline">\(|\mathcal H_0|\)</span> is unknown, we can bound it from above by <span class="math inline">\(mt\)</span>. This leads to the FDP estimate:</p>
 <p><span id="eq-fdp-estimate"><span class="math display">\[
 \widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}
-\tag{32.2}\]</span></span></p>
+\tag{30.2}\]</span></span></p>
 <p>The BH procedure is then defined via:</p>
 <p><span id="eq-bh-procedure"><span class="math display">\[
 \hat S \equiv \{j: p_j \leq \widehat t\}, \quad \text{where} \quad \widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}
-\tag{32.3}\]</span></span></p>
+\tag{30.3}\]</span></span></p>
 <p>In words, we choose the most liberal <span class="math inline">\(p\)</span>-value threshold for which the estimated FDP is below the nominal level <span class="math inline">\(q\)</span>. Note that the set over which the above maximum is taken is always nonempty because it at least contains 0: <span class="math inline">\(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\)</span>.</p>
 </section>
-<section id="sec-fdr-control-independence" class="level3" data-number="32.2.2">
-<h3 data-number="32.2.2" class="anchored" data-anchor-id="sec-fdr-control-independence"><span class="header-section-number">32.2.2</span> FDR control under independence</h3>
+<section id="sec-fdr-control-independence" class="level3" data-number="30.2.2">
+<h3 data-number="30.2.2" class="anchored" data-anchor-id="sec-fdr-control-independence"><span class="header-section-number">30.2.2</span> FDR control under independence</h3>
 <p>Benjamini and Hochberg established that their procedure controls the FDR if the <span class="math inline">\(p\)</span>-values are independent. Here we present an alternative argument due to Storey, Taylor, and Siegmund (2004).</p>
 <div id="prp-bh-fdr-control" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 32.2 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q\)</span> assuming that the <span class="math inline">\(p\)</span>-values are independent.</p>
+<p><span class="theorem-title"><strong>Proposition 30.2 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q\)</span> assuming that the <span class="math inline">\(p\)</span>-values are independent.</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>We have</p>
@@ -456,11 +444,11 @@ ul.task-list li input[type="checkbox"] {
 <p>To prove that the last expectation is bounded above by 1, note that</p>
 <p><span id="eq-martingale"><span class="math display">\[
 M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
-\tag{32.4}\]</span></span></p>
+\tag{30.4}\]</span></span></p>
 <p>is a backwards martingale with respect to the filtration</p>
 <p><span id="eq-filtration"><span class="math display">\[
 \mathcal F_t = \sigma(\{p_j: j \in \mathcal H_1\}, |\{j \in \mathcal H_0: p_j \leq t'\}| \text{ for } t' \geq t),
-\tag{32.5}\]</span></span></p>
+\tag{30.5}\]</span></span></p>
 <p>with <span class="math inline">\(t\)</span> running backwards from 1 to 0. Indeed, for <span class="math inline">\(s &lt; t\)</span> we have</p>
 <p><span class="math display">\[
 \mathbb{E}[M(s)|\mathcal F_t] = \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] = \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} = \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
@@ -472,11 +460,11 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 <p>This completes the proof.</p>
 </div>
 </section>
-<section id="sec-fdr-control-dependence" class="level3" data-number="32.2.3">
-<h3 data-number="32.2.3" class="anchored" data-anchor-id="sec-fdr-control-dependence"><span class="header-section-number">32.2.3</span> FDR control under dependence</h3>
+<section id="sec-fdr-control-dependence" class="level3" data-number="30.2.3">
+<h3 data-number="30.2.3" class="anchored" data-anchor-id="sec-fdr-control-dependence"><span class="header-section-number">30.2.3</span> FDR control under dependence</h3>
 <p>Under dependence, the BH procedure’s FDR can be bounded by a multiple of the nominal FDR level.</p>
 <div id="prp-bh-dependence" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 32.3 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q(1 + \frac{1}{2} + \cdots + \frac{1}{m})\)</span> regardless of the <span class="math inline">\(p\)</span>-value dependency structure.</p>
+<p><span class="theorem-title"><strong>Proposition 30.3 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q(1 + \frac{1}{2} + \cdots + \frac{1}{m})\)</span> regardless of the <span class="math inline">\(p\)</span>-value dependency structure.</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>We have</p>
@@ -496,17 +484,17 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 </div>
 </section>
 </section>
-<section id="sec-additional-topics" class="level2" data-number="32.3">
-<h2 data-number="32.3" class="anchored" data-anchor-id="sec-additional-topics"><span class="header-section-number">32.3</span> Additional topics</h2>
-<section id="sec-weighted-multiple-testing" class="level3" data-number="32.3.1">
-<h3 data-number="32.3.1" class="anchored" data-anchor-id="sec-weighted-multiple-testing"><span class="header-section-number">32.3.1</span> Weighted multiple testing procedures</h3>
+<section id="sec-additional-topics" class="level2" data-number="30.3">
+<h2 data-number="30.3" class="anchored" data-anchor-id="sec-additional-topics"><span class="header-section-number">30.3</span> Additional topics</h2>
+<section id="sec-weighted-multiple-testing" class="level3" data-number="30.3.1">
+<h3 data-number="30.3.1" class="anchored" data-anchor-id="sec-weighted-multiple-testing"><span class="header-section-number">30.3.1</span> Weighted multiple testing procedures</h3>
 <p>Sometimes, we may have more prior evidence against certain null hypotheses than others, which we wish to incorporate in the global testing or multiple testing procedure to boost power. A common approach to doing so is to <em>weight</em> the <span class="math inline">\(p\)</span>-values. Letting <span class="math inline">\(w_1, \dots, w_m\)</span> be <span class="math inline">\(p\)</span>-value weights averaging to 1, define <em>weighted <span class="math inline">\(p\)</span>-values</em> <span class="math inline">\(\tilde{p}_j\)</span> via:</p>
 <p><span id="eq-weighted-p-values"><span class="math display">\[
 \tilde{p}_j \equiv \frac{p_j}{w_j}
-\tag{32.6}\]</span></span></p>
+\tag{30.6}\]</span></span></p>
 <p>Note that <span class="math inline">\(p\)</span>-values corresponding to hypotheses with large (small) weights will be made more (less) significant. We can then attempt to apply the above global testing and multiple testing procedures on the weighted <span class="math inline">\(p\)</span>-values <span class="math inline">\(\tilde{p}_j\)</span> rather than the original <span class="math inline">\(p\)</span>-values <span class="math inline">\(p_j\)</span>. As it turns out, in many cases these weighted procedures retain the Type-I error guarantees of their unweighted counterparts.</p>
 <div id="prp-weighted-bonferroni" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 32.4 </strong></span>The weighted variants of the Bonferroni global test, the Bonferroni FWER procedure, and the BH FDR procedure all control their respective Type-I error rates under the same conditions as their unweighted counterparts (arbitrary dependence for the Bonferroni procedures and independence for BH).</p>
+<p><span class="theorem-title"><strong>Proposition 30.4 </strong></span>The weighted variants of the Bonferroni global test, the Bonferroni FWER procedure, and the BH FDR procedure all control their respective Type-I error rates under the same conditions as their unweighted counterparts (arbitrary dependence for the Bonferroni procedures and independence for BH).</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Here, we prove the statement just for the Bonferroni global test; the remaining proofs are left as exercises. The weighted Bonferroni global test is as follows:</p>
@@ -762,7 +750,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./global-testing.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

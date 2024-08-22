@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 12&nbsp; Confidence intervals</title>
+<title>STAT 9610 Lecture Notes - 10&nbsp; Confidence intervals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./confidence-intervals.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./confidence-intervals.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,10 +360,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#confidence-interval-for-a-coefficient" id="toc-confidence-interval-for-a-coefficient" class="nav-link active" data-scroll-target="#confidence-interval-for-a-coefficient"><span class="header-section-number">12.1</span> Confidence interval for a coefficient</a></li>
-  <li><a href="#confidence-interval-for-mathbbeyboldsymbolx_0" id="toc-confidence-interval-for-mathbbeyboldsymbolx_0" class="nav-link" data-scroll-target="#confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">12.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></a></li>
-  <li><a href="#prediction-interval-for-yboldsymbolx_0" id="toc-prediction-interval-for-yboldsymbolx_0" class="nav-link" data-scroll-target="#prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">12.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></a></li>
-  <li><a href="#simultaneous-intervals" id="toc-simultaneous-intervals" class="nav-link" data-scroll-target="#simultaneous-intervals"><span class="header-section-number">12.4</span> Simultaneous intervals</a></li>
+  <li><a href="#confidence-interval-for-a-coefficient" id="toc-confidence-interval-for-a-coefficient" class="nav-link active" data-scroll-target="#confidence-interval-for-a-coefficient"><span class="header-section-number">10.1</span> Confidence interval for a coefficient</a></li>
+  <li><a href="#confidence-interval-for-mathbbeyboldsymbolx_0" id="toc-confidence-interval-for-mathbbeyboldsymbolx_0" class="nav-link" data-scroll-target="#confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">10.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></a></li>
+  <li><a href="#prediction-interval-for-yboldsymbolx_0" id="toc-prediction-interval-for-yboldsymbolx_0" class="nav-link" data-scroll-target="#prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">10.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></a></li>
+  <li><a href="#simultaneous-intervals" id="toc-simultaneous-intervals" class="nav-link" data-scroll-target="#simultaneous-intervals"><span class="header-section-number">10.4</span> Simultaneous intervals</a></li>
   </ul>
 </nav>
     </div>
@@ -384,7 +372,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></h1>
 </div>
 
 
@@ -401,8 +389,8 @@ ul.task-list li input[type="checkbox"] {
 
 <p><em>See also Agresti 3.3, Dunn and Smyth 2.8.4-2.8.5</em></p>
 <p>In addition to hypothesis testing, we often want to construct confidence intervals for the coefficients.</p>
-<section id="confidence-interval-for-a-coefficient" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="confidence-interval-for-a-coefficient"><span class="header-section-number">12.1</span> Confidence interval for a coefficient</h2>
+<section id="confidence-interval-for-a-coefficient" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="confidence-interval-for-a-coefficient"><span class="header-section-number">10.1</span> Confidence interval for a coefficient</h2>
 <p>Under <span class="math inline">\(H_0: \beta_j = 0\)</span>, we showed that <span class="math inline">\(\frac{\widehat{\beta_j}}{\widehat{\sigma}/s_j} \sim t_{n-p}\)</span>. The same argument shows that for arbitrary <span class="math inline">\(\beta_j\)</span>, we have</p>
 <p><span class="math display">\[
 \frac{\widehat{\beta_j} - \beta_j}{\widehat{\sigma}/s_j} \sim t_{n-p}.
@@ -415,11 +403,11 @@ ul.task-list li input[type="checkbox"] {
 &amp;\equiv \mathbb{P}\left[\beta_j \in \left[\widehat{\beta_j} - \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2), \widehat{\beta_j} + \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2) \right]\right] \\
 &amp;\equiv \mathbb{P}[\beta_j \in \text{CI}(\beta_j)].
 \end{split}
-\tag{12.1}\]</span></span></p>
-<p>The confidence interval <span class="math inline">\(\text{CI}(\beta_j)\)</span> defined above therefore has <span class="math inline">\(1-\alpha\)</span> coverage. Because of the duality between confidence intervals and hypothesis tests, the factors contributing to powerful tests (<a href="power.html"><span>11</span></a>) also lead to shorter confidence intervals.</p>
+\tag{10.1}\]</span></span></p>
+<p>The confidence interval <span class="math inline">\(\text{CI}(\beta_j)\)</span> defined above therefore has <span class="math inline">\(1-\alpha\)</span> coverage. Because of the duality between confidence intervals and hypothesis tests, the factors contributing to powerful tests (<a href="power.html"><span>9</span></a>) also lead to shorter confidence intervals.</p>
 </section>
-<section id="confidence-interval-for-mathbbeyboldsymbolx_0" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">12.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></h2>
+<section id="confidence-interval-for-mathbbeyboldsymbolx_0" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">10.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></h2>
 <p>Suppose now that we have a new predictor vector <span class="math inline">\(\boldsymbol{x_0} \in \mathbb{R}^p\)</span>. The mean of the response for this predictor vector is <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}] = \boldsymbol{x_0}^T \boldsymbol{\beta}\)</span>. Plugging in <span class="math inline">\(\boldsymbol{x_0}\)</span> for <span class="math inline">\(\boldsymbol{c}\)</span> in the relation, we obtain</p>
 <p><span class="math display">\[
 \frac{\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} - \boldsymbol{x_0}^T \boldsymbol{\beta}}{\widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}}} \sim t_{n-p}.
@@ -444,8 +432,8 @@ y = \beta_0 + \boldsymbol{x_{\text{-}0}}^T \boldsymbol{\beta_{\text{-}0}} + \eps
 \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0} = \frac{1}{n} + \frac{(x_{01}-\bar{x_1})^2}{\|\boldsymbol{x_{*,1}}-\bar{x_1}\|^2}.
 \]</span></p>
 </section>
-<section id="prediction-interval-for-yboldsymbolx_0" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">12.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></h2>
+<section id="prediction-interval-for-yboldsymbolx_0" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">10.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></h2>
 <p>Instead of creating a confidence interval for a point on the regression line, we may want to create a confidence interval for a new draw <span class="math inline">\(y_0\)</span> of <span class="math inline">\(y\)</span> for <span class="math inline">\(\boldsymbol{x} = \boldsymbol{x_0}\)</span>, i.e., a <em>prediction interval</em>. Note that</p>
 <p><span class="math display">\[
 y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0 - \boldsymbol{x_0}^T \widehat{\beta} = \epsilon_0 + \boldsymbol{x_0}^T (\beta-\widehat{\beta}) \sim N(0, \sigma^2 + \sigma^2 \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}).
@@ -457,20 +445,20 @@ y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0
 <p>which leads to the <span class="math inline">\(1-\alpha\)</span> prediction interval</p>
 <p><span id="eq-pointwise-contrast-interval"><span class="math display">\[
 \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{1+\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}} \cdot t_{n-p}(1-\alpha/2) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2).
-\tag{12.2}\]</span></span></p>
+\tag{10.2}\]</span></span></p>
 <p><strong>Remark: Prediction with confidence in machine learning.</strong></p>
 <p>The entire field of supervised machine learning is focused on accurately predicting <span class="math inline">\(y_0\)</span> from <span class="math inline">\(\boldsymbol{x_0}\)</span>, usually using nonlinear functions <span class="math inline">\(\widehat{f}(\boldsymbol{x_0})\)</span>. In addition to providing a guess <span class="math inline">\(\widehat{y_0}\)</span> for <span class="math inline">\(y_0\)</span>, it is often useful to quantify the uncertainty in this guess. In other words, it is useful to come up with a prediction interval (or prediction region) <span class="math inline">\(\text{PI}(y_0)\)</span> such that</p>
 <p><span id="eq-conditional-prediction-interval"><span class="math display">\[
 \mathbb{P}[y_0 \in \text{PI}(y_0) \mid \boldsymbol{x_0}] \geq 1-\alpha.
-\tag{12.3}\]</span></span></p>
-<p>For example, in safety-critical applications of machine learning like self-driving cars, it is essential to have confidence in predictions. Unfortunately, beyond the realm of linear regression, it is hard to come up with intervals satisfying (<a href="#eq-conditional-prediction-interval"><span>12.3</span></a>) for each point <span class="math inline">\(\boldsymbol{x_0}\)</span>. However, the emerging field of <em>conformal inference</em> provides guarantees on average over possible values of <span class="math inline">\(\boldsymbol{x}\)</span>:</p>
+\tag{10.3}\]</span></span></p>
+<p>For example, in safety-critical applications of machine learning like self-driving cars, it is essential to have confidence in predictions. Unfortunately, beyond the realm of linear regression, it is hard to come up with intervals satisfying (<a href="#eq-conditional-prediction-interval"><span>10.3</span></a>) for each point <span class="math inline">\(\boldsymbol{x_0}\)</span>. However, the emerging field of <em>conformal inference</em> provides guarantees on average over possible values of <span class="math inline">\(\boldsymbol{x}\)</span>:</p>
 <p><span id="eq-unconditional-prediction-interval"><span class="math display">\[
 \mathbb{P}[y \in \text{PI}(y)] = \mathbb{E}[\mathbb{P}[y \in \text{PI}(y) \mid \boldsymbol{x}]] \geq 1-\alpha.
-\tag{12.4}\]</span></span></p>
-<p>Remarkably, these guarantees place no assumption on the machine learning method used and require only that the data points on which <span class="math inline">\(\widehat{f}\)</span> is trained are exchangeable (an even weaker condition than i.i.d.). While the unconditional guarantee (<a href="#eq-unconditional-prediction-interval"><span>12.4</span></a>) is weaker than the conditional one (<a href="#eq-conditional-prediction-interval"><span>12.3</span></a>), it can be obtained for modern machine learning and deep learning models.</p>
+\tag{10.4}\]</span></span></p>
+<p>Remarkably, these guarantees place no assumption on the machine learning method used and require only that the data points on which <span class="math inline">\(\widehat{f}\)</span> is trained are exchangeable (an even weaker condition than i.i.d.). While the unconditional guarantee (<a href="#eq-unconditional-prediction-interval"><span>10.4</span></a>) is weaker than the conditional one (<a href="#eq-conditional-prediction-interval"><span>10.3</span></a>), it can be obtained for modern machine learning and deep learning models.</p>
 </section>
-<section id="simultaneous-intervals" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="simultaneous-intervals"><span class="header-section-number">12.4</span> Simultaneous intervals</h2>
+<section id="simultaneous-intervals" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="simultaneous-intervals"><span class="header-section-number">10.4</span> Simultaneous intervals</h2>
 <p>Note that the intervals in the preceding sections have <em>pointwise coverage</em>. For example, we have</p>
 <p><span class="math display">\[
 \mathbb{P}[\beta_j \in \text{CI}(\beta_j)] \geq 1-\alpha \quad \text{for each } j.
@@ -482,11 +470,11 @@ y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0
 <p>Sometimes a stronger <em>simultaneous coverage</em> guarantee is desired, e.g.,</p>
 <p><span id="eq-simultaneous-coordinatewise"><span class="math display">\[
 \mathbb{P}[\beta_j \in \text{CI}^{\text{sim}}(\beta_j) \ \text{for each } j] \geq 1-\alpha
-\tag{12.5}\]</span></span></p>
+\tag{10.5}\]</span></span></p>
 <p>or</p>
 <p><span id="eq-simultaneous-contrasts"><span class="math display">\[
 \mathbb{P}[\boldsymbol{x_0}^T \boldsymbol{\beta} \in \text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \ \text{for each } \boldsymbol{x_0}] \geq 1-\alpha.
-\tag{12.6}\]</span></span></p>
+\tag{10.6}\]</span></span></p>
 <p>Simultaneous confidence intervals are possible to construct as well. As a starting point, note that</p>
 <p><span class="math display">\[
 \frac{\frac{1}{p}\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X} \boldsymbol{\beta}\|^2}{\widehat{\sigma}^2} \sim F_{p, n-p}.
@@ -507,14 +495,14 @@ y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0
 <div id="fig-confidence-region" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/confidence-regions.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;12.1: Confidence region and simultaneous and pointwise confidence intervals.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;10.1: Confidence region and simultaneous and pointwise confidence intervals.</figcaption>
 </figure>
 </div>
 <p>Since the confidence region is for the entire vector <span class="math inline">\(\boldsymbol{\beta}\)</span>, we can define simultaneous confidence intervals for each coordinate as follows:</p>
 <p><span class="math display">\[
 \text{CI}^{\text{sim}}(\beta_j) \equiv \{\beta_j: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
 \]</span></p>
-<p>Then, these confidence intervals will satisfy the simultaneous coverage property (<a href="#eq-simultaneous-coordinatewise"><span>12.5</span></a>). We will obtain a more explicit expression for <span class="math inline">\(\text{CI}^{\text{sim}}(\beta_j)\)</span> shortly.</p>
+<p>Then, these confidence intervals will satisfy the simultaneous coverage property (<a href="#eq-simultaneous-coordinatewise"><span>10.5</span></a>). We will obtain a more explicit expression for <span class="math inline">\(\text{CI}^{\text{sim}}(\beta_j)\)</span> shortly.</p>
 <p>Similarly, we may define the simultaneous confidence regions</p>
 <p><span class="math display">\[
 \text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \equiv \{\boldsymbol{x_0}^T \boldsymbol{\beta}: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
@@ -529,12 +517,12 @@ y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0
 <p>i.e.,</p>
 <p><span id="eq-simultaneous-fit-se"><span class="math display">\[
 \boldsymbol{x_0}^T \boldsymbol{\beta} \in \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{x_0}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}})\cdot\sqrt{pF_{p, n-p}(1-\alpha)}.
-\tag{12.7}\]</span></span></p>
-<p>Defining the above interval as <span class="math inline">\(\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta})\)</span> gives us the simultaneous coverage property (<a href="#eq-simultaneous-contrasts"><span>12.6</span></a>). Comparing to equation (<a href="#eq-pointwise-contrast-interval"><span>12.2</span></a>), we see that the simultaneous interval is the pointwise interval expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. Specializing to the case <span class="math inline">\(\boldsymbol{x_0} \equiv \boldsymbol{e_j}\)</span>, we get an expression for the simultaneous intervals for each coordinate:</p>
+\tag{10.7}\]</span></span></p>
+<p>Defining the above interval as <span class="math inline">\(\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta})\)</span> gives us the simultaneous coverage property (<a href="#eq-simultaneous-contrasts"><span>10.6</span></a>). Comparing to equation (<a href="#eq-pointwise-contrast-interval"><span>10.2</span></a>), we see that the simultaneous interval is the pointwise interval expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. Specializing to the case <span class="math inline">\(\boldsymbol{x_0} \equiv \boldsymbol{e_j}\)</span>, we get an expression for the simultaneous intervals for each coordinate:</p>
 <p><span id="eq-simultaneous-coordinatewise-se"><span class="math display">\[
 \text{CI}^{\text{sim}}(\beta_j) \equiv \widehat{\beta_j} \pm \widehat{\sigma} \sqrt{(\boldsymbol{X}^T \boldsymbol{X})^{-1}_{jj}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \text{SE}(\widehat{\beta_j})\sqrt{pF_{p, n-p}(1-\alpha)},
-\tag{12.8}\]</span></span></p>
-<p>which again is the pointwise interval (<a href="#eq-pointwise-interval-beta"><span>12.1</span></a>) expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. These simultaneous intervals are called <em>Working-Hotelling intervals</em>.</p>
+\tag{10.8}\]</span></span></p>
+<p>which again is the pointwise interval (<a href="#eq-pointwise-interval-beta"><span>10.1</span></a>) expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. These simultaneous intervals are called <em>Working-Hotelling intervals</em>.</p>
 
 
 </section>
@@ -776,12 +764,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./power.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./practical-considerations.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

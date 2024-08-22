@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 23&nbsp; Parameter estimation</title>
+<title>STAT 9610 Lecture Notes - 21&nbsp; Parameter estimation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./parameter-estimation.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./parameter-estimation.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,14 +360,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-glm-likelihood" id="toc-sec-glm-likelihood" class="nav-link active" data-scroll-target="#sec-glm-likelihood"><span class="header-section-number">23.1</span> The GLM likelihood, score, and Fisher information</a></li>
-  <li><a href="#sec-mle-glm" id="toc-sec-mle-glm" class="nav-link" data-scroll-target="#sec-mle-glm"><span class="header-section-number">23.2</span> Maximum likelihood estimation of <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
-  <li><a href="#sec-irls" id="toc-sec-irls" class="nav-link" data-scroll-target="#sec-irls"><span class="header-section-number">23.3</span> Iteratively reweighted least squares</a>
+  <li><a href="#sec-glm-likelihood" id="toc-sec-glm-likelihood" class="nav-link active" data-scroll-target="#sec-glm-likelihood"><span class="header-section-number">21.1</span> The GLM likelihood, score, and Fisher information</a></li>
+  <li><a href="#sec-mle-glm" id="toc-sec-mle-glm" class="nav-link" data-scroll-target="#sec-mle-glm"><span class="header-section-number">21.2</span> Maximum likelihood estimation of <span class="math inline">\(\boldsymbol{\beta}\)</span></a></li>
+  <li><a href="#sec-irls" id="toc-sec-irls" class="nav-link" data-scroll-target="#sec-irls"><span class="header-section-number">21.3</span> Iteratively reweighted least squares</a>
   <ul class="collapse">
-  <li><a href="#log-concavity-of-glm-likelihood" id="toc-log-concavity-of-glm-likelihood" class="nav-link" data-scroll-target="#log-concavity-of-glm-likelihood"><span class="header-section-number">23.3.1</span> Log-concavity of GLM likelihood</a></li>
-  <li><a href="#sec-newton-raphson" id="toc-sec-newton-raphson" class="nav-link" data-scroll-target="#sec-newton-raphson"><span class="header-section-number">23.3.2</span> Newton-Raphson</a></li>
-  <li><a href="#sec-irls-interpretation" id="toc-sec-irls-interpretation" class="nav-link" data-scroll-target="#sec-irls-interpretation"><span class="header-section-number">23.3.3</span> Iteratively reweighted least squares (IRLS)</a></li>
-  <li><a href="#sec-glm-residuals" id="toc-sec-glm-residuals" class="nav-link" data-scroll-target="#sec-glm-residuals"><span class="header-section-number">23.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</a></li>
+  <li><a href="#log-concavity-of-glm-likelihood" id="toc-log-concavity-of-glm-likelihood" class="nav-link" data-scroll-target="#log-concavity-of-glm-likelihood"><span class="header-section-number">21.3.1</span> Log-concavity of GLM likelihood</a></li>
+  <li><a href="#sec-newton-raphson" id="toc-sec-newton-raphson" class="nav-link" data-scroll-target="#sec-newton-raphson"><span class="header-section-number">21.3.2</span> Newton-Raphson</a></li>
+  <li><a href="#sec-irls-interpretation" id="toc-sec-irls-interpretation" class="nav-link" data-scroll-target="#sec-irls-interpretation"><span class="header-section-number">21.3.3</span> Iteratively reweighted least squares (IRLS)</a></li>
+  <li><a href="#sec-glm-residuals" id="toc-sec-glm-residuals" class="nav-link" data-scroll-target="#sec-glm-residuals"><span class="header-section-number">21.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -389,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-glm-max-lik" class="quarto-section-identifier"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></h1>
+<h1 class="title"><span id="sec-glm-max-lik" class="quarto-section-identifier"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></h1>
 </div>
 
 
@@ -404,12 +392,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="sec-glm-likelihood" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="sec-glm-likelihood"><span class="header-section-number">23.1</span> The GLM likelihood, score, and Fisher information</h2>
+<section id="sec-glm-likelihood" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="sec-glm-likelihood"><span class="header-section-number">21.1</span> The GLM likelihood, score, and Fisher information</h2>
 <p>The log-likelihood of a GLM is:</p>
 <p><span id="eq-glm-log-likelihood"><span class="math display">\[
 \log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{\theta_i y_i - \psi(\theta_i)}{\phi_0/w_i} + \sum_{i = 1}^n \log h(y_i, \phi_0/w_i).
-\tag{23.1}\]</span></span></p>
+\tag{21.1}\]</span></span></p>
 <p>Let’s differentiate this with respect to <span class="math inline">\(\boldsymbol{\beta}\)</span>, using the chain rule:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -422,11 +410,11 @@ ul.task-list li input[type="checkbox"] {
 <p>Here, <span class="math inline">\(\boldsymbol{W} \equiv \text{diag}(W_i)\)</span> is a diagonal matrix of <em>working weights</em> and <span class="math inline">\(\boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right) = \text{diag}(g'(\mu_i))\)</span> is a diagonal matrix of link derivatives. Transposing, we get the score vector:</p>
 <p><span id="eq-glm-score"><span class="math display">\[
 \boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}).
-\tag{23.2}\]</span></span></p>
+\tag{21.2}\]</span></span></p>
 <p>To get the Fisher information matrix, note first that:</p>
 <p><span id="eq-glm-variance-y"><span class="math display">\[
 \text{Var}[\boldsymbol{y}] = \text{diag}\left(\phi_0\frac{V(\mu_i)}{w_i}\right) = \phi_0 \boldsymbol{W}^{-1} \boldsymbol{M}^{-2}
-\tag{23.3}\]</span></span></p>
+\tag{21.3}\]</span></span></p>
 <p>we can compute the covariance matrix of the score vector:</p>
 <p><span id="eq-glm-fisher-info"><span class="math display">\[
 \begin{split}
@@ -434,68 +422,68 @@ ul.task-list li input[type="checkbox"] {
 &amp;= \frac{1}{\phi^2_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} \phi_0 \boldsymbol{W}^{-1}\boldsymbol{M}^{-2} \boldsymbol{M} \boldsymbol{W} \boldsymbol{X} \\
 &amp;= \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X}.
 \end{split}
-\tag{23.4}\]</span></span></p>
+\tag{21.4}\]</span></span></p>
 </section>
-<section id="sec-mle-glm" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="sec-mle-glm"><span class="header-section-number">23.2</span> Maximum likelihood estimation of <span class="math inline">\(\boldsymbol{\beta}\)</span></h2>
+<section id="sec-mle-glm" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="sec-mle-glm"><span class="header-section-number">21.2</span> Maximum likelihood estimation of <span class="math inline">\(\boldsymbol{\beta}\)</span></h2>
 <p>To estimate <span class="math inline">\(\boldsymbol{\beta}\)</span>, we can set the score vector to zero:</p>
 <p><span class="math display">\[
 \frac{1}{\phi_0}\boldsymbol{X}^T \widehat{\boldsymbol{M}} \widehat{\boldsymbol{W}} (\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0 \quad \Longleftrightarrow \quad \boldsymbol{X}^T \text{diag}\left(\frac{w_i}{V(\widehat \mu_i)g'(\widehat \mu_i)}\right)(\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0.
 \]</span></p>
-<p>These equations are called the <em>normal equations</em>. Unfortunately, unlike least squares, the normal equations cannot be solved analytically for <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>. They are solved numerically instead; see <a href="#sec-irls"><span>Section&nbsp;23.3</span></a>. Note that <span class="math inline">\(\phi_0\)</span> cancels from the normal equations, and therefore the coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> can be estimated without estimating the dispersion. Recall that we have seen this phenomenon for least squares. Also note that the normal equations simplify when the canonical link function is used, so that <span class="math inline">\(\eta_i = \theta_i\)</span>. Assuming additionally that <span class="math inline">\(w_i = 1\)</span>, we get:</p>
+<p>These equations are called the <em>normal equations</em>. Unfortunately, unlike least squares, the normal equations cannot be solved analytically for <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>. They are solved numerically instead; see <a href="#sec-irls"><span>Section&nbsp;21.3</span></a>. Note that <span class="math inline">\(\phi_0\)</span> cancels from the normal equations, and therefore the coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> can be estimated without estimating the dispersion. Recall that we have seen this phenomenon for least squares. Also note that the normal equations simplify when the canonical link function is used, so that <span class="math inline">\(\eta_i = \theta_i\)</span>. Assuming additionally that <span class="math inline">\(w_i = 1\)</span>, we get:</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat M} \boldsymbol{\widehat W} = \text{diag}\left(\frac{\widehat{\partial \mu_i/\partial \theta_i}}{V(\widehat \mu_i)}\right) = \frac{\ddot{\psi}(\widehat \theta_i)}{\ddot{\psi}(\widehat \theta_i)} = 1,
 \]</span></p>
 <p>so the normal equations reduce to:</p>
 <p><span id="eq-canonical-normal-equations"><span class="math display">\[
 \boldsymbol{X}^T (\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0.
-\tag{23.5}\]</span></span></p>
-<p>We recognize these as the normal equation for linear regression. Since both ungrouped logistic regression and Poisson regression also use canonical links and have unit weights, the simplified normal equations (<a href="#eq-canonical-normal-equations"><span>23.5</span></a>) apply to the latter regressions as well.</p>
-<p>In the linear regression case, we interpreted the normal equations (<a href="#eq-canonical-normal-equations"><span>23.5</span></a>) as an orthogonality statement: <span class="math inline">\(\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})\)</span>. In the case of GLMs, the <span class="math inline">\(C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}\)</span> is no longer a linear space. In fact, it is a nonlinear transformation of the column space of <span class="math inline">\(\boldsymbol{X}\)</span> (a <span class="math inline">\(p\)</span>-dimensional manifold in <span class="math inline">\(\mathbb{R}^n\)</span>):</p>
+\tag{21.5}\]</span></span></p>
+<p>We recognize these as the normal equation for linear regression. Since both ungrouped logistic regression and Poisson regression also use canonical links and have unit weights, the simplified normal equations (<a href="#eq-canonical-normal-equations"><span>21.5</span></a>) apply to the latter regressions as well.</p>
+<p>In the linear regression case, we interpreted the normal equations (<a href="#eq-canonical-normal-equations"><span>21.5</span></a>) as an orthogonality statement: <span class="math inline">\(\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})\)</span>. In the case of GLMs, the <span class="math inline">\(C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}\)</span> is no longer a linear space. In fact, it is a nonlinear transformation of the column space of <span class="math inline">\(\boldsymbol{X}\)</span> (a <span class="math inline">\(p\)</span>-dimensional manifold in <span class="math inline">\(\mathbb{R}^n\)</span>):</p>
 <p><span class="math display">\[
 C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\} = \{g^{-1}(\boldsymbol{X} \boldsymbol{\beta}): \boldsymbol{\beta} \in \mathbb{R}^p\}.
 \]</span></p>
-<p>Therefore, we cannot view the mapping <span class="math inline">\(\boldsymbol{y} \mapsto \boldsymbol{\widehat \mu}\)</span> as a linear projection. Nevertheless, it is possible to interpret <span class="math inline">\(\boldsymbol{\widehat \mu}\)</span> as the “closest” point (in some sense) to <span class="math inline">\(\boldsymbol{y}\)</span> in <span class="math inline">\(C(\boldsymbol{X})\)</span>. To see this, recall the deviance form of the EDM density (<a href="exponential-dispersion-models.html#eq-deviance-form"><span>21.4</span></a>). Taking a logarithm and summing over <span class="math inline">\(i = 1, \dots, n\)</span>, we find the following expression for the negative log likelihood:</p>
+<p>Therefore, we cannot view the mapping <span class="math inline">\(\boldsymbol{y} \mapsto \boldsymbol{\widehat \mu}\)</span> as a linear projection. Nevertheless, it is possible to interpret <span class="math inline">\(\boldsymbol{\widehat \mu}\)</span> as the “closest” point (in some sense) to <span class="math inline">\(\boldsymbol{y}\)</span> in <span class="math inline">\(C(\boldsymbol{X})\)</span>. To see this, recall the deviance form of the EDM density (<a href="exponential-dispersion-models.html#eq-deviance-form"><span>19.4</span></a>). Taking a logarithm and summing over <span class="math inline">\(i = 1, \dots, n\)</span>, we find the following expression for the negative log likelihood:</p>
 <p><span id="eq-glm-likelihood-via-deviance"><span class="math display">\[
 -\log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C = \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
-\tag{23.6}\]</span></span></p>
+\tag{21.6}\]</span></span></p>
 <p><span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>deviance</em> or the <em>total deviance</em>, and it can be interpreted as a kind of distance between the mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and the observation vector <span class="math inline">\(\boldsymbol{y}\)</span>. For example, in the linear model case, <span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2\)</span>. The quantity <span class="math inline">\(D^*(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>scaled deviance.</em> In the linear model case, <span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}\)</span>. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat \beta} = \underset{\boldsymbol{\beta}}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}(\boldsymbol{\beta})), \quad \text{so that} \quad \boldsymbol{\widehat \mu} = \underset{\boldsymbol{\mu} \in C(\boldsymbol{X})}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}).
 \]</span></p>
 </section>
-<section id="sec-irls" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="sec-irls"><span class="header-section-number">23.3</span> Iteratively reweighted least squares</h2>
-<section id="log-concavity-of-glm-likelihood" class="level3" data-number="23.3.1">
-<h3 data-number="23.3.1" class="anchored" data-anchor-id="log-concavity-of-glm-likelihood"><span class="header-section-number">23.3.1</span> Log-concavity of GLM likelihood</h3>
+<section id="sec-irls" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="sec-irls"><span class="header-section-number">21.3</span> Iteratively reweighted least squares</h2>
+<section id="log-concavity-of-glm-likelihood" class="level3" data-number="21.3.1">
+<h3 data-number="21.3.1" class="anchored" data-anchor-id="log-concavity-of-glm-likelihood"><span class="header-section-number">21.3.1</span> Log-concavity of GLM likelihood</h3>
 <p>Before talking about maximizing the GLM log-likelihood, we investigate the concavity of this function. We claim that, in the case when the canonical link is used, <span class="math inline">\(\log \mathcal L(\boldsymbol{\beta})\)</span> is a concave function of <span class="math inline">\(\boldsymbol{\beta}\)</span>, which implies that this function is “easy to optimize”, i.e., has no local maxima.</p>
 <div id="prp-log-concavity" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 23.1 </strong></span><strong>Proposition:</strong> If <span class="math inline">\(g\)</span> is the canonical link function, then the function <span class="math inline">\(\log \mathcal L(\boldsymbol{\beta})\)</span> defined in <a href="#eq-glm-log-likelihood"><span>23.1</span></a> is concave in <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
+<p><span class="theorem-title"><strong>Proposition 21.1 </strong></span><strong>Proposition:</strong> If <span class="math inline">\(g\)</span> is the canonical link function, then the function <span class="math inline">\(\log \mathcal L(\boldsymbol{\beta})\)</span> defined in <a href="#eq-glm-log-likelihood"><span>21.1</span></a> is concave in <span class="math inline">\(\boldsymbol{\beta}\)</span>.</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>It suffices to show that <span class="math inline">\(\psi\)</span> is a convex function since then <span class="math inline">\(\log \mathcal L(\boldsymbol{\beta})\)</span> would be the sum of a linear function of <span class="math inline">\(\boldsymbol{\beta}\)</span> and the composition of a concave function with a linear function. To verify that <span class="math inline">\(\psi\)</span> is convex, it suffices to recall that <span class="math inline">\(\ddot{\psi}(\theta) = \frac{1}{\phi}\text{Var}_\theta[y] &gt; 0\)</span>.</p>
 </div>
-<p>Proposition <a href="#prp-log-concavity"><span>23.1</span></a> gives us confidence that an iterative algorithm will converge to the global maximum of the likelihood. We present such an iterative algorithm next.</p>
+<p>Proposition <a href="#prp-log-concavity"><span>21.1</span></a> gives us confidence that an iterative algorithm will converge to the global maximum of the likelihood. We present such an iterative algorithm next.</p>
 </section>
-<section id="sec-newton-raphson" class="level3" data-number="23.3.2">
-<h3 data-number="23.3.2" class="anchored" data-anchor-id="sec-newton-raphson"><span class="header-section-number">23.3.2</span> Newton-Raphson</h3>
-<p>We can maximize the log-likelihood (<a href="#eq-glm-log-likelihood"><span>23.1</span></a>) via the Newton-Raphson algorithm, which involves the gradient and Hessian of the function we’d like to maximize. The gradient is the score vector (<a href="#eq-glm-score"><span>23.2</span></a>), while the Hessian is the Fisher information (<a href="#eq-glm-fisher-info"><span>23.4</span></a>). The Newton-Raphson iteration is therefore:</p>
+<section id="sec-newton-raphson" class="level3" data-number="21.3.2">
+<h3 data-number="21.3.2" class="anchored" data-anchor-id="sec-newton-raphson"><span class="header-section-number">21.3.2</span> Newton-Raphson</h3>
+<p>We can maximize the log-likelihood (<a href="#eq-glm-log-likelihood"><span>21.1</span></a>) via the Newton-Raphson algorithm, which involves the gradient and Hessian of the function we’d like to maximize. The gradient is the score vector (<a href="#eq-glm-score"><span>21.2</span></a>), while the Hessian is the Fisher information (<a href="#eq-glm-fisher-info"><span>21.4</span></a>). The Newton-Raphson iteration is therefore:</p>
 <p><span id="eq-nr-iteration"><span class="math display">\[
 \begin{split}
 \boldsymbol{\widehat \beta}^{(t+1)} &amp;= \boldsymbol{\widehat \beta}^{(t)} - (\nabla^2_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}))^{-1} \nabla_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}) \\
 &amp;= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\widehat W}^{(t)}\boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
 \end{split}
-\tag{23.7}\]</span></span></p>
-<p>See <a href="#fig-newton-raphson">Figure&nbsp;<span>23.1</span></a>.</p>
+\tag{21.7}\]</span></span></p>
+<p>See <a href="#fig-newton-raphson">Figure&nbsp;<span>21.1</span></a>.</p>
 <div id="fig-newton-raphson" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/newton-raphson.jpeg" class="img-fluid figure-img" style="width:60.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;23.1: Newton-Raphson iteratively approximates the log likelihood via a quadratic function and maximizing that function.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;21.1: Newton-Raphson iteratively approximates the log likelihood via a quadratic function and maximizing that function.</figcaption>
 </figure>
 </div>
 </section>
-<section id="sec-irls-interpretation" class="level3" data-number="23.3.3">
-<h3 data-number="23.3.3" class="anchored" data-anchor-id="sec-irls-interpretation"><span class="header-section-number">23.3.3</span> Iteratively reweighted least squares (IRLS)</h3>
+<section id="sec-irls-interpretation" class="level3" data-number="21.3.3">
+<h3 data-number="21.3.3" class="anchored" data-anchor-id="sec-irls-interpretation"><span class="header-section-number">21.3.3</span> Iteratively reweighted least squares (IRLS)</h3>
 <p>A nice interpretation of the Newton-Raphson algorithm is as a sequence of weighted least squares fits, known as the iteratively reweighted least squares (IRLS) algorithm. Suppose that we have a current estimate <span class="math inline">\(\boldsymbol{\widehat \beta}^{(t)}\)</span>, and suppose we are looking for a vector <span class="math inline">\(\boldsymbol{\beta}\)</span> near <span class="math inline">\(\boldsymbol{\widehat \beta}^{(t)}\)</span> that fits the model even better. We have:</p>
 <p><span class="math display">\[
 \mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] = g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
@@ -504,22 +492,22 @@ C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \bolds
 <p><span class="math display">\[
 \text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2},
 \]</span></p>
-<p>recalling equation (<a href="#eq-glm-variance-y"><span>23.3</span></a>). Thus, up to the first two moments, near <span class="math inline">\(\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}\)</span> the distribution of <span class="math inline">\(\boldsymbol{y}\)</span> is approximately:</p>
+<p>recalling equation (<a href="#eq-glm-variance-y"><span>21.3</span></a>). Thus, up to the first two moments, near <span class="math inline">\(\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}\)</span> the distribution of <span class="math inline">\(\boldsymbol{y}\)</span> is approximately:</p>
 <p><span class="math display">\[
 \boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim N\left(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2}\right),
 \]</span></p>
 <p>or, equivalently:</p>
 <p><span id="eq-second-order-approximation"><span class="math display">\[
 \boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \quad \boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
-\tag{23.8}\]</span></span></p>
+\tag{21.8}\]</span></span></p>
 <p>The regression of the <em>adjusted response variable</em> <span class="math inline">\(\boldsymbol{z}^{(t)}\)</span> on <span class="math inline">\(\boldsymbol{X}\)</span> leaves us with a weighted linear regression (hence the name <em>working weights</em> for <span class="math inline">\(W_i\)</span>), whose maximum likelihood estimate is:</p>
 <p><span id="eq-irls-iteration"><span class="math display">\[
 \boldsymbol{\widehat \beta}^{(t+1)} = (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)} \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)} \boldsymbol{z}^{(t)},
-\tag{23.9}\]</span></span></p>
-<p>which we define as our next iterate. It’s easy to verify that the IRLS iteration (<a href="#eq-irls-iteration"><span>23.9</span></a>) is equivalent to the Newton-Raphson iteration (<a href="#eq-nr-iteration"><span>23.7</span></a>). Note that we have derived these algorithms for canonical links; they each can be derived for non-canonical links but need not be equivalent in this more general case.</p>
+\tag{21.9}\]</span></span></p>
+<p>which we define as our next iterate. It’s easy to verify that the IRLS iteration (<a href="#eq-irls-iteration"><span>21.9</span></a>) is equivalent to the Newton-Raphson iteration (<a href="#eq-nr-iteration"><span>21.7</span></a>). Note that we have derived these algorithms for canonical links; they each can be derived for non-canonical links but need not be equivalent in this more general case.</p>
 </section>
-<section id="sec-glm-residuals" class="level3" data-number="23.3.4">
-<h3 data-number="23.3.4" class="anchored" data-anchor-id="sec-glm-residuals"><span class="header-section-number">23.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</h3>
+<section id="sec-glm-residuals" class="level3" data-number="21.3.4">
+<h3 data-number="21.3.4" class="anchored" data-anchor-id="sec-glm-residuals"><span class="header-section-number">21.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</h3>
 <p>While sometimes the parameter <span class="math inline">\(\phi_0\)</span> is known (e.g., for binomial or Poisson GLMs), in other cases <span class="math inline">\(\phi_0\)</span> must be estimated (e.g., for the normal linear model). Recall from the linear model that we estimated <span class="math inline">\(\sigma^2 = \phi_0\)</span> by taking the sum of the squares of the residuals: <span class="math inline">\(\widehat \sigma^2 = \frac{1}{n-p}\|\boldsymbol{y} - \boldsymbol{\widehat \mu}\|^2\)</span>. However, it’s unclear in the GLM context exactly how to define a residual. In fact, there are two common ways of doing so, called <em>deviance residuals</em> and <em>Pearson residuals</em>. Deviance residuals are defined in terms of the unit deviance:</p>
 <p><span class="math display">\[
   r^D_i \equiv \text{sign}(y_i - \widehat \mu_i)\sqrt{w_i d(y_i, \widehat \mu_i)}.
@@ -528,14 +516,14 @@ C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \bolds
 <p><span class="math display">\[
   r^P_i \equiv \frac{y_i - \widehat \mu_i}{\sqrt{V(\widehat \mu_i)/w_i}}.
 \]</span></p>
-<p>These residuals can be viewed as residuals from the (converged) weighted linear regression model (<a href="#eq-second-order-approximation"><span>23.8</span></a>). In the normal case, these residuals coincide, but in the general case, they do not. Based on these two notions of GLM residuals, we can define two estimators of <span class="math inline">\(\phi_0\)</span>. One, based on the deviance residuals, is the <em>mean deviance estimator of dispersion</em>:</p>
+<p>These residuals can be viewed as residuals from the (converged) weighted linear regression model (<a href="#eq-second-order-approximation"><span>21.8</span></a>). In the normal case, these residuals coincide, but in the general case, they do not. Based on these two notions of GLM residuals, we can define two estimators of <span class="math inline">\(\phi_0\)</span>. One, based on the deviance residuals, is the <em>mean deviance estimator of dispersion</em>:</p>
 <p><span class="math display">\[
 \widetilde \phi^D_0 \equiv \frac{1}{n-p}\|r^D\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i d(y_i, \widehat \mu_i) \equiv \frac{1}{n-p}D(\boldsymbol{y}; \boldsymbol{\widehat \mu});
 \]</span></p>
 <p>recall that the total deviance <span class="math inline">\(D(\boldsymbol{y}; \boldsymbol{\widehat \mu})\)</span> is a generalization of the residual sum of squares. The other, based on the Pearson residuals, is called the <em>Pearson estimator of dispersion</em>:</p>
 <p><span id="eq-pearson-estimator-dispersion"><span class="math display">\[
 \widetilde \phi^P_0 \equiv \frac{1}{n-p}X^2 \equiv \frac{1}{n-p}\|r^P\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
-\tag{23.10}\]</span></span></p>
+\tag{21.10}\]</span></span></p>
 <p><span class="math inline">\(X^2\)</span> is known as the Pearson <span class="math inline">\(X^2\)</span> statistic. The deviance-based estimator can be more accurate than the Pearson estimator under small-dispersion asymptotics. However, the Pearson estimator is more robust when only the first two moments of the EDM model are correct and in the absence of small-dispersion asymptotics. For these reasons, the Pearson estimator is generally preferred.</p>
 
 
@@ -779,12 +767,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./generalized-linear-models.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./glm-inference.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

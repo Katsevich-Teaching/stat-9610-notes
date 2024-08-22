@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 16&nbsp; Asymptotic methods</title>
+<title>STAT 9610 Lecture Notes - 14&nbsp; Asymptotic methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./asymptotic-methods.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./asymptotic-methods.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,12 +360,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-better-estimate" id="toc-sec-better-estimate" class="nav-link active" data-scroll-target="#sec-better-estimate"><span class="header-section-number">16.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></a></li>
-  <li><a href="#sec-better-standard-errors" id="toc-sec-better-standard-errors" class="nav-link" data-scroll-target="#sec-better-standard-errors"><span class="header-section-number">16.2</span> Methods that build better standard errors for OLS estimate</a>
+  <li><a href="#sec-better-estimate" id="toc-sec-better-estimate" class="nav-link active" data-scroll-target="#sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></a></li>
+  <li><a href="#sec-better-standard-errors" id="toc-sec-better-standard-errors" class="nav-link" data-scroll-target="#sec-better-standard-errors"><span class="header-section-number">14.2</span> Methods that build better standard errors for OLS estimate</a>
   <ul class="collapse">
-  <li><a href="#sec-sandwich-errors" id="toc-sec-sandwich-errors" class="nav-link" data-scroll-target="#sec-sandwich-errors"><span class="header-section-number">16.2.1</span> Sandwich standard errors</a></li>
-  <li><a href="#sec-specific-sandwich-errors" id="toc-sec-specific-sandwich-errors" class="nav-link" data-scroll-target="#sec-specific-sandwich-errors"><span class="header-section-number">16.2.2</span> Specific instances of sandwich standard errors</a></li>
-  <li><a href="#sec-sandwich-inference" id="toc-sec-sandwich-inference" class="nav-link" data-scroll-target="#sec-sandwich-inference"><span class="header-section-number">16.2.3</span> Inference based on sandwich standard errors</a></li>
+  <li><a href="#sec-sandwich-errors" id="toc-sec-sandwich-errors" class="nav-link" data-scroll-target="#sec-sandwich-errors"><span class="header-section-number">14.2.1</span> Sandwich standard errors</a></li>
+  <li><a href="#sec-specific-sandwich-errors" id="toc-sec-specific-sandwich-errors" class="nav-link" data-scroll-target="#sec-specific-sandwich-errors"><span class="header-section-number">14.2.2</span> Specific instances of sandwich standard errors</a></li>
+  <li><a href="#sec-sandwich-inference" id="toc-sec-sandwich-inference" class="nav-link" data-scroll-target="#sec-sandwich-inference"><span class="header-section-number">14.2.3</span> Inference based on sandwich standard errors</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -387,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-asymptotic-methods" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></h1>
+<h1 class="title"><span id="sec-asymptotic-methods" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></h1>
 </div>
 
 
@@ -403,33 +391,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Broadly speaking, approaches to fixing heteroskedastic or correlated errors can be divided into (1) those based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> and (2) those based on resampling. Methods based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> can use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> or (ii) build better standard errors for the least squares estimate. Resampling methods include the bootstrap (for estimation) and the permutation test (for testing).</p>
-<section id="sec-better-estimate" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">16.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></h2>
+<section id="sec-better-estimate" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></h2>
 <p>Suppose <span class="math inline">\(\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma})\)</span>. This is a <em>generalized least squares</em> problem for which inference can be carried out. The generalized least squares estimate is <span class="math inline">\(\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{y}\)</span>, which is distributed as <span class="math inline">\(\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1})\)</span>. This is the best linear unbiased estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, recovering efficiency. We can carry out inference based on the latter distributional result analogously to how we did so in Chapter 2. The issue, of course, is that we usually do not know <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Therefore, we can consider the following approach: (1) estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> using OLS, (2) use this estimate to get an estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, (3) use <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> to get a (hopefully) more efficient estimator</p>
 <p><span id="eq-fgls-estimate"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
-\tag{16.1}\]</span></span></p>
+\tag{14.1}\]</span></span></p>
 <p>This is called the <em>feasible generalized least squares estimate</em> (FGLS), to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. The procedure above can be iterated until convergence. To estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>, we usually need to make some parametric assumptions. For example, in the case of grouped structure, we might assume a <em>random effects model</em>. In the case of a temporal structure, we might assume an <em>AR(1) model</em>.</p>
 </section>
-<section id="sec-better-standard-errors" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="sec-better-standard-errors"><span class="header-section-number">16.2</span> Methods that build better standard errors for OLS estimate</h2>
+<section id="sec-better-standard-errors" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-better-standard-errors"><span class="header-section-number">14.2</span> Methods that build better standard errors for OLS estimate</h2>
 <p>Sometimes we don’t feel comfortable enough with our estimate of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> to actually modify the least squares estimator. So we want to keep using our least squares estimator, but still get standard errors robust to heteroskedastic or correlated errors. There are several strategies to computing valid standard errors in such situations.</p>
-<section id="sec-sandwich-errors" class="level3" data-number="16.2.1">
-<h3 data-number="16.2.1" class="anchored" data-anchor-id="sec-sandwich-errors"><span class="header-section-number">16.2.1</span> Sandwich standard errors</h3>
+<section id="sec-sandwich-errors" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="sec-sandwich-errors"><span class="header-section-number">14.2.1</span> Sandwich standard errors</h3>
 <p>Let’s say that <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}\)</span>, where <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>. Then, we can compute that the covariance matrix of the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> is</p>
 <p><span id="eq-sandwich"><span class="math display">\[
 \text{Var}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\tag{16.2}\]</span></span></p>
+\tag{14.2}\]</span></span></p>
 <p>Note that this expression reduces to the usual <span class="math inline">\(\sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> when <span class="math inline">\(\boldsymbol{\Sigma} = \sigma^2 \boldsymbol{I}\)</span>. It is called the sandwich variance because we have the <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})\)</span> term sandwiched between two <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> terms. If we have some estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of the covariance matrix, we can construct</p>
 <p><span class="math display">\[
 \widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
 \]</span></p>
 <p>Different estimates <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> are appropriate in different situations. Below we consider three of the most common choices: one for heteroskedasticity (due to Huber-White), one for group-correlated errors (due to Liang-Zeger), and one for temporally-correlated errors (due to Newey-West).</p>
 </section>
-<section id="sec-specific-sandwich-errors" class="level3" data-number="16.2.2">
-<h3 data-number="16.2.2" class="anchored" data-anchor-id="sec-specific-sandwich-errors"><span class="header-section-number">16.2.2</span> Specific instances of sandwich standard errors</h3>
+<section id="sec-specific-sandwich-errors" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="sec-specific-sandwich-errors"><span class="header-section-number">14.2.2</span> Specific instances of sandwich standard errors</h3>
 <p><strong>Huber-White standard errors.</strong></p>
-<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>16.2</span></a>), with</p>
+<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>14.2</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{diag}(\widehat{\sigma}_1^2, \dots, \widehat{\sigma}_n^2), \quad \text{where} \quad \widehat{\sigma}_i^2 = (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}})^2.
 \]</span></p>
@@ -444,7 +432,7 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <p>The last step holds by the law of large numbers, since <span class="math inline">\(\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0\)</span> for each <span class="math inline">\(i\)</span>.</p>
 <p><strong>Liang-Zeger standard errors.</strong></p>
-<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>16.2</span></a>), with</p>
+<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>14.2</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
 \]</span></p>
@@ -456,8 +444,8 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <p>This estimator shrinks the off-diagonal estimates <span class="math inline">\(\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>.</p>
 </section>
-<section id="sec-sandwich-inference" class="level3" data-number="16.2.3">
-<h3 data-number="16.2.3" class="anchored" data-anchor-id="sec-sandwich-inference"><span class="header-section-number">16.2.3</span> Inference based on sandwich standard errors</h3>
+<section id="sec-sandwich-inference" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="sec-sandwich-inference"><span class="header-section-number">14.2.3</span> Inference based on sandwich standard errors</h3>
 <p>We now have a matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> such that</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\beta}} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \widehat{\boldsymbol{\Omega}}).
@@ -709,12 +697,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./misspecification-overview.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./bootstrap.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

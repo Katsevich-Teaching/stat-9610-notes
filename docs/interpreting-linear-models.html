@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 3&nbsp; Linear model spaces</title>
+<title>STAT 9610 Lecture Notes - 2&nbsp; Interpreting linear models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./least-squares-estimation.html" rel="next">
-<link href="./predictors-and-coefficients.html" rel="prev">
+<link href="./linear-models-estimation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html">Linear models: Estimation</a></li><li class="breadcrumb-item"><a href="./linear-model-spaces.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html">Linear models: Estimation</a></li><li class="breadcrumb-item"><a href="./interpreting-linear-models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -368,14 +356,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-predictors-and-coefficients" id="toc-sec-predictors-and-coefficients" class="nav-link active" data-scroll-target="#sec-predictors-and-coefficients"><span class="header-section-number">2.1</span> Predictors and coefficients</a></li>
+  <li><a href="#sec-linear-model-spaces" id="toc-sec-linear-model-spaces" class="nav-link" data-scroll-target="#sec-linear-model-spaces"><span class="header-section-number">2.2</span> Linear model spaces</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></h1>
+<h1 class="title"><span id="sec-interpreting-linear-models" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></h1>
 </div>
 
 
@@ -390,6 +385,32 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="sec-predictors-and-coefficients" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-predictors-and-coefficients"><span class="header-section-number">2.1</span> Predictors and coefficients</h2>
+<p><em>See also Agresti 1.2, Dunn and Smyth 1.4, 1.7, 2.7</em></p>
+<p>The types of predictors <span class="math inline">\(x_j\)</span> (e.g.&nbsp;binary or continuous) has less of an effect on the regression than the type of response, but it is still important to pay attention to the former.</p>
+<p><strong>Intercepts.</strong> It is common to include an <em>intercept</em> in a linear regression model, a predictor <span class="math inline">\(x_0\)</span> such that <span class="math inline">\(x_{i0} = 1\)</span> for all <span class="math inline">\(i\)</span>. When an intercept is present, we index it as the 0th predictor. The simplest kind of linear model is the <em>intercept-only model</em> or the <em>one-sample model</em>: <span id="eq-one-sample-model"><span class="math display">\[
+y = \beta_0 + \epsilon.
+\tag{2.1}\]</span></span> The parameter <span class="math inline">\(\beta_0\)</span> is the mean of the response.</p>
+<p><strong>Binary predictors.</strong> In addition to an intercept, suppose we have a binary predictor <span class="math inline">\(x_1 \in \{0,1\}\)</span> (e.g.&nbsp;<span class="math inline">\(x_1 = 1\)</span> for patients who took blood pressure medication and <span class="math inline">\(x_1 = 0\)</span> for those who didn’t). This leads to the following linear model: <span id="eq-two-sample-model"><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \epsilon.
+\tag{2.2}\]</span></span> Here, <span class="math inline">\(\beta_0\)</span> is the mean response (say blood pressure) for observations with <span class="math inline">\(x_1 = 0\)</span> and <span class="math inline">\(\beta_0 + \beta_1\)</span> is the mean response for observations with <span class="math inline">\(x_1 = 1\)</span>. Therefore, the parameter <span class="math inline">\(\beta_1\)</span> is the difference in mean response between observations with <span class="math inline">\(x_1 = 1\)</span> and <span class="math inline">\(x_1 = 0\)</span>. This parameter is sometimes called the <em>effect</em> or <em>effect size</em> of <span class="math inline">\(x_1\)</span>, though a causal relationship might or might not be present. The model (<a href="#eq-two-sample-model"><span>2.2</span></a>) is sometimes called the <em>two-sample model</em>, because the response data can be split into two “samples”: those corresponding to <span class="math inline">\(x_1 = 0\)</span> and those corresponding to <span class="math inline">\(x_1 = 1\)</span>.</p>
+<p><strong>Categorical predictors.</strong> A binary predictor is a special case of a categorical predictor: A predictor taking two or more discrete values. Suppose we have a predictor <span class="math inline">\(w \in \{w_0, w_1, \dots, w_{C-1}\}\)</span>, where <span class="math inline">\(C \geq 2\)</span> is the number of categories and <span class="math inline">\(w_0, \dots, w_{C-1}\)</span> are the <em>levels</em> of <span class="math inline">\(w\)</span>. E.g. suppose <span class="math inline">\(\{w_0, \dots, w_{C-1}\}\)</span> is the collection of U.S. states, so that <span class="math inline">\(C = 50\)</span>. If we want to regress a response on the categorical predictor <span class="math inline">\(w\)</span>, we cannot simply set <span class="math inline">\(x_1 = w\)</span> in the context of the linear regression (<a href="#eq-two-sample-model"><span>2.2</span></a>). Indeed, <span class="math inline">\(w\)</span> does not necessarily take numerical values. Instead, we need to add a predictor <span class="math inline">\(x_j\)</span> for each of the levels of <span class="math inline">\(w\)</span>. In particular, define <span class="math inline">\(x_j \equiv 1(w = w_j)\)</span> for <span class="math inline">\(j = 1, \dots, C-1\)</span> and consider the regression <span id="eq-C-sample-model"><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \cdots + \beta_{C-1}x_{C-1} + \epsilon.
+\tag{2.3}\]</span></span> Here, category 0 is the <em>base category</em>, and <span class="math inline">\(\beta_0\)</span> represents the mean response in the base category. The coefficient <span class="math inline">\(\beta_j\)</span> represents the difference in mean response between the <span class="math inline">\(j\)</span>th category and the base category.</p>
+<p><strong>Quantitative predictors.</strong> A quantitative predictor is one that can take on any real value. For example, suppose that <span class="math inline">\(x_1 \in \mathbb{R}\)</span>, and consider the linear model <span id="eq-simple-linear-regression"><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \epsilon.
+\tag{2.4}\]</span></span> Now, the interpretation of <span class="math inline">\(\beta_1\)</span> is that an increase in <span class="math inline">\(x_1\)</span> by 1 is associated with an increase in <span class="math inline">\(y\)</span> by <span class="math inline">\(\beta_1\)</span>. We must be careful to avoid saying “an increase in <span class="math inline">\(x_1\)</span> by 1 <em>causes</em> <span class="math inline">\(y\)</span> to increase by <span class="math inline">\(\beta_1\)</span>” unless we make additional causal assumptions. Note that the units of <span class="math inline">\(x_1\)</span> matter. If <span class="math inline">\(x_1\)</span> is the height of a person, then the value and the interpretation of <span class="math inline">\(\beta_1\)</span> changes depending on whether that height is measured in feet or in meters.</p>
+<p><strong>Ordinal predictors.</strong> There is an awkward category of predictor in between categorical and continuous called <em>ordinal</em>. An ordinal predictor is one that takes a discrete number of values, but these values have an intrinsic ordering, e.g.&nbsp;<span class="math inline">\(x_1 \in \{\texttt{small}, \texttt{medium}, \texttt{large}\}\)</span>. It can be treated as categorical at the cost of losing the ordering information, or as continuous if one is willing to assign quantitative values to each category.</p>
+<p><strong>Multiple predictors.</strong> A linear regression need not contain just one predictor (aside from an intercept). For example, let’s say <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are two predictors. Then, a linear model with both predictors is <span id="eq-multiple-regression"><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \epsilon.
+\tag{2.5}\]</span></span> When there are multiple predictors, the interpretation of coefficients must be revised somewhat. For example, <span class="math inline">\(\beta_1\)</span> in the above regression is the effect of an increase in <span class="math inline">\(x_1\)</span> by 1 <em>while holding <span class="math inline">\(x_2\)</span> constant</em> or <em>while adjusting for <span class="math inline">\(x_2\)</span></em> or <em>while controlling for <span class="math inline">\(x_2\)</span></em>. If <span class="math inline">\(y\)</span> is blood pressure, <span class="math inline">\(x_1\)</span> is a binary predictor indicating blood pressure medication taken and <span class="math inline">\(x_2\)</span> is sex, then <span class="math inline">\(\beta_1\)</span> is the effect of the medication on blood pressure while controlling for sex. In general, the coefficient of a predictor depends on what other predictors are in the model. As an extreme case, suppose the medication has no actual effect, but that men generally have higher blood pressure and higher rates of taking the medication. Then, the coefficient <span class="math inline">\(\beta_1\)</span> in the single regression model (<a href="#eq-two-sample-model"><span>2.2</span></a>) would be nonzero but the coefficient in the multiple regression model (<a href="#eq-multiple-regression"><span>2.5</span></a>) would be equal to zero. In this case, sex acts as a <em>confounder</em>.</p>
+<p><strong>Interactions.</strong> Note that the multiple regression model (<a href="#eq-multiple-regression"><span>2.5</span></a>) has the built-in assumption that the effect of <span class="math inline">\(x_1\)</span> on <span class="math inline">\(y\)</span> is the same for any fixed value of <span class="math inline">\(x_2\)</span> (and vice versa). In some cases, the effect of one variable on the response may depend on the value of another variable. In this case, it’s appropriate to add another predictor called an <em>interaction</em>. Suppose <span class="math inline">\(x_2\)</span> is quantitative (e.g.&nbsp;years of job experience) and <span class="math inline">\(x_2\)</span> is binary (e.g.&nbsp;sex, with <span class="math inline">\(x_2 = 1\)</span> meaning male). Then, we can define a third predictor <span class="math inline">\(x_3\)</span> as the product of the first two, i.e.&nbsp;<span class="math inline">\(x_3 = x_1x_2\)</span>. This gives the regression model <span id="eq-interaction"><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1 x_2 + \epsilon.
+\tag{2.6}\]</span></span> Now, the effect of adding another year of job experience is <span class="math inline">\(\beta_1\)</span> for females and <span class="math inline">\(\beta_1 + \beta_3\)</span> for males. The coefficient <span class="math inline">\(\beta_3\)</span> is the difference in the effect of job experience between males and females.</p>
+</section>
+<section id="sec-linear-model-spaces" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-linear-model-spaces"><span class="header-section-number">2.2</span> Linear model spaces</h2>
 <p><em>See also Agresti 1.3-1.4, Dunn and Smyth 2.1, 2.2, 2.5.1</em></p>
 <p>The matrix <span class="math inline">\(\boldsymbol{X}\)</span> is called the <em>model matrix</em> or the <em>design matrix</em>. Concatenating the linear model equations across observations gives us an equivalent formulation: <span class="math display">\[
 \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}; \quad \mathbb{E}[\boldsymbol{\epsilon}] = \boldsymbol{0}, \ \text{Var}[\boldsymbol{\epsilon}] = \sigma^2 \boldsymbol{I_n}
@@ -399,17 +420,18 @@ ul.task-list li input[type="checkbox"] {
 C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \boldsymbol{X} \boldsymbol{\beta}: \boldsymbol{\beta} \in \mathbb{R}^p\}.
 \]</span> <span class="math inline">\(C(\boldsymbol{X})\)</span>, called the <em>model vector space</em>, is a subspace of <span class="math inline">\(\mathbb{R}^n\)</span>: <span class="math inline">\(C(\boldsymbol{X}) \subseteq \mathbb{R}^n\)</span>. Since <span class="math display">\[
 \boldsymbol{X} \boldsymbol{\beta} = \beta_0 \boldsymbol{x_{*0}} + \cdots + \beta_{p-1} \boldsymbol{x_{*p-1}},
-\]</span> the model vector space is the column space of the matrix <span class="math inline">\(\boldsymbol{X}\)</span> (<a href="#fig-model-vector-space">Figure&nbsp;<span>3.1</span></a>).</p>
+\]</span> the model vector space is the column space of the matrix <span class="math inline">\(\boldsymbol{X}\)</span> (<a href="#fig-model-vector-space">Figure&nbsp;<span>2.1</span></a>).</p>
 <div id="fig-model-vector-space" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/model-vector-space.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.1: The model vector space.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2.1: The model vector space.</figcaption>
 </figure>
 </div>
 <p>The <em>dimension</em> of <span class="math inline">\(C(\boldsymbol{X})\)</span> is the rank of <span class="math inline">\(\boldsymbol{X}\)</span>, i.e.&nbsp;the number of linearly independent columns of <span class="math inline">\(\boldsymbol{X}\)</span>. If <span class="math inline">\(\text{rank}(\boldsymbol{X}) &lt; p\)</span>, this means that there are two different vectors <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\boldsymbol{\beta'}\)</span> such that <span class="math inline">\(\boldsymbol{X} \boldsymbol{\beta} = \boldsymbol{X} \boldsymbol{\beta'}\)</span>. Therefore, we have two values of the parameter vector that give the same model for <span class="math inline">\(\boldsymbol{y}\)</span>. This makes <span class="math inline">\(\boldsymbol{\beta}\)</span> <em>not identifiable</em>, and makes it impossible to reliably determine <span class="math inline">\(\boldsymbol{\beta}\)</span> based on the data. For this reason, we will generally assume that <span class="math inline">\(\boldsymbol{\beta}\)</span> is <em>identifiable</em>, i.e.&nbsp;<span class="math inline">\(\boldsymbol{X} \boldsymbol{\beta} \neq \boldsymbol{X} \boldsymbol{\beta'}\)</span> if <span class="math inline">\(\boldsymbol{\beta} \neq \boldsymbol{\beta'}\)</span>. This is equivalent to the assumption that <span class="math inline">\(\text{rank}(\boldsymbol{X}) = p\)</span>. Note that this cannot hold when <span class="math inline">\(p &gt; n\)</span>, so for the majority of the course we will assume that <span class="math inline">\(p \leq n\)</span>. In this case, <span class="math inline">\(\text{rank}(\boldsymbol{X}) = p\)</span> if and only if <span class="math inline">\(\boldsymbol{X}\)</span> has <em>full-rank</em>.</p>
-<p>As an example when <span class="math inline">\(p \leq n\)</span> but when <span class="math inline">\(\boldsymbol{\beta}\)</span> is still not identifiable, consider the case of a categorical predictor. Suppose the categories of <span class="math inline">\(w\)</span> were <span class="math inline">\(\{w_1, \dots, w_{C-1}\}\)</span>, i.e.&nbsp;the baseline category <span class="math inline">\(w_0\)</span> did not exist. In this case, the model (<a href="predictors-and-coefficients.html#eq-C-sample-model"><span>2.3</span></a>) would not be identifiable because <span class="math inline">\(x_0 = 1 = x_1 + \cdots + x_{C-1}\)</span> and thus <span class="math inline">\(x_{*0} = 1 = x_{*1} + \cdots + x_{*,C-1}\)</span>. Indeed, this means that one of the predictors can be expressed as a linear combination of the others, so <span class="math inline">\(\boldsymbol{X}\)</span> cannot have full rank. A simpler way of phrasing the problem is that we are describing <span class="math inline">\(C-1\)</span> intrinsic parameters (the means in each of the <span class="math inline">\(C-1\)</span> groups) with <span class="math inline">\(C\)</span> model parameters. There must therefore be some redundancy. For this reason, if we include an intercept term in the model then we must designate one of our categories as the baseline and exclude its indicator from the model.</p>
+<p>As an example when <span class="math inline">\(p \leq n\)</span> but when <span class="math inline">\(\boldsymbol{\beta}\)</span> is still not identifiable, consider the case of a categorical predictor. Suppose the categories of <span class="math inline">\(w\)</span> were <span class="math inline">\(\{w_1, \dots, w_{C-1}\}\)</span>, i.e.&nbsp;the baseline category <span class="math inline">\(w_0\)</span> did not exist. In this case, the model (<a href="#eq-C-sample-model"><span>2.3</span></a>) would not be identifiable because <span class="math inline">\(x_0 = 1 = x_1 + \cdots + x_{C-1}\)</span> and thus <span class="math inline">\(x_{*0} = 1 = x_{*1} + \cdots + x_{*,C-1}\)</span>. Indeed, this means that one of the predictors can be expressed as a linear combination of the others, so <span class="math inline">\(\boldsymbol{X}\)</span> cannot have full rank. A simpler way of phrasing the problem is that we are describing <span class="math inline">\(C-1\)</span> intrinsic parameters (the means in each of the <span class="math inline">\(C-1\)</span> groups) with <span class="math inline">\(C\)</span> model parameters. There must therefore be some redundancy. For this reason, if we include an intercept term in the model then we must designate one of our categories as the baseline and exclude its indicator from the model.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -647,13 +669,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./predictors-and-coefficients.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span>
+      <a href="./linear-models-estimation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear models: Estimation</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./least-squares-estimation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

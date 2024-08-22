@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 7&nbsp; Collinearity and adjustment</title>
+<title>STAT 9610 Lecture Notes - 5&nbsp; Collinearity and adjustment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./r-demo-part-1.html" rel="next">
-<link href="./special-cases.html" rel="prev">
+<link href="./anova.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html">Linear models: Estimation</a></li><li class="breadcrumb-item"><a href="./collinearity.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-estimation.html">Linear models: Estimation</a></li><li class="breadcrumb-item"><a href="./collinearity.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,11 +360,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#least-squares-estimates-in-the-orthogonal-case" id="toc-least-squares-estimates-in-the-orthogonal-case" class="nav-link active" data-scroll-target="#least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">7.1</span> Least squares estimates in the orthogonal case</a></li>
-  <li><a href="#least-squares-estimates-via-orthogonalization" id="toc-least-squares-estimates-via-orthogonalization" class="nav-link" data-scroll-target="#least-squares-estimates-via-orthogonalization"><span class="header-section-number">7.2</span> Least squares estimates via orthogonalization</a></li>
-  <li><a href="#adjustment-and-partial-correlation" id="toc-adjustment-and-partial-correlation" class="nav-link" data-scroll-target="#adjustment-and-partial-correlation"><span class="header-section-number">7.3</span> Adjustment and partial correlation</a></li>
-  <li><a href="#effects-of-collinearity" id="toc-effects-of-collinearity" class="nav-link" data-scroll-target="#effects-of-collinearity"><span class="header-section-number">7.4</span> Effects of collinearity</a></li>
-  <li><a href="#remark-average-treatment-effect-estimation-in-causal-inference" id="toc-remark-average-treatment-effect-estimation-in-causal-inference" class="nav-link" data-scroll-target="#remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">7.5</span> Remark: Average treatment effect estimation in causal inference</a></li>
+  <li><a href="#least-squares-estimates-in-the-orthogonal-case" id="toc-least-squares-estimates-in-the-orthogonal-case" class="nav-link active" data-scroll-target="#least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">5.1</span> Least squares estimates in the orthogonal case</a></li>
+  <li><a href="#least-squares-estimates-via-orthogonalization" id="toc-least-squares-estimates-via-orthogonalization" class="nav-link" data-scroll-target="#least-squares-estimates-via-orthogonalization"><span class="header-section-number">5.2</span> Least squares estimates via orthogonalization</a></li>
+  <li><a href="#adjustment-and-partial-correlation" id="toc-adjustment-and-partial-correlation" class="nav-link" data-scroll-target="#adjustment-and-partial-correlation"><span class="header-section-number">5.3</span> Adjustment and partial correlation</a></li>
+  <li><a href="#effects-of-collinearity" id="toc-effects-of-collinearity" class="nav-link" data-scroll-target="#effects-of-collinearity"><span class="header-section-number">5.4</span> Effects of collinearity</a></li>
+  <li><a href="#remark-average-treatment-effect-estimation-in-causal-inference" id="toc-remark-average-treatment-effect-estimation-in-causal-inference" class="nav-link" data-scroll-target="#remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Remark: Average treatment effect estimation in causal inference</a></li>
   </ul>
 </nav>
     </div>
@@ -385,7 +373,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></h1>
+<h1 class="title"><span id="sec-collinearity" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></h1>
 </div>
 
 
@@ -402,8 +390,8 @@ ul.task-list li input[type="checkbox"] {
 
 <p><em>See also Agresti 2.2.4, 2.5.6, 2.5.7, 4.6.5</em></p>
 <p>An important part of linear regression analysis is the dependence of the least squares coefficient for a predictor on what other predictors are in the model. This relationship is dictated by the extent to which the given predictor is correlated with the other predictors. In this section, we’ll use some additional notation. Let <span class="math inline">\(S \subset \{0, \dots, p-1\}\)</span> be a group of predictors (we can assume without loss of generality that <span class="math inline">\(S = \{0, \dots, s-1\}\)</span> for some <span class="math inline">\(1 \leq s &lt; p\)</span>). Then, denote <span class="math inline">\(\text{-}S \equiv \{0, \dots, p-1\} \setminus S\)</span>. Let <span class="math inline">\(\boldsymbol{\widehat{\beta}}_S\)</span> denote the least squares coefficients when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*S}\)</span> and let <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{S|\text{-}S}\)</span> denote the least squares coefficients corresponding to <span class="math inline">\(S\)</span> when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X} = (\boldsymbol{X}_{*S}, \boldsymbol{X}_{*,\text{-}S})\)</span>.</p>
-<section id="least-squares-estimates-in-the-orthogonal-case" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">7.1</span> Least squares estimates in the orthogonal case</h2>
+<section id="least-squares-estimates-in-the-orthogonal-case" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="least-squares-estimates-in-the-orthogonal-case"><span class="header-section-number">5.1</span> Least squares estimates in the orthogonal case</h2>
 <p>The simplest case to analyze is when a group of predictors <span class="math inline">\(\boldsymbol{X}_{*S}\)</span> is orthogonal to the rest of the predictors <span class="math inline">\(\boldsymbol{X}_{*,\text{-}S}\)</span> in the sense that</p>
 <p><span class="math display">\[
 \boldsymbol{X}_{*S}^T \boldsymbol{X}_{*,\text{-}S} = \boldsymbol{0}.
@@ -430,15 +418,15 @@ ul.task-list li input[type="checkbox"] {
 \boldsymbol{\widehat{\beta}}_{S} \\
 \boldsymbol{\widehat{\beta}}_{\text{-}S}
 \end{pmatrix}.
-\tag{7.1}\]</span></span></p>
+\tag{5.1}\]</span></span></p>
 <p>Therefore, the least squares coefficients when regressing <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{X}_S, \boldsymbol{X}_{\text{-}S})\)</span> are the same as those obtained from regressing <span class="math inline">\(\boldsymbol{y}\)</span> separately on <span class="math inline">\(\boldsymbol{X}_S\)</span> and <span class="math inline">\(\boldsymbol{X}_{\text{-}S}\)</span>, i.e.</p>
 <p><span id="eq-orthogonality-consequence"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}_{S|\text{-}S} = \boldsymbol{\widehat{\beta}}_{S}.
-\tag{7.2}\]</span></span></p>
+\tag{5.2}\]</span></span></p>
 </section>
-<section id="least-squares-estimates-via-orthogonalization" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="least-squares-estimates-via-orthogonalization"><span class="header-section-number">7.2</span> Least squares estimates via orthogonalization</h2>
-<p>Let’s now focus our attention on a single predictor <span class="math inline">\(x_j\)</span>. If this predictor is orthogonal to the remaining predictors, then the result (<a href="#eq-orthogonality-consequence"><span>7.2</span></a>) states that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> can be obtained from simply regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(x_j\)</span>. However, this is usually not the case. Usually, <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> has a nonzero projection <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> onto <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}j})\)</span>:</p>
+<section id="least-squares-estimates-via-orthogonalization" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="least-squares-estimates-via-orthogonalization"><span class="header-section-number">5.2</span> Least squares estimates via orthogonalization</h2>
+<p>Let’s now focus our attention on a single predictor <span class="math inline">\(x_j\)</span>. If this predictor is orthogonal to the remaining predictors, then the result (<a href="#eq-orthogonality-consequence"><span>5.2</span></a>) states that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> can be obtained from simply regressing <span class="math inline">\(y\)</span> on <span class="math inline">\(x_j\)</span>. However, this is usually not the case. Usually, <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> has a nonzero projection <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> onto <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}j})\)</span>:</p>
 <p><span class="math display">\[
 \boldsymbol{x}_{*j} = \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}} + \boldsymbol{x}^{\perp}_{*j},
 \]</span></p>
@@ -451,45 +439,45 @@ ul.task-list li input[type="checkbox"] {
 &amp;\Longleftrightarrow \ \boldsymbol{y} = \boldsymbol{x}^{\perp}_{*j}\beta_{j|\text{-}j} + \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\beta}'_{\text{-}j|j} + \boldsymbol{\epsilon}.
 \end{aligned}
 \]</span></p>
-<p>What this means is that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>, the least squares coefficient of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>, is also the least squares coefficient of <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>. However, since <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> is orthogonal to <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> by construction, we can use the result (<a href="#eq-orthogonality"><span>7.1</span></a>) to conclude that:</p>
+<p>What this means is that <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>, the least squares coefficient of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>, is also the least squares coefficient of <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\((\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})\)</span>. However, since <span class="math inline">\(\boldsymbol{x}^{\perp}_{*j}\)</span> is orthogonal to <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> by construction, we can use the result (<a href="#eq-orthogonality"><span>5.1</span></a>) to conclude that:</p>
 <p><span class="math display">\[
 \widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the *univariate* regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
 \]</span></p>
 <p>We can solve this univariate regression explicitly to obtain:</p>
 <p><span id="eq-orthogonal-univariate"><span class="math display">\[
 \widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol{y}}{\|\boldsymbol{x}^{\perp}_{*j}\|^2}.
-\tag{7.3}\]</span></span></p>
+\tag{5.3}\]</span></span></p>
 </section>
-<section id="adjustment-and-partial-correlation" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="adjustment-and-partial-correlation"><span class="header-section-number">7.3</span> Adjustment and partial correlation</h2>
+<section id="adjustment-and-partial-correlation" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="adjustment-and-partial-correlation"><span class="header-section-number">5.3</span> Adjustment and partial correlation</h2>
 <p>Equivalently, letting <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{\text{-}j}\)</span> be the least squares estimate in the regression of <span class="math inline">\(\boldsymbol{y}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> (note that this is <em>not</em> the same as <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{\text{-}j|j}\)</span>), we can write:</p>
 <p><span class="math display">\[
 \widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}_{*j} -\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2}.
 \]</span></p>
 <p>We can interpret this result as follows:</p>
 <div id="thm-frisch-waugh-lovell" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 7.1 </strong></span>The linear regression coefficient <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> results from first adjusting <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> for the effects of all other variables, and then regressing the residuals from <span class="math inline">\(\boldsymbol{y}\)</span> onto the residuals from <span class="math inline">\(\boldsymbol{x}_{*j}\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 5.1 </strong></span>The linear regression coefficient <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> results from first adjusting <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> for the effects of all other variables, and then regressing the residuals from <span class="math inline">\(\boldsymbol{y}\)</span> onto the residuals from <span class="math inline">\(\boldsymbol{x}_{*j}\)</span>.</p>
 </div>
-<p>In this sense, <em>the least squares coefficient for a predictor in a multiple linear regression reflects the effect of the predictor on the response after controlling for the effects of all other predictors.</em> A related quantity is the <em>partial correlation</em> between <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> after controlling for <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span>, defined as the correlation between <span class="math inline">\(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> and <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j}\)</span>. We can then connect the least squares coefficient <span class="math inline">\(\widehat{\beta}_j\)</span> to this partial correlation in a similar spirit to equation (<a href="special-cases.html#eq-coefficient-as-correlation"><span>6.3</span></a>).</p>
+<p>In this sense, <em>the least squares coefficient for a predictor in a multiple linear regression reflects the effect of the predictor on the response after controlling for the effects of all other predictors.</em> A related quantity is the <em>partial correlation</em> between <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> after controlling for <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span>, defined as the correlation between <span class="math inline">\(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)</span> and <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j}\)</span>. We can then connect the least squares coefficient <span class="math inline">\(\widehat{\beta}_j\)</span> to this partial correlation in a similar spirit to equation (<a href="anova.html#eq-coefficient-as-correlation"><span>4.5</span></a>).</p>
 </section>
-<section id="effects-of-collinearity" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="effects-of-collinearity"><span class="header-section-number">7.4</span> Effects of collinearity</h2>
-<p>Collinearity between a predictor <span class="math inline">\(x_j\)</span> and the other predictors tends to make the estimate <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> unstable. Intuitively, this makes sense because it becomes harder to distinguish between the effects of predictor <span class="math inline">\(x_j\)</span> and those of the other predictors on the response. To find the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> for a model matrix <span class="math inline">\(\boldsymbol{X}\)</span>, we could in principle use the formula (<a href="least-squares-estimation.html#eq-var-of-beta-hat"><span>4.3</span></a>). However, this formula involves the inverse of the matrix <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{X}\)</span>, which is hard to reason about. Instead, we can employ the formula (<a href="#eq-orthogonal-univariate"><span>7.3</span></a>) to calculate directly that:</p>
+<section id="effects-of-collinearity" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="effects-of-collinearity"><span class="header-section-number">5.4</span> Effects of collinearity</h2>
+<p>Collinearity between a predictor <span class="math inline">\(x_j\)</span> and the other predictors tends to make the estimate <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> unstable. Intuitively, this makes sense because it becomes harder to distinguish between the effects of predictor <span class="math inline">\(x_j\)</span> and those of the other predictors on the response. To find the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> for a model matrix <span class="math inline">\(\boldsymbol{X}\)</span>, we could in principle use the formula (<a href="least-squares-estimation.html#eq-var-of-beta-hat"><span>3.3</span></a>). However, this formula involves the inverse of the matrix <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{X}\)</span>, which is hard to reason about. Instead, we can employ the formula (<a href="#eq-orthogonal-univariate"><span>5.3</span></a>) to calculate directly that:</p>
 <p><span id="eq-conditional-variance"><span class="math display">\[
 \text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}^\perp\|^2}.
-\tag{7.4}\]</span></span></p>
+\tag{5.4}\]</span></span></p>
 <p>We see that the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span> is inversely proportional to <span class="math inline">\(\|\boldsymbol{x}_{*j}^\perp\|^2\)</span>. This means that the greater the collinearity, the less of <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is left over after adjusting for <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span>, and the greater the variance of <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>. To quantify the effect of this adjustment, suppose there were no other predictors other than the intercept term. Then, we would have:</p>
 <p><span class="math display">\[
 \text{Var}[\widehat{\beta}_j] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
 \]</span></p>
-<p>Therefore, we can rewrite the variance (<a href="#eq-conditional-variance"><span>7.4</span></a>) as:</p>
+<p>Therefore, we can rewrite the variance (<a href="#eq-conditional-variance"><span>5.4</span></a>) as:</p>
 <p><span id="eq-vif"><span class="math display">\[
 \text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_j] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_j] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_j],
-\tag{7.5}\]</span></span></p>
+\tag{5.5}\]</span></span></p>
 <p>where <span class="math inline">\(R_j^2\)</span> is the <span class="math inline">\(R^2\)</span> value when regressing <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> and VIF stands for <em>variance inflation factor</em>. The higher <span class="math inline">\(R_j^2\)</span>, the more of the variance in <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is explained by other predictors, the higher the variance in <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>.</p>
 </section>
-<section id="remark-average-treatment-effect-estimation-in-causal-inference" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">7.5</span> Remark: Average treatment effect estimation in causal inference</h2>
+<section id="remark-average-treatment-effect-estimation-in-causal-inference" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Remark: Average treatment effect estimation in causal inference</h2>
 <p>Suppose we’d like to study the effect of an exposure or treatment (e.g.&nbsp;taking a blood pressure medication) on a response <span class="math inline">\(y\)</span> (e.g.&nbsp;blood pressure). In the Neyman-Rubin causal model, for a given individual <span class="math inline">\(i\)</span> we denote by <span class="math inline">\(y_i(1)\)</span> and <span class="math inline">\(y_i(0)\)</span> the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called <em>potential outcomes</em>. Let <span class="math inline">\(t_i \in \{0,1\}\)</span> indicate whether the <span class="math inline">\(i\)</span>th individual actually received treatment or control. Therefore, the observed outcome is <span class="math inline">\(y_i^{\text{obs}} = y_i(t_i)\)</span>. Based on the data <span class="math inline">\(\{(t_i, y_i)\}_{i = 1, \dots, n}\)</span>, the most basic goal is to estimate the:</p>
 <p><span class="math display">\[
 \textit{average treatment effect} \  \tau \equiv \mathbb{E}[y(1) - y(0)],
@@ -747,13 +735,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./special-cases.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span>
+      <a href="./anova.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./r-demo-part-1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

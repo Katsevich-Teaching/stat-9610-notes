@@ -172,11 +172,11 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{remark}
@@ -226,7 +226,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, enhanced, boxrule=0pt, sharp corners]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -247,8 +247,8 @@ This is a set of lecture notes developed for the PhD statistics course
 Pennsylvania. Much of the content is adapted from Alan Agresti's book
 \emph{Foundations of Linear and Generalized Linear Models} (2015). These
 notes may contain typos and errors; if you find any such issues or have
-other suggestions for improvement, please email the instructor at
-\texttt{ekatsevi@wharton.upenn.edu}.
+other suggestions for improvement, please notify the instructor via Ed
+Discussion.
 
 \hypertarget{preview-linear-and-generalized-linear-models}{%
 \section{Preview: Linear and generalized linear
@@ -349,31 +349,35 @@ This course is broken up into six units:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Chapter 1. Linear model: Estimation.} The \emph{least squares}
-  point estimate \(\boldsymbol{\widehat \beta}\) of
-  \(\boldsymbol{\beta}\) based on a dataset
-  \((\boldsymbol{X}, \boldsymbol{y})\) under the linear model
+  \textbf{\protect\hyperlink{sec-linear-models-estimation}{Unit 1}:
+  Linear models: Estimation.} The \emph{least squares} point estimate
+  \(\boldsymbol{\widehat \beta}\) of \(\boldsymbol{\beta}\) based on a
+  dataset \((\boldsymbol{X}, \boldsymbol{y})\) under the linear model
   assumptions.
 \item
-  \textbf{Chapter 2. Linear model: Inference.} Under the additional
-  assumption that \(\epsilon \sim N(0,\sigma^2)\), how to carry out
-  statistical inference (hypothesis testing and confidence intervals)
-  for the coefficients.
+  \textbf{\protect\hyperlink{linear-models-inference}{Unit 2}: Linear
+  models: Inference.} Under the additional assumption that
+  \(\epsilon \sim N(0,\sigma^2)\), how to carry out statistical
+  inference (hypothesis testing and confidence intervals) for the
+  coefficients.
 \item
-  \textbf{Chapter 3. Linear model: Misspecification.} What to do when
-  the linear model assumptions are not correct: What issues can arise,
-  how to diagnose them, and how to fix them.
+  \textbf{\protect\hyperlink{linear-models-misspecification}{Unit 3}:
+  Linear models: Misspecification.} What to do when the linear model
+  assumptions are not correct: What issues can arise, how to diagnose
+  them, and how to fix them.
 \item
-  \textbf{Chapter 4. GLMs: General theory.} Estimation and inference for
-  GLMs (generalizing Chapters 1 and 2). GLMs fit neatly into a unified
-  theory based on \emph{exponential families}.
+  \textbf{\protect\hyperlink{ch-glm-theory}{Unit 4} GLMs: General
+  theory.} Estimation and inference for GLMs (generalizing Chapters 1
+  and 2). GLMs fit neatly into a unified theory based on
+  \emph{exponential families}.
 \item
-  \textbf{Chapter 5. GLMs: Special cases.} Looking more closely at the
-  most important special cases of GLMs, including logistic regression
-  and Poisson regression.
+  \textbf{\protect\hyperlink{sec-glms-special-cases}{Unit 5}: GLMs:
+  Special cases.} Looking more closely at the most important special
+  cases of GLMs, including logistic regression and Poisson regression.
 \item
-  \textbf{Chapter 6. Multiple testing.} How to adjust for multiple
-  hypothesis testing, both in the context of GLMs and more generally.
+  \textbf{\protect\hyperlink{sec-multiple-testing}{Unit 6}: Multiple
+  testing.} How to adjust for multiple hypothesis testing, both in the
+  context of GLMs and more generally.
 \end{itemize}
 
 \hypertarget{notation}{%
@@ -396,14 +400,25 @@ definitions.
 
 \part{Linear models: Estimation}
 
-In this unit, we will focus on estimating the coefficients
-\(\boldsymbol{\beta}\) and variance \(\sigma^2\) of a linear regression
-model. We will interpret these estimates from geometric, algebraic, and
-probabilistic perspectives.
+In this unit, we will focus on estimation of coefficients in the linear
+regression model (eqs. \ref{eq-lm1} and \ref{eq-lm2}). We start by
+discussing the interpretation of linear models
+(Chapter~\ref{sec-interpreting-linear-models}). Then, we discuss least
+squares estimates from the algebraic, geometric, and probabilistic
+perspectives (Chapter~\ref{sec-least-squares-estimation}). We then
+discuss important properties of least squares estimates, including
+orthogonality relationships least squares estimation implies
+(Chapter~\ref{sec-anova}) and the effects of collinearity
+(Chapter~\ref{sec-collinearity}). We conclude with an R demo
+(Chapter~\ref{sec-r-demo-part-1}).
 
-\hypertarget{predictors-and-coefficients}{%
-\chapter{Predictors and
-coefficients}\label{predictors-and-coefficients}}
+\hypertarget{sec-interpreting-linear-models}{%
+\chapter{Interpreting linear
+models}\label{sec-interpreting-linear-models}}
+
+\hypertarget{sec-predictors-and-coefficients}{%
+\section{Predictors and
+coefficients}\label{sec-predictors-and-coefficients}}
 
 \emph{See also Agresti 1.2, Dunn and Smyth 1.4, 1.7, 2.7}
 
@@ -521,8 +536,8 @@ year of job experience is \(\beta_1\) for females and
 \(\beta_1 + \beta_3\) for males. The coefficient \(\beta_3\) is the
 difference in the effect of job experience between males and females.
 
-\hypertarget{linear-model-spaces}{%
-\chapter{Linear model spaces}\label{linear-model-spaces}}
+\hypertarget{sec-linear-model-spaces}{%
+\section{Linear model spaces}\label{sec-linear-model-spaces}}
 
 \emph{See also Agresti 1.3-1.4, Dunn and Smyth 2.1, 2.2, 2.5.1}
 
@@ -586,8 +601,8 @@ parameters. There must therefore be some redundancy. For this reason, if
 we include an intercept term in the model then we must designate one of
 our categories as the baseline and exclude its indicator from the model.
 
-\hypertarget{least-squares-estimation}{%
-\chapter{Least squares estimation}\label{least-squares-estimation}}
+\hypertarget{sec-least-squares-estimation}{%
+\chapter{Least squares estimation}\label{sec-least-squares-estimation}}
 
 \hypertarget{algebraic-perspective}{%
 \section{Algebraic perspective}\label{algebraic-perspective}}
@@ -773,13 +788,13 @@ features remain invariant to reparametrization (this follows from parts
 can have a huge impact on the fitted coefficients, it has no impact on
 the predictions of linear regression.
 
-\hypertarget{analysis-of-variance}{%
-\chapter{Analysis of variance}\label{analysis-of-variance}}
+\hypertarget{sec-anova}{%
+\chapter{Analysis of variance}\label{sec-anova}}
 
 \emph{See also Agresti 2.4.2, 2.4.3, 2.4.6, Dunn and Smyth 2.9}
 
-\hypertarget{analysis-of-variance-1}{%
-\section{Analysis of variance}\label{analysis-of-variance-1}}
+\hypertarget{analysis-of-variance}{%
+\section{Analysis of variance}\label{analysis-of-variance}}
 
 The orthogonality property of least squares, together with the
 Pythagorean theorem, leads to a fundamental relationship called
@@ -928,16 +943,16 @@ Adding many junk predictors will have the effect of degrading predictive
 performance but will nevertheless increase \(R^2\).
 
 \hypertarget{special-cases}{%
-\chapter{Special cases}\label{special-cases}}
+\section{Special cases}\label{special-cases}}
 
 \hypertarget{the-c-groups-model}{%
-\section{\texorpdfstring{The \(C\)-groups
+\subsection{\texorpdfstring{The \(C\)-groups
 model}{The C-groups model}}\label{the-c-groups-model}}
 
 \emph{See also Agresti 2.3.2-2.3.3}
 
 \hypertarget{anova-decomposition-for-c-groups-model}{%
-\subsection{\texorpdfstring{ANOVA decomposition for \(C\) groups
+\subsubsection{\texorpdfstring{ANOVA decomposition for \(C\) groups
 model}{ANOVA decomposition for C groups model}}\label{anova-decomposition-for-c-groups-model}}
 
 Let's consider the special case of the ANOVA decomposition
@@ -962,7 +977,7 @@ etc.) and \(y\) might be its fuel efficiency in miles per gallon.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{special-cases_files/figure-pdf/unnamed-chunk-1-1.pdf}
+{\centering \includegraphics{anova_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
 }
 
@@ -995,7 +1010,7 @@ We therefore obtain the following corollary of the ANOVA decomposition
 }\label{eq-anova-C-groups}\end{equation}
 
 \hypertarget{simple-linear-regression}{%
-\section{Simple linear regression}\label{simple-linear-regression}}
+\subsection{Simple linear regression}\label{simple-linear-regression}}
 
 \emph{See also Agresti 2.1.3}
 
@@ -1009,7 +1024,7 @@ y = \beta_0 + \beta_1 x + \epsilon.
 This is the simple linear regression model.
 
 \hypertarget{anova-decomposition-for-simple-linear-regression}{%
-\subsection{ANOVA decomposition for simple linear
+\subsubsection{ANOVA decomposition for simple linear
 regression}\label{anova-decomposition-for-simple-linear-regression}}
 
 Figure Figure~\ref{fig-anova-simple-linear-regression} gives an
@@ -1028,7 +1043,7 @@ for simple linear regression.}
 \end{figure}
 
 \hypertarget{connection-between-r2-and-correlation}{%
-\subsection{\texorpdfstring{Connection between \(R^2\) and
+\subsubsection{\texorpdfstring{Connection between \(R^2\) and
 correlation}{Connection between R\^{}2 and correlation}}\label{connection-between-r2-and-correlation}}
 
 There is a connection between \(R^2\) and correlation in simple linear
@@ -1054,7 +1069,7 @@ Proposition~\ref{prp-multiple-correlation}.
 \end{proof}
 
 \hypertarget{regression-to-the-mean}{%
-\subsection{Regression to the mean}\label{regression-to-the-mean}}
+\subsubsection{Regression to the mean}\label{regression-to-the-mean}}
 
 Simple linear regression can be used to study the relationship between
 the same quantity across time (or generations). For example, let \(x\)
@@ -1099,9 +1114,8 @@ skill and luck. While skill stays roughly constant from year to year,
 the team which performed exceptionally well in a given season is
 unlikely to get as lucky as it did the next season.
 
-\hypertarget{collinearity-and-adjustment}{%
-\chapter{Collinearity and
-adjustment}\label{collinearity-and-adjustment}}
+\hypertarget{sec-collinearity}{%
+\chapter{Collinearity and adjustment}\label{sec-collinearity}}
 
 \emph{See also Agresti 2.2.4, 2.5.6, 2.5.7, 4.6.5}
 
@@ -1367,8 +1381,8 @@ i.e.~\(\tau = \beta\). Therefore, the least squares estimate
 effect. (Causal inference is beyond the scope of STAT 9610; see STAT
 9210 instead.)
 
-\hypertarget{r-demo}{%
-\chapter{R demo}\label{r-demo}}
+\hypertarget{sec-r-demo-part-1}{%
+\chapter{R demo}\label{sec-r-demo-part-1}}
 
 \emph{See also Agresti 2.6, Dunn and Smyth 2.6}
 
@@ -1800,10 +1814,10 @@ Why are these two VIF values the same?
 
 We now understand the least squares estimator
 \(\boldsymbol{\widehat{\beta}}\) from geometric and algebraic points of
-view. In Chapter 2, we will switch to a probabilistic perspective to
-derive inferential statements for linear models, in the form of
-hypothesis tests and confidence intervals. In order to facilitate this,
-we will assume that the error terms are normally distributed:
+view. In Unit 2, we switch to a probabilistic perspective to derive
+inferential statements for linear models, in the form of hypothesis
+tests and confidence intervals. In order to facilitate this, we will
+assume that the error terms are normally distributed:
 
 \[
 \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}, \quad \text{where} \ \boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I}_n).
@@ -2949,8 +2963,8 @@ model selection leads us into some dicey inferential territory due to
 selection bias. This is the subject of ongoing research, and the jury is
 still out on the best way of doing this.
 
-\hypertarget{r-demo-1}{%
-\chapter{R demo}\label{r-demo-1}}
+\hypertarget{r-demo}{%
+\chapter{R demo}\label{r-demo}}
 
 \emph{See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14}
 
@@ -4777,10 +4791,10 @@ Bootstrap standard errors are also implemented in \texttt{sandwich}:
 # A tibble: 4 x 4
   variable    usual_variance HW_variance bootstrap_variance
   <chr>                <dbl>       <dbl>              <dbl>
-1 (Intercept)       1.16        1.48               1.58    
-2 educ              0.00489     0.00705            0.00756 
-3 exper             0.000232    0.000252           0.000299
-4 metro             0.186       0.120              0.119   
+1 (Intercept)       1.16        1.48               1.59    
+2 educ              0.00489     0.00705            0.00764 
+3 exper             0.000232    0.000252           0.000264
+4 metro             0.186       0.120              0.123   
 \end{verbatim}
 
 The covariance estimate produced by \texttt{sandwich} can be easily
@@ -4896,8 +4910,8 @@ Simple Bootstrap Routines (1.1-8)
 
 \begin{verbatim}
       (Intercept)     educ     exper     metro
-2.5%   -12.276856 1.080343 0.1022772 0.8619617
-97.5%   -7.782545 1.400941 0.1643651 2.1698803
+2.5%   -12.433359 1.075845 0.1040949 0.8047474
+97.5%   -7.644596 1.407899 0.1650408 2.1954377
 \end{verbatim}
 
 We can extract the resampling distributions for the coefficient
@@ -4910,11 +4924,11 @@ estimates using the \texttt{samples} function:
 \end{Shaded}
 
 \begin{verbatim}
-                     1           2          3           4          5
-(Intercept) -9.3158853 -10.6042593 -7.9624359 -10.0600415 -9.7597527
-educ         1.2078218   1.2649403  1.1009697   1.2133903  1.2390569
-exper        0.1348207   0.1421023  0.1073898   0.1584009  0.1325274
-metro        1.2767812   1.9679952  1.4216923   1.6137102  1.3363671
+                     1          2          3           4           5
+(Intercept) -8.9101587 -9.5454944 -9.8744423 -10.0884694 -10.1832496
+educ         1.2317454  1.2142570  1.2255034   1.2550234   1.2247120
+exper        0.1347504  0.1318947  0.1368782   0.1325528   0.1608834
+metro        0.5290319  1.9020785  1.4234100   1.5489530   1.1643109
 \end{verbatim}
 
 We can plot these as follows:

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 24&nbsp; Inference in GLMs</title>
+<title>STAT 9610 Lecture Notes - 22&nbsp; Inference in GLMs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./glm-inference.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./glm-inference.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,31 +360,31 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-preliminaries" id="toc-sec-preliminaries" class="nav-link active" data-scroll-target="#sec-preliminaries"><span class="header-section-number">24.1</span> Preliminaries</a>
+  <li><a href="#sec-preliminaries" id="toc-sec-preliminaries" class="nav-link active" data-scroll-target="#sec-preliminaries"><span class="header-section-number">22.1</span> Preliminaries</a>
   <ul class="collapse">
-  <li><a href="#sec-inferential-goals" id="toc-sec-inferential-goals" class="nav-link" data-scroll-target="#sec-inferential-goals"><span class="header-section-number">24.1.1</span> Inferential goals</a></li>
-  <li><a href="#sec-inferential-tools" id="toc-sec-inferential-tools" class="nav-link" data-scroll-target="#sec-inferential-tools"><span class="header-section-number">24.1.2</span> Inferential tools</a></li>
+  <li><a href="#sec-inferential-goals" id="toc-sec-inferential-goals" class="nav-link" data-scroll-target="#sec-inferential-goals"><span class="header-section-number">22.1.1</span> Inferential goals</a></li>
+  <li><a href="#sec-inferential-tools" id="toc-sec-inferential-tools" class="nav-link" data-scroll-target="#sec-inferential-tools"><span class="header-section-number">22.1.2</span> Inferential tools</a></li>
   </ul></li>
-  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">24.2</span> Wald inference</a>
+  <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">22.2</span> Wald inference</a>
   <ul class="collapse">
-  <li><a href="#sec-wald-test-single-coeff" id="toc-sec-wald-test-single-coeff" class="nav-link" data-scroll-target="#sec-wald-test-single-coeff"><span class="header-section-number">24.2.1</span> Wald test for <span class="math inline">\(\beta_j = \beta_j^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
-  <li><a href="#sec-wald-test-group-coeff" id="toc-sec-wald-test-group-coeff" class="nav-link" data-scroll-target="#sec-wald-test-group-coeff"><span class="header-section-number">24.2.2</span> Wald test for <span class="math inline">\(\boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
-  <li><a href="#sec-wald-ci-single-coeff" id="toc-sec-wald-ci-single-coeff" class="nav-link" data-scroll-target="#sec-wald-ci-single-coeff"><span class="header-section-number">24.2.3</span> Wald confidence interval for <span class="math inline">\(\beta_j\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
-  <li><a href="#sec-wald-cr-group-coeff" id="toc-sec-wald-cr-group-coeff" class="nav-link" data-scroll-target="#sec-wald-cr-group-coeff"><span class="header-section-number">24.2.4</span> Wald confidence region for <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
-  <li><a href="#sec-wald-ci-fitted-values" id="toc-sec-wald-ci-fitted-values" class="nav-link" data-scroll-target="#sec-wald-ci-fitted-values"><span class="header-section-number">24.2.5</span> Wald confidence intervals for <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\mu_i\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
-  <li><a href="#sec-wald-inference-unknown-dispersion" id="toc-sec-wald-inference-unknown-dispersion" class="nav-link" data-scroll-target="#sec-wald-inference-unknown-dispersion"><span class="header-section-number">24.2.6</span> Wald inference when <span class="math inline">\(\phi_0\)</span> is unknown</a></li>
-  <li><a href="#sec-likelihood-ratio-coeff-known" id="toc-sec-likelihood-ratio-coeff-known" class="nav-link" data-scroll-target="#sec-likelihood-ratio-coeff-known"><span class="header-section-number">24.2.7</span> Testing one or more coefficients (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-likelihood-ratio-ci-single-coeff" id="toc-sec-likelihood-ratio-ci-single-coeff" class="nav-link" data-scroll-target="#sec-likelihood-ratio-ci-single-coeff"><span class="header-section-number">24.2.8</span> Confidence interval for a single coefficient</a></li>
-  <li><a href="#sec-likelihood-ratio-goodness-of-fit" id="toc-sec-likelihood-ratio-goodness-of-fit" class="nav-link" data-scroll-target="#sec-likelihood-ratio-goodness-of-fit"><span class="header-section-number">24.2.9</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-likelihood-ratio-unknown-dispersion" id="toc-sec-likelihood-ratio-unknown-dispersion" class="nav-link" data-scroll-target="#sec-likelihood-ratio-unknown-dispersion"><span class="header-section-number">24.2.10</span> Likelihood ratio inference for <span class="math inline">\(\phi_0\)</span> unknown</a></li>
+  <li><a href="#sec-wald-test-single-coeff" id="toc-sec-wald-test-single-coeff" class="nav-link" data-scroll-target="#sec-wald-test-single-coeff"><span class="header-section-number">22.2.1</span> Wald test for <span class="math inline">\(\beta_j = \beta_j^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
+  <li><a href="#sec-wald-test-group-coeff" id="toc-sec-wald-test-group-coeff" class="nav-link" data-scroll-target="#sec-wald-test-group-coeff"><span class="header-section-number">22.2.2</span> Wald test for <span class="math inline">\(\boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
+  <li><a href="#sec-wald-ci-single-coeff" id="toc-sec-wald-ci-single-coeff" class="nav-link" data-scroll-target="#sec-wald-ci-single-coeff"><span class="header-section-number">22.2.3</span> Wald confidence interval for <span class="math inline">\(\beta_j\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
+  <li><a href="#sec-wald-cr-group-coeff" id="toc-sec-wald-cr-group-coeff" class="nav-link" data-scroll-target="#sec-wald-cr-group-coeff"><span class="header-section-number">22.2.4</span> Wald confidence region for <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
+  <li><a href="#sec-wald-ci-fitted-values" id="toc-sec-wald-ci-fitted-values" class="nav-link" data-scroll-target="#sec-wald-ci-fitted-values"><span class="header-section-number">22.2.5</span> Wald confidence intervals for <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\mu_i\)</span> (known <span class="math inline">\(\phi_0\)</span>)</a></li>
+  <li><a href="#sec-wald-inference-unknown-dispersion" id="toc-sec-wald-inference-unknown-dispersion" class="nav-link" data-scroll-target="#sec-wald-inference-unknown-dispersion"><span class="header-section-number">22.2.6</span> Wald inference when <span class="math inline">\(\phi_0\)</span> is unknown</a></li>
+  <li><a href="#sec-likelihood-ratio-coeff-known" id="toc-sec-likelihood-ratio-coeff-known" class="nav-link" data-scroll-target="#sec-likelihood-ratio-coeff-known"><span class="header-section-number">22.2.7</span> Testing one or more coefficients (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-likelihood-ratio-ci-single-coeff" id="toc-sec-likelihood-ratio-ci-single-coeff" class="nav-link" data-scroll-target="#sec-likelihood-ratio-ci-single-coeff"><span class="header-section-number">22.2.8</span> Confidence interval for a single coefficient</a></li>
+  <li><a href="#sec-likelihood-ratio-goodness-of-fit" id="toc-sec-likelihood-ratio-goodness-of-fit" class="nav-link" data-scroll-target="#sec-likelihood-ratio-goodness-of-fit"><span class="header-section-number">22.2.9</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-likelihood-ratio-unknown-dispersion" id="toc-sec-likelihood-ratio-unknown-dispersion" class="nav-link" data-scroll-target="#sec-likelihood-ratio-unknown-dispersion"><span class="header-section-number">22.2.10</span> Likelihood ratio inference for <span class="math inline">\(\phi_0\)</span> unknown</a></li>
   </ul></li>
-  <li><a href="#sec-score-inference" id="toc-sec-score-inference" class="nav-link" data-scroll-target="#sec-score-inference"><span class="header-section-number">24.3</span> Score-based inference</a>
+  <li><a href="#sec-score-inference" id="toc-sec-score-inference" class="nav-link" data-scroll-target="#sec-score-inference"><span class="header-section-number">22.3</span> Score-based inference</a>
   <ul class="collapse">
-  <li><a href="#sec-score-test-multiple-coeff" id="toc-sec-score-test-multiple-coeff" class="nav-link" data-scroll-target="#sec-score-test-multiple-coeff"><span class="header-section-number">24.3.1</span> Testing multiple coefficients (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-score-test-single-coeff" id="toc-sec-score-test-single-coeff" class="nav-link" data-scroll-target="#sec-score-test-single-coeff"><span class="header-section-number">24.3.2</span> Testing a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-score-ci-single-coeff" id="toc-sec-score-ci-single-coeff" class="nav-link" data-scroll-target="#sec-score-ci-single-coeff"><span class="header-section-number">24.3.3</span> Confidence interval for a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-score-goodness-of-fit" id="toc-sec-score-goodness-of-fit" class="nav-link" data-scroll-target="#sec-score-goodness-of-fit"><span class="header-section-number">24.3.4</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</a></li>
-  <li><a href="#sec-score-test-unknown-dispersion" id="toc-sec-score-test-unknown-dispersion" class="nav-link" data-scroll-target="#sec-score-test-unknown-dispersion"><span class="header-section-number">24.3.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</a></li>
+  <li><a href="#sec-score-test-multiple-coeff" id="toc-sec-score-test-multiple-coeff" class="nav-link" data-scroll-target="#sec-score-test-multiple-coeff"><span class="header-section-number">22.3.1</span> Testing multiple coefficients (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-score-test-single-coeff" id="toc-sec-score-test-single-coeff" class="nav-link" data-scroll-target="#sec-score-test-single-coeff"><span class="header-section-number">22.3.2</span> Testing a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-score-ci-single-coeff" id="toc-sec-score-ci-single-coeff" class="nav-link" data-scroll-target="#sec-score-ci-single-coeff"><span class="header-section-number">22.3.3</span> Confidence interval for a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-score-goodness-of-fit" id="toc-sec-score-goodness-of-fit" class="nav-link" data-scroll-target="#sec-score-goodness-of-fit"><span class="header-section-number">22.3.4</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</a></li>
+  <li><a href="#sec-score-test-unknown-dispersion" id="toc-sec-score-test-unknown-dispersion" class="nav-link" data-scroll-target="#sec-score-test-unknown-dispersion"><span class="header-section-number">22.3.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -406,7 +394,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-glm-inf" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></h1>
+<h1 class="title"><span id="sec-glm-inf" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></h1>
 </div>
 
 
@@ -421,29 +409,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="sec-preliminaries" class="level2" data-number="24.1">
-<h2 data-number="24.1" class="anchored" data-anchor-id="sec-preliminaries"><span class="header-section-number">24.1</span> Preliminaries</h2>
-<section id="sec-inferential-goals" class="level3" data-number="24.1.1">
-<h3 data-number="24.1.1" class="anchored" data-anchor-id="sec-inferential-goals"><span class="header-section-number">24.1.1</span> Inferential goals</h3>
+<section id="sec-preliminaries" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="sec-preliminaries"><span class="header-section-number">22.1</span> Preliminaries</h2>
+<section id="sec-inferential-goals" class="level3" data-number="22.1.1">
+<h3 data-number="22.1.1" class="anchored" data-anchor-id="sec-inferential-goals"><span class="header-section-number">22.1.1</span> Inferential goals</h3>
 <p>There are two types of inferential goals: hypothesis testing and confidence interval/region construction.</p>
-<section id="sec-hypothesis-testing" class="level4" data-number="24.1.1.1">
-<h4 data-number="24.1.1.1" class="anchored" data-anchor-id="sec-hypothesis-testing"><span class="header-section-number">24.1.1.1</span> Hypothesis testing</h4>
+<section id="sec-hypothesis-testing" class="level4" data-number="22.1.1.1">
+<h4 data-number="22.1.1.1" class="anchored" data-anchor-id="sec-hypothesis-testing"><span class="header-section-number">22.1.1.1</span> Hypothesis testing</h4>
 <ol type="1">
 <li><strong>Single coefficient</strong>: <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span> versus <span class="math inline">\(H_1: \beta_j \neq \beta_j^0\)</span> for some <span class="math inline">\(\beta_j^0 \in \mathbb{R}\)</span>.</li>
 <li><strong>Group of coefficients</strong>: <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> versus <span class="math inline">\(H_1: \boldsymbol{\beta}_S \neq \boldsymbol{\beta}_S^0\)</span> for some <span class="math inline">\(S \subset \{0,\dots,p-1\}\)</span> and some <span class="math inline">\(\boldsymbol{\beta}_S^0 \in \mathbb{R}^{|S|}\)</span>.</li>
-<li><strong>Goodness of fit</strong>: The goodness of fit null hypothesis is that the GLM (<a href="generalized-linear-models.html#eq-glm-def"><span>22.1</span></a>) is correctly specified. Consider the <em>saturated model</em>:</li>
+<li><strong>Goodness of fit</strong>: The goodness of fit null hypothesis is that the GLM (<a href="generalized-linear-models.html#eq-glm-def"><span>20.1</span></a>) is correctly specified. Consider the <em>saturated model</em>:</li>
 </ol>
 <p><span id="eq-saturated-model"><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \quad i = 1,\dots,n.
-\tag{24.1}\]</span></span></p>
+\tag{22.1}\]</span></span></p>
 <p>Let</p>
 <p><span class="math display">\[
 \mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: \mu_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
 \]</span></p>
 <p>be the set of mean vectors consistent with the GLM. Then, the goodness of fit testing problem is <span class="math inline">\(H_0: \boldsymbol{\mu} \in \mathcal{M}^{\text{GLM}}\)</span> versus <span class="math inline">\(H_1: \boldsymbol{\mu} \notin \mathcal{M}^{\text{GLM}}\)</span>.</p>
 </section>
-<section id="sec-confidence-interval-region" class="level4" data-number="24.1.1.2">
-<h4 data-number="24.1.1.2" class="anchored" data-anchor-id="sec-confidence-interval-region"><span class="header-section-number">24.1.1.2</span> Confidence interval/region construction</h4>
+<section id="sec-confidence-interval-region" class="level4" data-number="22.1.1.2">
+<h4 data-number="22.1.1.2" class="anchored" data-anchor-id="sec-confidence-interval-region"><span class="header-section-number">22.1.1.2</span> Confidence interval/region construction</h4>
 <ol type="1">
 <li><strong>Confidence interval for a single coefficient</strong>: Here, the goal is to produce a confidence interval <span class="math inline">\(\text{CI}(\beta_j)\)</span> for a coefficient <span class="math inline">\(\beta_j\)</span>.</li>
 <li><strong>Confidence region for a group of coefficients</strong>: Here, the goal is to produce a confidence region <span class="math inline">\(\text{CR}(\boldsymbol{\beta}_S)\)</span> for a group of coefficients <span class="math inline">\(\boldsymbol{\beta}_S\)</span>.</li>
@@ -451,28 +439,28 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 </ol>
 </section>
 </section>
-<section id="sec-inferential-tools" class="level3" data-number="24.1.2">
-<h3 data-number="24.1.2" class="anchored" data-anchor-id="sec-inferential-tools"><span class="header-section-number">24.1.2</span> Inferential tools</h3>
-<p>Inference in GLMs is based on asymptotic likelihood theory. These asymptotics can be based on <em>large-sample asymptotics</em> or <em>small-dispersion asymptotics</em>. Large-sample asymptotics are applicable for testing hypotheses and estimating parameters within models where the number of parameters is fixed while the sample size grows. Small-dispersion asymptotics are applicable for testing hypotheses and estimating parameters within models where the dispersion is small, regardless of the sample size. Large-sample asymptotics apply to testing and estimating coefficients in GLMs (<a href="generalized-linear-models.html#eq-glm-def"><span>22.1</span></a>) with a fixed number of parameters as the sample size grows, but not to testing goodness of fit. Indeed, goodness-of-fit tests refer to the saturated model (<a href="#eq-saturated-model"><span>24.1</span></a>), whose number of parameters grows with <span class="math inline">\(n\)</span>. Small-dispersion asymptotics, on the other hand, apply to goodness-of-fit testing.</p>
-<p>Hypothesis tests (and, by inversion, confidence intervals) can be constructed in three asymptotically equivalent ways: Wald tests, likelihood ratio tests (LRT), and score tests. These tests can be justified using either large-sample or small-dispersion asymptotics, depending on the context. Despite their asymptotic equivalence, in finite samples, some tests may be preferable to others (though for normal linear models, these tests are equivalent in finite samples as well). See <a href="#fig-trinity-comparison">Figure&nbsp;<span>24.1</span></a>.</p>
+<section id="sec-inferential-tools" class="level3" data-number="22.1.2">
+<h3 data-number="22.1.2" class="anchored" data-anchor-id="sec-inferential-tools"><span class="header-section-number">22.1.2</span> Inferential tools</h3>
+<p>Inference in GLMs is based on asymptotic likelihood theory. These asymptotics can be based on <em>large-sample asymptotics</em> or <em>small-dispersion asymptotics</em>. Large-sample asymptotics are applicable for testing hypotheses and estimating parameters within models where the number of parameters is fixed while the sample size grows. Small-dispersion asymptotics are applicable for testing hypotheses and estimating parameters within models where the dispersion is small, regardless of the sample size. Large-sample asymptotics apply to testing and estimating coefficients in GLMs (<a href="generalized-linear-models.html#eq-glm-def"><span>20.1</span></a>) with a fixed number of parameters as the sample size grows, but not to testing goodness of fit. Indeed, goodness-of-fit tests refer to the saturated model (<a href="#eq-saturated-model"><span>22.1</span></a>), whose number of parameters grows with <span class="math inline">\(n\)</span>. Small-dispersion asymptotics, on the other hand, apply to goodness-of-fit testing.</p>
+<p>Hypothesis tests (and, by inversion, confidence intervals) can be constructed in three asymptotically equivalent ways: Wald tests, likelihood ratio tests (LRT), and score tests. These tests can be justified using either large-sample or small-dispersion asymptotics, depending on the context. Despite their asymptotic equivalence, in finite samples, some tests may be preferable to others (though for normal linear models, these tests are equivalent in finite samples as well). See <a href="#fig-trinity-comparison">Figure&nbsp;<span>22.1</span></a>.</p>
 <div id="fig-trinity-comparison" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/trinity-comparison.png" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;24.1: A comparison of the three asymptotic methods for GLM inference.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;22.1: A comparison of the three asymptotic methods for GLM inference.</figcaption>
 </figure>
 </div>
 </section>
 </section>
-<section id="sec-wald-inference" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">24.2</span> Wald inference</h2>
+<section id="sec-wald-inference" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">22.2</span> Wald inference</h2>
 <p>Wald inference is based on the following asymptotic normality statement:</p>
 <p><span id="eq-wald-approximation"><span class="math display">\[
 \boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \boldsymbol{I}^{-1}(\boldsymbol{\beta})) = N(\boldsymbol{\beta}, \phi_0(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}),
-\tag{24.2}\]</span></span></p>
-<p>recalling our derivation of the Fisher information from equation (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>23.4</span></a>). This approximation can be justified via <em>large-sample asymptotics</em> or <em>small-dispersion asymptotics</em>. Wald inference is easy to carry out, and for this reason, it is considered the default type of inference. However, as we will see in Unit 5, it also tends to be the least accurate in small samples. Furthermore, Wald tests are usually not applied for testing goodness of fit.</p>
-<section id="sec-wald-test-single-coeff" class="level3" data-number="24.2.1">
-<h3 data-number="24.2.1" class="anchored" data-anchor-id="sec-wald-test-single-coeff"><span class="header-section-number">24.2.1</span> Wald test for <span class="math inline">\(\beta_j = \beta_j^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
-<p>Based on the Wald approximation (<a href="#eq-wald-approximation"><span>24.2</span></a>), under the null hypothesis, we have:</p>
+\tag{22.2}\]</span></span></p>
+<p>recalling our derivation of the Fisher information from equation (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>21.4</span></a>). This approximation can be justified via <em>large-sample asymptotics</em> or <em>small-dispersion asymptotics</em>. Wald inference is easy to carry out, and for this reason, it is considered the default type of inference. However, as we will see in Unit 5, it also tends to be the least accurate in small samples. Furthermore, Wald tests are usually not applied for testing goodness of fit.</p>
+<section id="sec-wald-test-single-coeff" class="level3" data-number="22.2.1">
+<h3 data-number="22.2.1" class="anchored" data-anchor-id="sec-wald-test-single-coeff"><span class="header-section-number">22.2.1</span> Wald test for <span class="math inline">\(\beta_j = \beta_j^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
+<p>Based on the Wald approximation (<a href="#eq-wald-approximation"><span>22.2</span></a>), under the null hypothesis, we have:</p>
 <p><span class="math display">\[
 \widehat \beta_j \overset{\cdot}{\sim} N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{jj}) \approx N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}) \equiv N(0, \text{SE}(\beta_j)^2),
 \]</span></p>
@@ -482,8 +470,8 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>Since a one-dimensional parameter is being tested, we can make the test one-sided if desired.</p>
 </section>
-<section id="sec-wald-test-group-coeff" class="level3" data-number="24.2.2">
-<h3 data-number="24.2.2" class="anchored" data-anchor-id="sec-wald-test-group-coeff"><span class="header-section-number">24.2.2</span> Wald test for <span class="math inline">\(\boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
+<section id="sec-wald-test-group-coeff" class="level3" data-number="22.2.2">
+<h3 data-number="22.2.2" class="anchored" data-anchor-id="sec-wald-test-group-coeff"><span class="header-section-number">22.2.2</span> Wald test for <span class="math inline">\(\boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
 <p>Extending the reasoning above, we have under the null hypothesis that:</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat \beta}_S \overset{\cdot}{\sim} N(\boldsymbol{\beta}_S^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{S,S}) \approx N(\boldsymbol{\beta}_S^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}),
@@ -497,15 +485,15 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) &gt; \chi^2_{|S|}(1-\alpha)\right).
 \]</span></p>
 </section>
-<section id="sec-wald-ci-single-coeff" class="level3" data-number="24.2.3">
-<h3 data-number="24.2.3" class="anchored" data-anchor-id="sec-wald-ci-single-coeff"><span class="header-section-number">24.2.3</span> Wald confidence interval for <span class="math inline">\(\beta_j\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
+<section id="sec-wald-ci-single-coeff" class="level3" data-number="22.2.3">
+<h3 data-number="22.2.3" class="anchored" data-anchor-id="sec-wald-ci-single-coeff"><span class="header-section-number">22.2.3</span> Wald confidence interval for <span class="math inline">\(\beta_j\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
 <p>Inverting the Wald test for <span class="math inline">\(\beta_j\)</span>, we get a Wald confidence interval:</p>
 <p><span id="eq-conf-int-beta"><span class="math display">\[
 \text{CI}(\beta_j) \equiv \widehat \beta_j \pm z_{1-\alpha/2} \cdot \text{SE}(\beta_j), \quad \text{where} \quad \text{SE}(\beta_j) \equiv \sqrt{\phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}.
-\tag{24.3}\]</span></span></p>
+\tag{22.3}\]</span></span></p>
 </section>
-<section id="sec-wald-cr-group-coeff" class="level3" data-number="24.2.4">
-<h3 data-number="24.2.4" class="anchored" data-anchor-id="sec-wald-cr-group-coeff"><span class="header-section-number">24.2.4</span> Wald confidence region for <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
+<section id="sec-wald-cr-group-coeff" class="level3" data-number="22.2.4">
+<h3 data-number="22.2.4" class="anchored" data-anchor-id="sec-wald-cr-group-coeff"><span class="header-section-number">22.2.4</span> Wald confidence region for <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
 <p>By inverting the test of <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>, we get the Wald confidence region:</p>
 <p><span class="math display">\[
 \text{CR}(\boldsymbol{\beta}_S) \equiv \left\{\boldsymbol{\beta}_S: \frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S) \leq \chi^2_{|S|}(1-\alpha)\right\}.
@@ -515,9 +503,9 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \text{CR}(\boldsymbol{\beta}_S) \equiv \left\{\boldsymbol{\beta}: \frac{1}{\phi_0} (\boldsymbol{\widehat \beta} - \boldsymbol{\beta})^T \boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X} (\boldsymbol{\widehat \beta} - \boldsymbol{\beta}) \leq \chi^2_{p}(1-\alpha)\right\}.
 \]</span></p>
 </section>
-<section id="sec-wald-ci-fitted-values" class="level3" data-number="24.2.5">
-<h3 data-number="24.2.5" class="anchored" data-anchor-id="sec-wald-ci-fitted-values"><span class="header-section-number">24.2.5</span> Wald confidence intervals for <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\mu_i\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
-<p>Given the Wald approximation <a href="#eq-wald-approximation">Equation&nbsp;<span>24.2</span></a>, we have:</p>
+<section id="sec-wald-ci-fitted-values" class="level3" data-number="22.2.5">
+<h3 data-number="22.2.5" class="anchored" data-anchor-id="sec-wald-ci-fitted-values"><span class="header-section-number">22.2.5</span> Wald confidence intervals for <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\mu_i\)</span> (known <span class="math inline">\(\phi_0\)</span>)</h3>
+<p>Given the Wald approximation <a href="#eq-wald-approximation">Equation&nbsp;<span>22.2</span></a>, we have:</p>
 <p><span class="math display">\[
 \widehat \eta_i \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\eta_i, \phi_0 \cdot \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}) \equiv N(\eta_i, \text{SE}(\eta_i)^2).
 \]</span></p>
@@ -527,8 +515,8 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \]</span></p>
 <p>A confidence interval for <span class="math inline">\(\mu_i \equiv \mathbb{E}_{\boldsymbol{\beta}}[y_i] = g^{-1}(\eta_i)\)</span> can be obtained by applying the monotonic function <span class="math inline">\(g^{-1}\)</span> to the endpoints of the confidence interval for <span class="math inline">\(\eta_i\)</span>. Note that the resulting confidence interval may be asymmetric. We can get a symmetric interval by applying the delta method, but this interval would be less accurate because it involves the delta method approximation in addition to the Wald approximation.</p>
 </section>
-<section id="sec-wald-inference-unknown-dispersion" class="level3" data-number="24.2.6">
-<h3 data-number="24.2.6" class="anchored" data-anchor-id="sec-wald-inference-unknown-dispersion"><span class="header-section-number">24.2.6</span> Wald inference when <span class="math inline">\(\phi_0\)</span> is unknown</h3>
+<section id="sec-wald-inference-unknown-dispersion" class="level3" data-number="22.2.6">
+<h3 data-number="22.2.6" class="anchored" data-anchor-id="sec-wald-inference-unknown-dispersion"><span class="header-section-number">22.2.6</span> Wald inference when <span class="math inline">\(\phi_0\)</span> is unknown</h3>
 <p>When <span class="math inline">\(\phi_0\)</span> is unknown, we need to plug in an estimate <span class="math inline">\(\widetilde \phi_0\)</span> (e.g.&nbsp;the deviance-based or Pearson-based estimate). Now our standard errors are <span class="math inline">\(\text{SE}(\beta_j) \equiv \sqrt{\widetilde \phi_0 \cdot [(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}\)</span>, and our test statistic for <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span> is:</p>
 <p><span class="math display">\[
 \frac{\widehat \beta_j - \beta_j^0}{\sqrt{\widetilde \phi_0}\sqrt{[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}}.
@@ -542,12 +530,12 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \frac{\frac{1}{|S|}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)}{\widetilde \phi_0} \overset{\cdot}{\sim} F_{|S|, n-p}.
 \]</span> ## Likelihood ratio inference {#sec-likelihood-ratio-inference}</p>
 </section>
-<section id="sec-likelihood-ratio-coeff-known" class="level3" data-number="24.2.7">
-<h3 data-number="24.2.7" class="anchored" data-anchor-id="sec-likelihood-ratio-coeff-known"><span class="header-section-number">24.2.7</span> Testing one or more coefficients (<span class="math inline">\(\phi_0\)</span> known)</h3>
-<p>Let <span class="math inline">\(\ell(\boldsymbol{y}, \boldsymbol{\mu}) = -\frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C\)</span> be the GLM log-likelihood (recall equation (<a href="parameter-estimation.html#eq-glm-likelihood-via-deviance"><span>23.6</span></a>)). Let <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> be a null hypothesis about some subset of variables <span class="math inline">\(S \subset \{0, 1, \dots, p-1\}\)</span>, and let <span class="math inline">\(\boldsymbol{\widehat{\mu}}_{\text{-}S}\)</span> be the maximum likelihood estimate under the null hypothesis. Likelihood ratio inference is based on the following asymptotic chi-square distribution:</p>
+<section id="sec-likelihood-ratio-coeff-known" class="level3" data-number="22.2.7">
+<h3 data-number="22.2.7" class="anchored" data-anchor-id="sec-likelihood-ratio-coeff-known"><span class="header-section-number">22.2.7</span> Testing one or more coefficients (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<p>Let <span class="math inline">\(\ell(\boldsymbol{y}, \boldsymbol{\mu}) = -\frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C\)</span> be the GLM log-likelihood (recall equation (<a href="parameter-estimation.html#eq-glm-likelihood-via-deviance"><span>21.6</span></a>)). Let <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> be a null hypothesis about some subset of variables <span class="math inline">\(S \subset \{0, 1, \dots, p-1\}\)</span>, and let <span class="math inline">\(\boldsymbol{\widehat{\mu}}_{\text{-}S}\)</span> be the maximum likelihood estimate under the null hypothesis. Likelihood ratio inference is based on the following asymptotic chi-square distribution:</p>
 <p><span id="eq-likelihood-ratio-approximation"><span class="math display">\[
 2(\ell(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}) - \ell(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S})) = \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} \overset{\cdot}{\sim} \chi^2_{|S|}.
-\tag{24.4}\]</span></span></p>
+\tag{22.4}\]</span></span></p>
 <p>This approximation holds either in large samples (large-sample asymptotics) or in small samples but with small dispersion (small-dispersion asymptotics). The latter has to do with the fact that under small-dispersion asymptotics,</p>
 <p><span class="math display">\[
 \frac{d(y_i, \mu_i)}{\phi_0/w_i} \overset{\cdot}{\sim} \chi^2_1,
@@ -556,29 +544,29 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 <p><span class="math display">\[
 \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{\phi_0} = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{\phi_0/w_i} \overset{\cdot}{\sim} \chi^2_n.
 \]</span></p>
-<p>Suppose we wish to test the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>. Then, based on the approximation (<a href="#eq-likelihood-ratio-approximation"><span>24.4</span></a>), we can define the likelihood ratio test:</p>
+<p>Suppose we wish to test the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>. Then, based on the approximation (<a href="#eq-likelihood-ratio-approximation"><span>22.4</span></a>), we can define the likelihood ratio test:</p>
 <p><span class="math display">\[
 \phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} &gt; \chi^2_{|S|}(1-\alpha)\right).
 \]</span></p>
 </section>
-<section id="sec-likelihood-ratio-ci-single-coeff" class="level3" data-number="24.2.8">
-<h3 data-number="24.2.8" class="anchored" data-anchor-id="sec-likelihood-ratio-ci-single-coeff"><span class="header-section-number">24.2.8</span> Confidence interval for a single coefficient</h3>
+<section id="sec-likelihood-ratio-ci-single-coeff" class="level3" data-number="22.2.8">
+<h3 data-number="22.2.8" class="anchored" data-anchor-id="sec-likelihood-ratio-ci-single-coeff"><span class="header-section-number">22.2.8</span> Confidence interval for a single coefficient</h3>
 <p>We can obtain a confidence interval for <span class="math inline">\(\beta_j\)</span> by inverting the likelihood ratio test. Let <span class="math inline">\(\boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j^0)\)</span> be the fitted mean vector under the constraint <span class="math inline">\(\beta_j = \beta_j^0\)</span>. Then, inverting the likelihood ratio test gives us the confidence interval:</p>
 <p><span class="math display">\[
 \text{CI}(\beta_j) \equiv \left\{\beta_j: \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j)) - D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}})}{\phi_0} \leq \chi^2_{|S|}(1-\alpha)\right\}.
 \]</span></p>
 <p>Likelihood ratio-based confidence intervals tend to be more accurate than Wald intervals, especially when the parameter is near the edge of the parameter space, but they require more computation because <span class="math inline">\(\boldsymbol{\widehat{\mu}}_{\text{-}j}(\beta_j)\)</span> must be computed on a large grid of <span class="math inline">\(\beta_j\)</span> values. If we wanted to create <em>confidence regions</em> for groups of parameters, this would become computationally intensive due to the curse of dimensionality.</p>
 </section>
-<section id="sec-likelihood-ratio-goodness-of-fit" class="level3" data-number="24.2.9">
-<h3 data-number="24.2.9" class="anchored" data-anchor-id="sec-likelihood-ratio-goodness-of-fit"><span class="header-section-number">24.2.9</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<section id="sec-likelihood-ratio-goodness-of-fit" class="level3" data-number="22.2.9">
+<h3 data-number="22.2.9" class="anchored" data-anchor-id="sec-likelihood-ratio-goodness-of-fit"><span class="header-section-number">22.2.9</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>For <span class="math inline">\(\phi_0\)</span> known, we can also construct a goodness of fit test. To this end, we compare the deviances of the GLM and saturated model:</p>
 <p><span class="math display">\[
 \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}) - D(\boldsymbol{y}, \boldsymbol{y})}{\phi_0} = \frac{D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}})}{\phi_0} \overset{\cdot}{\sim} \chi^2_{n-p}.
 \]</span></p>
-<p>Note that the goodness of fit test is a significance test with respect to the saturated model <a href="#eq-saturated-model">Equation&nbsp;<span>24.1</span></a>, which has <span class="math inline">\(n\)</span> free parameters. Therefore, the number of free parameters increases with the sample size, so large-sample asymptotics cannot justify this test. Instead, we must rely on small-dispersion asymptotics.</p>
+<p>Note that the goodness of fit test is a significance test with respect to the saturated model <a href="#eq-saturated-model">Equation&nbsp;<span>22.1</span></a>, which has <span class="math inline">\(n\)</span> free parameters. Therefore, the number of free parameters increases with the sample size, so large-sample asymptotics cannot justify this test. Instead, we must rely on small-dispersion asymptotics.</p>
 </section>
-<section id="sec-likelihood-ratio-unknown-dispersion" class="level3" data-number="24.2.10">
-<h3 data-number="24.2.10" class="anchored" data-anchor-id="sec-likelihood-ratio-unknown-dispersion"><span class="header-section-number">24.2.10</span> Likelihood ratio inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
+<section id="sec-likelihood-ratio-unknown-dispersion" class="level3" data-number="22.2.10">
+<h3 data-number="22.2.10" class="anchored" data-anchor-id="sec-likelihood-ratio-unknown-dispersion"><span class="header-section-number">22.2.10</span> Likelihood ratio inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
 <p>If <span class="math inline">\(\phi_0\)</span> is unknown, we can estimate it as discussed above and construct an <span class="math inline">\(F\)</span>-statistic as follows:</p>
 <p><span class="math display">\[
 F \equiv \frac{(D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}))/|S|}{\widetilde{\phi}_0}.
@@ -586,11 +574,11 @@ F \equiv \frac{(D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\b
 <p>In normal linear model theory, the null distribution of <span class="math inline">\(F\)</span> is <em>exactly</em> <span class="math inline">\(F_{|S|, n-p}\)</span>. For GLMs, the null distribution of <span class="math inline">\(F\)</span> is <em>approximately</em> <span class="math inline">\(F_{|S|, n-p}\)</span>. We can use this <span class="math inline">\(F\)</span> distribution to construct hypothesis tests for groups of coefficients, or invert it to get a confidence interval for a single coefficient. We cannot construct a goodness of fit test in the case that <span class="math inline">\(\phi_0\)</span> is unknown because the residual degrees of freedom would be used up to estimate <span class="math inline">\(\phi_0\)</span> rather than to carry out inference.</p>
 </section>
 </section>
-<section id="sec-score-inference" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="sec-score-inference"><span class="header-section-number">24.3</span> Score-based inference</h2>
+<section id="sec-score-inference" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="sec-score-inference"><span class="header-section-number">22.3</span> Score-based inference</h2>
 <p>Score-based inference can be used for the same set of inferential tasks as likelihood ratio inference.</p>
-<section id="sec-score-test-multiple-coeff" class="level3" data-number="24.3.1">
-<h3 data-number="24.3.1" class="anchored" data-anchor-id="sec-score-test-multiple-coeff"><span class="header-section-number">24.3.1</span> Testing multiple coefficients (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<section id="sec-score-test-multiple-coeff" class="level3" data-number="22.3.1">
+<h3 data-number="22.3.1" class="anchored" data-anchor-id="sec-score-test-multiple-coeff"><span class="header-section-number">22.3.1</span> Testing multiple coefficients (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>Let <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> be a null hypothesis about a subset of variables <span class="math inline">\(S\)</span>, and let <span class="math inline">\(\boldsymbol{\widehat{\beta}}^0\)</span> be the maximum likelihood estimate under this null hypothesis. Score test inference is based on the asymptotic approximation:</p>
 <p><span class="math display">\[
 U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) \overset{\cdot}{\sim} \chi^2_{|S|},
@@ -607,7 +595,7 @@ U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^
 <p><span class="math display">\[
 U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = [U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S.
 \]</span></p>
-<p>Recalling the expressions (<a href="parameter-estimation.html#eq-glm-score"><span>23.2</span></a>) and (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>23.4</span></a>) for the score vector and information matrix, we have that:</p>
+<p>Recalling the expressions (<a href="parameter-estimation.html#eq-glm-score"><span>21.2</span></a>) and (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>21.4</span></a>) for the score vector and information matrix, we have that:</p>
 <p><span class="math display">\[
 U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
 \]</span></p>
@@ -618,23 +606,23 @@ U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^
 \]</span></p>
 <p>The nice thing about a score test is that the model need only be fit under the null hypothesis. If there are several variables one is considering adding to a model, the model need not be refit upon the addition of each variable.</p>
 </section>
-<section id="sec-score-test-single-coeff" class="level3" data-number="24.3.2">
-<h3 data-number="24.3.2" class="anchored" data-anchor-id="sec-score-test-single-coeff"><span class="header-section-number">24.3.2</span> Testing a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<section id="sec-score-test-single-coeff" class="level3" data-number="22.3.2">
+<h3 data-number="22.3.2" class="anchored" data-anchor-id="sec-score-test-single-coeff"><span class="header-section-number">22.3.2</span> Testing a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>If <span class="math inline">\(S = \{j\}\)</span>, the score test becomes univariate and can be based on the following normal approximation:</p>
 <p><span id="eq-score-test-univariate"><span class="math display">\[
 \frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} \overset{\cdot}{\sim} N(0, 1).
-\tag{24.5}\]</span></span></p>
+\tag{22.5}\]</span></span></p>
 <p>Unlike its multivariate counterparts, we can construct not just a two-sided test but also one-sided tests based on this normal approximation. For example, below is a right-sided score test for <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span>:</p>
 <p><span class="math display">\[
 \phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; z_{1-\alpha}\right).
 \]</span></p>
 </section>
-<section id="sec-score-ci-single-coeff" class="level3" data-number="24.3.3">
-<h3 data-number="24.3.3" class="anchored" data-anchor-id="sec-score-ci-single-coeff"><span class="header-section-number">24.3.3</span> Confidence interval for a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<section id="sec-score-ci-single-coeff" class="level3" data-number="22.3.3">
+<h3 data-number="22.3.3" class="anchored" data-anchor-id="sec-score-ci-single-coeff"><span class="header-section-number">22.3.3</span> Confidence interval for a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>Just as with the likelihood ratio test, it is possible to invert a score test for a single coefficient to obtain a confidence interval. It is uncommon to invert a multivariate test to obtain a confidence region for multiple coordinates of <span class="math inline">\(\boldsymbol{\beta}\)</span>, given the computationally expensive search across a grid of possible <span class="math inline">\(\boldsymbol{\beta}\)</span> values.</p>
 </section>
-<section id="sec-score-goodness-of-fit" class="level3" data-number="24.3.4">
-<h3 data-number="24.3.4" class="anchored" data-anchor-id="sec-score-goodness-of-fit"><span class="header-section-number">24.3.4</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</h3>
+<section id="sec-score-goodness-of-fit" class="level3" data-number="22.3.4">
+<h3 data-number="22.3.4" class="anchored" data-anchor-id="sec-score-goodness-of-fit"><span class="header-section-number">22.3.4</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>We can view goodness of fit testing as testing a hypothesis about the coefficients in a GLM with <span class="math inline">\(\boldsymbol{X} = \boldsymbol{I}_{n \times n}\)</span>, which amounts to the saturated model that allows unrestricted means for each observation. Furthermore, the coefficient vector fitted under the null hypothesis amounts to fitting the GLM as usual. Therefore, we have:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -650,8 +638,8 @@ U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{
 \]</span></p>
 <p>In the context of contingency table analysis (see the next chapter), this test reduces to the Pearson chi-square test of independence between two categorical variables. This test was proposed in 1900; it was only pointed out about a century later that this is a score test (Smyth 2003).</p>
 </section>
-<section id="sec-score-test-unknown-dispersion" class="level3" data-number="24.3.5">
-<h3 data-number="24.3.5" class="anchored" data-anchor-id="sec-score-test-unknown-dispersion"><span class="header-section-number">24.3.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
+<section id="sec-score-test-unknown-dispersion" class="level3" data-number="22.3.5">
+<h3 data-number="22.3.5" class="anchored" data-anchor-id="sec-score-test-unknown-dispersion"><span class="header-section-number">22.3.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
 <p>Score test inference for one or more coefficients <span class="math inline">\(\boldsymbol{\beta}_S\)</span> can be achieved by replacing <span class="math inline">\(\phi_0\)</span> with one of its estimators and replacing the normal and chi-square distributions with <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions, respectively. For example, the score test for a single coefficient <span class="math inline">\(\beta_j\)</span> is:</p>
 <p><span class="math display">\[
 \phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; t_{n-p}(1-\alpha)\right).
@@ -899,12 +887,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./parameter-estimation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./r-demo-part-4.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

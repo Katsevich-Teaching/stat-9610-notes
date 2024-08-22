@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 17&nbsp; The bootstrap</title>
+<title>STAT 9610 Lecture Notes - 15&nbsp; The bootstrap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./bootstrap.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./bootstrap.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,12 +360,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-residual-bootstrap" id="toc-sec-residual-bootstrap" class="nav-link active" data-scroll-target="#sec-residual-bootstrap"><span class="header-section-number">17.1</span> The residual bootstrap</a>
+  <li><a href="#sec-residual-bootstrap" id="toc-sec-residual-bootstrap" class="nav-link active" data-scroll-target="#sec-residual-bootstrap"><span class="header-section-number">15.1</span> The residual bootstrap</a>
   <ul class="collapse">
-  <li><a href="#standard-errors-via-the-residual-bootstrap" id="toc-standard-errors-via-the-residual-bootstrap" class="nav-link" data-scroll-target="#standard-errors-via-the-residual-bootstrap"><span class="header-section-number">17.1.1</span> Standard errors via the residual bootstrap</a></li>
-  <li><a href="#hypothesis-testing-via-the-residual-bootstrap" id="toc-hypothesis-testing-via-the-residual-bootstrap" class="nav-link" data-scroll-target="#hypothesis-testing-via-the-residual-bootstrap"><span class="header-section-number">17.1.2</span> Hypothesis testing via the residual bootstrap</a></li>
+  <li><a href="#standard-errors-via-the-residual-bootstrap" id="toc-standard-errors-via-the-residual-bootstrap" class="nav-link" data-scroll-target="#standard-errors-via-the-residual-bootstrap"><span class="header-section-number">15.1.1</span> Standard errors via the residual bootstrap</a></li>
+  <li><a href="#hypothesis-testing-via-the-residual-bootstrap" id="toc-hypothesis-testing-via-the-residual-bootstrap" class="nav-link" data-scroll-target="#hypothesis-testing-via-the-residual-bootstrap"><span class="header-section-number">15.1.2</span> Hypothesis testing via the residual bootstrap</a></li>
   </ul></li>
-  <li><a href="#sec-pairs-bootstrap" id="toc-sec-pairs-bootstrap" class="nav-link" data-scroll-target="#sec-pairs-bootstrap"><span class="header-section-number">17.2</span> Pairs bootstrap</a></li>
+  <li><a href="#sec-pairs-bootstrap" id="toc-sec-pairs-bootstrap" class="nav-link" data-scroll-target="#sec-pairs-bootstrap"><span class="header-section-number">15.2</span> Pairs bootstrap</a></li>
   </ul>
 </nav>
     </div>
@@ -386,7 +374,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-bootstrap" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></h1>
+<h1 class="title"><span id="sec-bootstrap" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></h1>
 </div>
 
 
@@ -401,20 +389,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="sec-residual-bootstrap" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="sec-residual-bootstrap"><span class="header-section-number">17.1</span> The residual bootstrap</h2>
-<section id="standard-errors-via-the-residual-bootstrap" class="level3" data-number="17.1.1">
-<h3 data-number="17.1.1" class="anchored" data-anchor-id="standard-errors-via-the-residual-bootstrap"><span class="header-section-number">17.1.1</span> Standard errors via the residual bootstrap</h3>
+<section id="sec-residual-bootstrap" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-residual-bootstrap"><span class="header-section-number">15.1</span> The residual bootstrap</h2>
+<section id="standard-errors-via-the-residual-bootstrap" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="standard-errors-via-the-residual-bootstrap"><span class="header-section-number">15.1.1</span> Standard errors via the residual bootstrap</h3>
 <p>The <em>bootstrap</em> is one way of carrying out robust inference. The core idea of the bootstrap is to use the data to construct an approximation to the data-generating distribution and then to approximate the sampling distribution of any test statistic by simulating from this approximate data-generating distribution. This approach, pioneered by Brad Efron in 1979, replaces mathematical derivations with computation. The bootstrap is extremely flexible and can be adapted to apply in a variety of settings.</p>
 <p>Suppose that <span class="math inline">\(y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i\)</span>, where <span class="math inline">\(\epsilon_i \overset{\text{i.i.d.}}{\sim} F\)</span> for some distribution <span class="math inline">\(F\)</span>. Then, the data-generating distribution is specified by <span class="math inline">\((\boldsymbol{\beta}, F)\)</span>, which we approximate by substituting <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> for <span class="math inline">\(\boldsymbol{\beta}\)</span> and the empirical distribution of the residuals <span class="math inline">\(\widehat{\epsilon}_i\)</span> (call it <span class="math inline">\(\widehat{F}\)</span>) for <span class="math inline">\(F\)</span>. We can then sample new response vectors based on this approximate data-generating distribution:</p>
 <p><span id="eq-residual-bootstrap"><span class="math display">\[
 y_i^b = \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
-\tag{17.1}\]</span></span></p>
+\tag{15.1}\]</span></span></p>
 <p>Note that i.i.d. sampling <span class="math inline">\(\epsilon_i^b\)</span> from <span class="math inline">\(\widehat{F}\)</span> amounts to sampling <span class="math inline">\((\epsilon_1^b, \dots, \epsilon_n^b)\)</span> with replacement from <span class="math inline">\((\widehat{\epsilon}_1, \dots, \widehat{\epsilon}_n)\)</span>. Then, as with the parametric bootstrap, we fit a least squares coefficient vector <span class="math inline">\(\boldsymbol{\widehat{\beta}}^b\)</span> to <span class="math inline">\((\boldsymbol{X}, \boldsymbol{y}^b)\)</span> for each <span class="math inline">\(b\)</span> and obtain standard errors by treating <span class="math inline">\(\{\boldsymbol{\widehat{\beta}}^b\}_{b = 1}^B\)</span> as though it were the sampling distribution of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>.</p>
 </section>
-<section id="hypothesis-testing-via-the-residual-bootstrap" class="level3" data-number="17.1.2">
-<h3 data-number="17.1.2" class="anchored" data-anchor-id="hypothesis-testing-via-the-residual-bootstrap"><span class="header-section-number">17.1.2</span> Hypothesis testing via the residual bootstrap</h3>
-<p>While the bootstrap is commonly associated with the construction of standard errors, it can also be used directly for hypothesis testing. Suppose we wish to test the linear regression null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span> for some <span class="math inline">\(S \subseteq \{1, \dots, p-1\}\)</span> (which recall we cannot do using a permutation test). We compute some test statistic <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y})\)</span> measuring the significance of <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (e.g., an <span class="math inline">\(F\)</span>-statistic, but it could be anything else). Then, we can use a variant of the residual bootstrap. We fit the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as usual and extract the residuals <span class="math inline">\(\widehat{\epsilon}_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}\)</span> and their empirical distribution <span class="math inline">\(\widehat{F}\)</span>. Then, placing ourselves under the null hypothesis, we generate new samples <span class="math inline">\(\boldsymbol{y}^b\)</span> from the null distribution analogously to the usual residual bootstrap (<a href="#eq-residual-bootstrap"><span>17.1</span></a>):</p>
+<section id="hypothesis-testing-via-the-residual-bootstrap" class="level3" data-number="15.1.2">
+<h3 data-number="15.1.2" class="anchored" data-anchor-id="hypothesis-testing-via-the-residual-bootstrap"><span class="header-section-number">15.1.2</span> Hypothesis testing via the residual bootstrap</h3>
+<p>While the bootstrap is commonly associated with the construction of standard errors, it can also be used directly for hypothesis testing. Suppose we wish to test the linear regression null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span> for some <span class="math inline">\(S \subseteq \{1, \dots, p-1\}\)</span> (which recall we cannot do using a permutation test). We compute some test statistic <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y})\)</span> measuring the significance of <span class="math inline">\(\boldsymbol{\beta}_S\)</span> (e.g., an <span class="math inline">\(F\)</span>-statistic, but it could be anything else). Then, we can use a variant of the residual bootstrap. We fit the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as usual and extract the residuals <span class="math inline">\(\widehat{\epsilon}_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}\)</span> and their empirical distribution <span class="math inline">\(\widehat{F}\)</span>. Then, placing ourselves under the null hypothesis, we generate new samples <span class="math inline">\(\boldsymbol{y}^b\)</span> from the null distribution analogously to the usual residual bootstrap (<a href="#eq-residual-bootstrap"><span>15.1</span></a>):</p>
 <p><span class="math display">\[
 y_i^b = \boldsymbol{x}_{i, \text{-}S}^T \boldsymbol{\widehat{\beta}}_{\text{-}S} + \epsilon_i^b, \quad \epsilon_i^b \overset{\text{i.i.d.}}{\sim} \widehat{F} \quad \text{for } b = 1, \dots, B.
 \]</span></p>
@@ -424,8 +412,8 @@ p^{\text{boot}} \equiv \frac{1}{B+1}\left(1+\sum_{b = 1}^B 1(T(\boldsymbol{X}, \
 \]</span></p>
 </section>
 </section>
-<section id="sec-pairs-bootstrap" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="sec-pairs-bootstrap"><span class="header-section-number">17.2</span> Pairs bootstrap</h2>
+<section id="sec-pairs-bootstrap" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="sec-pairs-bootstrap"><span class="header-section-number">15.2</span> Pairs bootstrap</h2>
 <p>The residual bootstrap corrects for non-normality but not heteroskedasticity or correlated errors, since it assumes that the noise terms are i.i.d. from some distribution.</p>
 <p>Weakening the assumptions further, let’s assume only that <span class="math inline">\((\boldsymbol{x}_{i*}, y_i) \overset{\text{i.i.d.}}{\sim} F\)</span> for some joint distribution <span class="math inline">\(F\)</span>. We then resample our observations by sampling with replacement from the original observations.</p>
 <p>Note that, unlike the parametric or residual bootstrap, the pairs bootstrap treats the predictors <span class="math inline">\(\boldsymbol{X}\)</span> as random rather than fixed. The benefit of the pairs bootstrap is that it does not assume homoskedasticity since the error variance is allowed to depend on <span class="math inline">\(\boldsymbol{x}_{i*}\)</span>. Therefore, the pairs bootstrap addresses both non-normality and heteroskedasticity, though it does not address correlated errors (though variants of the pairs bootstrap do; see below). Note that the pairs bootstrap does not even assume that <span class="math inline">\(\mathbb{E}[y_i] = \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span> for some <span class="math inline">\(\boldsymbol{\beta}\)</span>. However, in the presence of model bias, it is unclear for what parameters we are even doing inference. While the pairs bootstrap assumes less than the residual bootstrap, it may be somewhat less efficient in the case when the assumptions of the latter are met.</p>
@@ -671,12 +659,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./asymptotic-methods.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./permutation-test.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

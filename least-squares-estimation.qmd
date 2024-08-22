@@ -1,4 +1,4 @@
-# Least squares estimation
+# Least squares estimation {#sec-least-squares-estimation}
 
 ## Algebraic perspective
 

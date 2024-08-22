@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 21&nbsp; Exponential dispersion model (EDM) distributions</title>
+<title>STAT 9610 Lecture Notes - 19&nbsp; Exponential dispersion model (EDM) distributions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./exponential-dispersion-models.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./exponential-dispersion-models.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,29 +360,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition"><span class="header-section-number">21.1</span> Definition</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">21.2</span> Examples</a>
+  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition"><span class="header-section-number">19.1</span> Definition</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">19.2</span> Examples</a>
   <ul class="collapse">
-  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution"><span class="header-section-number">21.2.1</span> Normal distribution</a></li>
-  <li><a href="#bernoulli-distribution" id="toc-bernoulli-distribution" class="nav-link" data-scroll-target="#bernoulli-distribution"><span class="header-section-number">21.2.2</span> Bernoulli distribution</a></li>
-  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution"><span class="header-section-number">21.2.3</span> Binomial distribution</a></li>
-  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution"><span class="header-section-number">21.2.4</span> Poisson distribution</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution"><span class="header-section-number">19.2.1</span> Normal distribution</a></li>
+  <li><a href="#bernoulli-distribution" id="toc-bernoulli-distribution" class="nav-link" data-scroll-target="#bernoulli-distribution"><span class="header-section-number">19.2.2</span> Bernoulli distribution</a></li>
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution"><span class="header-section-number">19.2.3</span> Binomial distribution</a></li>
+  <li><a href="#poisson-distribution" id="toc-poisson-distribution" class="nav-link" data-scroll-target="#poisson-distribution"><span class="header-section-number">19.2.4</span> Poisson distribution</a></li>
   </ul></li>
-  <li><a href="#moments-of-exponential-dispersion-model-distributions" id="toc-moments-of-exponential-dispersion-model-distributions" class="nav-link" data-scroll-target="#moments-of-exponential-dispersion-model-distributions"><span class="header-section-number">21.3</span> Moments of exponential dispersion model distributions</a></li>
-  <li><a href="#relationships-among-the-mean-variance-and-natural-parameter" id="toc-relationships-among-the-mean-variance-and-natural-parameter" class="nav-link" data-scroll-target="#relationships-among-the-mean-variance-and-natural-parameter"><span class="header-section-number">21.4</span> Relationships among the mean, variance, and natural parameter</a>
+  <li><a href="#moments-of-exponential-dispersion-model-distributions" id="toc-moments-of-exponential-dispersion-model-distributions" class="nav-link" data-scroll-target="#moments-of-exponential-dispersion-model-distributions"><span class="header-section-number">19.3</span> Moments of exponential dispersion model distributions</a></li>
+  <li><a href="#relationships-among-the-mean-variance-and-natural-parameter" id="toc-relationships-among-the-mean-variance-and-natural-parameter" class="nav-link" data-scroll-target="#relationships-among-the-mean-variance-and-natural-parameter"><span class="header-section-number">19.4</span> Relationships among the mean, variance, and natural parameter</a>
   <ul class="collapse">
-  <li><a href="#relationship-between-the-mean-and-the-natural-parameter" id="toc-relationship-between-the-mean-and-the-natural-parameter" class="nav-link" data-scroll-target="#relationship-between-the-mean-and-the-natural-parameter"><span class="header-section-number">21.4.1</span> Relationship between the mean and the natural parameter</a></li>
-  <li><a href="#relationship-between-the-mean-and-variance" id="toc-relationship-between-the-mean-and-variance" class="nav-link" data-scroll-target="#relationship-between-the-mean-and-variance"><span class="header-section-number">21.4.2</span> Relationship between the mean and variance</a></li>
+  <li><a href="#relationship-between-the-mean-and-the-natural-parameter" id="toc-relationship-between-the-mean-and-the-natural-parameter" class="nav-link" data-scroll-target="#relationship-between-the-mean-and-the-natural-parameter"><span class="header-section-number">19.4.1</span> Relationship between the mean and the natural parameter</a></li>
+  <li><a href="#relationship-between-the-mean-and-variance" id="toc-relationship-between-the-mean-and-variance" class="nav-link" data-scroll-target="#relationship-between-the-mean-and-variance"><span class="header-section-number">19.4.2</span> Relationship between the mean and variance</a></li>
   </ul></li>
-  <li><a href="#the-unit-deviance" id="toc-the-unit-deviance" class="nav-link" data-scroll-target="#the-unit-deviance"><span class="header-section-number">21.5</span> The unit deviance</a>
+  <li><a href="#the-unit-deviance" id="toc-the-unit-deviance" class="nav-link" data-scroll-target="#the-unit-deviance"><span class="header-section-number">19.5</span> The unit deviance</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">21.5.1</span> Example</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">19.5.1</span> Example</a></li>
   </ul></li>
-  <li><a href="#small-dispersion-approximations-to-an-edm" id="toc-small-dispersion-approximations-to-an-edm" class="nav-link" data-scroll-target="#small-dispersion-approximations-to-an-edm"><span class="header-section-number">21.6</span> Small-dispersion approximations to an EDM</a>
+  <li><a href="#small-dispersion-approximations-to-an-edm" id="toc-small-dispersion-approximations-to-an-edm" class="nav-link" data-scroll-target="#small-dispersion-approximations-to-an-edm"><span class="header-section-number">19.6</span> Small-dispersion approximations to an EDM</a>
   <ul class="collapse">
-  <li><a href="#the-normal-approximation" id="toc-the-normal-approximation" class="nav-link" data-scroll-target="#the-normal-approximation"><span class="header-section-number">21.6.1</span> The normal approximation</a></li>
-  <li><a href="#the-saddlepoint-approximation" id="toc-the-saddlepoint-approximation" class="nav-link" data-scroll-target="#the-saddlepoint-approximation"><span class="header-section-number">21.6.2</span> The saddlepoint approximation</a></li>
-  <li><a href="#comparing-the-two-approximations" id="toc-comparing-the-two-approximations" class="nav-link" data-scroll-target="#comparing-the-two-approximations"><span class="header-section-number">21.6.3</span> Comparing the two approximations</a></li>
+  <li><a href="#the-normal-approximation" id="toc-the-normal-approximation" class="nav-link" data-scroll-target="#the-normal-approximation"><span class="header-section-number">19.6.1</span> The normal approximation</a></li>
+  <li><a href="#the-saddlepoint-approximation" id="toc-the-saddlepoint-approximation" class="nav-link" data-scroll-target="#the-saddlepoint-approximation"><span class="header-section-number">19.6.2</span> The saddlepoint approximation</a></li>
+  <li><a href="#comparing-the-two-approximations" id="toc-comparing-the-two-approximations" class="nav-link" data-scroll-target="#comparing-the-two-approximations"><span class="header-section-number">19.6.3</span> Comparing the two approximations</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -404,7 +392,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-edm" class="quarto-section-identifier"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></h1>
+<h1 class="title"><span id="sec-edm" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></h1>
 </div>
 
 
@@ -419,8 +407,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="definition" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">21.1</span> Definition</h2>
+<section id="definition" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">19.1</span> Definition</h2>
 <p>Let’s start with the Gaussian distribution. If <span class="math inline">\(y \sim N(\mu, \sigma^2)\)</span>, then it has the following density with respect to the Lebesgue measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(\mathbb{R}\)</span>:</p>
 <p><span class="math display">\[
 f_{\mu, \sigma^2}(y) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) = \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
@@ -428,24 +416,24 @@ f_{\mu, \sigma^2}(y) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma
 <p>We can consider a more general class of densities with respect to any measure <span class="math inline">\(\nu\)</span>:</p>
 <p><span id="eq-edm-def"><span class="math display">\[
 f_{\theta, \phi}(y) \equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi), \quad \theta \in \Theta \subseteq \mathbb{R}, \ \phi &gt; 0.
-\tag{21.1}\]</span></span></p>
+\tag{19.1}\]</span></span></p>
 <p>Here <span class="math inline">\(\theta\)</span> is called the <em>natural parameter</em>, <span class="math inline">\(\psi\)</span> is called the <em>log-partition function</em>, <span class="math inline">\(\Theta \equiv \{\theta: \psi(\theta) &lt; \infty\}\)</span> is called the natural parameter space, <span class="math inline">\(\phi &gt; 0\)</span> is called the <em>dispersion parameter</em>, and <span class="math inline">\(h\)</span> is called the <em>base density</em>. The distribution with density <span class="math inline">\(f_{\theta, \phi}\)</span> with respect to a measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(\mathbb{R}\)</span> is called an <em>exponential dispersion model</em> (EDM). Sometimes, we parameterize this distribution using its mean and dispersion, writing</p>
 <p><span class="math display">\[
 y \sim \text{EDM}(\mu, \phi).
 \]</span></p>
 <p>When <span class="math inline">\(\phi = 1\)</span>, the distribution becomes a <em>one-parameter natural exponential family</em>. The support of an EDM distribution remains fixed as <span class="math inline">\((\theta, \phi)\)</span> vary.</p>
 </section>
-<section id="examples" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">21.2</span> Examples</h2>
-<section id="normal-distribution" class="level3" data-number="21.2.1">
-<h3 data-number="21.2.1" class="anchored" data-anchor-id="normal-distribution"><span class="header-section-number">21.2.1</span> Normal distribution</h3>
+<section id="examples" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">19.2</span> Examples</h2>
+<section id="normal-distribution" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="normal-distribution"><span class="header-section-number">19.2.1</span> Normal distribution</h3>
 <p>As derived above, <span class="math inline">\(y \sim N(\mu, \sigma^2)\)</span> is an EDM with</p>
 <p><span class="math display">\[
 \theta = \mu, \quad \psi(\theta) = -\frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
 \]</span></p>
 </section>
-<section id="bernoulli-distribution" class="level3" data-number="21.2.2">
-<h3 data-number="21.2.2" class="anchored" data-anchor-id="bernoulli-distribution"><span class="header-section-number">21.2.2</span> Bernoulli distribution</h3>
+<section id="bernoulli-distribution" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="bernoulli-distribution"><span class="header-section-number">19.2.2</span> Bernoulli distribution</h3>
 <p>Suppose <span class="math inline">\(y \sim \text{Ber}(\mu)\)</span>. Then, we have</p>
 <p><span class="math display">\[
 f(y) = \mu^{y}(1-\mu)^{1-y} = \exp\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu) \right).
@@ -456,8 +444,8 @@ f(y) = \mu^{y}(1-\mu)^{1-y} = \exp\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu) \
 \]</span></p>
 <p>Hence, the Bernoulli distribution is an EDM, as well as a one-parameter exponential family. Note that <span class="math inline">\(\text{Ber}(0)\)</span> and <span class="math inline">\(\text{Ber}(1)\)</span> are not included in this class of EDMs, because there is no <span class="math inline">\(\theta \in \Theta = \mathbb{R}\)</span> that gives rise to <span class="math inline">\(\mu = 0\)</span> or <span class="math inline">\(\mu = 1\)</span>. Hence, <span class="math inline">\(\mu \in (0,1)\)</span>, and the support of any Bernoulli EDM is <span class="math inline">\(\{0,1\}\)</span>.</p>
 </section>
-<section id="binomial-distribution" class="level3" data-number="21.2.3">
-<h3 data-number="21.2.3" class="anchored" data-anchor-id="binomial-distribution"><span class="header-section-number">21.2.3</span> Binomial distribution</h3>
+<section id="binomial-distribution" class="level3" data-number="19.2.3">
+<h3 data-number="19.2.3" class="anchored" data-anchor-id="binomial-distribution"><span class="header-section-number">19.2.3</span> Binomial distribution</h3>
 <p>Consider the binomial proportion <span class="math inline">\(y\)</span>: <span class="math inline">\(my \sim \text{Bin}(m, \mu)\)</span>. We have</p>
 <p><span class="math display">\[
 f(y) = {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} = \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
@@ -468,8 +456,8 @@ f(y) = {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} = \exp\left(m\left(y \log \frac{\m
 \]</span></p>
 <p>Note that <span class="math inline">\(\text{Bin}(m, 0)\)</span> and <span class="math inline">\(\text{Bin}(m, 1)\)</span> are not included in this class of EDMs, for the same reason as above. Hence, <span class="math inline">\(\mu \in (0,1)\)</span>, and the support of any binomial EDM is <span class="math inline">\(\{0,\frac{1}{m}, \frac{2}{m}, \dots, 1\}\)</span>.</p>
 </section>
-<section id="poisson-distribution" class="level3" data-number="21.2.4">
-<h3 data-number="21.2.4" class="anchored" data-anchor-id="poisson-distribution"><span class="header-section-number">21.2.4</span> Poisson distribution</h3>
+<section id="poisson-distribution" class="level3" data-number="19.2.4">
+<h3 data-number="19.2.4" class="anchored" data-anchor-id="poisson-distribution"><span class="header-section-number">19.2.4</span> Poisson distribution</h3>
 <p>Suppose <span class="math inline">\(y \sim \text{Poi}(\mu)\)</span>. We have</p>
 <p><span class="math display">\[
 f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
@@ -482,8 +470,8 @@ f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
 <p>Many other examples fall into this class, including the negative binomial, gamma, and inverse-Gaussian distributions. We will see at least some of these in the next chapter.</p>
 </section>
 </section>
-<section id="moments-of-exponential-dispersion-model-distributions" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="moments-of-exponential-dispersion-model-distributions"><span class="header-section-number">21.3</span> Moments of exponential dispersion model distributions</h2>
+<section id="moments-of-exponential-dispersion-model-distributions" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="moments-of-exponential-dispersion-model-distributions"><span class="header-section-number">19.3</span> Moments of exponential dispersion model distributions</h2>
 <p>It turns out that the derivatives of the log-partition function <span class="math inline">\(\psi\)</span> give the moments of <span class="math inline">\(y\)</span>. Indeed, let’s start with the relationship</p>
 <p><span class="math display">\[
 \int f_{\theta, \phi}(y)d\nu(y) = \int \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi) d\nu(y) = 1.
@@ -495,25 +483,25 @@ f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
 <p>from which it follows that</p>
 <p><span id="eq-psi-dot"><span class="math display">\[
 \dot \psi(\theta) = \int \dot \psi(\theta)f_{\theta, \phi}(y)dy = \int y f_{\theta, \phi}(y)dy = \mathbb{E}[y] \equiv \mu.
-\tag{21.2}\]</span></span></p>
+\tag{19.2}\]</span></span></p>
 <p>Thus, the first derivative of the log partition function is the mean of <span class="math inline">\(y\)</span>. Differentiating again, we get</p>
 <p><span class="math display">\[
 \phi \cdot \ddot \psi(\theta) = \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) = \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) = \text{Var}[y].
 \]</span></p>
 <p>Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of <span class="math inline">\(y\)</span>.</p>
 </section>
-<section id="relationships-among-the-mean-variance-and-natural-parameter" class="level2" data-number="21.4">
-<h2 data-number="21.4" class="anchored" data-anchor-id="relationships-among-the-mean-variance-and-natural-parameter"><span class="header-section-number">21.4</span> Relationships among the mean, variance, and natural parameter</h2>
-<section id="relationship-between-the-mean-and-the-natural-parameter" class="level3" data-number="21.4.1">
-<h3 data-number="21.4.1" class="anchored" data-anchor-id="relationship-between-the-mean-and-the-natural-parameter"><span class="header-section-number">21.4.1</span> Relationship between the mean and the natural parameter</h3>
-<p>The log-partition function <span class="math inline">\(\psi\)</span> induces a connection (<a href="#eq-psi-dot"><span>21.2</span></a>) between the natural parameter <span class="math inline">\(\theta\)</span> and the mean <span class="math inline">\(\mu\)</span>. Because</p>
+<section id="relationships-among-the-mean-variance-and-natural-parameter" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="relationships-among-the-mean-variance-and-natural-parameter"><span class="header-section-number">19.4</span> Relationships among the mean, variance, and natural parameter</h2>
+<section id="relationship-between-the-mean-and-the-natural-parameter" class="level3" data-number="19.4.1">
+<h3 data-number="19.4.1" class="anchored" data-anchor-id="relationship-between-the-mean-and-the-natural-parameter"><span class="header-section-number">19.4.1</span> Relationship between the mean and the natural parameter</h3>
+<p>The log-partition function <span class="math inline">\(\psi\)</span> induces a connection (<a href="#eq-psi-dot"><span>19.2</span></a>) between the natural parameter <span class="math inline">\(\theta\)</span> and the mean <span class="math inline">\(\mu\)</span>. Because</p>
 <p><span id="eq-dmu-dtheta"><span class="math display">\[
 \frac{d\mu}{d\theta} = \frac{d}{d\theta}\dot \psi(\theta) = \ddot \psi(\theta) = \frac{1}{\phi}\text{Var}[y] &gt; 0,
-\tag{21.3}\]</span></span></p>
+\tag{19.3}\]</span></span></p>
 <p>it follows that <span class="math inline">\(\mu\)</span> is a strictly increasing function of <span class="math inline">\(\theta\)</span>, so in particular the mapping between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\theta\)</span> is bijective. Therefore, we can think of equivalently parameterizing the distribution via <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\theta\)</span>.</p>
 </section>
-<section id="relationship-between-the-mean-and-variance" class="level3" data-number="21.4.2">
-<h3 data-number="21.4.2" class="anchored" data-anchor-id="relationship-between-the-mean-and-variance"><span class="header-section-number">21.4.2</span> Relationship between the mean and variance</h3>
+<section id="relationship-between-the-mean-and-variance" class="level3" data-number="19.4.2">
+<h3 data-number="19.4.2" class="anchored" data-anchor-id="relationship-between-the-mean-and-variance"><span class="header-section-number">19.4.2</span> Relationship between the mean and variance</h3>
 <p>Note that the mean of an EDM, together with the dispersion parameter, determines its variance (since it determines the natural parameter <span class="math inline">\(\theta\)</span>). Define</p>
 <p><span class="math display">\[
 V(\mu) \equiv \frac{d\mu}{d\theta},
@@ -521,9 +509,9 @@ V(\mu) \equiv \frac{d\mu}{d\theta},
 <p>so that <span class="math inline">\(\text{Var}[y] = \phi V(\mu)\)</span>. For example, a Poisson random variable with mean <span class="math inline">\(\mu\)</span> has variance <span class="math inline">\(\mu\)</span> and a Bernoulli random variable with mean <span class="math inline">\(\mu\)</span> has <span class="math inline">\(V(\mu) = \mu(1-\mu)\)</span>. The mean-variance relationship turns out to characterize the EDM, i.e.&nbsp;an EDM with mean equal to its variance is the Poisson distribution. For all EDMs except the normal distribution, the variance depends nontrivially on the mean. Therefore, heteroskedasticity is a natural feature of EDMs (rather than a pathology that needs to be corrected for).</p>
 </section>
 </section>
-<section id="the-unit-deviance" class="level2" data-number="21.5">
-<h2 data-number="21.5" class="anchored" data-anchor-id="the-unit-deviance"><span class="header-section-number">21.5</span> The unit deviance</h2>
-<p>It’s possible to rewrite the EDM distribution in terms of <span class="math inline">\(\mu\)</span> rather than in terms of <span class="math inline">\(\theta\)</span>. Take the quantity in the numerator of the exponential in the EDM density (<a href="#eq-edm-def"><span>21.1</span></a>) and call it <span class="math inline">\(t(y, \mu)\)</span>:</p>
+<section id="the-unit-deviance" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="the-unit-deviance"><span class="header-section-number">19.5</span> The unit deviance</h2>
+<p>It’s possible to rewrite the EDM distribution in terms of <span class="math inline">\(\mu\)</span> rather than in terms of <span class="math inline">\(\theta\)</span>. Take the quantity in the numerator of the exponential in the EDM density (<a href="#eq-edm-def"><span>19.1</span></a>) and call it <span class="math inline">\(t(y, \mu)\)</span>:</p>
 <p><span class="math display">\[
 t(y, \mu) \equiv \theta y - \psi(\theta).
 \]</span></p>
@@ -540,29 +528,29 @@ t(y, \mu) \equiv \theta y - \psi(\theta).
 d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
 \]</span></p>
 <p>The unit deviance is nonnegative, and minimized by <span class="math inline">\(\mu = y\)</span>. For the normal distribution, the unit deviance is <span class="math inline">\(d(y, \mu) = (y - \mu)^2\)</span>. The unit deviance can therefore be viewed as a “distance” between the mean <span class="math inline">\(\mu\)</span> and the observation <span class="math inline">\(y\)</span>.</p>
-<section id="example" class="level3" data-number="21.5.1">
-<h3 data-number="21.5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">21.5.1</span> Example</h3>
+<section id="example" class="level3" data-number="19.5.1">
+<h3 data-number="19.5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">19.5.1</span> Example</h3>
 <p>For the Poisson distribution, we have <span class="math inline">\(t(y, \mu) = y\log \mu - \mu\)</span>, so</p>
 <p><span class="math display">\[
 d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)) = 2(y\log y - y - y \log \mu + \mu) = 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
 \]</span></p>
-<p>See <a href="#fig-poisson-unit-deviance">Figure&nbsp;<span>21.1</span></a> for an example of the shape of this function.</p>
+<p>See <a href="#fig-poisson-unit-deviance">Figure&nbsp;<span>19.1</span></a> for an example of the shape of this function.</p>
 <div id="fig-poisson-unit-deviance" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/poisson-unit-deviance.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;21.1: The Poisson unit deviance for <span class="math inline">\(y = 4\)</span>.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;19.1: The Poisson unit deviance for <span class="math inline">\(y = 4\)</span>.</figcaption>
 </figure>
 </div>
 <p>Note that the Poisson deviance is asymmetric about <span class="math inline">\(\mu = y\)</span>. This is a consequence of the nontrivial mean-variance relationship for the Poisson distribution. In particular, the Poisson distribution’s variance grows with its mean. Therefore, an observation of <span class="math inline">\(y = 4\)</span> is less likely to have come from a Poisson distribution with mean <span class="math inline">\(\mu = 2\)</span> than from a Poisson distribution with mean <span class="math inline">\(\mu = 6\)</span>.</p>
 </section>
 </section>
-<section id="small-dispersion-approximations-to-an-edm" class="level2" data-number="21.6">
-<h2 data-number="21.6" class="anchored" data-anchor-id="small-dispersion-approximations-to-an-edm"><span class="header-section-number">21.6</span> Small-dispersion approximations to an EDM</h2>
+<section id="small-dispersion-approximations-to-an-edm" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="small-dispersion-approximations-to-an-edm"><span class="header-section-number">19.6</span> Small-dispersion approximations to an EDM</h2>
 <p>If the dispersion <span class="math inline">\(\phi\)</span> is small, then that means that <span class="math inline">\(y\)</span> is a fairly precise estimate of <span class="math inline">\(\mu\)</span>, similar to an average of multiple independent samples from a mean-<span class="math inline">\(\mu\)</span> distribution. Consider, for example, that <span class="math inline">\(\frac{1}{m}\text{Bin}(m, \mu)\)</span> is the mean of <span class="math inline">\(m\)</span> i.i.d. draws from <span class="math inline">\(\text{Ber}(\mu)\)</span>. In this case, we can use either the normal approximation or the saddlepoint approximation to approximate the EDM density. For the sake of this section, we will abuse notation by denoting by <span class="math inline">\(f_{\mu, \phi}\)</span> the EDM with mean <span class="math inline">\(\mu\)</span> and dispersion <span class="math inline">\(\phi\)</span>.</p>
-<section id="the-normal-approximation" class="level3" data-number="21.6.1">
-<h3 data-number="21.6.1" class="anchored" data-anchor-id="the-normal-approximation"><span class="header-section-number">21.6.1</span> The normal approximation</h3>
-<section id="the-approximation" class="level4" data-number="21.6.1.1">
-<h4 data-number="21.6.1.1" class="anchored" data-anchor-id="the-approximation"><span class="header-section-number">21.6.1.1</span> The approximation</h4>
+<section id="the-normal-approximation" class="level3" data-number="19.6.1">
+<h3 data-number="19.6.1" class="anchored" data-anchor-id="the-normal-approximation"><span class="header-section-number">19.6.1</span> The normal approximation</h3>
+<section id="the-approximation" class="level4" data-number="19.6.1.1">
+<h4 data-number="19.6.1.1" class="anchored" data-anchor-id="the-approximation"><span class="header-section-number">19.6.1.1</span> The approximation</h4>
 <p>For small values of <span class="math inline">\(\phi\)</span>, we can hope to approximate <span class="math inline">\(f_{\mu, \phi}\)</span> with a normal distribution. Recall that the mean and variance of this distribution are <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\phi \cdot V(\mu)\)</span>, respectively. The central limit theorem gives</p>
 <p><span class="math display">\[
 \frac{y - \mu}{\sqrt{\phi \cdot V(\mu)}} \rightarrow_d N(0,1) \quad \text{as} \quad \phi \rightarrow 0,
@@ -581,8 +569,8 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 \]</span></p>
 <p>This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
-<section id="approximation-accuracy" class="level4" data-number="21.6.1.2">
-<h4 data-number="21.6.1.2" class="anchored" data-anchor-id="approximation-accuracy"><span class="header-section-number">21.6.1.2</span> Approximation accuracy</h4>
+<section id="approximation-accuracy" class="level4" data-number="19.6.1.2">
+<h4 data-number="19.6.1.2" class="anchored" data-anchor-id="approximation-accuracy"><span class="header-section-number">19.6.1.2</span> Approximation accuracy</h4>
 <p>We have</p>
 <p><span class="math display">\[
 \tilde f^{\text{normal}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) + O(\sqrt{\phi}).
@@ -598,10 +586,10 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 <p>so <span class="math inline">\(\tau \leq 1/5\)</span> roughly if <span class="math inline">\(m \mu \leq 5\)</span> and <span class="math inline">\(m (1-\mu) \leq 5\)</span>. For Poisson distributions, we always have <span class="math inline">\(\tau = 1\)</span>, but for some reason small-dispersion asymptotics still applies as <span class="math inline">\(\mu \rightarrow \infty\)</span> as opposed to <span class="math inline">\(\tau \rightarrow 0\)</span>. The criterion <span class="math inline">\(\tau \leq 1/5\)</span> is satisfied when <span class="math inline">\(\mu \leq 5\)</span>.</p>
 </section>
 </section>
-<section id="the-saddlepoint-approximation" class="level3" data-number="21.6.2">
-<h3 data-number="21.6.2" class="anchored" data-anchor-id="the-saddlepoint-approximation"><span class="header-section-number">21.6.2</span> The saddlepoint approximation</h3>
-<section id="the-approximation-1" class="level4" data-number="21.6.2.1">
-<h4 data-number="21.6.2.1" class="anchored" data-anchor-id="the-approximation-1"><span class="header-section-number">21.6.2.1</span> The approximation</h4>
+<section id="the-saddlepoint-approximation" class="level3" data-number="19.6.2">
+<h3 data-number="19.6.2" class="anchored" data-anchor-id="the-saddlepoint-approximation"><span class="header-section-number">19.6.2</span> The saddlepoint approximation</h3>
+<section id="the-approximation-1" class="level4" data-number="19.6.2.1">
+<h4 data-number="19.6.2.1" class="anchored" data-anchor-id="the-approximation-1"><span class="header-section-number">19.6.2.1</span> The approximation</h4>
 <p>Another approximation to the EDM density is the saddlepoint approximation, which tends to be more accurate than the normal approximation. The reason the normal approximation may be inaccurate is that the quality of the central limit approximation degrades as one enters the tails of the distribution. In particular, the normal approximation to <span class="math inline">\(f_{\mu, \phi}(y)\)</span> may be poor if <span class="math inline">\(\mu\)</span> is far from <span class="math inline">\(y\)</span>. The saddlepoint approximation is built on the observation that the EDM density for <span class="math inline">\(f_{\mu, \phi}(y)\)</span> can be written in terms of the density <span class="math inline">\(f_{y, \phi}(y)\)</span>; the latter density is by definition evaluated at its mean. Indeed,</p>
 <p><span id="eq-deviance-form"><span class="math display">\[
 \begin{split}
@@ -611,12 +599,12 @@ f_{\mu, \phi}(y) &amp;\equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\righ
 &amp;= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)\exp\left(\frac{t(y,y)}{\phi}\right) h(y, \phi) \\
 &amp;= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)f_{y, \phi}(y).
 \end{split}
-\tag{21.4}\]</span></span></p>
+\tag{19.4}\]</span></span></p>
 <p>Now, we apply the central limit theorem to approximate <span class="math inline">\(f_{y, \phi}(y)\)</span>:</p>
 <p><span class="math display">\[
 f_{y, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}.
 \]</span></p>
-<p>Substituting this approximation into (<a href="#eq-deviance-form"><span>21.4</span></a>), we obtain the <em>saddlepoint approximation</em>:</p>
+<p>Substituting this approximation into (<a href="#eq-deviance-form"><span>19.4</span></a>), we obtain the <em>saddlepoint approximation</em>:</p>
 <p><span class="math display">\[
 f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \mu)}{2\phi}\right) \equiv \widetilde f^{\text{saddle}}_{\mu, \phi}(y).
 \]</span></p>
@@ -630,8 +618,8 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 \]</span></p>
 <p>Here, we are using the unit deviance rather than the squared distance to measure the deviation of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(y\)</span>. This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
-<section id="approximation-accuracy-1" class="level4" data-number="21.6.2.2">
-<h4 data-number="21.6.2.2" class="anchored" data-anchor-id="approximation-accuracy-1"><span class="header-section-number">21.6.2.2</span> Approximation accuracy</h4>
+<section id="approximation-accuracy-1" class="level4" data-number="19.6.2.2">
+<h4 data-number="19.6.2.2" class="anchored" data-anchor-id="approximation-accuracy-1"><span class="header-section-number">19.6.2.2</span> Approximation accuracy</h4>
 <p>We have still used a normal approximation, but this time we have used it to approximate <span class="math inline">\(f_{y, \phi}(y)\)</span> instead of <span class="math inline">\(f_{\mu, \phi}(y)\)</span>. Since the normal approximation is applied to a distribution (<span class="math inline">\(f_{y, \phi}\)</span>) at its mean, we expect it to be more accurate than a normal approximation applied to a distribution (<span class="math inline">\(f_{\mu, \phi}\)</span>) at a point potentially far from its mean. The saddlepoint approximation yields an approximation to the density that is <em>multiplicative</em> rather than <em>additive</em>, and of order <span class="math inline">\(O(\phi)\)</span> rather than <span class="math inline">\(O(\sqrt{\phi})\)</span>:</p>
 <p><span class="math display">\[
 \tilde f^{\text{saddle}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) \cdot (1 + O(\phi)).
@@ -639,8 +627,8 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 <p>In practice, the rule of thumb for the applicability of this approximation is that <span class="math inline">\(\tau \leq 1/3\)</span>; the looser requirement on <span class="math inline">\(\tau\)</span> reflects the greater accuracy of the saddlepoint approximation. This translates to <span class="math inline">\(m\mu \geq 3\)</span> and <span class="math inline">\(m(1-\mu) \geq 3\)</span> for the binomial and <span class="math inline">\(\mu \geq 3\)</span> for the Poisson.</p>
 </section>
 </section>
-<section id="comparing-the-two-approximations" class="level3" data-number="21.6.3">
-<h3 data-number="21.6.3" class="anchored" data-anchor-id="comparing-the-two-approximations"><span class="header-section-number">21.6.3</span> Comparing the two approximations</h3>
+<section id="comparing-the-two-approximations" class="level3" data-number="19.6.3">
+<h3 data-number="19.6.3" class="anchored" data-anchor-id="comparing-the-two-approximations"><span class="header-section-number">19.6.3</span> Comparing the two approximations</h3>
 <p>The saddlepoint approximation is more accurate than the normal approximation, as discussed above. However, the accuracy of the saddlepoint approximation relies on the assumption that the entire parametric form of the EDM is correctly specified. On the other hand, the accuracy of the normal distribution requires only that the first two moments of the EDM are correctly specified.</p>
 
 
@@ -889,7 +877,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./generalized-linear-models.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

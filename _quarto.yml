@@ -11,11 +11,9 @@ book:
 
     - part: linear-models-estimation.qmd
       chapters:
-        - predictors-and-coefficients.qmd
-        - linear-model-spaces.qmd
+        - interpreting-linear-models.qmd
         - least-squares-estimation.qmd
         - anova.qmd
-        - special-cases.qmd
         - collinearity.qmd
         - r-demo-part-1.qmd
 

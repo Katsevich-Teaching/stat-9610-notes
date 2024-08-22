@@ -1,4 +1,4 @@
-# R demo
+# R demo {#sec-r-demo-part-1}
 
 *See also Agresti 2.6, Dunn and Smyth 2.6*
 

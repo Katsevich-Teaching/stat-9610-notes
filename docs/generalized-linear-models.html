@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 22&nbsp; GLM definition</title>
+<title>STAT 9610 Lecture Notes - 20&nbsp; GLM definition</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./generalized-linear-models.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glm-general-theory.html">Generalized linear models: General theory</a></li><li class="breadcrumb-item"><a href="./generalized-linear-models.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -121,44 +121,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./predictors-and-coefficients.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Predictors and coefficients</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./linear-model-spaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Linear model spaces</span></span></a>
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./special-cases.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Special cases</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -175,37 +163,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./power.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -222,37 +210,37 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,31 +257,31 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,25 +298,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
   </div>
 </li>
       </ul>
@@ -345,19 +333,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,14 +360,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition"><span class="header-section-number">22.1</span> Definition</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">22.2</span> Examples</a>
+  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition"><span class="header-section-number">20.1</span> Definition</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">20.2</span> Examples</a>
   <ul class="collapse">
-  <li><a href="#example-linear-regression-model" id="toc-example-linear-regression-model" class="nav-link" data-scroll-target="#example-linear-regression-model"><span class="header-section-number">22.2.1</span> Example: Linear regression model</a></li>
-  <li><a href="#example-weighted-linear-regression-model" id="toc-example-weighted-linear-regression-model" class="nav-link" data-scroll-target="#example-weighted-linear-regression-model"><span class="header-section-number">22.2.2</span> Example: Weighted linear regression model</a></li>
-  <li><a href="#example-ungrouped-logistic-regression-model" id="toc-example-ungrouped-logistic-regression-model" class="nav-link" data-scroll-target="#example-ungrouped-logistic-regression-model"><span class="header-section-number">22.2.3</span> Example: Ungrouped logistic regression model</a></li>
-  <li><a href="#example-grouped-logistic-regression-model" id="toc-example-grouped-logistic-regression-model" class="nav-link" data-scroll-target="#example-grouped-logistic-regression-model"><span class="header-section-number">22.2.4</span> Example: Grouped logistic regression model</a></li>
-  <li><a href="#example-poisson-regression-model" id="toc-example-poisson-regression-model" class="nav-link" data-scroll-target="#example-poisson-regression-model"><span class="header-section-number">22.2.5</span> Example: Poisson regression model</a></li>
+  <li><a href="#example-linear-regression-model" id="toc-example-linear-regression-model" class="nav-link" data-scroll-target="#example-linear-regression-model"><span class="header-section-number">20.2.1</span> Example: Linear regression model</a></li>
+  <li><a href="#example-weighted-linear-regression-model" id="toc-example-weighted-linear-regression-model" class="nav-link" data-scroll-target="#example-weighted-linear-regression-model"><span class="header-section-number">20.2.2</span> Example: Weighted linear regression model</a></li>
+  <li><a href="#example-ungrouped-logistic-regression-model" id="toc-example-ungrouped-logistic-regression-model" class="nav-link" data-scroll-target="#example-ungrouped-logistic-regression-model"><span class="header-section-number">20.2.3</span> Example: Ungrouped logistic regression model</a></li>
+  <li><a href="#example-grouped-logistic-regression-model" id="toc-example-grouped-logistic-regression-model" class="nav-link" data-scroll-target="#example-grouped-logistic-regression-model"><span class="header-section-number">20.2.4</span> Example: Grouped logistic regression model</a></li>
+  <li><a href="#example-poisson-regression-model" id="toc-example-poisson-regression-model" class="nav-link" data-scroll-target="#example-poisson-regression-model"><span class="header-section-number">20.2.5</span> Example: Poisson regression model</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -389,7 +377,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-glm-def" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">GLM definition</span></span></h1>
+<h1 class="title"><span id="sec-glm-def" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></h1>
 </div>
 
 
@@ -405,53 +393,53 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>In this class, the focus is on building models that tie a vector of predictors <span class="math inline">\((\boldsymbol{x_{i*}})\)</span> to a response <span class="math inline">\(y_i\)</span>. For linear regression, the mean of <span class="math inline">\(y\)</span> was modeled as a linear combination of the predictors <span class="math inline">\(\boldsymbol{x_{i*}^T} \boldsymbol{\beta}\)</span>: <span class="math inline">\(\mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}\)</span>. More generally, we might want to model <em>a function</em> of the mean <span class="math inline">\(\eta_i = g(\mu_i)\)</span> as a linear combination of the predictors; <span class="math inline">\(g\)</span> is called the <em>link function</em> and <span class="math inline">\(\eta_i\)</span> the <em>linear predictor</em>. Pairing a link function with an EDM gives us a <em>generalized linear model</em> (GLM):</p>
-<section id="definition" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">22.1</span> Definition</h2>
+<section id="definition" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">20.1</span> Definition</h2>
 <p>We define <span class="math inline">\(\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n\)</span> as following a generalized linear model based on the exponential dispersion model <span class="math inline">\(f_{\theta, \phi}\)</span>, monotonic and differentiable link function <span class="math inline">\(g\)</span>, and observation weights <span class="math inline">\(w_i\)</span> if</p>
 <p><span id="eq-glm-def"><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
-\tag{22.1}\]</span></span></p>
+\tag{20.1}\]</span></span></p>
 <p>The offset terms <span class="math inline">\(o_i\)</span> and observation weights <span class="math inline">\(w_i\)</span> are both known in advance. The free parameters in a GLM are the coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> and, possibly, the parameter <span class="math inline">\(\phi_0\)</span> controlling the dispersion. We will see examples where <span class="math inline">\(\phi_0\)</span> is known (e.g.&nbsp;Poisson regression) and those where <span class="math inline">\(\phi_0\)</span> is unknown (e.g.&nbsp;linear regression).</p>
 <p>The “default” choice for the link function <span class="math inline">\(g\)</span> is the <em>canonical link function</em></p>
 <p><span class="math display">\[
 g(\mu) = \dot \psi^{-1}(\mu),
 \]</span></p>
-<p>which, given the relationship (<a href="exponential-dispersion-models.html#eq-psi-dot"><span>21.2</span></a>), gives <span class="math inline">\(\eta = \dot \psi^{-1}(\mu) = \theta\)</span>, i.e.&nbsp;the linear predictor coincides with the natural parameter. As discussed in the context of equation (<a href="exponential-dispersion-models.html#eq-dmu-dtheta"><span>21.3</span></a>), <span class="math inline">\(\dot \psi^{-1}\)</span> is a valid link function because it is monotonic and differentiable. Canonical link functions are very commonly used with EDMs because they lead to various nice properties that general EDMs do not enjoy (e.g.&nbsp;concave log-likelihood).</p>
+<p>which, given the relationship (<a href="exponential-dispersion-models.html#eq-psi-dot"><span>19.2</span></a>), gives <span class="math inline">\(\eta = \dot \psi^{-1}(\mu) = \theta\)</span>, i.e.&nbsp;the linear predictor coincides with the natural parameter. As discussed in the context of equation (<a href="exponential-dispersion-models.html#eq-dmu-dtheta"><span>19.3</span></a>), <span class="math inline">\(\dot \psi^{-1}\)</span> is a valid link function because it is monotonic and differentiable. Canonical link functions are very commonly used with EDMs because they lead to various nice properties that general EDMs do not enjoy (e.g.&nbsp;concave log-likelihood).</p>
 </section>
-<section id="examples" class="level2" data-number="22.2">
-<h2 data-number="22.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">22.2</span> Examples</h2>
-<section id="example-linear-regression-model" class="level3" data-number="22.2.1">
-<h3 data-number="22.2.1" class="anchored" data-anchor-id="example-linear-regression-model"><span class="header-section-number">22.2.1</span> Example: Linear regression model</h3>
+<section id="examples" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">20.2</span> Examples</h2>
+<section id="example-linear-regression-model" class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="example-linear-regression-model"><span class="header-section-number">20.2.1</span> Example: Linear regression model</h3>
 <p>The linear regression model is a special case of a GLM, with <span class="math inline">\(\phi_0 = \sigma^2\)</span> (unknown), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and identity (canonical) link function:</p>
 <p><span class="math display">\[
 y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
 \]</span></p>
 </section>
-<section id="example-weighted-linear-regression-model" class="level3" data-number="22.2.2">
-<h3 data-number="22.2.2" class="anchored" data-anchor-id="example-weighted-linear-regression-model"><span class="header-section-number">22.2.2</span> Example: Weighted linear regression model</h3>
+<section id="example-weighted-linear-regression-model" class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="example-weighted-linear-regression-model"><span class="header-section-number">20.2.2</span> Example: Weighted linear regression model</h3>
 <p>If each observation <span class="math inline">\(y_i\)</span> is the mean of <span class="math inline">\(m_i\)</span> independent repeated observations, then we get a weighted linear regression model, with <span class="math inline">\(\phi_0 = \sigma^2\)</span> (unknown), <span class="math inline">\(w_i = m_i\)</span>, <span class="math inline">\(o_i = 0\)</span>, and identity (canonical) link function:</p>
 <p><span class="math display">\[
 y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
 \]</span></p>
 </section>
-<section id="example-ungrouped-logistic-regression-model" class="level3" data-number="22.2.3">
-<h3 data-number="22.2.3" class="anchored" data-anchor-id="example-ungrouped-logistic-regression-model"><span class="header-section-number">22.2.3</span> Example: Ungrouped logistic regression model</h3>
+<section id="example-ungrouped-logistic-regression-model" class="level3" data-number="20.2.3">
+<h3 data-number="20.2.3" class="anchored" data-anchor-id="example-ungrouped-logistic-regression-model"><span class="header-section-number">20.2.3</span> Example: Ungrouped logistic regression model</h3>
 <p>The <em>ungrouped logistic regression model</em> is the GLM based on the Bernoulli EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
 y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
 \]</span></p>
 <p>Thus the canonical link function for logistic regression is the <em>logistic link function</em> <span class="math inline">\(g(\mu) = \log \frac{\mu}{1-\mu}\)</span>.</p>
 </section>
-<section id="example-grouped-logistic-regression-model" class="level3" data-number="22.2.4">
-<h3 data-number="22.2.4" class="anchored" data-anchor-id="example-grouped-logistic-regression-model"><span class="header-section-number">22.2.4</span> Example: Grouped logistic regression model</h3>
+<section id="example-grouped-logistic-regression-model" class="level3" data-number="20.2.4">
+<h3 data-number="20.2.4" class="anchored" data-anchor-id="example-grouped-logistic-regression-model"><span class="header-section-number">20.2.4</span> Example: Grouped logistic regression model</h3>
 <p>Suppose <span class="math inline">\(y_i\)</span> is a binomial proportion based on <span class="math inline">\(m_i\)</span> trials. The <em>grouped logistic regression model</em> is the GLM based on the binomial EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1/m_i\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
 m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
 \]</span></p>
 <p>Note that a binomial proportion <span class="math inline">\(y_i\)</span> based on <span class="math inline">\(m_i\)</span> trials and a success probability of <span class="math inline">\(\mu_i\)</span> can be equivalently represented as <span class="math inline">\(m_i\)</span> independent Bernoulli draws with the same success probability <span class="math inline">\(\mu_i\)</span>. Therefore, any grouped logistic regression model can be equivalently represented as an ungrouped logistic regression model with <span class="math inline">\(\sum_{i = 1}^n m_i\)</span> observations. We will see that, despite this equivalence, grouped logistic regression models have some useful properties that ungrouped logistic regression models do not.</p>
 </section>
-<section id="example-poisson-regression-model" class="level3" data-number="22.2.5">
-<h3 data-number="22.2.5" class="anchored" data-anchor-id="example-poisson-regression-model"><span class="header-section-number">22.2.5</span> Example: Poisson regression model</h3>
+<section id="example-poisson-regression-model" class="level3" data-number="20.2.5">
+<h3 data-number="20.2.5" class="anchored" data-anchor-id="example-poisson-regression-model"><span class="header-section-number">20.2.5</span> Example: Poisson regression model</h3>
 <p><em>Poisson regression</em> is the Poisson EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
 y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
@@ -699,12 +687,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./exponential-dispersion-models.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./parameter-estimation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

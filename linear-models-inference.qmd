@@ -1,6 +1,6 @@
 # Linear models: Inference
 
-We now understand the least squares estimator $\boldsymbol{\widehat{\beta}}$ from geometric and algebraic points of view. In Chapter 2, we will switch to a probabilistic perspective to derive inferential statements for linear models, in the form of hypothesis tests and confidence intervals. In order to facilitate this, we will assume that the error terms are normally distributed:
+We now understand the least squares estimator $\boldsymbol{\widehat{\beta}}$ from geometric and algebraic points of view. In Unit 2, we switch to a probabilistic perspective to derive inferential statements for linear models, in the form of hypothesis tests and confidence intervals. In order to facilitate this, we will assume that the error terms are normally distributed:
 
 $$
 \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}, \quad \text{where} \ \boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I}_n).

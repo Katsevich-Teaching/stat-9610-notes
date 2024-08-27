@@ -71,7 +71,7 @@ This course is broken up into six units:
 - **[Unit 1](linear-models-estimation.qmd): Linear models: Estimation.** The _least squares_ point estimate $\boldsymbol{\widehat \beta}$ of $\boldsymbol{\beta}$ based on a dataset $(\boldsymbol{X}, \boldsymbol{y})$ under the linear model assumptions.
 - **[Unit 2](linear-models-inference.qmd): Linear models: Inference.** Under the additional assumption that $\epsilon \sim N(0,\sigma^2)$, how to carry out statistical inference (hypothesis testing and confidence intervals) for the coefficients.
 - **[Unit 3](linear-models-misspecification.qmd): Linear models: Misspecification.** What to do when the linear model assumptions are not correct: What issues can arise, how to diagnose them, and how to fix them.
-- **[Unit 4](glm-general-theory.qmd) GLMs: General theory.** Estimation and inference for GLMs (generalizing Chapters 1 and 2). GLMs fit neatly into a unified theory based on _exponential families_.
+- **[Unit 4](glm-general-theory.qmd): GLMs: General theory.** Estimation and inference for GLMs (generalizing Chapters 1 and 2). GLMs fit neatly into a unified theory based on _exponential families_.
 - **[Unit 5](glm-special-cases.qmd): GLMs: Special cases.** Looking more closely at the most important special cases of GLMs, including logistic regression and Poisson regression.
 - **[Unit 6](multiple-testing.qmd): Multiple testing.** How to adjust for multiple hypothesis testing, both in the context of GLMs and more generally.
 

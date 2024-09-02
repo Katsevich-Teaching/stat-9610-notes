@@ -134,7 +134,7 @@ $$ {#eq-vif}
 
 where $R_j^2$ is the $R^2$ value when regressing $\boldsymbol{x}_{*j}$ on $\boldsymbol{X}_{*,\text{-}j}$ and VIF stands for *variance inflation factor*. The higher $R_j^2$, the more of the variance in $\boldsymbol{x}_{*j}$ is explained by other predictors, the higher the variance in $\widehat{\beta}_{j|\text{-}j}$.
 
-## Remark: Average treatment effect estimation in causal inference
+## Application: Average treatment effect estimation in causal inference
 
 Suppose we'd like to study the effect of an exposure or treatment (e.g. taking a blood pressure medication) on a response $y$ (e.g. blood pressure). In the Neyman-Rubin causal model, for a given individual $i$ we denote by $y_i(1)$ and $y_i(0)$ the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called *potential outcomes*. Let $t_i \in \{0,1\}$ indicate whether the $i$th individual actually received treatment or control. Therefore, the observed outcome is[^1] 
 $$
@@ -171,6 +171,8 @@ y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1
 $$
 
 In this case, the average treatment effect $\tau$ is *identified* as the coefficient $\beta_1$ in the above regression, i.e. $\tau = \beta_1$. In other words, the causal parameter coincides with a parameter of the statistical model for the observed data. Therefore, the least squares estimate $\widehat{\beta}_1$ is an unbiased estimate of the average treatment effect. 
+
+In this context, we can interpret @thm-frisch-waugh-lovell as follows: To get an estimate of the causal effect of an exposure on an outcome in the presence of confounders, first *adjust* both exposure and outcome for the confounders, and then estimate the effect of the adjusted exposure on the adjusted outcome via a univariate linear model. This is the essence of *covariate adjustment* in causal inference.
 
 ::: {.callout-note}
 Causal inference is a vast field, which lies mostly beyond the scope of STAT 9610; see STAT 9210 instead.

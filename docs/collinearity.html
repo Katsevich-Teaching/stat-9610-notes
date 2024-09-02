@@ -364,7 +364,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#least-squares-estimates-via-orthogonalization" id="toc-least-squares-estimates-via-orthogonalization" class="nav-link" data-scroll-target="#least-squares-estimates-via-orthogonalization"><span class="header-section-number">5.2</span> Least squares estimates via orthogonalization</a></li>
   <li><a href="#adjustment-and-partial-correlation" id="toc-adjustment-and-partial-correlation" class="nav-link" data-scroll-target="#adjustment-and-partial-correlation"><span class="header-section-number">5.3</span> Adjustment and partial correlation</a></li>
   <li><a href="#effects-of-collinearity" id="toc-effects-of-collinearity" class="nav-link" data-scroll-target="#effects-of-collinearity"><span class="header-section-number">5.4</span> Effects of collinearity</a></li>
-  <li><a href="#remark-average-treatment-effect-estimation-in-causal-inference" id="toc-remark-average-treatment-effect-estimation-in-causal-inference" class="nav-link" data-scroll-target="#remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Remark: Average treatment effect estimation in causal inference</a></li>
+  <li><a href="#application-average-treatment-effect-estimation-in-causal-inference" id="toc-application-average-treatment-effect-estimation-in-causal-inference" class="nav-link" data-scroll-target="#application-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Application: Average treatment effect estimation in causal inference</a></li>
   </ul>
 </nav>
     </div>
@@ -492,8 +492,8 @@ ul.task-list li input[type="checkbox"] {
 \tag{5.6}\]</span></span></p>
 <p>where <span class="math inline">\(R_j^2\)</span> is the <span class="math inline">\(R^2\)</span> value when regressing <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> and VIF stands for <em>variance inflation factor</em>. The higher <span class="math inline">\(R_j^2\)</span>, the more of the variance in <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is explained by other predictors, the higher the variance in <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>.</p>
 </section>
-<section id="remark-average-treatment-effect-estimation-in-causal-inference" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="remark-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Remark: Average treatment effect estimation in causal inference</h2>
+<section id="application-average-treatment-effect-estimation-in-causal-inference" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="application-average-treatment-effect-estimation-in-causal-inference"><span class="header-section-number">5.5</span> Application: Average treatment effect estimation in causal inference</h2>
 <p>Suppose we’d like to study the effect of an exposure or treatment (e.g.&nbsp;taking a blood pressure medication) on a response <span class="math inline">\(y\)</span> (e.g.&nbsp;blood pressure). In the Neyman-Rubin causal model, for a given individual <span class="math inline">\(i\)</span> we denote by <span class="math inline">\(y_i(1)\)</span> and <span class="math inline">\(y_i(0)\)</span> the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called <em>potential outcomes</em>. Let <span class="math inline">\(t_i \in \{0,1\}\)</span> indicate whether the <span class="math inline">\(i\)</span>th individual actually received treatment or control. Therefore, the observed outcome is<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span id="eq-sutva"><span class="math display">\[
 y_i^{\text{obs}} = y_i(t_i).
 \tag{5.7}\]</span></span> Based on the data <span class="math inline">\(\{(t_i, y_i^{\text{obs}})\}_{i = 1, \dots, n}\)</span>, the most basic goal is to estimate the</p>
@@ -519,6 +519,7 @@ y(t) = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsil
 y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
 \]</span></p>
 <p>In this case, the average treatment effect <span class="math inline">\(\tau\)</span> is <em>identified</em> as the coefficient <span class="math inline">\(\beta_1\)</span> in the above regression, i.e.&nbsp;<span class="math inline">\(\tau = \beta_1\)</span>. In other words, the causal parameter coincides with a parameter of the statistical model for the observed data. Therefore, the least squares estimate <span class="math inline">\(\widehat{\beta}_1\)</span> is an unbiased estimate of the average treatment effect.</p>
+<p>In this context, we can interpret <a href="#thm-frisch-waugh-lovell">Theorem&nbsp;<span>5.1</span></a> as follows: To get an estimate of the causal effect of an exposure on an outcome in the presence of confounders, first <em>adjust</em> both exposure and outcome for the confounders, and then estimate the effect of the adjusted exposure on the adjusted outcome via a univariate linear model. This is the essence of <em>covariate adjustment</em> in causal inference.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

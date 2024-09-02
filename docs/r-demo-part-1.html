@@ -612,7 +612,7 @@ Multiple R-squared:  0.9717,    Adjusted R-squared:   0.97
 F-statistic: 549.9 on 2 and 32 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>We get a coefficient of 6.35 with standard error 0.36 for <code>distance</code>, where the standard error is an estimate of the quantity (<a href="collinearity.html#eq-conditional-variance"><span>5.4</span></a>).</p>
+<p>We get a coefficient of 6.35 with standard error 0.36 for <code>distance</code>, where the standard error is an estimate of the quantity (<a href="collinearity.html#eq-conditional-variance"><span>5.5</span></a>).</p>
 </section>
 <section id="r2-and-sum-of-squared-decompositions." class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="r2-and-sum-of-squared-decompositions."><span class="header-section-number">6.3</span> <span class="math inline">\(R^2\)</span> and sum-of-squared decompositions.</h2>
@@ -659,7 +659,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="adjustment-and-collinearity." class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="adjustment-and-collinearity."><span class="header-section-number">6.4</span> Adjustment and collinearity.</h2>
-<p>We can also test the adjustment formula (<a href="collinearity.html#eq-orthogonal-univariate"><span>5.3</span></a>) numerically. Let’s consider the coefficient of <code>distance</code> in the regression <code>time ~ distance + climb</code>. We can obtain this coefficient by first regressing <code>climb</code> out of <code>distance</code> and <code>time</code>:</p>
+<p>We can also test the adjustment formula (<a href="collinearity.html#eq-orthogonal-univariate"><span>5.4</span></a>) numerically. Let’s consider the coefficient of <code>distance</code> in the regression <code>time ~ distance + climb</code>. We can obtain this coefficient by first regressing <code>climb</code> out of <code>distance</code> and <code>time</code>:</p>
 <div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-15_c1c682b15535c68b080174407365c28a">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lm_dist_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lm_time_on_climb <span class="ot">&lt;-</span> <span class="fu">lm</span>(time <span class="sc">~</span> climb, <span class="at">data =</span> scots_races)</span>
@@ -710,7 +710,7 @@ F-statistic: 334.8 on 1 and 34 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>In this case, the two correlation quantities are similar.</p>
-<p>To obtain the variance inflation factors defined in equation (<a href="collinearity.html#eq-vif"><span>5.5</span></a>), we can use the <code>vif</code> function from the <code>car</code> package:</p>
+<p>To obtain the variance inflation factors defined in equation (<a href="collinearity.html#eq-vif"><span>5.6</span></a>), we can use the <code>vif</code> function from the <code>car</code> package:</p>
 <div class="cell" data-hash="r-demo-part-1_cache/html/unnamed-chunk-17_053d96cf99c07ef5315c41a4c0febfd7">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

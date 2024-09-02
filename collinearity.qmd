@@ -2,56 +2,64 @@
 
 *See also Agresti 2.2.4, 2.5.6, 2.5.7, 4.6.5*
 
-An important part of linear regression analysis is the dependence of the least squares coefficient for a predictor on what other predictors are in the model. This relationship is dictated by the extent to which the given predictor is correlated with the other predictors. In this section, we'll use some additional notation. Let $S \subset \{0, \dots, p-1\}$ be a group of predictors (we can assume without loss of generality that $S = \{0, \dots, s-1\}$ for some $1 \leq s < p$). Then, denote $\text{-}S \equiv \{0, \dots, p-1\} \setminus S$. Let $\boldsymbol{\widehat{\beta}}_S$ denote the least squares coefficients when regressing $\boldsymbol{y}$ on $\boldsymbol{X}_{*S}$ and let $\boldsymbol{\widehat{\beta}}_{S|\text{-}S}$ denote the least squares coefficients corresponding to $S$ when regressing $\boldsymbol{y}$ on $\boldsymbol{X} = (\boldsymbol{X}_{*S}, \boldsymbol{X}_{*,\text{-}S})$.
+An important part of linear regression analysis is the dependence of the least squares coefficient for a predictor ($x_j$) on what other predictors are in the model $(\boldsymbol x_{\text{-}j})$. This relationship is dictated by the extent to which $\boldsymbol x_{*j}$ is correlated with $\boldsymbol X_{*,\text{-}j}$. To explore this phenomenon, it will be useful to compare two different regressions:
+
+- Regress $\boldsymbol y$ on *just* $\boldsymbol{x}_{*j}$. Let the resulting coefficient for $x_j$ be $\widehat{\beta}_j$.
+- Regress $\boldsymbol y$ on *all of* $\boldsymbol X$ (i.e., on both $\boldsymbol{x}_{*j}$ and $\boldsymbol X_{*, \text{-}j}$). Let the resulting coefficients for $x_j$ and $\boldsymbol x_{\text{-}j}$ be $\widehat{\beta}_{j|\text{-}j}$ and $\widehat{\beta}_{\text{-}j|j}$, respectively.
 
 ## Least squares estimates in the orthogonal case
 
-The simplest case to analyze is when a group of predictors $\boldsymbol{X}_{*S}$ is orthogonal to the rest of the predictors $\boldsymbol{X}_{*,\text{-}S}$ in the sense that
+The simplest case to analyze is when $\boldsymbol x_{*j}$ is orthogonal to $\boldsymbol X_{*,\text{-}j}$ in the sense that
 
 $$
-\boldsymbol{X}_{*S}^T \boldsymbol{X}_{*,\text{-}S} = \boldsymbol{0}.
-$$
+\boldsymbol x_{*j}^T \boldsymbol X_{*,\text{-}j} = \boldsymbol{0}.
+$$ {#eq-orthogonality-assumption}
 
-In this case, we can derive the least squares coefficient vector $\boldsymbol{\widehat{\beta}} = (\boldsymbol{\widehat{\beta}}_{S|\text{-}S}, \boldsymbol{\widehat{\beta}}_{\text{-}S|S})$ from the normal equations:
+In this case, we can derive the least squares coefficient vector  $\boldsymbol{\widehat{\beta}} = (\widehat{\beta}_{j|\text{-}j}, \boldsymbol{\widehat{\beta}}_{\text{-}j|j})$ in the regression of $\boldsymbol y$ on $\boldsymbol X$:
 
 $$
+\begin{split}
 \begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S|S}
-\end{pmatrix} = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y} =
+\widehat{\beta}_{j|\text{-}j} \\
+\boldsymbol{\widehat{\beta}}_{\text{-}j|j}
+\end{pmatrix} &= (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y} \\
+&=
 \begin{pmatrix}
-\boldsymbol{X}_S^T \boldsymbol{X}_S & \boldsymbol{0} \\
-\boldsymbol{0} & \boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S}
+\boldsymbol x_{*j}^T \boldsymbol x_{*j} & \boldsymbol{0} \\
+\boldsymbol{0} & \boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{X}_{*,\text{-}j}
 \end{pmatrix}^{-1}
 \begin{pmatrix}
-\boldsymbol{X}_S^T \\
-\boldsymbol{X}_{\text{-}S}^T
-\end{pmatrix} \boldsymbol{y} =
+\boldsymbol x_{*j}^T \\
+\boldsymbol{X}_{*,\text{-}j}^T
+\end{pmatrix} \boldsymbol{y} \\
+&=
 \begin{pmatrix}
-(\boldsymbol{X}_S^T \boldsymbol{X}_S)^{-1} \boldsymbol{X}_S^T \boldsymbol{y} \\
-(\boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S})^{-1} \boldsymbol{X}_{\text{-}S}^T \boldsymbol{y}
-\end{pmatrix} = 
+(\boldsymbol x_{*j}^T \boldsymbol x_{*j})^{-1} \boldsymbol x_{*j}^T \boldsymbol{y} \\
+(\boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{X}_{*,\text{-}j})^{-1} \boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{y}
+\end{pmatrix} \\
+&= 
 \begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S}
+\widehat{\beta}_{j} \\
+\boldsymbol{\widehat{\beta}}_{\text{-}j}
 \end{pmatrix}.
+\end{split}
 $$ {#eq-orthogonality}
 
-Therefore, the least squares coefficients when regressing $\boldsymbol{y}$ on $(\boldsymbol{X}_S, \boldsymbol{X}_{\text{-}S})$ are the same as those obtained from regressing $\boldsymbol{y}$ separately on $\boldsymbol{X}_S$ and $\boldsymbol{X}_{\text{-}S}$, i.e.
+Therefore, the least squares coefficient of $x_j$ is the same regardless of whether the other predictors are included in the regression, i.e.
 
 $$
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} = \boldsymbol{\widehat{\beta}}_{S}.
+\widehat{\beta}_{j|\text{-}j} = \widehat{\beta}_{j}.
 $$ {#eq-orthogonality-consequence}
 
 ## Least squares estimates via orthogonalization
 
-Let's now focus our attention on a single predictor $x_j$. If this predictor is orthogonal to the remaining predictors, then the result ([-@eq-orthogonality-consequence]) states that $\widehat{\beta}_{j|\text{-}j}$ can be obtained from simply regressing $y$ on $x_j$. However, this is usually not the case. Usually, $\boldsymbol{x}_{*j}$ has a nonzero projection $\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}$ onto $C(\boldsymbol{X}_{*,\text{-}j})$:
+The orthogonality assumption ([-@eq-orthogonality-assumption]) is almost never satisfied in practice. Usually, $\boldsymbol{x}_{*j}$ has a nonzero projection $\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}$ onto $C(\boldsymbol{X}_{*,\text{-}j})$:
 
 $$
 \boldsymbol{x}_{*j} = \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}} + \boldsymbol{x}^{\perp}_{*j},
 $$
 
-where $\boldsymbol{x}^{\perp}_{*j}$ is the residual from regressing $\boldsymbol{x}_{*j}$ onto $\boldsymbol{X}_{*,\text{-}j}$ and is therefore orthogonal to $C(\boldsymbol{X}_{*,\text{-}j})$. In other words, $\boldsymbol{x}^{\perp}_{*j}$ is the projection of $\boldsymbol{x}_{*j}$ onto the orthogonal complement of $C(\boldsymbol{X}_{*,\text{-}j})$.
+where $\boldsymbol{x}^{\perp}_{*j}$ is the residual from regressing $\boldsymbol{x}_{*j}$ onto $\boldsymbol{X}_{*,\text{-}j}$ and is therefore orthogonal to $C(\boldsymbol{X}_{*,\text{-}j})$. In other words, $\boldsymbol{x}^{\perp}_{*j}$ is the projection of $\boldsymbol{x}_{*j}$ onto the orthogonal complement of $C(\boldsymbol{X}_{*,\text{-}j})$. Another way of framing this relationship is that $\boldsymbol{x}^{\perp}_{*j}$ is the result of *adjusting* $\boldsymbol{x}_{*j}$ for $\boldsymbol{X}_{*,\text{-}j}$.
 
 With this decomposition, let us change basis from $(\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})$ to $(\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})$ by the process explored in Homework 1 Question 1. Let us write:
 
@@ -66,7 +74,7 @@ $$
 What this means is that $\widehat{\beta}_{j|\text{-}j}$, the least squares coefficient of $\boldsymbol{x}_{*j}$ in the regression of $\boldsymbol{y}$ on $(\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})$, is also the least squares coefficient of $\boldsymbol{x}^{\perp}_{*j}$ in the regression of $\boldsymbol{y}$ on $(\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})$. However, since $\boldsymbol{x}^{\perp}_{*j}$ is orthogonal to $\boldsymbol{X}_{*,\text{-}j}$ by construction, we can use the result ([-@eq-orthogonality]) to conclude that:
 
 $$
-\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the *univariate* regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
+\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the } \textit{univariate} \text{ regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
 $$
 
 We can solve this univariate regression explicitly to obtain:
@@ -80,7 +88,7 @@ $$ {#eq-orthogonal-univariate}
 Equivalently, letting $\boldsymbol{\widehat{\beta}}_{\text{-}j}$ be the least squares estimate in the regression of $\boldsymbol{y}$ on $\boldsymbol{X}_{*,\text{-}j}$ (note that this is *not* the same as $\boldsymbol{\widehat{\beta}}_{\text{-}j|j}$), we can write:
 
 $$
-\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}_{*j} -\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2}.
+\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} \equiv \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol y^\perp}{\|\boldsymbol{x}^{\perp}_{*j}\|^2}.
 $$
 
 We can interpret this result as follows:
@@ -89,7 +97,20 @@ We can interpret this result as follows:
 The linear regression coefficient $\widehat{\beta}_{j|\text{-}j}$ results from first adjusting $\boldsymbol{y}$ and $\boldsymbol{x}_{*j}$ for the effects of all other variables, and then regressing the residuals from $\boldsymbol{y}$ onto the residuals from $\boldsymbol{x}_{*j}$.
 :::
 
-In this sense, *the least squares coefficient for a predictor in a multiple linear regression reflects the effect of the predictor on the response after controlling for the effects of all other predictors.* A related quantity is the *partial correlation* between $\boldsymbol{x}_{*j}$ and $\boldsymbol{y}$ after controlling for $\boldsymbol{X}_{*,\text{-}j}$, defined as the correlation between $\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}$ and $\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j}$. We can then connect the least squares coefficient $\widehat{\beta}_j$ to this partial correlation in a similar spirit to equation ([-@eq-coefficient-as-correlation]).
+In this sense, *the least squares coefficient for a predictor in a multiple linear regression reflects the effect of the predictor on the response after controlling for the effects of all other predictors.* 
+
+Econometricians calls this the Frisch-Waugh-Lovell (FWL) theorem, to acknowledge economists Ragnar Frisch and Frederick V. Waugh, who first derived the result in 1933, and Michael C. Lovell, who later rediscovered and extended it in 1963. In the statistical literature, this fact was known at least as early as 1907, when Yule documented it in his paper "On the Theory of Correlation for any Number of Variables, treated by a New System of Notation."
+
+A related quantity is the *partial correlation* between $\boldsymbol{x}_{*j}$ and $\boldsymbol{y}$ after controlling for $\boldsymbol{X}_{*,\text{-}j}$, defined as the empirical correlation between $\boldsymbol{x}_{*j}^\perp$ and $\boldsymbol{y}^\perp$: 
+$$
+\rho(\boldsymbol{x}_{*j}, \boldsymbol{y}|\boldsymbol{X}_{*,\text{-}j}) \equiv \frac{(\boldsymbol{x}_{*j}^\perp)^T(\boldsymbol{y}^\perp)}{\|\boldsymbol{x}_{*j}^\perp\| \|\boldsymbol{y}^\perp\|}.
+$$
+We can then connect the least squares coefficient $\widehat{\beta}_{j|\text{-}j}$ to this partial correlation:
+$$
+\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol y^\perp}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{\|\boldsymbol{y}^\perp\|}{\|\boldsymbol{x}_{*j}^\perp\|}\rho(\boldsymbol{x}_{*j}, \boldsymbol{y}|\boldsymbol{X}_{*,\text{-}j}),
+$$
+
+in a similar spirit to equation ([-@eq-beta1-simple-linear-regression]).
 
 ## Effects of collinearity
 
@@ -102,41 +123,57 @@ $$ {#eq-conditional-variance}
 We see that the variance of $\widehat{\beta}_{j|\text{-}j}$ is inversely proportional to $\|\boldsymbol{x}_{*j}^\perp\|^2$. This means that the greater the collinearity, the less of $\boldsymbol{x}_{*j}$ is left over after adjusting for $\boldsymbol{X}_{*,\text{-}j}$, and the greater the variance of $\widehat{\beta}_{j|\text{-}j}$. To quantify the effect of this adjustment, suppose there were no other predictors other than the intercept term. Then, we would have:
 
 $$
-\text{Var}[\widehat{\beta}_j] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
+\text{Var}[\widehat{\beta}_{j|1}] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
 $$
 
 Therefore, we can rewrite the variance ([-@eq-conditional-variance]) as:
 
 $$
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_j] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_j] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_j],
+\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
 $$ {#eq-vif}
 
 where $R_j^2$ is the $R^2$ value when regressing $\boldsymbol{x}_{*j}$ on $\boldsymbol{X}_{*,\text{-}j}$ and VIF stands for *variance inflation factor*. The higher $R_j^2$, the more of the variance in $\boldsymbol{x}_{*j}$ is explained by other predictors, the higher the variance in $\widehat{\beta}_{j|\text{-}j}$.
 
 ## Remark: Average treatment effect estimation in causal inference
 
-Suppose we'd like to study the effect of an exposure or treatment (e.g. taking a blood pressure medication) on a response $y$ (e.g. blood pressure). In the Neyman-Rubin causal model, for a given individual $i$ we denote by $y_i(1)$ and $y_i(0)$ the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called *potential outcomes*. Let $t_i \in \{0,1\}$ indicate whether the $i$th individual actually received treatment or control. Therefore, the observed outcome is $y_i^{\text{obs}} = y_i(t_i)$.\footnote{This requires the *stable unit treatment value assumption* (SUTVA), which prevents issues like *interference*, where the treatment of individual $i$ can be affected by the assigned treatments of other individuals.} Based on the data $\{(t_i, y_i)\}_{i = 1, \dots, n}$, the most basic goal is to estimate the:
+Suppose we'd like to study the effect of an exposure or treatment (e.g. taking a blood pressure medication) on a response $y$ (e.g. blood pressure). In the Neyman-Rubin causal model, for a given individual $i$ we denote by $y_i(1)$ and $y_i(0)$ the outcomes that would have occurred had the individual received the treatment and the control, respectively. These are called *potential outcomes*. Let $t_i \in \{0,1\}$ indicate whether the $i$th individual actually received treatment or control. Therefore, the observed outcome is[^1] 
+$$
+y_i^{\text{obs}} = y_i(t_i). 
+$$ {#eq-sutva}
+Based on the data $\{(t_i, y_i^{\text{obs}})\}_{i = 1, \dots, n}$, the most basic goal is to estimate the
 
 $$
 \textit{average treatment effect} \  \tau \equiv \mathbb{E}[y(1) - y(0)],
 $$
 
-where averaging is done over the population of individuals (often called *units* in causal inference). Of course, we do not observe both $y(1)$ and $y(0)$ for any unit. Additionally, usually in observational studies we have *confounding variables* $z_2, \dots, z_{p-1}$: variables that influence both the treatment assignment and the response (e.g. degree of health-seeking activity). It is important to control for these confounders in order to get an unbiased estimate of the treatment effect. Suppose the following linear model holds:
+where averaging is done over the population of individuals (often called *units* in causal inference). Of course, we do not observe both $y_i(1)$ and $y_i(0)$ for any unit $i$. Additionally, usually in observational studies we have *confounding variables* $w_2, \dots, w_{p-1}$: variables that influence both the treatment assignment and the response (e.g. degree of health-seeking activity). It is important to control for these confounders in order to get an unbiased estimate of the treatment effect. Suppose the following linear model holds:
 
 $$
-y(t) = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}, \quad \text{where} \ \epsilon \perp\!\!\!\!\perp t.
+y(t) = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}, \quad \text{where} \ \epsilon \perp\!\!\!\perp t.
 $$
 
-This assumption implies that the treatment effect is constant, and the response is a linear function of the treatment and observed confounders, and there is no unmeasured confounding. Note that:
+This assumption can be broken down into the following statements:
+
+- the treatment effect is constant across units;
+- the response is a linear function of the treatment and observed confounders;
+- there is no unmeasured confounding.
+
+Under these assumptions, we find that
 
 $$
 \tau \equiv \mathbb{E}[y(1) - y(0)] = \beta_1.
 $$
 
-Furthermore:
+Using the relationship ([-@eq-sutva]), we find that
 
 $$
-y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
+y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
 $$
 
-In this case, the average treatment effect $\tau$ is *identified* as the coefficient $\beta_1$ in the above regression, i.e. $\tau = \beta$. Therefore, the least squares estimate $\widehat{\beta}_1$ is an unbiased estimate of the average treatment effect. (Causal inference is beyond the scope of STAT 9610; see STAT 9210 instead.)
+In this case, the average treatment effect $\tau$ is *identified* as the coefficient $\beta_1$ in the above regression, i.e. $\tau = \beta_1$. In other words, the causal parameter coincides with a parameter of the statistical model for the observed data. Therefore, the least squares estimate $\widehat{\beta}_1$ is an unbiased estimate of the average treatment effect. 
+
+::: {.callout-note}
+Causal inference is a vast field, which lies mostly beyond the scope of STAT 9610; see STAT 9210 instead.
+:::
+
+[^1]: This requires the *stable unit treatment value assumption* (SUTVA), which prevents issues like *interference*, where the treatment of individual $i$ can be affected by the assigned treatments of other individuals.

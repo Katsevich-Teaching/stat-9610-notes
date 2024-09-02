@@ -132,6 +132,22 @@
 \setlength{\headheight}{13.6pt} % fixes minor warning
 \makeatother % change back interpretation of @
 \makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -226,7 +242,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, frame hidden, sharp corners, interior hidden, enhanced, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, enhanced, frame hidden, breakable, interior hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -366,7 +382,7 @@ This course is broken up into six units:
   assumptions are not correct: What issues can arise, how to diagnose
   them, and how to fix them.
 \item
-  \textbf{\protect\hyperlink{ch-glm-theory}{Unit 4} GLMs: General
+  \textbf{\protect\hyperlink{ch-glm-theory}{Unit 4}: GLMs: General
   theory.} Estimation and inference for GLMs (generalizing Chapters 1
   and 2). GLMs fit neatly into a unified theory based on
   \emph{exponential families}.
@@ -964,24 +980,7 @@ observations \(\{i: c(i) = c\}\) for \(c \in \{1, \dots, C\}\). For
 example, \(w\) may be the type of a car (compact, midsize, minivan,
 etc.) and \(y\) might be its fuel efficiency in miles per gallon.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\NormalTok{mpg }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{fct\_reorder}\NormalTok{(class, hwy), }\AttributeTok{y =}\NormalTok{ hwy)) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Car class"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Gas mileage (mpg)"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{theme\_bw}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics{anova_files/figure-pdf/unnamed-chunk-2-1.pdf}
-
-}
-
-\end{figure}
+\includegraphics{anova_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
 It is easy to check that the least squares fitted values
 \(\widehat{\mu}_i\) are simply the means of the corresponding groups:
@@ -1021,15 +1020,25 @@ quantitative predictor, \(x\):
 y = \beta_0 + \beta_1 x + \epsilon.
 }\label{eq-simple-regression}\end{equation}
 
-This is the simple linear regression model.
+This is the simple linear regression model. In this case, we can compute
+that
+\begin{equation}\protect\hypertarget{eq-beta1-simple-linear-regression}{}{
+\widehat \beta_1 = \frac{\sigma_y}{\sigma_x} \rho_{xy},
+}\label{eq-beta1-simple-linear-regression}\end{equation} where
+\(\rho_{xy}\) is the sample correlation between \(x\) and \(y\),
+\(\sigma^2_x\) is the sample variance of \(x\), and \(\sigma^2_y\) is
+the sample variance of \(y\). Furthermore, we have
+\begin{equation}\protect\hypertarget{eq-beta0-simple-linear-regression}{}{
+\widehat \beta_0 = \bar y - \widehat \beta_1 \bar x.
+}\label{eq-beta0-simple-linear-regression}\end{equation}
 
 \hypertarget{anova-decomposition-for-simple-linear-regression}{%
 \subsubsection{ANOVA decomposition for simple linear
 regression}\label{anova-decomposition-for-simple-linear-regression}}
 
-Figure Figure~\ref{fig-anova-simple-linear-regression} gives an
-interpretation of the ANOVA decomposition (\ref{eq-anova}) in the case
-of the simple linear regression model (\ref{eq-simple-regression}).
+Figure~\ref{fig-anova-simple-linear-regression} gives an interpretation
+of the ANOVA decomposition (\ref{eq-anova}) in the case of the simple
+linear regression model (\ref{eq-simple-regression}).
 
 \begin{figure}
 
@@ -1051,13 +1060,11 @@ regression.
 
 \begin{proposition}[]\protect\hypertarget{prp-R2-correlation}{}\label{prp-R2-correlation}
 
-\[
-R^2 = \rho_{xy}^2.
-\]
-
 Let \(\rho_{xy}\) denote the sample correlation between \(x\) and \(y\),
 and let \(R^2_{xy}\) be the \(R^2\) from the simple linear regression
-(\ref{eq-simple-regression}). Then, we have:
+(\ref{eq-simple-regression}). Then, we have: \[
+R^2 = \rho_{xy}^2.
+\]
 
 \end{proposition}
 
@@ -1080,7 +1087,8 @@ standardized test in two consecutive years, or the number of games won
 by a given sports team in two consecutive seasons. In this situation, it
 is reasonable to assume that the sample standard deviations of \(x\) and
 \(y\) are the same (or to normalize these variables to achieve this). In
-this case, one can show that:
+this case, equations (\ref{eq-beta1-simple-linear-regression}) and
+(\ref{eq-beta0-simple-linear-regression}) simplify to:
 
 \begin{equation}\protect\hypertarget{eq-coefficient-as-correlation}{}{
 \widehat{\beta}_0 = \bar{y} - \rho_{xy} \bar{x} \quad \text{and} \quad \widehat{\beta}_1 = \rho_{xy}.
@@ -1120,80 +1128,83 @@ unlikely to get as lucky as it did the next season.
 \emph{See also Agresti 2.2.4, 2.5.6, 2.5.7, 4.6.5}
 
 An important part of linear regression analysis is the dependence of the
-least squares coefficient for a predictor on what other predictors are
-in the model. This relationship is dictated by the extent to which the
-given predictor is correlated with the other predictors. In this
-section, we'll use some additional notation. Let
-\(S \subset \{0, \dots, p-1\}\) be a group of predictors (we can assume
-without loss of generality that \(S = \{0, \dots, s-1\}\) for some
-\(1 \leq s < p\)). Then, denote
-\(\text{-}S \equiv \{0, \dots, p-1\} \setminus S\). Let
-\(\boldsymbol{\widehat{\beta}}_S\) denote the least squares coefficients
-when regressing \(\boldsymbol{y}\) on \(\boldsymbol{X}_{*S}\) and let
-\(\boldsymbol{\widehat{\beta}}_{S|\text{-}S}\) denote the least squares
-coefficients corresponding to \(S\) when regressing \(\boldsymbol{y}\)
-on
-\(\boldsymbol{X} = (\boldsymbol{X}_{*S}, \boldsymbol{X}_{*,\text{-}S})\).
+least squares coefficient for a predictor (\(x_j\)) on what other
+predictors are in the model \((\boldsymbol x_{\text{-}j})\). This
+relationship is dictated by the extent to which \(\boldsymbol x_{*j}\)
+is correlated with \(\boldsymbol X_{*,\text{-}j}\). To explore this
+phenomenon, it will be useful to compare two different regressions:
+
+\begin{itemize}
+\tightlist
+\item
+  Regress \(\boldsymbol y\) on \emph{just} \(\boldsymbol{x}_{*j}\). Let
+  the resulting coefficient for \(x_j\) be \(\widehat{\beta}_j\).
+\item
+  Regress \(\boldsymbol y\) on \emph{all of} \(\boldsymbol X\) (i.e., on
+  both \(\boldsymbol{x}_{*j}\) and \(\boldsymbol X_{*, \text{-}j}\)).
+  Let the resulting coefficients for \(x_j\) and
+  \(\boldsymbol x_{\text{-}j}\) be \(\widehat{\beta}_{j|\text{-}j}\) and
+  \(\widehat{\beta}_{\text{-}j|j}\), respectively.
+\end{itemize}
 
 \hypertarget{least-squares-estimates-in-the-orthogonal-case}{%
 \section{Least squares estimates in the orthogonal
 case}\label{least-squares-estimates-in-the-orthogonal-case}}
 
-The simplest case to analyze is when a group of predictors
-\(\boldsymbol{X}_{*S}\) is orthogonal to the rest of the predictors
-\(\boldsymbol{X}_{*,\text{-}S}\) in the sense that
+The simplest case to analyze is when \(\boldsymbol x_{*j}\) is
+orthogonal to \(\boldsymbol X_{*,\text{-}j}\) in the sense that
 
-\[
-\boldsymbol{X}_{*S}^T \boldsymbol{X}_{*,\text{-}S} = \boldsymbol{0}.
-\]
+\begin{equation}\protect\hypertarget{eq-orthogonality-assumption}{}{
+\boldsymbol x_{*j}^T \boldsymbol X_{*,\text{-}j} = \boldsymbol{0}.
+}\label{eq-orthogonality-assumption}\end{equation}
 
 In this case, we can derive the least squares coefficient vector
-\(\boldsymbol{\widehat{\beta}} = (\boldsymbol{\widehat{\beta}}_{S|\text{-}S}, \boldsymbol{\widehat{\beta}}_{\text{-}S|S})\)
-from the normal equations:
+\(\boldsymbol{\widehat{\beta}} = (\widehat{\beta}_{j|\text{-}j}, \boldsymbol{\widehat{\beta}}_{\text{-}j|j})\)
+in the regression of \(\boldsymbol y\) on \(\boldsymbol X\):
 
 \begin{equation}\protect\hypertarget{eq-orthogonality}{}{
+\begin{split}
 \begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S|S}
-\end{pmatrix} = (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y} =
+\widehat{\beta}_{j|\text{-}j} \\
+\boldsymbol{\widehat{\beta}}_{\text{-}j|j}
+\end{pmatrix} &= (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{y} \\
+&=
 \begin{pmatrix}
-\boldsymbol{X}_S^T \boldsymbol{X}_S & \boldsymbol{0} \\
-\boldsymbol{0} & \boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S}
+\boldsymbol x_{*j}^T \boldsymbol x_{*j} & \boldsymbol{0} \\
+\boldsymbol{0} & \boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{X}_{*,\text{-}j}
 \end{pmatrix}^{-1}
 \begin{pmatrix}
-\boldsymbol{X}_S^T \\
-\boldsymbol{X}_{\text{-}S}^T
-\end{pmatrix} \boldsymbol{y} =
+\boldsymbol x_{*j}^T \\
+\boldsymbol{X}_{*,\text{-}j}^T
+\end{pmatrix} \boldsymbol{y} \\
+&=
 \begin{pmatrix}
-(\boldsymbol{X}_S^T \boldsymbol{X}_S)^{-1} \boldsymbol{X}_S^T \boldsymbol{y} \\
-(\boldsymbol{X}_{\text{-}S}^T \boldsymbol{X}_{\text{-}S})^{-1} \boldsymbol{X}_{\text{-}S}^T \boldsymbol{y}
-\end{pmatrix} = 
+(\boldsymbol x_{*j}^T \boldsymbol x_{*j})^{-1} \boldsymbol x_{*j}^T \boldsymbol{y} \\
+(\boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{X}_{*,\text{-}j})^{-1} \boldsymbol{X}_{*,\text{-}j}^T \boldsymbol{y}
+\end{pmatrix} \\
+&= 
 \begin{pmatrix}
-\boldsymbol{\widehat{\beta}}_{S} \\
-\boldsymbol{\widehat{\beta}}_{\text{-}S}
+\widehat{\beta}_{j} \\
+\boldsymbol{\widehat{\beta}}_{\text{-}j}
 \end{pmatrix}.
+\end{split}
 }\label{eq-orthogonality}\end{equation}
 
-Therefore, the least squares coefficients when regressing
-\(\boldsymbol{y}\) on \((\boldsymbol{X}_S, \boldsymbol{X}_{\text{-}S})\)
-are the same as those obtained from regressing \(\boldsymbol{y}\)
-separately on \(\boldsymbol{X}_S\) and \(\boldsymbol{X}_{\text{-}S}\),
-i.e.
+Therefore, the least squares coefficient of \(x_j\) is the same
+regardless of whether the other predictors are included in the
+regression, i.e.
 
 \begin{equation}\protect\hypertarget{eq-orthogonality-consequence}{}{
-\boldsymbol{\widehat{\beta}}_{S|\text{-}S} = \boldsymbol{\widehat{\beta}}_{S}.
+\widehat{\beta}_{j|\text{-}j} = \widehat{\beta}_{j}.
 }\label{eq-orthogonality-consequence}\end{equation}
 
 \hypertarget{least-squares-estimates-via-orthogonalization}{%
 \section{Least squares estimates via
 orthogonalization}\label{least-squares-estimates-via-orthogonalization}}
 
-Let's now focus our attention on a single predictor \(x_j\). If this
-predictor is orthogonal to the remaining predictors, then the result
-(\ref{eq-orthogonality-consequence}) states that
-\(\widehat{\beta}_{j|\text{-}j}\) can be obtained from simply regressing
-\(y\) on \(x_j\). However, this is usually not the case. Usually,
-\(\boldsymbol{x}_{*j}\) has a nonzero projection
+The orthogonality assumption (\ref{eq-orthogonality-assumption}) is
+almost never satisfied in practice. Usually, \(\boldsymbol{x}_{*j}\) has
+a nonzero projection
 \(\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\) onto
 \(C(\boldsymbol{X}_{*,\text{-}j})\):
 
@@ -1206,7 +1217,10 @@ where \(\boldsymbol{x}^{\perp}_{*j}\) is the residual from regressing
 therefore orthogonal to \(C(\boldsymbol{X}_{*,\text{-}j})\). In other
 words, \(\boldsymbol{x}^{\perp}_{*j}\) is the projection of
 \(\boldsymbol{x}_{*j}\) onto the orthogonal complement of
-\(C(\boldsymbol{X}_{*,\text{-}j})\).
+\(C(\boldsymbol{X}_{*,\text{-}j})\). Another way of framing this
+relationship is that \(\boldsymbol{x}^{\perp}_{*j}\) is the result of
+\emph{adjusting} \(\boldsymbol{x}_{*j}\) for
+\(\boldsymbol{X}_{*,\text{-}j}\).
 
 With this decomposition, let us change basis from
 \((\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})\) to
@@ -1233,7 +1247,7 @@ However, since \(\boldsymbol{x}^{\perp}_{*j}\) is orthogonal to
 (\ref{eq-orthogonality}) to conclude that:
 
 \[
-\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the *univariate* regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
+\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the } \textit{univariate} \text{ regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
 \]
 
 We can solve this univariate regression explicitly to obtain:
@@ -1252,7 +1266,7 @@ the least squares estimate in the regression of \(\boldsymbol{y}\) on
 as \(\boldsymbol{\widehat{\beta}}_{\text{-}j|j}\)), we can write:
 
 \[
-\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}_{*j} -\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2}.
+\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j})}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} \equiv \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol y^\perp}{\|\boldsymbol{x}^{\perp}_{*j}\|^2}.
 \]
 
 We can interpret this result as follows:
@@ -1269,16 +1283,28 @@ regressing the residuals from \(\boldsymbol{y}\) onto the residuals from
 
 In this sense, \emph{the least squares coefficient for a predictor in a
 multiple linear regression reflects the effect of the predictor on the
-response after controlling for the effects of all other predictors.} A
-related quantity is the \emph{partial correlation} between
+response after controlling for the effects of all other predictors.}
+
+Econometricians calls this the Frisch-Waugh-Lovell (FWL) theorem, to
+acknowledge economists Ragnar Frisch and Frederick V. Waugh, who first
+derived the result in 1933, and Michael C. Lovell, who later
+rediscovered and extended it in 1963. In the statistical literature,
+this fact was known at least as early as 1907, when Yule documented it
+in his paper ``On the Theory of Correlation for any Number of Variables,
+treated by a New System of Notation.''
+
+A related quantity is the \emph{partial correlation} between
 \(\boldsymbol{x}_{*j}\) and \(\boldsymbol{y}\) after controlling for
-\(\boldsymbol{X}_{*,\text{-}j}\), defined as the correlation between
-\(\boldsymbol{x}_{*j} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\)
-and
-\(\boldsymbol{y} - \boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\beta}}_{\text{-}j}\).
-We can then connect the least squares coefficient \(\widehat{\beta}_j\)
-to this partial correlation in a similar spirit to equation
-(\ref{eq-coefficient-as-correlation}).
+\(\boldsymbol{X}_{*,\text{-}j}\), defined as the empirical correlation
+between \(\boldsymbol{x}_{*j}^\perp\) and \(\boldsymbol{y}^\perp\): \[
+\rho(\boldsymbol{x}_{*j}, \boldsymbol{y}|\boldsymbol{X}_{*,\text{-}j}) \equiv \frac{(\boldsymbol{x}_{*j}^\perp)^T(\boldsymbol{y}^\perp)}{\|\boldsymbol{x}_{*j}^\perp\| \|\boldsymbol{y}^\perp\|}.
+\] We can then connect the least squares coefficient
+\(\widehat{\beta}_{j|\text{-}j}\) to this partial correlation: \[
+\widehat{\beta}_{j|\text{-}j} = \frac{(\boldsymbol{x}^{\perp}_{*j})^T \boldsymbol y^\perp}{\|\boldsymbol{x}^{\perp}_{*j}\|^2} = \frac{\|\boldsymbol{y}^\perp\|}{\|\boldsymbol{x}_{*j}^\perp\|}\rho(\boldsymbol{x}_{*j}, \boldsymbol{y}|\boldsymbol{X}_{*,\text{-}j}),
+\]
+
+in a similar spirit to equation
+(\ref{eq-beta1-simple-linear-regression}).
 
 \hypertarget{effects-of-collinearity}{%
 \section{Effects of collinearity}\label{effects-of-collinearity}}
@@ -1309,14 +1335,14 @@ adjustment, suppose there were no other predictors other than the
 intercept term. Then, we would have:
 
 \[
-\text{Var}[\widehat{\beta}_j] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
+\text{Var}[\widehat{\beta}_{j|1}] = \frac{\sigma^2}{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}.
 \]
 
 Therefore, we can rewrite the variance (\ref{eq-conditional-variance})
 as:
 
 \begin{equation}\protect\hypertarget{eq-vif}{}{
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_j] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_j] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_j],
+\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
 }\label{eq-vif}\end{equation}
 
 where \(R_j^2\) is the \(R^2\) value when regressing
@@ -1337,10 +1363,16 @@ individual \(i\) we denote by \(y_i(1)\) and \(y_i(0)\) the outcomes
 that would have occurred had the individual received the treatment and
 the control, respectively. These are called \emph{potential outcomes}.
 Let \(t_i \in \{0,1\}\) indicate whether the \(i\)th individual actually
-received treatment or control. Therefore, the observed outcome is
-\(y_i^{\text{obs}} = y_i(t_i)\).\footnote{This requires the *stable unit treatment value assumption* (SUTVA), which prevents issues like *interference*, where the treatment of individual $i$ can be affected by the assigned treatments of other individuals.}
-Based on the data \(\{(t_i, y_i)\}_{i = 1, \dots, n}\), the most basic
-goal is to estimate the:
+received treatment or control. Therefore, the observed outcome
+is\footnote{This requires the \emph{stable unit treatment value
+  assumption} (SUTVA), which prevents issues like \emph{interference},
+  where the treatment of individual \(i\) can be affected by the
+  assigned treatments of other individuals.}
+\begin{equation}\protect\hypertarget{eq-sutva}{}{
+y_i^{\text{obs}} = y_i(t_i). 
+}\label{eq-sutva}\end{equation} Based on the data
+\(\{(t_i, y_i^{\text{obs}})\}_{i = 1, \dots, n}\), the most basic goal
+is to estimate the
 
 \[
 \textit{average treatment effect} \  \tau \equiv \mathbb{E}[y(1) - y(0)],
@@ -1348,38 +1380,56 @@ goal is to estimate the:
 
 where averaging is done over the population of individuals (often called
 \emph{units} in causal inference). Of course, we do not observe both
-\(y(1)\) and \(y(0)\) for any unit. Additionally, usually in
+\(y_i(1)\) and \(y_i(0)\) for any unit \(i\). Additionally, usually in
 observational studies we have \emph{confounding variables}
-\(z_2, \dots, z_{p-1}\): variables that influence both the treatment
+\(w_2, \dots, w_{p-1}\): variables that influence both the treatment
 assignment and the response (e.g.~degree of health-seeking activity). It
 is important to control for these confounders in order to get an
 unbiased estimate of the treatment effect. Suppose the following linear
 model holds:
 
 \[
-y(t) = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}, \quad \text{where} \ \epsilon \perp\!\!\!\!\perp t.
+y(t) = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}, \quad \text{where} \ \epsilon \perp\!\!\!\perp t.
 \]
 
-This assumption implies that the treatment effect is constant, and the
-response is a linear function of the treatment and observed confounders,
-and there is no unmeasured confounding. Note that:
+This assumption can be broken down into the following statements:
+
+\begin{itemize}
+\tightlist
+\item
+  the treatment effect is constant across units;
+\item
+  the response is a linear function of the treatment and observed
+  confounders;
+\item
+  there is no unmeasured confounding.
+\end{itemize}
+
+Under these assumptions, we find that
 
 \[
 \tau \equiv \mathbb{E}[y(1) - y(0)] = \beta_1.
 \]
 
-Furthermore:
+Using the relationship (\ref{eq-sutva}), we find that
 
 \[
-y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 z_2 + \cdots + \beta_{p-1} z_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
+y^{\text{obs}} = \beta_0 + \beta_1 t + \beta_2 w_2 + \cdots + \beta_{p-1} w_{p-1} + \epsilon \quad \text{for } t \in \{0, 1\}.
 \]
 
 In this case, the average treatment effect \(\tau\) is \emph{identified}
 as the coefficient \(\beta_1\) in the above regression,
-i.e.~\(\tau = \beta\). Therefore, the least squares estimate
-\(\widehat{\beta}_1\) is an unbiased estimate of the average treatment
-effect. (Causal inference is beyond the scope of STAT 9610; see STAT
-9210 instead.)
+i.e.~\(\tau = \beta_1\). In other words, the causal parameter coincides
+with a parameter of the statistical model for the observed data.
+Therefore, the least squares estimate \(\widehat{\beta}_1\) is an
+unbiased estimate of the average treatment effect.
+
+\begin{tcolorbox}[enhanced jigsaw, bottomtitle=1mm, rightrule=.15mm, opacitybacktitle=0.6, colframe=quarto-callout-note-color-frame, breakable, colbacktitle=quarto-callout-note-color!10!white, opacityback=0, leftrule=.75mm, colback=white, toptitle=1mm, titlerule=0mm, toprule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, arc=.35mm, bottomrule=.15mm, left=2mm, coltitle=black]
+
+Causal inference is a vast field, which lies mostly beyond the scope of
+STAT 9610; see STAT 9210 instead.
+
+\end{tcolorbox}
 
 \hypertarget{sec-r-demo-part-1}{%
 \chapter{R demo}\label{sec-r-demo-part-1}}

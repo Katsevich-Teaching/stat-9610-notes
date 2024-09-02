@@ -79,11 +79,11 @@ Adding many junk predictors will have the effect of degrading predictive perform
 
 Let's consider the special case of the ANOVA decomposition ([-@eq-anova]) when the model matrix $\boldsymbol{X}$ represents a single categorical predictor $w$. In this case, each observation $i$ is associated with one of the $C$ classes of $w$, which we denote $c(i) \in \{1, \dots, C\}$. Let's consider the $C$ groups of observations $\{i: c(i) = c\}$ for $c \in \{1, \dots, C\}$. For example, $w$ may be the type of a car (compact, midsize, minivan, etc.) and $y$ might be its fuel efficiency in miles per gallon.
 
-```{r, message = FALSE}
+```{r, message = FALSE, echo = FALSE, fig.width = 5, fig.height = 3}
 library(tidyverse)
 mpg |>
   ggplot() +
-  geom_boxplot(aes(x = fct_reorder(class, hwy), y = hwy)) +
+  geom_boxplot(aes(x = fct_reorder(class, hwy), y = hwy), fill = "dodgerblue") +
   labs(x = "Car class", y = "Gas mileage (mpg)") + 
   theme_bw()
 ```
@@ -122,11 +122,18 @@ $$
 y = \beta_0 + \beta_1 x + \epsilon.
 $$ {#eq-simple-regression}
 
-This is the simple linear regression model.
+This is the simple linear regression model. In this case, we can compute that 
+$$
+\widehat \beta_1 = \frac{\sigma_y}{\sigma_x} \rho_{xy},
+$$ {#eq-beta1-simple-linear-regression}
+where $\rho_{xy}$ is the sample correlation between $x$ and $y$, $\sigma^2_x$ is the sample variance of $x$, and $\sigma^2_y$ is the sample variance of $y$. Furthermore, we have
+$$
+\widehat \beta_0 = \bar y - \widehat \beta_1 \bar x.
+$$ {#eq-beta0-simple-linear-regression}
 
 #### ANOVA decomposition for simple linear regression
 
-Figure @fig-anova-simple-linear-regression gives an interpretation of the ANOVA decomposition ([-@eq-anova]) in the case of the simple linear regression model ([-@eq-simple-regression]).
+@fig-anova-simple-linear-regression gives an interpretation of the ANOVA decomposition ([-@eq-anova]) in the case of the simple linear regression model ([-@eq-simple-regression]).
 
 ![ANOVA decomposition for simple linear regression.](figures/anova-simple-linear-regression.png){#fig-anova-simple-linear-regression width=40%}
 
@@ -135,11 +142,10 @@ Figure @fig-anova-simple-linear-regression gives an interpretation of the ANOVA 
 There is a connection between $R^2$ and correlation in simple linear regression.
 
 ::: {#prp-R2-correlation}
+Let $\rho_{xy}$ denote the sample correlation between $x$ and $y$, and let $R^2_{xy}$ be the $R^2$ from the simple linear regression ([-@eq-simple-regression]). Then, we have:
 $$
 R^2 = \rho_{xy}^2.
 $$
-
-Let $\rho_{xy}$ denote the sample correlation between $x$ and $y$, and let $R^2_{xy}$ be the $R^2$ from the simple linear regression ([-@eq-simple-regression]). Then, we have:
 :::
 
 ::: {.proof}
@@ -148,7 +154,7 @@ This fact is a consequence of @prp-multiple-correlation.
 
 #### Regression to the mean
 
-Simple linear regression can be used to study the relationship between the same quantity across time (or generations). For example, let $x$ and $y$ be the height of a parent and child. This example motivated Sir Francis Galton to study linear regression in the first place. Alternatively, $x$ and $y$ can be a student's score on a standardized test in two consecutive years, or the number of games won by a given sports team in two consecutive seasons. In this situation, it is reasonable to assume that the sample standard deviations of $x$ and $y$ are the same (or to normalize these variables to achieve this). In this case, one can show that:
+Simple linear regression can be used to study the relationship between the same quantity across time (or generations). For example, let $x$ and $y$ be the height of a parent and child. This example motivated Sir Francis Galton to study linear regression in the first place. Alternatively, $x$ and $y$ can be a student's score on a standardized test in two consecutive years, or the number of games won by a given sports team in two consecutive seasons. In this situation, it is reasonable to assume that the sample standard deviations of $x$ and $y$ are the same (or to normalize these variables to achieve this). In this case, equations ([-@eq-beta1-simple-linear-regression]) and ([-@eq-beta0-simple-linear-regression]) simplify to:
 
 $$
 \widehat{\beta}_0 = \bar{y} - \rho_{xy} \bar{x} \quad \text{and} \quad \widehat{\beta}_1 = \rho_{xy}.

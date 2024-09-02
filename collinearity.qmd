@@ -129,7 +129,10 @@ $$
 Therefore, we can rewrite the variance ([-@eq-conditional-variance]) as:
 
 $$
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
+\begin{split}
+\text{Var}[\widehat{\beta}_{j|\text{-}j}] &= \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \\
+&= \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
+\end{split}
 $$ {#eq-vif}
 
 where $R_j^2$ is the $R^2$ value when regressing $\boldsymbol{x}_{*j}$ on $\boldsymbol{X}_{*,\text{-}j}$ and VIF stands for *variance inflation factor*. The higher $R_j^2$, the more of the variance in $\boldsymbol{x}_{*j}$ is explained by other predictors, the higher the variance in $\widehat{\beta}_{j|\text{-}j}$.

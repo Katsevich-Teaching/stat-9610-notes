@@ -488,7 +488,10 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <p>Therefore, we can rewrite the variance (<a href="#eq-conditional-variance"><span>5.5</span></a>) as:</p>
 <p><span id="eq-vif"><span class="math display">\[
-\text{Var}[\widehat{\beta}_{j|\text{-}j}] = \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] = \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
+\begin{split}
+\text{Var}[\widehat{\beta}_{j|\text{-}j}] &amp;= \frac{\|\boldsymbol{x}_{*j}-\bar{x}_j \boldsymbol{1}_n\|^2}{\|\boldsymbol{x}_{*j}-\boldsymbol{X}_{*,\text{-}j}\boldsymbol{\widehat{\gamma}}\|^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \\
+&amp;= \frac{1}{1-R_j^2} \cdot \text{Var}[\widehat{\beta}_{j|1}] \equiv \text{VIF}_j \cdot \text{Var}[\widehat{\beta}_{j|1}],
+\end{split}
 \tag{5.6}\]</span></span></p>
 <p>where <span class="math inline">\(R_j^2\)</span> is the <span class="math inline">\(R^2\)</span> value when regressing <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> on <span class="math inline">\(\boldsymbol{X}_{*,\text{-}j}\)</span> and VIF stands for <em>variance inflation factor</em>. The higher <span class="math inline">\(R_j^2\)</span>, the more of the variance in <span class="math inline">\(\boldsymbol{x}_{*j}\)</span> is explained by other predictors, the higher the variance in <span class="math inline">\(\widehat{\beta}_{j|\text{-}j}\)</span>.</p>
 </section>

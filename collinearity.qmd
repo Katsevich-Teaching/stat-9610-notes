@@ -74,7 +74,7 @@ $$
 What this means is that $\widehat{\beta}_{j|\text{-}j}$, the least squares coefficient of $\boldsymbol{x}_{*j}$ in the regression of $\boldsymbol{y}$ on $(\boldsymbol{x}_{*j}, \boldsymbol{X}_{*,\text{-}j})$, is also the least squares coefficient of $\boldsymbol{x}^{\perp}_{*j}$ in the regression of $\boldsymbol{y}$ on $(\boldsymbol{x}^{\perp}_{*j}, \boldsymbol{X}_{*,\text{-}j})$. However, since $\boldsymbol{x}^{\perp}_{*j}$ is orthogonal to $\boldsymbol{X}_{*,\text{-}j}$ by construction, we can use the result ([-@eq-orthogonality]) to conclude that:
 
 $$
-\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the } \textit{univariate} \text{ regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j} \text{ (without intercept).}
+\widehat{\beta}_{j|\text{-}j} \text{ is the least squares coefficient of } \boldsymbol{x}^{\perp}_{*j} \text{ in the } \textit{univariate} \text{ regression of } \boldsymbol{y} \text{ on } \boldsymbol{x}^{\perp}_{*j}.
 $$
 
 We can solve this univariate regression explicitly to obtain:

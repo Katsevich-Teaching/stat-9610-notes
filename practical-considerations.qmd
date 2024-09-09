@@ -1,4 +1,4 @@
-# Practical considerations
+# Practical considerations {#sec-practical-considerations}
 
 ## Practical versus statistical significance
 

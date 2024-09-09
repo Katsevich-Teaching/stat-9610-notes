@@ -1,4 +1,4 @@
-# Building blocks
+# Building blocks {#sec-building-blocks}
 
 *See also Agresti 3.1.1, 3.1.2, 3.1.4*
 
@@ -12,14 +12,14 @@ $$
 p(\boldsymbol{w}) = \frac{1}{\sqrt{(2\pi)^{d}\text{det}(\boldsymbol{\Sigma})}}\exp\left(-\frac{1}{2}(\boldsymbol{w} - \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1}(\boldsymbol{w} - \boldsymbol{\mu})\right).
 $$
 
+It is also possible to define normal distributions in the case $\text{det}(\boldsymbol\Sigma) = 0$. These distributions are supported on subspaces of $\mathbb{R}^d$, and do not have densities with respect to the Lebesgue measure.
+
 These random vectors have lots of special properties, including:
 
-- **Linear transformation**: If $\boldsymbol{w} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$, then $\boldsymbol{A} \boldsymbol{w} + \boldsymbol{b} \sim N(\boldsymbol{A} \boldsymbol{\mu} + \boldsymbol{b}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^\top)$.
-- **Independence**: If 
-$$
-\begin{pmatrix}\boldsymbol{w}_1 \\ \boldsymbol{w}_2 \end{pmatrix} \sim N\left(\begin{pmatrix}\boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix} , \begin{pmatrix}\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\ \boldsymbol{\Sigma}_{12}^\top & \boldsymbol{\Sigma}_{22}\end{pmatrix}\right),
-$$ 
-then $\boldsymbol{w}_1 \perp\!\!\!\perp \boldsymbol{w}_2$ if and only if $\boldsymbol{\Sigma}_{12} = \boldsymbol{0}$.
+-   **Linear transformation**: If $\boldsymbol{w} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$, then $\boldsymbol{A} \boldsymbol{w} + \boldsymbol{b} \sim N(\boldsymbol{A} \boldsymbol{\mu} + \boldsymbol{b}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^\top)$.
+-   **Independence**: If $$
+    \begin{pmatrix}\boldsymbol{w}_1 \\ \boldsymbol{w}_2 \end{pmatrix} \sim N\left(\begin{pmatrix}\boldsymbol{\mu}_1 \\ \boldsymbol{\mu}_2 \end{pmatrix} , \begin{pmatrix}\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\ \boldsymbol{\Sigma}_{12}^\top & \boldsymbol{\Sigma}_{22}\end{pmatrix}\right),
+    $$ then $\boldsymbol{w}_1 \perp\!\!\!\perp \boldsymbol{w}_2$ if and only if $\boldsymbol{\Sigma}_{12} = \boldsymbol{0}$.
 
 An important distribution related to the multivariate normal is the $\chi^2_d$ (chi-squared with $d$ degrees of freedom) distribution, defined as
 
@@ -37,11 +37,12 @@ $$
 \boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}^\top \boldsymbol{X})^{-1}).
 $$ {#eq-beta-hat-dist}
 
-Indeed, by the linear transformation property of the multivariate normal distribution,
+Indeed, by the linear transformation property of the multivariate normal distribution,$\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \sigma^2 \boldsymbol{I}_n)$ implies that
 
 $$
 \begin{split}
-\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \sigma^2 \boldsymbol{I}_n) &\Longrightarrow \boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{y} \sim N((\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{\beta}, (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \sigma^2 \boldsymbol{I}_n \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}) \\
+\boldsymbol{\widehat{\beta}} &= (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{y} \\
+&\sim N((\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{\beta}, (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \sigma^2 \boldsymbol{I}_n \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}) \\
 &= N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}^\top \boldsymbol{X})^{-1}).
 \end{split}
 $$
@@ -50,7 +51,10 @@ Next, let's consider the joint distribution of $\boldsymbol{\widehat{\mu}} = \bo
 
 $$
 \begin{split}
-\begin{pmatrix} \boldsymbol{\widehat{\mu}} \\ \boldsymbol{\widehat{\epsilon}} \end{pmatrix} = \begin{pmatrix} \boldsymbol{H} \boldsymbol{y} \\ (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y} \end{pmatrix} = \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{y} &\sim N\left(\begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{X} \boldsymbol{\beta}, \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\cdot \sigma^2 \boldsymbol{I} \begin{pmatrix} \boldsymbol{H} & \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\right) \\
+\begin{pmatrix} \boldsymbol{\widehat{\mu}} \\ \boldsymbol{\widehat{\epsilon}} \end{pmatrix} &= \begin{pmatrix} \boldsymbol{H} \boldsymbol{y} \\ (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y} \end{pmatrix} \\
+&= \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{y} \\
+&\sim N\left(\begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{X} \boldsymbol{\beta}, \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\cdot \sigma^2 \boldsymbol{I} \begin{pmatrix} \boldsymbol{H} & \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\right)
+\\
 &= N\left(\begin{pmatrix} \boldsymbol{X} \boldsymbol{\beta} \\ \boldsymbol{0} \end{pmatrix}, \begin{pmatrix} \sigma^2 \boldsymbol{H} & \boldsymbol{0} \\ \boldsymbol{0} & \sigma^2(\boldsymbol{I} - \boldsymbol{H}) \end{pmatrix} \right).
 \end{split}
 $$
@@ -63,7 +67,7 @@ $$ {#eq-fit-and-error-dist}
 
 The statistical independence between $\boldsymbol{\widehat{\mu}}$ and $\boldsymbol{\widehat{\epsilon}}$ is a result of the fact that these two quantities are projections of $\boldsymbol{y}$ onto two orthogonal subspaces: $C(\boldsymbol{X})$ and $C(\boldsymbol{X})^\perp$ (@fig-orthogonality-fit-residuals).
 
-![The fitted vector $\boldsymbol{\widehat{\mu}}$ and the residual vector $\boldsymbol{\widehat{\epsilon}}$ are projections of $\boldsymbol{y}$ onto orthogonal subspaces.](figures/orthogonality-fit-residuals.jpg){#fig-orthogonality-fit-residuals width=50%}
+![The fitted vector $\boldsymbol{\widehat{\mu}}$ and the residual vector $\boldsymbol{\widehat{\epsilon}}$ are projections of $\boldsymbol{y}$ onto orthogonal subspaces.](figures/orthogonality-fit-residuals.jpg){#fig-orthogonality-fit-residuals width="50%"}
 
 Since $\boldsymbol{\widehat{\beta}}$ is a deterministic function of $\boldsymbol{\widehat{\mu}}$ (in particular, $\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{\widehat{\mu}}$), it also follows that
 
@@ -81,7 +85,7 @@ We can't quite do inference for $\boldsymbol{\beta}$ based on the distributional
 Let $\boldsymbol{w} \sim N(\boldsymbol{0}, \boldsymbol{P})$ for some projection matrix $\boldsymbol{P}$. Then, $\|\boldsymbol{w}\|^2 \sim \chi^2_d$, where $d = \text{trace}(\boldsymbol{P})$ is the dimension of the subspace onto which $\boldsymbol{P}$ projects.
 :::
 
-::: {.proof}
+::: proof
 Let $\boldsymbol{P} = \boldsymbol{U} \boldsymbol{D} \boldsymbol{U}^\top$ be an eigenvalue decomposition of $\boldsymbol{P}$, where $\boldsymbol{U}$ is orthogonal and $\boldsymbol{D}$ is a diagonal matrix with $D_{ii} \in \{0,1\}$. We have $\boldsymbol{w} \overset{d}{=} \boldsymbol{U} \boldsymbol{D} \boldsymbol{z}$ for $\boldsymbol{z} \sim N(0, \boldsymbol{I}_n)$. Therefore,
 
 $$
@@ -89,7 +93,7 @@ $$
 $$
 :::
 
-Recall that $\boldsymbol{I} - \boldsymbol{H}$ is a projection onto the $(n-p)$-dimensional space $C(\boldsymbol{X})^\perp$, so by @lem-normal-projection and equation ([-@eq-fit-and-error-dist]) we have
+Recall that $\boldsymbol{I} - \boldsymbol{H}$ is a projection onto the $(n-p)$-dimensional space $C(\boldsymbol{X})^\perp$, so by @lem-normal-projection and equation ([-@eq-fit-and-error-dist]), we have
 
 $$
 \|\boldsymbol{\widehat{\epsilon}}\|^2 \sim \sigma^2 \chi^2_{n-p}.
@@ -109,4 +113,4 @@ $$
 
 Therefore, the norm of the residual vector will be smaller than that of the noise vector, especially to the extent that $p$ is close to $n$.
 
-![The residual vector $\boldsymbol{\widehat{\epsilon}}$ is the projection of the noise vector $\boldsymbol{\epsilon}$ onto $C(\boldsymbol{X})^\perp$.](figures/residuals-as-noise-projection.jpg){#fig-residuals-as-noise-projection width=50%}
+![The residual vector $\boldsymbol{\widehat{\epsilon}}$ is the projection of the noise vector $\boldsymbol{\epsilon}$ onto $C(\boldsymbol{X})^\perp$.](figures/residuals-as-noise-projection.jpg){#fig-residuals-as-noise-projection width="50%"}

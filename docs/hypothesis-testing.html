@@ -363,8 +363,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-one-dim-testing" id="toc-sec-one-dim-testing" class="nav-link active" data-scroll-target="#sec-one-dim-testing"><span class="header-section-number">8.1</span> Testing a one-dimensional parameter</a>
   <ul class="collapse">
   <li><a href="#t-test-for-a-single-coefficient" id="toc-t-test-for-a-single-coefficient" class="nav-link" data-scroll-target="#t-test-for-a-single-coefficient"><span class="header-section-number">8.1.1</span> <span class="math inline">\(t\)</span>-test for a single coefficient</a></li>
-  <li><a href="#example-one-sample-model" id="toc-example-one-sample-model" class="nav-link" data-scroll-target="#example-one-sample-model"><span class="header-section-number">8.1.2</span> Example: One-Sample Model</a></li>
-  <li><a href="#example-two-sample-model" id="toc-example-two-sample-model" class="nav-link" data-scroll-target="#example-two-sample-model"><span class="header-section-number">8.1.3</span> Example: Two-Sample Model</a></li>
+  <li><a href="#example-onesample-model" id="toc-example-onesample-model" class="nav-link" data-scroll-target="#example-onesample-model"><span class="header-section-number">8.1.2</span> Example: OneSample Model</a></li>
+  <li><a href="#example-twosample-model" id="toc-example-twosample-model" class="nav-link" data-scroll-target="#example-twosample-model"><span class="header-section-number">8.1.3</span> Example: TwoSample Model</a></li>
   <li><a href="#t-test-for-a-contrast-among-coefficients" id="toc-t-test-for-a-contrast-among-coefficients" class="nav-link" data-scroll-target="#t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a Contrast Among Coefficients</a></li>
   </ul></li>
   <li><a href="#sec-multi-dim-testing" id="toc-sec-multi-dim-testing" class="nav-link" data-scroll-target="#sec-multi-dim-testing"><span class="header-section-number">8.2</span> Testing a multi-dimensional parameter</a>
@@ -381,7 +381,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></h1>
+<h1 class="title"><span id="sec-hypothesis-testing-chapter" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></h1>
 </div>
 
 
@@ -425,13 +425,12 @@ t_j \equiv \frac{\widehat{\beta}_j}{\text{SE}(\widehat{\beta}_j)} = \frac{\wideh
 \]</span></p>
 <p>This statistic is <em>pivotal</em>, in the sense that it has the same distribution for any <span class="math inline">\(\boldsymbol{\beta}\)</span> such that <span class="math inline">\(\beta_j = 0\)</span>. Indeed, we can rewrite it as:</p>
 <p><span class="math display">\[
-t_j = \frac{\frac{\widehat{\beta}}{\sigma/s_j}}{\sqrt{\frac{\sigma^{-2}\|\boldsymbol{\widehat{\epsilon}}\|^2}{n-p}}}.
+t_j = \frac{\frac{\widehat{\beta}_j}{\sigma/s_j}}{\sqrt{\frac{\sigma^{-2}\|\boldsymbol{\widehat{\epsilon}}\|^2}{n-p}}}.
 \]</span></p>
-<p>Recalling the independence of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}\)</span> (<a href="building-blocks.html#eq-beta-ind-eps"><span>7.3</span></a>), the scaled chi-square distribution of <span class="math inline">\(\|\boldsymbol{\widehat{\epsilon}}\|^2\)</span> (<a href="building-blocks.html#eq-eps-norm-dist"><span>7.4</span></a>), and the standard normal distribution of <span class="math inline">\(\frac{\widehat{\beta}}{\sigma/s_j}\)</span> (<a href="#eq-oracle-z-stat"><span>8.2</span></a>), we find that:</p>
-<p><span class="math display">\[
-\text{Under } H_0:\beta_j = 0, \quad t_j \sim \frac{N(0,1)}{\sqrt{\frac{1}{n-p}\chi^2_{n-p}}}, \quad \text{with numerator and denominator independent.}
+<p>Recalling the independence of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}\)</span> (<a href="building-blocks.html#eq-beta-ind-eps"><span>7.3</span></a>), the scaled chi-square distribution of <span class="math inline">\(\|\boldsymbol{\widehat{\epsilon}}\|^2\)</span> (<a href="building-blocks.html#eq-eps-norm-dist"><span>7.4</span></a>), and the standard normal distribution of <span class="math inline">\(\frac{\widehat{\beta}_j}{\sigma/s_j}\)</span> (<a href="#eq-oracle-z-stat"><span>8.2</span></a>), we find that, under <span class="math inline">\(H_0:\beta_j = 0\)</span>, <span class="math display">\[
+t_j \sim \frac{N(0,1)}{\sqrt{\frac{1}{n-p}\chi^2_{n-p}}}, \quad \text{with numerator and denominator independent.}
 \]</span></p>
-<p>The latter distribution is called the <em><span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-p\)</span> degrees of freedom</em> and is denoted <span class="math inline">\(t_{n-p}\)</span>. This paves the way for the two-sided <span class="math inline">\(t\)</span>-test:</p>
+<p>This distribution is called the <span class="math inline">\(t\)</span> distribution with <span class="math inline">\(n-p\)</span> degrees of freedom and is denoted <span class="math inline">\(t_{n-p}\)</span>. This paves the way for the two-sided <span class="math inline">\(t\)</span>-test:</p>
 <p><span class="math display">\[
 \phi_t(\boldsymbol{X}, \boldsymbol{y}) = 1(|t_j| &gt; t_{n-p}(1-\alpha/2)),
 \]</span></p>
@@ -445,9 +444,9 @@ t_j = \frac{\frac{\widehat{\beta}}{\sigma/s_j}}{\sqrt{\frac{\sigma^{-2}\|\boldsy
 \]</span></p>
 <p>where <span class="math inline">\(z(1-\alpha/2)\)</span> is the <span class="math inline">\(1-\alpha/2\)</span> quantile of <span class="math inline">\(N(0,1)\)</span>. The <span class="math inline">\(t\)</span>-test can also be defined in a one-sided fashion if power against one-sided alternatives is desired.</p>
 </section>
-<section id="example-one-sample-model" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="example-one-sample-model"><span class="header-section-number">8.1.2</span> Example: One-Sample Model</h3>
-<p>Consider the intercept-only linear regression model <span class="math inline">\(y = \beta_0 + \epsilon\)</span>, and let’s apply the <span class="math inline">\(t\)</span>-test derived above to test the null hypothesis <span class="math inline">\(H_0: \beta_0 = 0\)</span>. We have <span class="math inline">\(\widehat{\beta}_0 = \bar{y}\)</span>. Furthermore, we have</p>
+<section id="example-onesample-model" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="example-onesample-model"><span class="header-section-number">8.1.2</span> Example: OneSample Model</h3>
+<p>Consider the intercept-only linear regression model <span class="math inline">\(y = \beta_0 + \epsilon\)</span>, and let usapply the <span class="math inline">\(t\)</span>-test derived above to test the null hypothesis <span class="math inline">\(H_0: \beta_0 = 0\)</span>. We have <span class="math inline">\(\widehat{\beta}_0 = \bar{y}\)</span>. Furthermore, we have</p>
 <p><span class="math display">\[
 \text{SE}^2(\widehat{\beta}_0) = \frac{\widehat{\sigma}^2}{n}, \quad \text{where} \quad \widehat{\sigma}^2 = \frac{1}{n-1}\|\boldsymbol{y} - \bar{y} \boldsymbol{1}_n\|^2.
 \]</span></p>
@@ -457,8 +456,8 @@ t = \frac{\widehat{\beta}_0}{\text{SE}(\widehat{\beta}_0)} = \frac{\sqrt{n} \bar
 \]</span></p>
 <p>According to the theory above, this test statistic has a null distribution of <span class="math inline">\(t_{n-1}\)</span>.</p>
 </section>
-<section id="example-two-sample-model" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="example-two-sample-model"><span class="header-section-number">8.1.3</span> Example: Two-Sample Model</h3>
+<section id="example-twosample-model" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="example-twosample-model"><span class="header-section-number">8.1.3</span> Example: TwoSample Model</h3>
 <p>Suppose we have <span class="math inline">\(x_1 \in \{0,1\}\)</span>, in which case the linear regression <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \epsilon\)</span> becomes a two-sample model. We can rewrite this model as:</p>
 <p><span class="math display">\[
 y_i \sim \begin{cases}
@@ -466,7 +465,7 @@ N(\beta_0, \sigma^2) \quad &amp;\text{for } x_i = 0; \\
 N(\beta_0 + \beta_1, \sigma^2) \quad &amp;\text{for } x_i = 1.
 \end{cases}
 \]</span></p>
-<p>It is often of interest to test the null hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span>, i.e., that the two groups have equal means. Let’s define:</p>
+<p>It is often of interest to test the null hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span>, i.e., that the two groups have equal means. Let usdefine:</p>
 <p><span class="math display">\[
 \bar{y}_0 \equiv \frac{1}{n_0}\sum_{i: x_i = 0} y_i, \quad \bar{y}_1 \equiv \frac{1}{n_1}\sum_{i: x_i = 1} y_i, \quad \text{where} \quad n_0 = |\{i: x_i = 0\}| \text{ and } n_1 = |\{i: x_i = 1\}|.
 \]</span></p>
@@ -504,38 +503,48 @@ t = \frac{\sqrt{\frac{1}{\frac{1}{n_0} + \frac{1}{n_1}}}(\bar{y}_1 - \bar{y}_0)}
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="f-test-for-a-group-of-coefficients"><span class="header-section-number">8.2.1</span> <span class="math inline">\(F\)</span>-test for a group of coefficients</h3>
 <p>Now we move on to the case of testing a multi-dimensional parameter: <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span> for some <span class="math inline">\(S \subseteq \{0, 1, \dots, p-1\}\)</span>. In other words, we would like to test</p>
 <p><span class="math display">\[
-H_0: \boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{-S} + \boldsymbol{\epsilon} \quad \text{versus} \quad H_1: \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}.
+H_0: \boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{\text{-}S} + \boldsymbol{\epsilon} \quad \text{versus} \quad H_1: \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}.
 \]</span></p>
-<p>To test this hypothesis, let us fit least squares coefficients <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{-S}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> for the partial model as well as the full model. If the partial model fits well, then the residuals <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\)</span> from this model will not be much larger than the residuals <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> from the full model. To quantify this intuition, let us recall our analysis of variance decomposition from Chapter 1:</p>
+<p>To test this hypothesis, let us fit least squares coefficients <span class="math inline">\(\boldsymbol{\widehat{\beta}}_{\text{-}S}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> for the partial model as well as the full model. If the partial model fits well, then the residuals <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\)</span> from this model will not be much larger than the residuals <span class="math inline">\(\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> from the full model. To quantify this intuition, let us recall our analysis of variance decomposition from Chapter 1:</p>
 <p><span class="math display">\[
-\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2 = \|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2 + \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2.
+\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2 = \|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2 + \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2.
 \]</span></p>
-<p>Let’s consider the ratio</p>
-<p><span class="math display">\[
-\frac{\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2},
-\]</span></p>
-<p>which is the relative increase in the residual sum of squares when going from the full model to the partial model. Let us rewrite this ratio in terms of projection matrices. Let <span class="math inline">\(\boldsymbol{H}\)</span> be the projection matrix for the full model, and let <span class="math inline">\(\boldsymbol{H}_{\text{-}S}\)</span> be the projection matrix for the partial model. Note that <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is the projection matrix onto the <span class="math inline">\(|S|\)</span>-dimensional space <span class="math inline">\(C(\boldsymbol{X}) \cap C(\boldsymbol{X}_{\text{-}S})^\perp\)</span> (<a href="#fig-f-test-geometry">Figure&nbsp;<span>8.1</span></a>).</p>
+<p>Let us consider the ratio</p>
+<p><span id="eq-f-test-ratio"><span class="math display">\[
+\frac{\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2},
+\tag{8.4}\]</span></span></p>
+<p>which is the relative increase in the residual sum of squares when going from the full model to the partial model. To interpret this ratio geometrically, let us first examine the quantity <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\)</span> from the numerator. Letting <span class="math inline">\(\boldsymbol{H}\)</span> and <span class="math inline">\(\boldsymbol{H}_{\text{-}S}\)</span> be the projection matrices for the full and partial models, we have <span class="math display">\[
+\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S} = (\boldsymbol H - \boldsymbol H_{\text{-}S}) \boldsymbol{y}.
+\]</span> It turns out the the matrix <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is a projection matrix:</p>
+<div id="prp-f-test-geometry" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 8.1 </strong></span>The matrix <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is a projection matrix onto the space <span class="math inline">\(C(\boldsymbol{X}_{*S}^\perp)\)</span> spanned by the columns of <span class="math inline">\(\boldsymbol X_{*S}\)</span> adjusted for <span class="math inline">\(\boldsymbol X_{*,\text{-}S}\)</span>.</p>
+</div>
+<p><a href="#fig-f-test-geometry">Figure&nbsp;<span>8.1</span></a> illustrates this relationship.</p>
 <div id="fig-f-test-geometry" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/F-test-geometry.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;8.1: Geometry of the <span class="math inline">\(F\)</span>-test. Orthogonality relationships stem from <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}S}) \perp C(\boldsymbol{X}) \cap C(\boldsymbol{X}_{*, \text{-}S})^\perp \perp C(\boldsymbol{X})^\perp\)</span>.</figcaption>
+<p><img src="figures/F-test-geometry.jpg" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;8.1: Geometry of the <span class="math inline">\(F\)</span>-test. Orthogonality relationships stem from <span class="math inline">\(C(\boldsymbol{X}_{*,\text{-}S}) \perp C(\boldsymbol{X}_{*S}^\perp) \perp C(\boldsymbol{X})^\perp\)</span>.</figcaption>
 </figure>
 </div>
-<p>We have</p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\boldsymbol v \in C(\boldsymbol{X}_{*S}^\perp)\)</span>. Because <span class="math inline">\(\boldsymbol v\)</span> is orthogonal to <span class="math inline">\(C(\boldsymbol X_{*,\text{-}S})\)</span> by construction, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol v - \boldsymbol 0 = \boldsymbol v\)</span>. On the other hand, let <span class="math inline">\(v \in C(\boldsymbol X_{*, \text{-}S})\)</span>. Then, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol v - \boldsymbol v = \boldsymbol 0\)</span>. Finally, let <span class="math inline">\(v \in C(\boldsymbol X)^\perp\)</span>. Then, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol 0 - \boldsymbol 0 = \boldsymbol 0\)</span>. From these three observations, it follows that <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is a projection matrix onto <span class="math inline">\(C(\boldsymbol{X}_{*S}^\perp)\)</span>.</p>
+</div>
+<p>With this additional intuition, let us rewrite the ratio (<a href="#eq-f-test-ratio"><span>8.4</span></a>) as</p>
 <p><span class="math display">\[
-\frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2}{\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y}\|^2},
+\frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2}{\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y}\|^2},
 \]</span></p>
-<p>so the numerator and denominator are the squared norms of the projections of <span class="math inline">\(\boldsymbol{y}\)</span> onto <span class="math inline">\(C(\boldsymbol{X}) \cap C(\boldsymbol{X}_{*, \text{-}S})^\perp\)</span> and <span class="math inline">\(C(\boldsymbol{X})^\perp\)</span>, respectively (<a href="#fig-f-test-geometry">Figure&nbsp;<span>8.1</span></a>). Under the null hypothesis, we have <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{-S} + \boldsymbol{\epsilon}\)</span>, and</p>
+<p>revealing that the numerator and denominator are the squared norms of the projections of <span class="math inline">\(\boldsymbol{y}\)</span> onto <span class="math inline">\(C(\boldsymbol{X}_{*S}^\perp)\)</span> and <span class="math inline">\(C(\boldsymbol{X})^\perp\)</span>, respectively (<a href="#fig-f-test-geometry">Figure&nbsp;<span>8.1</span></a>). The numerator is expected to be large if <span class="math inline">\(\boldsymbol \beta_{S} \neq 0\)</span>, so <span class="math inline">\(\boldsymbol y\)</span> will have a large projection onto <span class="math inline">\(C(\boldsymbol{X}_{*S}^\perp)\)</span>. We can view the denominator as a normalization term.</p>
+<p>Now, let us derive the distribution of this test statistic under the null hypothesis. If <span class="math inline">\(\boldsymbol \beta_{S} = 0\)</span>, then we have <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{\text{-}S} + \boldsymbol{\epsilon}\)</span>, and</p>
 <p><span class="math display">\[
-(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{X}_{*,\text{-}S} \boldsymbol{\beta}_{-S} = (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{X}_{*,\text{-}S} \boldsymbol{\beta}_{-S} = 0
+(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{X}_{*,\text{-}S} \boldsymbol{\beta}_{\text{-}S} = (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{X}_{*,\text{-}S} \boldsymbol{\beta}_{\text{-}S} = 0
 \]</span></p>
-<p>because <span class="math inline">\(\boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{-S} \in C(\boldsymbol{X}_{*, \text{-}S}) \perp C(\boldsymbol{X}) \cap C(\boldsymbol{X}_{*, \text{-}S})^T \perp C(\boldsymbol{X})^\perp\)</span>. It follows that</p>
+<p>because <span class="math inline">\(\boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{\text{-}S} \in C(\boldsymbol{X}_{*, \text{-}S})\)</span>, and the latter space is orthogonal to both <span class="math inline">\(C(\boldsymbol{X}_{*,S}^\perp)\)</span> and <span class="math inline">\(C(\boldsymbol{X})^\perp\)</span>. It follows that</p>
 <p><span class="math display">\[
 \frac{\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2}{\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y}\|^2} = \frac{\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{\epsilon}\|^2}{\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{\epsilon}\|^2}.
 \]</span></p>
 <p>Since the projection matrices in the numerator and denominator project onto orthogonal subspaces, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{\epsilon} \perp\!\!\!\perp (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{\epsilon}\)</span>, with <span class="math inline">\(\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{\epsilon}\|^2 \sim \sigma^2 \chi^2_{|S|}\)</span> and <span class="math inline">\(\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{\epsilon}\|^2 \sim \sigma^2 \chi^2_{n-p}\)</span>. Renormalizing numerator and denominator to have expectation 1 under the null, we arrive at the <span class="math inline">\(F\)</span>-statistic</p>
 <p><span class="math display">\[
-F \equiv \frac{(\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{-S}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2)/|S|}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)}.
+F \equiv \frac{(\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2)/|S|}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)}.
 \]</span></p>
 <p>We have derived that under the null hypothesis,</p>
 <p><span class="math display">\[
@@ -545,13 +554,13 @@ F \sim \frac{\chi^2_{|S|}/|S|}{\chi^2_{n-p}/(n-p)}, \quad \text{with numerator a
 <p><span class="math display">\[
 \phi_F(\boldsymbol{X}, \boldsymbol{y}) \equiv 1(F &gt; F_{|S|, n-p}(1-\alpha)).
 \]</span></p>
-<p>Note that the <span class="math inline">\(F\)</span>-test searches for deviations of <span class="math inline">\(\boldsymbol{\beta}_{S}\)</span> in all directions, and does not have one-sided variants like the <span class="math inline">\(t\)</span>-test.</p>
+<p>Note that the <span class="math inline">\(F\)</span>-test searches for deviations of <span class="math inline">\(\boldsymbol{\beta}_{S}\)</span> from zero in all directions, and does not have one-sided variants like the <span class="math inline">\(t\)</span>-test.</p>
 </section>
 <section id="example-testing-for-any-significant-coefficients-except-the-intercept" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="example-testing-for-any-significant-coefficients-except-the-intercept"><span class="header-section-number">8.2.2</span> Example: Testing for Any Significant Coefficients Except the Intercept</h3>
-<p>Suppose <span class="math inline">\(\boldsymbol{x}_{*,0} = \boldsymbol{1}_n\)</span> is an intercept term. Then, consider the null hypothesis <span class="math inline">\(H_0: \beta_1 = \cdots = \beta_{p-1} = 0\)</span>. In other words, the null hypothesis is the intercept-only model, and the alternative hypothesis is the regression model with an intercept and <span class="math inline">\(p-1\)</span> additional predictors. In this case, <span class="math inline">\(S = \{1, \dots, p-1\}\)</span> and <span class="math inline">\(-S = \{0\}\)</span>. The corresponding <span class="math inline">\(F\)</span> statistic is</p>
+<p>Suppose <span class="math inline">\(\boldsymbol{x}_{*,0} = \boldsymbol{1}_n\)</span> is an intercept term. Then, consider the null hypothesis <span class="math inline">\(H_0: \beta_1 = \cdots = \beta_{p-1} = 0\)</span>. In other words, the null hypothesis is the intercept-only model, and the alternative hypothesis is the regression model with an intercept and <span class="math inline">\(p-1\)</span> additional predictors. In this case, <span class="math inline">\(S = \{1, \dots, p-1\}\)</span> and <span class="math inline">\(\text{-}S = \{0\}\)</span>. The corresponding <span class="math inline">\(F\)</span> statistic is</p>
 <p><span class="math display">\[
-F \equiv \frac{(\|\boldsymbol{y} - \bar{y} \boldsymbol{1}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2)/(p-1)}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)},
+F \equiv \frac{(\|\boldsymbol{y} - \bar{y} \boldsymbol{1}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2)/(p-1)}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)} = \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\|^2/(p-1)}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)}
 \]</span></p>
 <p>with null distribution <span class="math inline">\(F_{p-1, n-p}\)</span>.</p>
 </section>

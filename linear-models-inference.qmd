@@ -5,4 +5,8 @@ We now understand the least squares estimator $\boldsymbol{\widehat{\beta}}$ fro
 $$
 \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}, \quad \text{where} \ \boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I}_n).
 $$
+We first establish some building blocks necessary for linear models inference, primarily related to manipulating the normal distribution (@sec-building-blocks). Then, we discuss univariate and multivariate hypothesis testing in linear models (@sec-hypothesis-testing-chapter), as well as the power of these hypothesis tests (@sec-power). We then move on to the construction of confidence intervals and confidence regions (@sec-confidence-intervals). We conclude with a discussion of practical considerations (@sec-practical-considerations) and an R demo (@sec-r-demo-part-2).
+
+
+
 

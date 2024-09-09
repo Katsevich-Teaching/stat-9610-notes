@@ -1,4 +1,4 @@
-# Confidence intervals
+# Confidence intervals {#sec-confidence-intervals}
 
 *See also Agresti 3.3, Dunn and Smyth 2.8.4-2.8.5*
 

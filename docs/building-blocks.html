@@ -371,7 +371,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></h1>
+<h1 class="title"><span id="sec-building-blocks" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></h1>
 </div>
 
 
@@ -394,6 +394,7 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[
 p(\boldsymbol{w}) = \frac{1}{\sqrt{(2\pi)^{d}\text{det}(\boldsymbol{\Sigma})}}\exp\left(-\frac{1}{2}(\boldsymbol{w} - \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1}(\boldsymbol{w} - \boldsymbol{\mu})\right).
 \]</span></p>
+<p>It is also possible to define normal distributions in the case <span class="math inline">\(\text{det}(\boldsymbol\Sigma) = 0\)</span>. These distributions are supported on subspaces of <span class="math inline">\(\mathbb{R}^d\)</span>, and do not have densities with respect to the Lebesgue measure.</p>
 <p>These random vectors have lots of special properties, including:</p>
 <ul>
 <li><strong>Linear transformation</strong>: If <span class="math inline">\(\boldsymbol{w} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span>, then <span class="math inline">\(\boldsymbol{A} \boldsymbol{w} + \boldsymbol{b} \sim N(\boldsymbol{A} \boldsymbol{\mu} + \boldsymbol{b}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^\top)\)</span>.</li>
@@ -413,17 +414,21 @@ p(\boldsymbol{w}) = \frac{1}{\sqrt{(2\pi)^{d}\text{det}(\boldsymbol{\Sigma})}}\e
 <p><span id="eq-beta-hat-dist"><span class="math display">\[
 \boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}^\top \boldsymbol{X})^{-1}).
 \tag{7.1}\]</span></span></p>
-<p>Indeed, by the linear transformation property of the multivariate normal distribution,</p>
+<p>Indeed, by the linear transformation property of the multivariate normal distribution,<span class="math inline">\(\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \sigma^2 \boldsymbol{I}_n)\)</span> implies that</p>
 <p><span class="math display">\[
 \begin{split}
-\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \sigma^2 \boldsymbol{I}_n) &amp;\Longrightarrow \boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{y} \sim N((\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{\beta}, (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \sigma^2 \boldsymbol{I}_n \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}) \\
+\boldsymbol{\widehat{\beta}} &amp;= (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{y} \\
+&amp;\sim N((\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{X} \boldsymbol{\beta}, (\boldsymbol{X}^\top \boldsymbol{X})^{-1}\boldsymbol{X}^\top \sigma^2 \boldsymbol{I}_n \boldsymbol{X}(\boldsymbol{X}^\top \boldsymbol{X})^{-1}) \\
 &amp;= N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}^\top \boldsymbol{X})^{-1}).
 \end{split}
 \]</span></p>
 <p>Next, let’s consider the joint distribution of <span class="math inline">\(\boldsymbol{\widehat{\mu}} = \boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = \boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\)</span>. We have</p>
 <p><span class="math display">\[
 \begin{split}
-\begin{pmatrix} \boldsymbol{\widehat{\mu}} \\ \boldsymbol{\widehat{\epsilon}} \end{pmatrix} = \begin{pmatrix} \boldsymbol{H} \boldsymbol{y} \\ (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y} \end{pmatrix} = \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{y} &amp;\sim N\left(\begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{X} \boldsymbol{\beta}, \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\cdot \sigma^2 \boldsymbol{I} \begin{pmatrix} \boldsymbol{H} &amp; \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\right) \\
+\begin{pmatrix} \boldsymbol{\widehat{\mu}} \\ \boldsymbol{\widehat{\epsilon}} \end{pmatrix} &amp;= \begin{pmatrix} \boldsymbol{H} \boldsymbol{y} \\ (\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y} \end{pmatrix} \\
+&amp;= \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{y} \\
+&amp;\sim N\left(\begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\boldsymbol{X} \boldsymbol{\beta}, \begin{pmatrix} \boldsymbol{H} \\ \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\cdot \sigma^2 \boldsymbol{I} \begin{pmatrix} \boldsymbol{H} &amp; \boldsymbol{I} - \boldsymbol{H} \end{pmatrix}\right)
+\\
 &amp;= N\left(\begin{pmatrix} \boldsymbol{X} \boldsymbol{\beta} \\ \boldsymbol{0} \end{pmatrix}, \begin{pmatrix} \sigma^2 \boldsymbol{H} &amp; \boldsymbol{0} \\ \boldsymbol{0} &amp; \sigma^2(\boldsymbol{I} - \boldsymbol{H}) \end{pmatrix} \right).
 \end{split}
 \]</span></p>
@@ -456,7 +461,7 @@ p(\boldsymbol{w}) = \frac{1}{\sqrt{(2\pi)^{d}\text{det}(\boldsymbol{\Sigma})}}\e
 \|\boldsymbol{w}\|^2 = \|\boldsymbol{D} \boldsymbol{z}\|^2 = \sum_{i: D_{ii} = 1} z_i^2 \sim \chi^2_d, \quad \text{where } d = |\{i: D_{ii} = 1\}| = \text{trace}(D) = \text{trace}(\boldsymbol{P}).
 \]</span></p>
 </div>
-<p>Recall that <span class="math inline">\(\boldsymbol{I} - \boldsymbol{H}\)</span> is a projection onto the <span class="math inline">\((n-p)\)</span>-dimensional space <span class="math inline">\(C(\boldsymbol{X})^\perp\)</span>, so by <a href="#lem-normal-projection">Lemma&nbsp;<span>7.1</span></a> and equation (<a href="#eq-fit-and-error-dist"><span>7.2</span></a>) we have</p>
+<p>Recall that <span class="math inline">\(\boldsymbol{I} - \boldsymbol{H}\)</span> is a projection onto the <span class="math inline">\((n-p)\)</span>-dimensional space <span class="math inline">\(C(\boldsymbol{X})^\perp\)</span>, so by <a href="#lem-normal-projection">Lemma&nbsp;<span>7.1</span></a> and equation (<a href="#eq-fit-and-error-dist"><span>7.2</span></a>), we have</p>
 <p><span id="eq-eps-norm-dist"><span class="math display">\[
 \|\boldsymbol{\widehat{\epsilon}}\|^2 \sim \sigma^2 \chi^2_{n-p}.
 \tag{7.4}\]</span></span></p>

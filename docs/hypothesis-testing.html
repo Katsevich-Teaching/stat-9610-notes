@@ -363,14 +363,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-one-dim-testing" id="toc-sec-one-dim-testing" class="nav-link active" data-scroll-target="#sec-one-dim-testing"><span class="header-section-number">8.1</span> Testing a one-dimensional parameter</a>
   <ul class="collapse">
   <li><a href="#t-test-for-a-single-coefficient" id="toc-t-test-for-a-single-coefficient" class="nav-link" data-scroll-target="#t-test-for-a-single-coefficient"><span class="header-section-number">8.1.1</span> <span class="math inline">\(t\)</span>-test for a single coefficient</a></li>
-  <li><a href="#example-onesample-model" id="toc-example-onesample-model" class="nav-link" data-scroll-target="#example-onesample-model"><span class="header-section-number">8.1.2</span> Example: OneSample Model</a></li>
-  <li><a href="#example-twosample-model" id="toc-example-twosample-model" class="nav-link" data-scroll-target="#example-twosample-model"><span class="header-section-number">8.1.3</span> Example: TwoSample Model</a></li>
-  <li><a href="#t-test-for-a-contrast-among-coefficients" id="toc-t-test-for-a-contrast-among-coefficients" class="nav-link" data-scroll-target="#t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a Contrast Among Coefficients</a></li>
+  <li><a href="#example-one-sample-model" id="toc-example-one-sample-model" class="nav-link" data-scroll-target="#example-one-sample-model"><span class="header-section-number">8.1.2</span> Example: One-sample model</a></li>
+  <li><a href="#example-two-sample-model" id="toc-example-two-sample-model" class="nav-link" data-scroll-target="#example-two-sample-model"><span class="header-section-number">8.1.3</span> Example: Two-sample model</a></li>
+  <li><a href="#t-test-for-a-contrast-among-coefficients" id="toc-t-test-for-a-contrast-among-coefficients" class="nav-link" data-scroll-target="#t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a contrast among coefficients</a></li>
   </ul></li>
   <li><a href="#sec-multi-dim-testing" id="toc-sec-multi-dim-testing" class="nav-link" data-scroll-target="#sec-multi-dim-testing"><span class="header-section-number">8.2</span> Testing a multi-dimensional parameter</a>
   <ul class="collapse">
   <li><a href="#f-test-for-a-group-of-coefficients" id="toc-f-test-for-a-group-of-coefficients" class="nav-link" data-scroll-target="#f-test-for-a-group-of-coefficients"><span class="header-section-number">8.2.1</span> <span class="math inline">\(F\)</span>-test for a group of coefficients</a></li>
-  <li><a href="#example-testing-for-any-significant-coefficients-except-the-intercept" id="toc-example-testing-for-any-significant-coefficients-except-the-intercept" class="nav-link" data-scroll-target="#example-testing-for-any-significant-coefficients-except-the-intercept"><span class="header-section-number">8.2.2</span> Example: Testing for Any Significant Coefficients Except the Intercept</a></li>
+  <li><a href="#example-testing-for-any-significant-coefficients-except-the-intercept" id="toc-example-testing-for-any-significant-coefficients-except-the-intercept" class="nav-link" data-scroll-target="#example-testing-for-any-significant-coefficients-except-the-intercept"><span class="header-section-number">8.2.2</span> Example: Testing for any significant coefficients except the intercept</a></li>
   <li><a href="#example-testing-for-equality-of-group-means-in-c-groups-model" id="toc-example-testing-for-equality-of-group-means-in-c-groups-model" class="nav-link" data-scroll-target="#example-testing-for-equality-of-group-means-in-c-groups-model"><span class="header-section-number">8.2.3</span> Example: Testing for equality of group means in <span class="math inline">\(C\)</span>-groups model</a></li>
   </ul></li>
   </ul>
@@ -444,8 +444,8 @@ t_j \sim \frac{N(0,1)}{\sqrt{\frac{1}{n-p}\chi^2_{n-p}}}, \quad \text{with numer
 \]</span></p>
 <p>where <span class="math inline">\(z(1-\alpha/2)\)</span> is the <span class="math inline">\(1-\alpha/2\)</span> quantile of <span class="math inline">\(N(0,1)\)</span>. The <span class="math inline">\(t\)</span>-test can also be defined in a one-sided fashion if power against one-sided alternatives is desired.</p>
 </section>
-<section id="example-onesample-model" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="example-onesample-model"><span class="header-section-number">8.1.2</span> Example: OneSample Model</h3>
+<section id="example-one-sample-model" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="example-one-sample-model"><span class="header-section-number">8.1.2</span> Example: One-sample model</h3>
 <p>Consider the intercept-only linear regression model <span class="math inline">\(y = \beta_0 + \epsilon\)</span>, and let usapply the <span class="math inline">\(t\)</span>-test derived above to test the null hypothesis <span class="math inline">\(H_0: \beta_0 = 0\)</span>. We have <span class="math inline">\(\widehat{\beta}_0 = \bar{y}\)</span>. Furthermore, we have</p>
 <p><span class="math display">\[
 \text{SE}^2(\widehat{\beta}_0) = \frac{\widehat{\sigma}^2}{n}, \quad \text{where} \quad \widehat{\sigma}^2 = \frac{1}{n-1}\|\boldsymbol{y} - \bar{y} \boldsymbol{1}_n\|^2.
@@ -456,8 +456,8 @@ t = \frac{\widehat{\beta}_0}{\text{SE}(\widehat{\beta}_0)} = \frac{\sqrt{n} \bar
 \]</span></p>
 <p>According to the theory above, this test statistic has a null distribution of <span class="math inline">\(t_{n-1}\)</span>.</p>
 </section>
-<section id="example-twosample-model" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="example-twosample-model"><span class="header-section-number">8.1.3</span> Example: TwoSample Model</h3>
+<section id="example-two-sample-model" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="example-two-sample-model"><span class="header-section-number">8.1.3</span> Example: Two-sample model</h3>
 <p>Suppose we have <span class="math inline">\(x_1 \in \{0,1\}\)</span>, in which case the linear regression <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \epsilon\)</span> becomes a two-sample model. We can rewrite this model as:</p>
 <p><span class="math display">\[
 y_i \sim \begin{cases}
@@ -484,7 +484,7 @@ t = \frac{\sqrt{\frac{1}{\frac{1}{n_0} + \frac{1}{n_1}}}(\bar{y}_1 - \bar{y}_0)}
 <p>Under the null hypothesis, this statistic has a distribution of <span class="math inline">\(t_{n-2}\)</span>.</p>
 </section>
 <section id="t-test-for-a-contrast-among-coefficients" class="level3" data-number="8.1.4">
-<h3 data-number="8.1.4" class="anchored" data-anchor-id="t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a Contrast Among Coefficients</h3>
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a contrast among coefficients</h3>
 <p>Given a vector <span class="math inline">\(\boldsymbol{c} \in \mathbb{R}^p\)</span>, the quantity <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta}\)</span> is sometimes called a <em>contrast</em>. For example, suppose <span class="math inline">\(\boldsymbol{c} = (1,-1, 0, \dots, 0)\)</span>. Then, <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} = \beta_1 - \beta_2\)</span> is the difference in effects of the first and second predictors. We are sometimes interested in testing whether such a contrast is equal to zero, i.e., <span class="math inline">\(H_0: \boldsymbol{c}^T \boldsymbol{\beta} = 0\)</span>. While this hypothesis can involve two or more of the predictors, the parameter <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta}\)</span> is still one-dimensional, and therefore we can still apply a <span class="math inline">\(t\)</span>-test. Going back to the distribution <span class="math inline">\(\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1})\)</span>, we find that:</p>
 <p><span class="math display">\[
 \boldsymbol{c}^T\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{c}^T\boldsymbol{\beta}, \sigma^2\boldsymbol{c}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{c}).
@@ -557,7 +557,7 @@ F \sim \frac{\chi^2_{|S|}/|S|}{\chi^2_{n-p}/(n-p)}, \quad \text{with numerator a
 <p>Note that the <span class="math inline">\(F\)</span>-test searches for deviations of <span class="math inline">\(\boldsymbol{\beta}_{S}\)</span> from zero in all directions, and does not have one-sided variants like the <span class="math inline">\(t\)</span>-test.</p>
 </section>
 <section id="example-testing-for-any-significant-coefficients-except-the-intercept" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="example-testing-for-any-significant-coefficients-except-the-intercept"><span class="header-section-number">8.2.2</span> Example: Testing for Any Significant Coefficients Except the Intercept</h3>
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="example-testing-for-any-significant-coefficients-except-the-intercept"><span class="header-section-number">8.2.2</span> Example: Testing for any significant coefficients except the intercept</h3>
 <p>Suppose <span class="math inline">\(\boldsymbol{x}_{*,0} = \boldsymbol{1}_n\)</span> is an intercept term. Then, consider the null hypothesis <span class="math inline">\(H_0: \beta_1 = \cdots = \beta_{p-1} = 0\)</span>. In other words, the null hypothesis is the intercept-only model, and the alternative hypothesis is the regression model with an intercept and <span class="math inline">\(p-1\)</span> additional predictors. In this case, <span class="math inline">\(S = \{1, \dots, p-1\}\)</span> and <span class="math inline">\(\text{-}S = \{0\}\)</span>. The corresponding <span class="math inline">\(F\)</span> statistic is</p>
 <p><span class="math display">\[
 F \equiv \frac{(\|\boldsymbol{y} - \bar{y} \boldsymbol{1}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2)/(p-1)}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)} = \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \bar{y} \boldsymbol{1}\|^2/(p-1)}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2/(n-p)}

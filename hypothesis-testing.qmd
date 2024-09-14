@@ -70,7 +70,7 @@ $$
 
 where $z(1-\alpha/2)$ is the $1-\alpha/2$ quantile of $N(0,1)$. The $t$-test can also be defined in a one-sided fashion if power against one-sided alternatives is desired.
 
-### Example: One\text{-}Sample Model
+### Example: One-sample model
 
 Consider the intercept-only linear regression model $y = \beta_0 + \epsilon$, and let usapply the $t$-test derived above to test the null hypothesis $H_0: \beta_0 = 0$. We have $\widehat{\beta}_0 = \bar{y}$. Furthermore, we have
 
@@ -86,7 +86,7 @@ $$
 
 According to the theory above, this test statistic has a null distribution of $t_{n-1}$.
 
-### Example: Two\text{-}Sample Model
+### Example: Two-sample model
 
 Suppose we have $x_1 \in \{0,1\}$, in which case the linear regression $y = \beta_0 + \beta_1 x_1 + \epsilon$ becomes a two-sample model. We can rewrite this model as:
 
@@ -123,7 +123,7 @@ $$
 
 Under the null hypothesis, this statistic has a distribution of $t_{n-2}$.
 
-### $t$-test for a Contrast Among Coefficients
+### $t$-test for a contrast among coefficients
 
 Given a vector $\boldsymbol{c} \in \mathbb{R}^p$, the quantity $\boldsymbol{c}^T \boldsymbol{\beta}$ is sometimes called a *contrast*. For example, suppose $\boldsymbol{c} = (1,-1, 0, \dots, 0)$. Then, $\boldsymbol{c}^T \boldsymbol{\beta} = \beta_1 - \beta_2$ is the difference in effects of the first and second predictors. We are sometimes interested in testing whether such a contrast is equal to zero, i.e., $H_0: \boldsymbol{c}^T \boldsymbol{\beta} = 0$. While this hypothesis can involve two or more of the predictors, the parameter $\boldsymbol{c}^T \boldsymbol{\beta}$ is still one-dimensional, and therefore we can still apply a $t$-test. Going back to the distribution $\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1})$, we find that:
 
@@ -221,7 +221,7 @@ $$
 
 Note that the $F$-test searches for deviations of $\boldsymbol{\beta}_{S}$ from zero in all directions, and does not have one-sided variants like the $t$-test.
 
-### Example: Testing for Any Significant Coefficients Except the Intercept
+### Example: Testing for any significant coefficients except the intercept
 
 Suppose $\boldsymbol{x}_{*,0} = \boldsymbol{1}_n$ is an intercept term. Then, consider the null hypothesis $H_0: \beta_1 = \cdots = \beta_{p-1} = 0$. In other words, the null hypothesis is the intercept-only model, and the alternative hypothesis is the regression model with an intercept and $p-1$ additional predictors. In this case, $S = \{1, \dots, p-1\}$ and $\text{-}S = \{0\}$. The corresponding $F$ statistic is
 

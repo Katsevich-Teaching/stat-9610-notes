@@ -129,7 +129,7 @@ Given a vector $\boldsymbol{c} \in \mathbb{R}^p$, the quantity $\boldsymbol{c}^T
 
 $$
 \boldsymbol{c}^T\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{c}^T\boldsymbol{\beta}, \sigma^2\boldsymbol{c}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{c}).
-$$
+$$ {#eq-contrasts-normal-dist}
 
 Therefore, under the null hypothesis that $\boldsymbol{c}^T \boldsymbol{\beta} = 0$, we can derive that:
 

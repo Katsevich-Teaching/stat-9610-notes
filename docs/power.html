@@ -360,10 +360,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-power-of-a-t-test" id="toc-the-power-of-a-t-test" class="nav-link active" data-scroll-target="#the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</a></li>
+  <li><a href="#the-power-of-a-t-test" id="toc-the-power-of-a-t-test" class="nav-link active" data-scroll-target="#the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</a>
+  <ul class="collapse">
+  <li><a href="#power-formula" id="toc-power-formula" class="nav-link" data-scroll-target="#power-formula"><span class="header-section-number">9.1.1</span> Power formula</a></li>
+  <li><a href="#power-of-the-t-test-when-predictors-are-added-to-the-model" id="toc-power-of-the-t-test-when-predictors-are-added-to-the-model" class="nav-link" data-scroll-target="#power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.1.2</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</a></li>
+  <li><a href="#application-adjusting-for-covariates-in-randomized-experiments." id="toc-application-adjusting-for-covariates-in-randomized-experiments." class="nav-link" data-scroll-target="#application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.1.3</span> Application: Adjusting for covariates in randomized experiments.</a></li>
+  </ul></li>
   <li><a href="#the-power-of-an-f-test" id="toc-the-power-of-an-f-test" class="nav-link" data-scroll-target="#the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</a></li>
-  <li><a href="#power-of-the-t-test-when-predictors-are-added-to-the-model" id="toc-power-of-the-t-test-when-predictors-are-added-to-the-model" class="nav-link" data-scroll-target="#power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</a></li>
-  <li><a href="#application-adjusting-for-covariates-in-randomized-experiments." id="toc-application-adjusting-for-covariates-in-randomized-experiments." class="nav-link" data-scroll-target="#application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.4</span> Application: Adjusting for covariates in randomized experiments.</a></li>
   </ul>
 </nav>
     </div>
@@ -391,6 +394,8 @@ ul.task-list li input[type="checkbox"] {
 <p>So far we’ve been focused on finding the null distributions of various test statistics in order to construct tests with Type-I error control. Now let’s shift our attention to examining the power of these tests.</p>
 <section id="the-power-of-a-t-test" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</h2>
+<section id="power-formula" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="power-formula"><span class="header-section-number">9.1.1</span> Power formula</h3>
 <p>Consider the <span class="math inline">\(t\)</span>-test of the null hypothesis <span class="math inline">\(H_0: \beta_j = 0\)</span>. Suppose that, in reality, <span class="math inline">\(\beta_j \neq 0\)</span>. What is the probability the <span class="math inline">\(t\)</span>-test will reject the null hypothesis? To answer this question, recall that <span class="math inline">\(\widehat \beta_j \sim N(\beta_j, \sigma^2/s_j^2)\)</span>. Therefore,</p>
 <p><span id="eq-t-alt-dist-1"><span class="math display">\[
 t = \frac{\widehat \beta_j}{\text{SE}(\widehat \beta_j)} = \frac{\beta_j}{\text{SE}(\widehat \beta_j)} + \frac{\widehat \beta_j - \beta_j}{\text{SE}(\widehat \beta_j)} \overset{\cdot}{\sim} N\left(\frac{\beta_j s_j}{\sigma}, 1\right)
@@ -413,40 +418,8 @@ t \overset{\cdot}{\sim} N\left(\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{
 \tag{9.2}\]</span></span></p>
 <p>We can see clearly now how the power of the <span class="math inline">\(t\)</span>-test varies with the effect size <span class="math inline">\(\beta_j\)</span>, the sample size <span class="math inline">\(n\)</span>, the degree of collinearity <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span>, and the noise standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 </section>
-<section id="the-power-of-an-f-test" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</h2>
-<p>Now let’s turn our attention to computing the power of the <span class="math inline">\(F\)</span>-test. We have</p>
-<p><span class="math display">\[
-F = \frac{\|\boldsymbol{X}\boldsymbol{\widehat \beta} - \boldsymbol{X}_{*, \text{-}S}\boldsymbol{\widehat \beta}_{-S}\|^2/|S|}{\|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat \beta}\|^2/|n-p|} = \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\|(\boldsymbol{I} - \boldsymbol{H})\boldsymbol{y}\|^2/|n-p|} \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2}.
-\]</span></p>
-<p>To calculate the distribution of the numerator, we need to introduce the notion of a non-central chi-squared random variable.</p>
-<div id="def-noncentral-chi-square" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 9.1 </strong></span>For some vector <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^d\)</span>, suppose <span class="math inline">\(\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)\)</span>. Then, we define the distribution of <span class="math inline">\(\|\boldsymbol{z}\|^2\)</span> as the noncentral chi-square random variable with <span class="math inline">\(d\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\|\boldsymbol{\mu}\|^2\)</span> and denote this distribution by <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span>.</p>
-</div>
-<p>The following proposition states two useful facts about noncentral chi-square distributions.</p>
-<div id="prp-noncentral-chi-square" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 9.1 </strong></span>The following two relations hold: 1. The mean of a <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span> random variable is <span class="math inline">\(d + \|\boldsymbol{\mu}\|^2\)</span>. 2. If <span class="math inline">\(\boldsymbol{P}\)</span> is a projection matrix and <span class="math inline">\(\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).\)</span></p>
-</div>
-<p>It therefore follows that</p>
-<p><span class="math display">\[
-F \approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2} \sim \frac{1}{|S|}\chi^2_{|S|}\left(\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S})\boldsymbol{X} \boldsymbol{\beta}\|^2\right) = \frac{1}{|S|}\chi^2_{|S|}\left(\frac{1}{\sigma^2}\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2\right).
-\]</span></p>
-<p>Assuming as before that the rows of <span class="math inline">\(\boldsymbol{X}\)</span> are samples from a joint distribution, we can write</p>
-<p><span class="math display">\[
-\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2 \approx n\boldsymbol{\beta}_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S.
-\]</span></p>
-<p>Therefore,</p>
-<p><span class="math display">\[
-F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)
-\]</span></p>
-<p>which is similar in spirit to equation (<a href="#eq-t-alt-dist-2"><span>9.2</span></a>). To get a better sense of what this relationship implies for the power of the <span class="math inline">\(F\)</span>-test, we find from the first part of <a href="#prp-noncentral-chi-square">Proposition&nbsp;<span>9.1</span></a> that, under the alternative,</p>
-<p><span class="math display">\[
-\mathbb{E}[F] \approx \mathbb{E}\left[\frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)\right] = 1 + \frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{|S| \cdot \sigma^2}.
-\]</span></p>
-<p>By contrast, under the null, the mean of the <span class="math inline">\(F\)</span>-statistic is 1. The <span class="math inline">\(|S|\)</span> term in the denominator above suggests that testing larger sets of variables explaining the same amount of variation in <span class="math inline">\(\boldsymbol{y}\)</span> will hurt power. The test must accommodate for the fact that larger sets of variables will explain more of the variability in <span class="math inline">\(y\)</span> even under the null hypothesis.</p>
-</section>
-<section id="power-of-the-t-test-when-predictors-are-added-to-the-model" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.3</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</h2>
+<section id="power-of-the-t-test-when-predictors-are-added-to-the-model" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.1.2</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</h3>
 <p>As we know, the outcome of a regression is a function of the predictors that are used. What happens to the <span class="math inline">\(t\)</span>-test <span class="math inline">\(p\)</span>-value for <span class="math inline">\(H_0: \beta_j = 0\)</span> when a predictor is added to the model? To keep things simple, let’s consider the</p>
 <p><span class="math display">\[
 \text{true underlying model:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
@@ -462,11 +435,59 @@ F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{
 <li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 \neq 0\)</span>. In this case, we are adding a non-null predictor that is orthogonal to <span class="math inline">\(\boldsymbol{x}_{*0}\)</span>. While the conditional predictor variance <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span> remains the same due to orthogonality, the residual variance <span class="math inline">\(\sigma^2\)</span> is reduced when going from model 0 to model 1. Therefore, in this case adding <span class="math inline">\(x_1\)</span> to the model increases the power for testing <span class="math inline">\(H_0: \beta_0 = 0\)</span>. This is a case of <em>predictor collaboration</em>.</li>
 <li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 = 0\)</span>. In this case, we are adding an orthogonal null variable, which does not change the conditional predictor variance or the residual variance, and therefore keeps the power of the test the same.</li>
 </ol>
-<p>In conclusion, adding a predictor can either increase or decrease the power of a <span class="math inline">\(t\)</span>-test. Similar reasoning can be applied to the <span class="math inline">\(F\)</span>-test.</p>
+<p>In conclusion, adding a predictor can either increase or decrease the power of a <span class="math inline">\(t\)</span>-test.</p>
 </section>
-<section id="application-adjusting-for-covariates-in-randomized-experiments." class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.4</span> Application: Adjusting for covariates in randomized experiments.</h2>
+<section id="application-adjusting-for-covariates-in-randomized-experiments." class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.1.3</span> Application: Adjusting for covariates in randomized experiments.</h3>
 <p>Case 3 above, i.e., <span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 \neq 0\)</span>, arises in the context of randomized experiments in causal inference. In this case, <span class="math inline">\(y\)</span> represents the outcome, <span class="math inline">\(x_0\)</span> represents the treatment, and <span class="math inline">\(x_1\)</span> represents a covariate. Because the treatment is randomized, there is no correlation between <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>. Therefore, it is not necessary to adjust for <span class="math inline">\(x_1\)</span> in order to get an unbiased estimate of the average treatment effect. However, it is known that adjusting for covariates can lead to more <em>precise</em> estimates of the treatment effect due to the phenomenon discussed in case 3 above. This point is also related to the discussion in Chapter 1 about the fact that if <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span> are orthogonal, then the least squares coefficient <span class="math inline">\(\widehat \beta_0\)</span> is the same regardless of whether <span class="math inline">\(x_1\)</span> is included in the model. As we see here, either including <span class="math inline">\(x_1\)</span> in the model or adjusting <span class="math inline">\(y\)</span> for <span class="math inline">\(x_1\)</span> is necessary to get better power.</p>
+</section>
+</section>
+<section id="the-power-of-an-f-test" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</h2>
+<p>Now let’s turn our attention to computing the power of the <span class="math inline">\(F\)</span>-test. We have</p>
+<p><span class="math display">\[
+\begin{split}
+F &amp;= \frac{\|\boldsymbol{X}\boldsymbol{\widehat \beta} - \boldsymbol{X}_{*, \text{-}S}\boldsymbol{\widehat \beta}_{-S}\|^2/|S|}{\|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat \beta}\|^2/|n-p|} \\
+&amp;= \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\|(\boldsymbol{I} - \boldsymbol{H})\boldsymbol{y}\|^2/|n-p|} \\
+&amp;\approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2}.
+\end{split}
+\]</span></p>
+<p>To calculate the distribution of the numerator, we need to introduce the notion of a <em>non-central chi-squared random variable</em>.</p>
+<div id="def-noncentral-chi-square" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 9.1 </strong></span>For some vector <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^d\)</span>, suppose <span class="math inline">\(\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)\)</span>. Then, we define the distribution of <span class="math inline">\(\|\boldsymbol{z}\|^2\)</span> as the noncentral chi-square random variable with <span class="math inline">\(d\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\|\boldsymbol{\mu}\|^2\)</span> and denote this distribution by <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span>.</p>
+</div>
+<p>The following proposition states two useful facts about noncentral chi-square distributions.</p>
+<div id="prp-noncentral-chi-square" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 9.1 </strong></span>The following two relations hold:</p>
+<ol type="1">
+<li>The mean of a <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span> random variable is <span class="math inline">\(d + \|\boldsymbol{\mu}\|^2\)</span>.</li>
+<li>If <span class="math inline">\(\boldsymbol{P}\)</span> is a projection matrix and <span class="math inline">\(\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).\)</span></li>
+</ol>
+</div>
+<p>It therefore follows that</p>
+<p><span class="math display">\[
+\begin{split}
+F &amp;\approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2} \\
+&amp;\sim \frac{1}{|S|}\chi^2_{|S|}\left(\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S})\boldsymbol{X} \boldsymbol{\beta}\|^2\right) \\
+&amp;= \frac{1}{|S|}\chi^2_{|S|}\left(\frac{1}{\sigma^2}\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2\right).
+\end{split}
+\]</span></p>
+<p>Assuming as before that the rows of <span class="math inline">\(\boldsymbol{X}\)</span> are samples from a joint distribution, we can write</p>
+<p><span class="math display">\[
+\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2 \approx n\boldsymbol{\beta}_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)
+\]</span></p>
+<p>which is similar in spirit to equation (<a href="#eq-t-alt-dist-2"><span>9.2</span></a>). To get a better sense of what this relationship implies for the power of the <span class="math inline">\(F\)</span>-test, we find from the first part of <a href="#prp-noncentral-chi-square">Proposition&nbsp;<span>9.1</span></a> that, under the alternative,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbb{E}[F] &amp;\approx \mathbb{E}\left[\frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)\right] \\
+&amp;= 1 + \frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{|S| \cdot \sigma^2}.
+\end{split}
+\]</span></p>
+<p>By contrast, under the null, the mean of the <span class="math inline">\(F\)</span>-statistic is 1. The <span class="math inline">\(|S|\)</span> term in the denominator above suggests that testing larger sets of variables explaining the same amount of variation in <span class="math inline">\(\boldsymbol{y}\)</span> will hurt power. The test must accommodate for the fact that larger sets of variables will explain more of the variability in <span class="math inline">\(y\)</span> even under the null hypothesis.</p>
 
 
 </section>

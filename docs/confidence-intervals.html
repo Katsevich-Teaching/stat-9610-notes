@@ -360,10 +360,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#confidence-interval-for-a-coefficient" id="toc-confidence-interval-for-a-coefficient" class="nav-link active" data-scroll-target="#confidence-interval-for-a-coefficient"><span class="header-section-number">10.1</span> Confidence interval for a coefficient</a></li>
-  <li><a href="#confidence-interval-for-mathbbeyboldsymbolx_0" id="toc-confidence-interval-for-mathbbeyboldsymbolx_0" class="nav-link" data-scroll-target="#confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">10.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></a></li>
-  <li><a href="#prediction-interval-for-yboldsymbolx_0" id="toc-prediction-interval-for-yboldsymbolx_0" class="nav-link" data-scroll-target="#prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">10.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></a></li>
-  <li><a href="#simultaneous-intervals" id="toc-simultaneous-intervals" class="nav-link" data-scroll-target="#simultaneous-intervals"><span class="header-section-number">10.4</span> Simultaneous intervals</a></li>
+  <li><a href="#sec-confidence-intervals-univariate" id="toc-sec-confidence-intervals-univariate" class="nav-link active" data-scroll-target="#sec-confidence-intervals-univariate"><span class="header-section-number">10.1</span> Confidence intervals for univariate quantities</a>
+  <ul class="collapse">
+  <li><a href="#confidence-interval-for-a-coefficient" id="toc-confidence-interval-for-a-coefficient" class="nav-link" data-scroll-target="#confidence-interval-for-a-coefficient"><span class="header-section-number">10.1.1</span> Confidence interval for a coefficient</a></li>
+  <li><a href="#confidence-interval-for-mathbbeyboldsymboltilde-x" id="toc-confidence-interval-for-mathbbeyboldsymboltilde-x" class="nav-link" data-scroll-target="#confidence-interval-for-mathbbeyboldsymboltilde-x"><span class="header-section-number">10.1.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{\tilde x}]\)</span></a></li>
+  <li><a href="#prediction-interval-for-yboldsymboltilde-x" id="toc-prediction-interval-for-yboldsymboltilde-x" class="nav-link" data-scroll-target="#prediction-interval-for-yboldsymboltilde-x"><span class="header-section-number">10.1.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{\tilde x}\)</span></a></li>
+  </ul></li>
+  <li><a href="#confidence-regions-and-simultaneous-intervals" id="toc-confidence-regions-and-simultaneous-intervals" class="nav-link" data-scroll-target="#confidence-regions-and-simultaneous-intervals"><span class="header-section-number">10.2</span> Confidence regions and simultaneous intervals</a>
+  <ul class="collapse">
+  <li><a href="#confidence-regions" id="toc-confidence-regions" class="nav-link" data-scroll-target="#confidence-regions"><span class="header-section-number">10.2.1</span> Confidence regions</a></li>
+  <li><a href="#simultaneous-intervals" id="toc-simultaneous-intervals" class="nav-link" data-scroll-target="#simultaneous-intervals"><span class="header-section-number">10.2.2</span> Simultaneous intervals</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -388,94 +395,98 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p><em>See also Agresti 3.3, Dunn and Smyth 2.8.4-2.8.5</em></p>
-<p>In addition to hypothesis testing, we often want to construct confidence intervals for the coefficients.</p>
-<section id="confidence-interval-for-a-coefficient" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="confidence-interval-for-a-coefficient"><span class="header-section-number">10.1</span> Confidence interval for a coefficient</h2>
-<p>Under <span class="math inline">\(H_0: \beta_j = 0\)</span>, we showed that <span class="math inline">\(\frac{\widehat{\beta_j}}{\widehat{\sigma}/s_j} \sim t_{n-p}\)</span>. The same argument shows that for arbitrary <span class="math inline">\(\beta_j\)</span>, we have</p>
+<p>In addition to hypothesis testing, we often want to construct confidence intervals for various quantities. As with hypotheses testing, we will split the target quantities into two categories: univariate and multivariate.</p>
+<section id="sec-confidence-intervals-univariate" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="sec-confidence-intervals-univariate"><span class="header-section-number">10.1</span> Confidence intervals for univariate quantities</h2>
+<section id="confidence-interval-for-a-coefficient" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="confidence-interval-for-a-coefficient"><span class="header-section-number">10.1.1</span> Confidence interval for a coefficient</h3>
+<p>Under <span class="math inline">\(H_0: \beta_j = 0\)</span>, we showed that <span class="math inline">\(\frac{\widehat \beta_j}{\widehat{\sigma}/s_j} \sim t_{n-p}\)</span>. The same argument shows that for arbitrary <span class="math inline">\(\beta_j\)</span>, we have</p>
 <p><span class="math display">\[
-\frac{\widehat{\beta_j} - \beta_j}{\widehat{\sigma}/s_j} \sim t_{n-p}.
+\frac{\widehat \beta_j - \beta_j}{\widehat{\sigma}/s_j} \sim t_{n-p}.
 \]</span></p>
 <p>We can use this relationship to construct a confidence interval for <span class="math inline">\(\beta_j\)</span> as follows:</p>
 <p><span id="eq-pointwise-interval-beta"><span class="math display">\[
+\small
 \begin{split}
-1-\alpha = \mathbb{P}[|t_{n-p}| \leq t_{n-p}(1-\alpha/2)] &amp;= \mathbb{P}\left[\left|\frac{\widehat{\beta_j} - \beta_j}{\widehat{\sigma}/s_j}\right| \leq t_{n-p}(1-\alpha/2) \right] \\
-&amp;= \mathbb{P}\left[\beta_j \in \left[\widehat{\beta_j} - \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2), \widehat{\beta_j} + \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2) \right]\right] \\
-&amp;\equiv \mathbb{P}\left[\beta_j \in \left[\widehat{\beta_j} - \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2), \widehat{\beta_j} + \text{SE}(\widehat{\beta_j})t_{n-p}(1-\alpha/2) \right]\right] \\
-&amp;\equiv \mathbb{P}[\beta_j \in \text{CI}(\beta_j)].
+&amp;1-\alpha \\
+&amp;\quad = \mathbb{P}[|t_{n-p}| \leq t_{n-p}(1-\alpha/2)] \\
+&amp;\quad = \mathbb{P}\left[\left|\frac{\widehat \beta_j - \beta_j}{\widehat{\sigma}/s_j}\right| \leq t_{n-p}(1-\alpha/2) \right] \\
+&amp;\quad = \mathbb{P}\left[\beta_j \in \left[\widehat \beta_j - \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2), \widehat \beta_j + \frac{\widehat{\sigma}}{s_j}t_{n-p}(1-\alpha/2) \right]\right] \\
+&amp;\quad \equiv \mathbb{P}\left[\beta_j \in \left[\widehat \beta_j - \text{SE}(\widehat \beta_j)t_{n-p}(1-\alpha/2), \widehat \beta_j + \text{SE}(\widehat \beta_j)t_{n-p}(1-\alpha/2) \right]\right] \\
+&amp;\quad \equiv \mathbb{P}[\beta_j \in \text{CI}(\beta_j)].
 \end{split}
 \tag{10.1}\]</span></span></p>
-<p>The confidence interval <span class="math inline">\(\text{CI}(\beta_j)\)</span> defined above therefore has <span class="math inline">\(1-\alpha\)</span> coverage. Because of the duality between confidence intervals and hypothesis tests, the factors contributing to powerful tests (<a href="power.html"><span>9</span></a>) also lead to shorter confidence intervals.</p>
+<p>The confidence interval <span class="math inline">\(\text{CI}(\beta_j)\)</span> defined above therefore has <span class="math inline">\(1-\alpha\)</span> coverage. Because of the duality between confidence intervals and hypothesis tests, the factors contributing to powerful tests (<a href="power.html"><span>Chapter&nbsp;9</span></a>) also lead to shorter confidence intervals.</p>
 </section>
-<section id="confidence-interval-for-mathbbeyboldsymbolx_0" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="confidence-interval-for-mathbbeyboldsymbolx_0"><span class="header-section-number">10.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}]\)</span></h2>
-<p>Suppose now that we have a new predictor vector <span class="math inline">\(\boldsymbol{x_0} \in \mathbb{R}^p\)</span>. The mean of the response for this predictor vector is <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x_0}] = \boldsymbol{x_0}^T \boldsymbol{\beta}\)</span>. Plugging in <span class="math inline">\(\boldsymbol{x_0}\)</span> for <span class="math inline">\(\boldsymbol{c}\)</span> in the relation, we obtain</p>
+<section id="confidence-interval-for-mathbbeyboldsymboltilde-x" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="confidence-interval-for-mathbbeyboldsymboltilde-x"><span class="header-section-number">10.1.2</span> Confidence interval for <span class="math inline">\(\mathbb{E}[y|\boldsymbol{\tilde x}]\)</span></h3>
+<p>Suppose now that we have a new predictor vector <span class="math inline">\(\boldsymbol{\tilde x} \in \mathbb{R}^p\)</span>. The mean of the response for this predictor vector is <span class="math inline">\(\mathbb{E}[y|\boldsymbol{\tilde x}] = \boldsymbol{\tilde x}^T \boldsymbol{\beta}\)</span>. Plugging in <span class="math inline">\(\boldsymbol{\tilde x}\)</span> for <span class="math inline">\(\boldsymbol{c}\)</span> in the relation (<a href="hypothesis-testing.html#eq-contrasts-normal-dist"><span>8.3</span></a>), we obtain</p>
 <p><span class="math display">\[
-\frac{\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} - \boldsymbol{x_0}^T \boldsymbol{\beta}}{\widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}}} \sim t_{n-p}.
+\frac{\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} - \boldsymbol{\tilde x}^T \boldsymbol{\beta}}{\widehat{\sigma} \sqrt{\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}}} \sim t_{n-p}.
 \]</span></p>
 <p>From this, we can derive that</p>
-<p><span class="math display">\[
-\text{CI}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}} \cdot t_{n-p}(1-\alpha/2)
-\]</span></p>
-<p>is a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(\boldsymbol{x_0}^T \boldsymbol{\beta}\)</span>. We see that the width of this confidence interval depends on <span class="math inline">\(\boldsymbol{x_0}\)</span> through the quantity <span class="math inline">\(\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}\)</span>. Let’s give this quantity a closer look, in the case when the regression contains an intercept, i.e., <span class="math inline">\(\boldsymbol{x_{*,0}} = \boldsymbol{1}\)</span>. Then, we have <span class="math inline">\(\boldsymbol{x_0} = (1, \boldsymbol{x^T_{0,\text{-}0}})\)</span>. Then, defining <span class="math inline">\(\bar{x} \in \mathbb{R}^{p-1}\)</span> as the vector of column-wise means of <span class="math inline">\(\boldsymbol{X_{*,\text{-}0}}\)</span>, we can rewrite the regression as</p>
-<p><span class="math display">\[
-y = \beta_0 + \boldsymbol{x_{\text{-}0}}^T \boldsymbol{\beta_{\text{-}0}} + \epsilon \equiv \beta'_0 + (\boldsymbol{x_{\text{-}0}}-\bar{x})^T  \boldsymbol{\beta_{\text{-}0}} + \epsilon.
-\]</span></p>
-<p>Therefore, we seek a prediction interval for <span class="math inline">\(\boldsymbol{x_{0}}^T \boldsymbol{\beta} = \beta'_0 + (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T \boldsymbol{\beta_{\text{-}0}}\)</span>. With this reformulation, we can compute</p>
+<p><span id="eq-confidence-interval-predicted-mean"><span class="math display">\[
+\begin{split}
+\text{CI}(\boldsymbol{\tilde x}^T \boldsymbol{\beta}) &amp;\equiv \boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2) \\
+&amp;\equiv \boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}} \cdot t_{n-p}(1-\alpha/2)
+\end{split}
+\tag{10.2}\]</span></span></p>
+<p>is a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(\boldsymbol{\tilde x}^T \boldsymbol{\beta}\)</span>. Consider the special case of the simple linear regression <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span>. Then, confidence intervals for <span class="math inline">\(\beta_0 + \beta_1 \tilde x\)</span> for each <span class="math inline">\(\tilde x \in \mathbb R\)</span> sweep out <em>confidence bands</em> for the regression line.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="confidence-intervals_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p>We see that the width of the confidence band appears to be the smallest around the center of the data. To verify this, let <span class="math inline">\(\bar x\)</span> be the mean of the observed <span class="math inline">\(x\)</span> values. Centering <span class="math inline">\(x\)</span> leads to the following reparameterized regression: <span class="math display">\[
+y = \beta_0' + \beta_1 (x - \bar x) + \epsilon.
+\]</span> The width of the confidence interval (<a href="#eq-confidence-interval-predicted-mean"><span>10.2</span></a>) is proportional to the square root of <span class="math inline">\(\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}\)</span>. Applying this to the centered vector <span class="math inline">\(\boldsymbol{\tilde x} = (1, \tilde x - \bar x)^T\)</span> and the centered matrix <span class="math inline">\(\boldsymbol{X} = (\boldsymbol 1, \boldsymbol x - \bar x \boldsymbol 1)\)</span>, we get <span class="math display">\[
+\begin{split}
+\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x} &amp;= (1, \tilde x - \bar x) \begin{pmatrix} n &amp; 0 \\ 0 &amp; \sum_i (x_i - \bar x)^2 \end{pmatrix}^{-1} \begin{pmatrix} 1 \\ \tilde x - \bar x \end{pmatrix} \\
+&amp;= \frac{1}{n} + \frac{(\tilde x - \bar x)^2}{\sum_i (x_i - \bar x)^2}.
+\end{split}
+\]</span> We see that this quantity is minimized at <span class="math inline">\(\tilde x = \bar x\)</span>, as expected.</p>
+</section>
+<section id="prediction-interval-for-yboldsymboltilde-x" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="prediction-interval-for-yboldsymboltilde-x"><span class="header-section-number">10.1.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{\tilde x}\)</span></h3>
+<p>Instead of creating a confidence interval for a point on the regression line, we may want to create a confidence interval for a new draw <span class="math inline">\(\tilde y\)</span> of <span class="math inline">\(y\)</span> for <span class="math inline">\(\boldsymbol{x} = \boldsymbol{\tilde x}\)</span>, i.e., a <em>prediction interval</em>. Note that</p>
 <p><span class="math display">\[
 \begin{split}
-\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0} &amp;= (1 \ (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T)\begin{pmatrix}\boldsymbol{1}^T \boldsymbol{1} &amp; 0 \\ 0 &amp;\boldsymbol{X_{*,\text{-}0}}^T \boldsymbol{X_{*,\text{-}0}} \end{pmatrix}^{-1}{1 \choose \boldsymbol{x_{0, \text{-}0}}-\bar{x}} \\
-&amp;= \frac{1}{n} + (\boldsymbol{x_{0, \text{-}0}}-\bar{x})^T (\boldsymbol{X_{*,\text{-}0}}^T \boldsymbol{X_{*,\text{-}0}})^{-1}(\boldsymbol{x_{0, \text{-}0}}-\bar{x}).
+\tilde y - \boldsymbol{\tilde x}^T \widehat{\beta} &amp;= \boldsymbol{\tilde x}^T \beta + \tilde \epsilon - \boldsymbol{\tilde x}^T \widehat{\beta} \\
+&amp;= \tilde \epsilon + \boldsymbol{\tilde x}^T (\beta-\widehat{\beta}) \\
+&amp;\sim N(0, \sigma^2 + \sigma^2 \boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}).
 \end{split}
-\]</span></p>
-<p>Hence, we see that this quantity grows larger as <span class="math inline">\(\boldsymbol{x_{0, \text{-}0}}-\bar{x}\)</span> grows larger, and achieves its minimum when <span class="math inline">\(\boldsymbol{x_{0, \text{-}0}}=\bar{x}\)</span>. Let’s look at the special case when <span class="math inline">\(p = 2\)</span>, so there is just one predictor except the intercept. Then, we have <span class="math inline">\(\boldsymbol{X_{*,\text{-}0}} = \boldsymbol{x_{*,1}}-\bar{x_1}\)</span>, so</p>
-<p><span class="math display">\[
-\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0} = \frac{1}{n} + \frac{(x_{01}-\bar{x_1})^2}{\|\boldsymbol{x_{*,1}}-\bar{x_1}\|^2}.
-\]</span></p>
-</section>
-<section id="prediction-interval-for-yboldsymbolx_0" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="prediction-interval-for-yboldsymbolx_0"><span class="header-section-number">10.3</span> Prediction interval for <span class="math inline">\(y|\boldsymbol{x_0}\)</span></h2>
-<p>Instead of creating a confidence interval for a point on the regression line, we may want to create a confidence interval for a new draw <span class="math inline">\(y_0\)</span> of <span class="math inline">\(y\)</span> for <span class="math inline">\(\boldsymbol{x} = \boldsymbol{x_0}\)</span>, i.e., a <em>prediction interval</em>. Note that</p>
-<p><span class="math display">\[
-y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0 - \boldsymbol{x_0}^T \widehat{\beta} = \epsilon_0 + \boldsymbol{x_0}^T (\beta-\widehat{\beta}) \sim N(0, \sigma^2 + \sigma^2 \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}).
 \]</span></p>
 <p>Therefore, we have</p>
 <p><span class="math display">\[
-\frac{y_0 - \boldsymbol{x_0}^T \widehat{\beta}}{\widehat{\sigma}\sqrt{1 + \boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}}} \sim t_{n-p},
+\frac{\tilde y - \boldsymbol{\tilde x}^T \widehat{\beta}}{\widehat{\sigma}\sqrt{1 + \boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}}} \sim t_{n-p},
 \]</span></p>
 <p>which leads to the <span class="math inline">\(1-\alpha\)</span> prediction interval</p>
 <p><span id="eq-pointwise-contrast-interval"><span class="math display">\[
-\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{1+\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{x_0}} \cdot t_{n-p}(1-\alpha/2) \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2).
-\tag{10.2}\]</span></span></p>
-<p><strong>Remark: Prediction with confidence in machine learning.</strong></p>
-<p>The entire field of supervised machine learning is focused on accurately predicting <span class="math inline">\(y_0\)</span> from <span class="math inline">\(\boldsymbol{x_0}\)</span>, usually using nonlinear functions <span class="math inline">\(\widehat{f}(\boldsymbol{x_0})\)</span>. In addition to providing a guess <span class="math inline">\(\widehat{y_0}\)</span> for <span class="math inline">\(y_0\)</span>, it is often useful to quantify the uncertainty in this guess. In other words, it is useful to come up with a prediction interval (or prediction region) <span class="math inline">\(\text{PI}(y_0)\)</span> such that</p>
-<p><span id="eq-conditional-prediction-interval"><span class="math display">\[
-\mathbb{P}[y_0 \in \text{PI}(y_0) \mid \boldsymbol{x_0}] \geq 1-\alpha.
+\begin{split}
+&amp;\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{1+\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{\tilde x}} \cdot t_{n-p}(1-\alpha/2) \\
+&amp;\quad\equiv \boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}}) \cdot t_{n-p}(1-\alpha/2).
+\end{split}
 \tag{10.3}\]</span></span></p>
-<p>For example, in safety-critical applications of machine learning like self-driving cars, it is essential to have confidence in predictions. Unfortunately, beyond the realm of linear regression, it is hard to come up with intervals satisfying (<a href="#eq-conditional-prediction-interval"><span>10.3</span></a>) for each point <span class="math inline">\(\boldsymbol{x_0}\)</span>. However, the emerging field of <em>conformal inference</em> provides guarantees on average over possible values of <span class="math inline">\(\boldsymbol{x}\)</span>:</p>
+<p><strong>Remark: Prediction with confidence in machine learning.</strong></p>
+<p>The entire field of supervised machine learning is focused on accurately predicting <span class="math inline">\(\tilde y\)</span> from <span class="math inline">\(\boldsymbol{\tilde x}\)</span>, usually using nonlinear functions <span class="math inline">\(\widehat{f}(\boldsymbol{\tilde x})\)</span>. In addition to providing a guess for <span class="math inline">\(\tilde y\)</span>, it is often useful to quantify the uncertainty in this guess. In other words, it is useful to come up with a prediction interval (or prediction region) <span class="math inline">\(\text{PI}(\tilde y)\)</span> such that</p>
+<p><span id="eq-conditional-prediction-interval"><span class="math display">\[
+\mathbb{P}[\tilde y \in \text{PI}(\tilde y) \mid \boldsymbol{\tilde x}] \geq 1-\alpha.
+\tag{10.4}\]</span></span></p>
+<p>For example, in safety-critical applications of machine learning like self-driving cars, it is essential to have confidence in predictions. Unfortunately, beyond the realm of linear regression, it is hard to come up with intervals satisfying (<a href="#eq-conditional-prediction-interval"><span>10.4</span></a>) for each point <span class="math inline">\(\boldsymbol{\tilde x}\)</span>. However, the emerging field of <em>conformal inference</em> provides guarantees on average over possible values of <span class="math inline">\(\boldsymbol{x}\)</span>:</p>
 <p><span id="eq-unconditional-prediction-interval"><span class="math display">\[
 \mathbb{P}[y \in \text{PI}(y)] = \mathbb{E}[\mathbb{P}[y \in \text{PI}(y) \mid \boldsymbol{x}]] \geq 1-\alpha.
-\tag{10.4}\]</span></span></p>
-<p>Remarkably, these guarantees place no assumption on the machine learning method used and require only that the data points on which <span class="math inline">\(\widehat{f}\)</span> is trained are exchangeable (an even weaker condition than i.i.d.). While the unconditional guarantee (<a href="#eq-unconditional-prediction-interval"><span>10.4</span></a>) is weaker than the conditional one (<a href="#eq-conditional-prediction-interval"><span>10.3</span></a>), it can be obtained for modern machine learning and deep learning models.</p>
-</section>
-<section id="simultaneous-intervals" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="simultaneous-intervals"><span class="header-section-number">10.4</span> Simultaneous intervals</h2>
-<p>Note that the intervals in the preceding sections have <em>pointwise coverage</em>. For example, we have</p>
-<p><span class="math display">\[
-\mathbb{P}[\beta_j \in \text{CI}(\beta_j)] \geq 1-\alpha \quad \text{for each } j.
-\]</span></p>
-<p>or</p>
-<p><span class="math display">\[
-\mathbb{P}[\boldsymbol{x_0}^T \boldsymbol{\beta} \in \text{CI}(\boldsymbol{x_0}^T \boldsymbol{\beta})] \geq 1-\alpha \quad \text{for each } \boldsymbol{x_0}.
-\]</span></p>
-<p>Sometimes a stronger <em>simultaneous coverage</em> guarantee is desired, e.g.,</p>
-<p><span id="eq-simultaneous-coordinatewise"><span class="math display">\[
-\mathbb{P}[\beta_j \in \text{CI}^{\text{sim}}(\beta_j) \ \text{for each } j] \geq 1-\alpha
 \tag{10.5}\]</span></span></p>
-<p>or</p>
-<p><span id="eq-simultaneous-contrasts"><span class="math display">\[
-\mathbb{P}[\boldsymbol{x_0}^T \boldsymbol{\beta} \in \text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \ \text{for each } \boldsymbol{x_0}] \geq 1-\alpha.
-\tag{10.6}\]</span></span></p>
-<p>Simultaneous confidence intervals are possible to construct as well. As a starting point, note that</p>
+<p>Remarkably, these guarantees place no assumption on the machine learning method used and require only that the data points on which <span class="math inline">\(\widehat{f}\)</span> is trained are exchangeable (an even weaker condition than i.i.d.). While the unconditional guarantee (<a href="#eq-unconditional-prediction-interval"><span>10.5</span></a>) is weaker than the conditional one (<a href="#eq-conditional-prediction-interval"><span>10.4</span></a>), it can be obtained for modern machine learning and deep learning models.</p>
+</section>
+</section>
+<section id="confidence-regions-and-simultaneous-intervals" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="confidence-regions-and-simultaneous-intervals"><span class="header-section-number">10.2</span> Confidence regions and simultaneous intervals</h2>
+<section id="confidence-regions" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="confidence-regions"><span class="header-section-number">10.2.1</span> Confidence regions</h3>
+<p>A multivariate generalization of a confidence interval is a <em>confidence region</em>. We will discuss the construction of a confidence region for <span class="math inline">\(\boldsymbol{\beta}\)</span> in the linear regression model. A <span class="math inline">\(1-\alpha\)</span> confidence region for <span class="math inline">\(\boldsymbol{\beta}\)</span> is a set <span class="math inline">\(\text{CR}(\boldsymbol{\beta}) \subseteq \mathbb R^p\)</span> such that <span class="math display">\[
+\mathbb{P}[\boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})] \geq 1-\alpha.
+\]</span></p>
+<p>To construct such a region, note first that</p>
 <p><span class="math display">\[
 \frac{\frac{1}{p}\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X} \boldsymbol{\beta}\|^2}{\widehat{\sigma}^2} \sim F_{p, n-p}.
 \]</span></p>
@@ -487,44 +498,80 @@ y_0 - \boldsymbol{x_0}^T \widehat{\beta} = \boldsymbol{x_0}^T \beta + \epsilon_0
 <p><span class="math display">\[
 \text{CR}(\boldsymbol{\beta}) \equiv \{\boldsymbol{\beta}: (\boldsymbol{\widehat{\beta}} - \boldsymbol{\beta})^T \boldsymbol{X}^T \boldsymbol{X} (\boldsymbol{\widehat{\beta}} - \boldsymbol{\beta})  \leq p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha)\} \subseteq \mathbb{R}^p
 \]</span></p>
-<p>is a <span class="math inline">\(1-\alpha\)</span> confidence region for the vector <span class="math inline">\(\boldsymbol{\beta}\)</span>:</p>
-<p><span class="math display">\[
-\mathbb{P}[\boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})] \geq 1-\alpha.
-\]</span></p>
-<p>It’s easy to see that <span class="math inline">\(\text{CR}(\boldsymbol{\beta})\)</span> is an ellipse centered at <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>.</p>
+<p>is a <span class="math inline">\(1-\alpha\)</span> confidence region for the vector <span class="math inline">\(\boldsymbol{\beta}\)</span>. It’s easy to see that <span class="math inline">\(\text{CR}(\boldsymbol{\beta})\)</span> is an ellipse centered at <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>.</p>
 <div id="fig-confidence-region" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="figures/confidence-regions.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;10.1: Confidence region and simultaneous and pointwise confidence intervals.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;10.1: Confidence region for <span class="math inline">\(\boldsymbol \beta\)</span>.</figcaption>
 </figure>
 </div>
-<p>Since the confidence region is for the entire vector <span class="math inline">\(\boldsymbol{\beta}\)</span>, we can define simultaneous confidence intervals for each coordinate as follows:</p>
+</section>
+<section id="simultaneous-intervals" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="simultaneous-intervals"><span class="header-section-number">10.2.2</span> Simultaneous intervals</h3>
+<p>As a byproduct of confidence regions for the multivariate <span class="math inline">\(\boldsymbol \beta\)</span>, we can construct <em>simultaneous intervals</em> for univariate quantities. To motivate the definition of simultaneous intervals, note that the intervals in <a href="#sec-confidence-intervals-univariate"><span>Section&nbsp;10.1</span></a> have <em>pointwise coverage</em>. For example, we have</p>
 <p><span class="math display">\[
-\text{CI}^{\text{sim}}(\beta_j) \equiv \{\beta_j: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
+\mathbb{P}[\beta_j \in \text{CI}(\beta_j)] \geq 1-\alpha \quad \text{for each } j.
 \]</span></p>
-<p>Then, these confidence intervals will satisfy the simultaneous coverage property (<a href="#eq-simultaneous-coordinatewise"><span>10.5</span></a>). We will obtain a more explicit expression for <span class="math inline">\(\text{CI}^{\text{sim}}(\beta_j)\)</span> shortly.</p>
+<p>or</p>
+<p><span class="math display">\[
+\mathbb{P}[\boldsymbol{\tilde x}^T \boldsymbol{\beta} \in \text{CI}(\boldsymbol{\tilde x}^T \boldsymbol{\beta})] \geq 1-\alpha \quad \text{for each } \boldsymbol{\tilde x}.
+\]</span></p>
+<p>Sometimes a stronger <em>simultaneous coverage</em> guarantee is desired, e.g.,</p>
+<p><span id="eq-simultaneous-coordinatewise"><span class="math display">\[
+\mathbb{P}[\beta_j \in \text{CI}^{\text{sim}}(\beta_j) \ \text{for each } j] \geq 1-\alpha
+\tag{10.6}\]</span></span></p>
+<p>or</p>
+<p><span id="eq-simultaneous-contrasts"><span class="math display">\[
+\mathbb{P}[\boldsymbol{\tilde x}^T \boldsymbol{\beta} \in \text{CI}^{\text{sim}}(\boldsymbol{\tilde x}^T \boldsymbol{\beta}) \ \text{for each } \boldsymbol{\tilde x}] \geq 1-\alpha.
+\tag{10.7}\]</span></span></p>
+<p>To obtain such simultaneous confidence intervals, we can leverage the fact that the confidence region <span class="math inline">\(\text{CR}(\boldsymbol \beta)\)</span> is for the entire vector <span class="math inline">\(\boldsymbol{\beta}\)</span>. We can therefore define</p>
+<p><span class="math display">\[
+\text{CI}^{\text{sim}}(\beta_j) \equiv \{\beta_j: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta}) \}.
+\]</span></p>
+<p>Then, these confidence intervals will satisfy the simultaneous coverage property (<a href="#eq-simultaneous-coordinatewise"><span>10.6</span></a>). We will obtain a more explicit expression for <span class="math inline">\(\text{CI}^{\text{sim}}(\beta_j)\)</span> shortly.</p>
+<div id="fig-confidence-region" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/confidence-regions-simultaneous-intervals.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;10.2: Confidence region and simultaneous and pointwise confidence intervals.</figcaption>
+</figure>
+</div>
 <p>Similarly, we may define the simultaneous confidence regions</p>
 <p><span class="math display">\[
-\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta}) \equiv \{\boldsymbol{x_0}^T \boldsymbol{\beta}: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
+\text{CI}^{\text{sim}}(\boldsymbol{\tilde x}^T \boldsymbol{\beta}) \equiv \{\boldsymbol{\tilde x}^T \boldsymbol{\beta}: \boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\}.
 \]</span></p>
 <p>Let us find a more explicit expression for the latter interval. For notational ease, let us define <span class="math inline">\(\boldsymbol{\Sigma} \equiv \boldsymbol{X}^T \boldsymbol{X}\)</span>. Then, note that if <span class="math inline">\(\boldsymbol{\beta} \in \text{CR}(\boldsymbol{\beta})\)</span>, then by the Cauchy-Schwarz inequality we have</p>
 <p><span class="math display">\[
 \begin{split}
-(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}}-\boldsymbol{x_0}^T \boldsymbol{\beta})^2 = \|\boldsymbol{x_0}^T (\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 &amp;= \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{x_0})^T \boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \\
-&amp;\leq \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{x_0})\|^2\|\boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \leq \boldsymbol{x_0}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{x_0} p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha),
+(\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}}-\boldsymbol{\tilde x}^T \boldsymbol{\beta})^2 &amp;= \|\boldsymbol{\tilde x}^T (\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \\
+&amp;= \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{\tilde x})^T \boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \\
+&amp;\leq \|(\boldsymbol{\Sigma}^{-1/2}\boldsymbol{\tilde x})\|^2\|\boldsymbol{\Sigma}^{1/2}(\boldsymbol{\widehat{\beta}}-\boldsymbol{\beta})\|^2 \\
+&amp;\leq \boldsymbol{\tilde x}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{\tilde x} p \widehat{\sigma}^2 F_{p, n-p}(1-\alpha),
 \end{split}
 \]</span></p>
 <p>i.e.,</p>
 <p><span id="eq-simultaneous-fit-se"><span class="math display">\[
-\boldsymbol{x_0}^T \boldsymbol{\beta} \in \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{x_0}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{x_0}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{x_0}^T \boldsymbol{\widehat{\beta}})\cdot\sqrt{pF_{p, n-p}(1-\alpha)}.
-\tag{10.7}\]</span></span></p>
-<p>Defining the above interval as <span class="math inline">\(\text{CI}^{\text{sim}}(\boldsymbol{x_0}^T \boldsymbol{\beta})\)</span> gives us the simultaneous coverage property (<a href="#eq-simultaneous-contrasts"><span>10.6</span></a>). Comparing to equation (<a href="#eq-pointwise-contrast-interval"><span>10.2</span></a>), we see that the simultaneous interval is the pointwise interval expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. Specializing to the case <span class="math inline">\(\boldsymbol{x_0} \equiv \boldsymbol{e_j}\)</span>, we get an expression for the simultaneous intervals for each coordinate:</p>
-<p><span id="eq-simultaneous-coordinatewise-se"><span class="math display">\[
-\text{CI}^{\text{sim}}(\beta_j) \equiv \widehat{\beta_j} \pm \widehat{\sigma} \sqrt{(\boldsymbol{X}^T \boldsymbol{X})^{-1}_{jj}} \sqrt{pF_{p, n-p}(1-\alpha)} \equiv \text{SE}(\widehat{\beta_j})\sqrt{pF_{p, n-p}(1-\alpha)},
+\begin{split}
+\boldsymbol{\tilde x}^T \boldsymbol{\beta} &amp;\in \boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \widehat{\sigma} \sqrt{\boldsymbol{\tilde x}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1}\boldsymbol{\tilde x}} \sqrt{pF_{p, n-p}(1-\alpha)} \\
+&amp;\equiv \boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}} \pm \text{SE}(\boldsymbol{\tilde x}^T \boldsymbol{\widehat{\beta}})\cdot\sqrt{pF_{p, n-p}(1-\alpha)}.
+\end{split}
 \tag{10.8}\]</span></span></p>
-<p>which again is the pointwise interval (<a href="#eq-pointwise-interval-beta"><span>10.1</span></a>) expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. These simultaneous intervals are called <em>Working-Hotelling intervals</em>.</p>
+<p>Defining the above interval as <span class="math inline">\(\text{CI}^{\text{sim}}(\boldsymbol{\tilde x}^T \boldsymbol{\beta})\)</span> gives us the simultaneous coverage property (<a href="#eq-simultaneous-contrasts"><span>10.7</span></a>). These simultaneous intervals are called <em>Working-Hotelling intervals</em>. Comparing to equation (<a href="#eq-pointwise-contrast-interval"><span>10.3</span></a>), we see that the simultaneous interval is the pointwise interval expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>. In the case of simple linear regression, we can obtain simultaneous confidence bands (Working-Hotelling bands) for the regression line.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="confidence-intervals_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="336"></p>
+</div>
+</div>
+<p>Specializing to the case <span class="math inline">\(\boldsymbol{\tilde x} \equiv \boldsymbol{e_j}\)</span>, we get an expression for the simultaneous intervals for each coordinate:</p>
+<p><span id="eq-simultaneous-coordinatewise-se"><span class="math display">\[
+\begin{split}
+\text{CI}^{\text{sim}}(\beta_j) &amp;\equiv \widehat \beta_j \pm \widehat{\sigma} \sqrt{(\boldsymbol{X}^T \boldsymbol{X})^{-1}_{jj}} \sqrt{pF_{p, n-p}(1-\alpha)} \\
+&amp;\equiv \text{SE}(\widehat \beta_j)\sqrt{pF_{p, n-p}(1-\alpha)},
+\end{split}
+\tag{10.9}\]</span></span></p>
+<p>which again is the pointwise interval (<a href="#eq-pointwise-interval-beta"><span>10.1</span></a>) expanded by a factor of <span class="math inline">\(\sqrt{pF_{p, n-p}(1-\alpha)}/t_{n-p}(1-\alpha/2)\)</span>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

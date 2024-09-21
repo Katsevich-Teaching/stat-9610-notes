@@ -486,13 +486,13 @@ t = \frac{\sqrt{\frac{1}{\frac{1}{n_0} + \frac{1}{n_1}}}(\bar{y}_1 - \bar{y}_0)}
 <section id="t-test-for-a-contrast-among-coefficients" class="level3" data-number="8.1.4">
 <h3 data-number="8.1.4" class="anchored" data-anchor-id="t-test-for-a-contrast-among-coefficients"><span class="header-section-number">8.1.4</span> <span class="math inline">\(t\)</span>-test for a contrast among coefficients</h3>
 <p>Given a vector <span class="math inline">\(\boldsymbol{c} \in \mathbb{R}^p\)</span>, the quantity <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta}\)</span> is sometimes called a <em>contrast</em>. For example, suppose <span class="math inline">\(\boldsymbol{c} = (1,-1, 0, \dots, 0)\)</span>. Then, <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} = \beta_1 - \beta_2\)</span> is the difference in effects of the first and second predictors. We are sometimes interested in testing whether such a contrast is equal to zero, i.e., <span class="math inline">\(H_0: \boldsymbol{c}^T \boldsymbol{\beta} = 0\)</span>. While this hypothesis can involve two or more of the predictors, the parameter <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta}\)</span> is still one-dimensional, and therefore we can still apply a <span class="math inline">\(t\)</span>-test. Going back to the distribution <span class="math inline">\(\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1})\)</span>, we find that:</p>
-<p><span class="math display">\[
+<p><span id="eq-contrasts-normal-dist"><span class="math display">\[
 \boldsymbol{c}^T\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{c}^T\boldsymbol{\beta}, \sigma^2\boldsymbol{c}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{c}).
-\]</span></p>
+\tag{8.3}\]</span></span></p>
 <p>Therefore, under the null hypothesis that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} = 0\)</span>, we can derive that:</p>
 <p><span id="eq-contrasts-t-dist"><span class="math display">\[
 \frac{\boldsymbol{c}^T \boldsymbol{\widehat{\beta}}}{\widehat{\sigma} \sqrt{\boldsymbol{c}^T (\boldsymbol{X}^T \boldsymbol{X})^{-1} \boldsymbol{c}}} \sim t_{n-p},
-\tag{8.3}\]</span></span></p>
+\tag{8.4}\]</span></span></p>
 <p>giving us another <span class="math inline">\(t\)</span>-test. Note that the <span class="math inline">\(t\)</span>-tests described above can be recovered from this more general formulation by setting <span class="math inline">\(\boldsymbol{c} = \boldsymbol{e}_j\)</span>, the indicator vector with the <span class="math inline">\(j\)</span>th coordinate equal to 1 and all others equal to zero.</p>
 </section>
 </section>
@@ -512,7 +512,7 @@ H_0: \boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{\text{-}
 <p>Let us consider the ratio</p>
 <p><span id="eq-f-test-ratio"><span class="math display">\[
 \frac{\|\boldsymbol{y} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2 - \|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2},
-\tag{8.4}\]</span></span></p>
+\tag{8.5}\]</span></span></p>
 <p>which is the relative increase in the residual sum of squares when going from the full model to the partial model. To interpret this ratio geometrically, let us first examine the quantity <span class="math inline">\(\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\)</span> from the numerator. Letting <span class="math inline">\(\boldsymbol{H}\)</span> and <span class="math inline">\(\boldsymbol{H}_{\text{-}S}\)</span> be the projection matrices for the full and partial models, we have <span class="math display">\[
 \boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S} = (\boldsymbol H - \boldsymbol H_{\text{-}S}) \boldsymbol{y}.
 \]</span> It turns out the the matrix <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is a projection matrix:</p>
@@ -529,7 +529,7 @@ H_0: \boldsymbol{y} = \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\beta}_{\text{-}
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(\boldsymbol v \in C(\boldsymbol{X}_{*S}^\perp)\)</span>. Because <span class="math inline">\(\boldsymbol v\)</span> is orthogonal to <span class="math inline">\(C(\boldsymbol X_{*,\text{-}S})\)</span> by construction, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol v - \boldsymbol 0 = \boldsymbol v\)</span>. On the other hand, let <span class="math inline">\(v \in C(\boldsymbol X_{*, \text{-}S})\)</span>. Then, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol v - \boldsymbol v = \boldsymbol 0\)</span>. Finally, let <span class="math inline">\(v \in C(\boldsymbol X)^\perp\)</span>. Then, we have <span class="math inline">\((\boldsymbol{H} - \boldsymbol{H}_{\text{-}S})\boldsymbol v = \boldsymbol{H}\boldsymbol v - \boldsymbol{H}_{\text{-}S}\boldsymbol v = \boldsymbol 0 - \boldsymbol 0 = \boldsymbol 0\)</span>. From these three observations, it follows that <span class="math inline">\(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}\)</span> is a projection matrix onto <span class="math inline">\(C(\boldsymbol{X}_{*S}^\perp)\)</span>.</p>
 </div>
-<p>With this additional intuition, let us rewrite the ratio (<a href="#eq-f-test-ratio"><span>8.4</span></a>) as</p>
+<p>With this additional intuition, let us rewrite the ratio (<a href="#eq-f-test-ratio"><span>8.5</span></a>) as</p>
 <p><span class="math display">\[
 \frac{\|\boldsymbol{X} \boldsymbol{\widehat{\beta}} - \boldsymbol{X}_{*, \text{-}S} \boldsymbol{\widehat{\beta}}_{\text{-}S}\|^2}{\|\boldsymbol{y} - \boldsymbol{X} \boldsymbol{\widehat{\beta}}\|^2} = \frac{\|(\boldsymbol{H} - \boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2}{\|(\boldsymbol{I} - \boldsymbol{H}) \boldsymbol{y}\|^2},
 \]</span></p>

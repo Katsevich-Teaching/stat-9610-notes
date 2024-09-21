@@ -717,7 +717,7 @@ new              66.9494004 18.50445029  3.61801617 4.872475e-04
 size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 </div>
 </div>
-<p>Then we add lower and upper confidence interval endpoints based on the formula (<a href="confidence-intervals.html#eq-simultaneous-coordinatewise-se"><span>10.8</span></a>):</p>
+<p>Then we add lower and upper confidence interval endpoints based on the formula (<a href="confidence-intervals.html#eq-simultaneous-coordinatewise-se"><span>10.9</span></a>):</p>
 <div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-16_b33d627b2178b7461d44becf6850649d">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses_data)</span>
@@ -785,7 +785,7 @@ size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
 14.246855 14.131352 14.277804  9.789472 21.625709 21.797212 </code></pre>
 </div>
 </div>
-<p>Now we can construct the simultaneous confidence intervals via the formula (<a href="confidence-intervals.html#eq-simultaneous-fit-se"><span>10.7</span></a>):</p>
+<p>Now we can construct the simultaneous confidence intervals via the formula (<a href="confidence-intervals.html#eq-simultaneous-fit-se"><span>10.8</span></a>):</p>
 <div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-20_7e7dcfeddfe3844dd2d0bdf1a90dbb79">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>f_quantile <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n <span class="sc">-</span> p)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>

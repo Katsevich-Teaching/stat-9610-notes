@@ -18,15 +18,41 @@ $$
 \widehat{\epsilon}_i = y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}.
 $$
 
-Recall from Chapter 2 that $\text{Var}[\boldsymbol{\widehat{\epsilon}}] = \sigma^2(\boldsymbol{I} - \boldsymbol{H})$. Letting $h_i$ be the $i$th diagonal entry of $\boldsymbol{H}$, it follows that $\widehat{\epsilon}_i \sim (0, \sigma^2(1-h_i))$. The *standardized residuals* are defined as:
+Recall from equation ([-@eq-fit-and-error-dist]) that $\text{Var}[\boldsymbol{\widehat{\epsilon}}] = \sigma^2(\boldsymbol{I} - \boldsymbol{H})$. Letting $h_i$ be the $i$th diagonal entry of $\boldsymbol{H}$, it follows that $\widehat{\epsilon}_i \sim (0, \sigma^2(1-h_i))$. The *standardized residuals* are defined as:
 
 $$
 r_i = \frac{\widehat{\epsilon}_i}{\widehat{\sigma} \sqrt{1-h_i}}.
 $$ {#eq-standardized-residuals}
 
-Under normality, we would expect $r_i \overset{\cdot}{\sim} N(0,1)$. We can therefore assess normality by producing a histogram or normal QQ-plot of these residuals (see Figure [-@fig:qqplot]).
+Under normality, we would expect $r_i \overset{\cdot}{\sim} N(0,1)$. We can therefore assess normality by producing a histogram or normal QQ-plot of these residuals.
 
-![Histogram and normal QQ plot of standardized residuals.](figures/qqplot.png){#fig-qqplot width=90%}
+```{r, echo = FALSE, message = FALSE, fig.width = 6, fig.height = 3}
+library(tidyverse)
+library(cowplot)
+set.seed(2)
+n <- 500
+x <- rnorm(n)
+y <- 1 + 2*x + rnorm(n)
+data <- tibble(x, y)
+lm_fit <- lm(y ~ x, data = data)
+residuals <- rstandard(lm_fit)
+p1 <- tibble(residuals) |>
+  ggplot(aes(x = residuals)) +
+  geom_histogram(bins = 20, color = "black") + 
+  labs(x = "Residual", 
+       y = "Frequency") +
+  theme_bw() 
+
+p2 <- tibble(residuals) |>
+  ggplot(aes(sample = residuals)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Expected quantile", 
+       y = "Observed quantile") +
+  theme_bw()
+
+plot_grid(p1, p2, ncol = 2)
+```
 
 ### Fixes
 
@@ -36,7 +62,7 @@ As mentioned above, non-normality is not necessarily a problem that needs to be 
 
 ### Origin
 
-**Heteroskedasticity** can arise as follows. Suppose each observation $y_i$ is actually the average of $n_i$ underlying observations, each with variance $\sigma^2$. Then, the variance of $y_i$ is $\sigma^2/n_i$, which will differ across $i$ if $n_i$ differ. It is also common to see the variance of a distribution increase as the mean increases (as in Figure [-@fig:heteroskedasticity]), whereas for a linear model the variance of $y$ stays constant as the mean of $y$ varies.
+**Heteroskedasticity** can arise as follows. Suppose each observation $y_i$ is actually the average of $n_i$ underlying observations, each with variance $\sigma^2$. Then, the variance of $y_i$ is $\sigma^2/n_i$, which will differ across $i$ if $n_i$ differ. It is also common to see the variance of a distribution increase as the mean increases (as in @fig-heteroskedasticity), whereas for a linear model the variance of $y$ stays constant as the mean of $y$ varies.
 
 **Correlated errors** can arise when observations have group, spatial, or temporal structure. Below are examples:
 
@@ -48,15 +74,15 @@ The issue arises because there are common sources of variation among samples tha
 
 ### Consequences
 
-All normal linear model inference from Chapter 2 hinges on the assumption that $\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I})$. If instead of $\sigma^2 \boldsymbol{I}$ we have $\text{Var}[\boldsymbol{\epsilon}] = \boldsymbol{\Sigma}$ for some matrix $\boldsymbol{\Sigma}$, then we may suffer two consequences: wrong inference (in terms of confidence interval coverage and hypothesis test levels) and inefficient inference (in terms of confidence interval width and hypothesis test power). One way of seeing the consequence of heteroskedasticity for confidence interval coverage is the width of prediction intervals; see Figure [-@fig:heteroskedasticity] for intuition.
+All normal linear model inference from Unit 2 hinges on the assumption that $\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I})$. If instead of $\sigma^2 \boldsymbol{I}$ we have $\text{Var}[\boldsymbol{\epsilon}] = \boldsymbol{\Sigma}$ for some matrix $\boldsymbol{\Sigma}$, then we may suffer two consequences: wrong inference (in terms of confidence interval coverage and hypothesis test levels) and inefficient inference (in terms of confidence interval width and hypothesis test power). One way of seeing the consequence of heteroskedasticity for confidence interval coverage is the width of prediction intervals; see @fig-heteroskedasticity for intuition.
 
-![Heteroskedasticity in a simple bivariate linear model (image source: \href{http://www3.wabash.edu/econometrics/EconometricsBook/chap19.htm}{source}).](figures/heteroskedasticity.png){#fig-heteroskedasticity width=60%}
+![Heteroskedasticity in a simple bivariate linear model (image source: [source](http://www3.wabash.edu/econometrics/EconometricsBook/chap19.htm)).](figures/heteroskedasticity.png){#fig-heteroskedasticity width=60%}
 
 Like with heteroskedastic errors, correlated errors can cause invalid standard errors. In particular, positively correlated errors typically cause standard errors to be smaller than they should be, leading to inflated Type-I error rates. For intuition, consider estimating the mean of a distribution based on $n$ samples. Consider the cases when these samples are independent, compared to when they are perfectly correlated. The effective sample size in the former case is $n$ and in the latter case is 1.
 
 ### Detection
 
-Heteroskedasticity is usually assessed via the *residual plot* (Figure [-@fig:residual-plots]). In this plot, the standardized residuals $r_i$ ([-@eq-standardized-residuals]) are plotted against the fitted values $\widehat{\mu}_i$. In the absence of heteroskedasticity, the spread of the points around the origin should be roughly constant as a function of $\widehat{\mu}$ (@fig-residual-plots(a)). A common sign of heteroskedasticity is the fan shape where variance increases as a function of $\widehat{\mu}$ (@fig-residual-plots(c)).
+Heteroskedasticity is usually assessed via the *residual plot* (@fig-residual-plots). In this plot, the standardized residuals $r_i$ ([-@eq-standardized-residuals]) are plotted against the fitted values $\widehat{\mu}_i$. In the absence of heteroskedasticity, the spread of the points around the origin should be roughly constant as a function of $\widehat{\mu}$ (@fig-residual-plots(a)). A common sign of heteroskedasticity is the fan shape where variance increases as a function of $\widehat{\mu}$ (@fig-residual-plots(c)).
 
 ![Residuals plotted against linear-model fitted values that reflect (a) model adequacy, (b) quadratic rather than linear relationship, and (c) nonconstant variance (image source: Agresti Figure 2.8).](figures/residual-plots.png){#fig-residual-plots width=100%}
 
@@ -82,7 +108,7 @@ $$ {#eq-wrong-scale}
 
 ### Consequences
 
-In cases of model bias, the parameters $\boldsymbol{\beta}$ in the assumed linear model lose their meanings. The least squares estimate $\boldsymbol{\widehat{\beta}}$ will be a biased estimate for the parameter we probably actually want to estimate. In the case ([-@eq-confounding]) when predictors are left out of the regression model, these additional predictors $\boldsymbol{Z}$ will act as confounders and create bias in $\boldsymbol{\widehat{\beta}}$ as an estimate of the $\boldsymbol{\beta}$ parameters in the true model, unless $\boldsymbol{X}^T \boldsymbol{Z} = 0$. As discussed in Chapter 2, this can lead to misleading conclusions.
+In cases of model bias, the parameters $\boldsymbol{\beta}$ in the assumed linear model lose their meanings. The least squares estimate $\boldsymbol{\widehat{\beta}}$ will be a biased estimate for the parameter we probably actually want to estimate. In the case ([-@eq-confounding]) when predictors are left out of the regression model, these additional predictors $\boldsymbol{Z}$ will act as confounders and create bias in $\boldsymbol{\widehat{\beta}}$ as an estimate of the $\boldsymbol{\beta}$ parameters in the true model, unless $\boldsymbol{X}^T \boldsymbol{Z} = 0$. As discussed in Unit 2, this can lead to misleading conclusions.
 
 ### Detection
 
@@ -98,7 +124,7 @@ The model under $H_0$ (the linear model) is nested in the model for $H_1$ (the s
 
 ### Overview of fixes
 
-To fix model bias in the case ([-@eq-confounding]), ideally we would identify the missing predictors $\boldsymbol{Z}$ and add them to the regression model. This may not always be feasible or possible. To fix model bias in the case ([-@eq-wrong-scale]), it is sometimes advocated to find a transformation $g$ (e.g., a square root or a logarithm) of $\boldsymbol{y}$ such that $\mathbb{E}[g(\boldsymbol{y})] = \boldsymbol{X} \boldsymbol{\beta}$. However, a better solution is to use a *generalized linear model*, which we will discuss starting in Chapter 4.
+To fix model bias in the case ([-@eq-confounding]), ideally we would identify the missing predictors $\boldsymbol{Z}$ and add them to the regression model. This may not always be feasible or possible. To fix model bias in the case ([-@eq-wrong-scale]), it is sometimes advocated to find a transformation $g$ (e.g., a square root or a logarithm) of $\boldsymbol{y}$ such that $\mathbb{E}[g(\boldsymbol{y})] = \boldsymbol{X} \boldsymbol{\beta}$. However, a better solution is to use a *generalized linear model*, which we will discuss starting in Unit 4.
 
 ## Outliers {#sec-outliers}
 

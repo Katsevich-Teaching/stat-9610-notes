@@ -1,6 +1,6 @@
 # Linear models: Misspecification
 
-In our discussion of linear model inference in Chapter 2, we assumed the normal linear model throughout:
+In our discussion of linear model inference in Unit 2, we assumed the normal linear model throughout:
 
 $$
 \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}, \quad \text{where} \ \boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I}_n).
@@ -13,4 +13,4 @@ In this unit, we will discuss what happens when this model is misspecified:
 - **Model bias** ([@sec-model-bias]): It is not the case that $\mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta}$ for some $\boldsymbol{\beta} \in \mathbb{R}^p$.
 - **Outliers** ([@sec-outliers]): For one or more $i$, it is not the case that $y_i \sim N(\boldsymbol{x}_{i*}^T \boldsymbol{\beta}, \sigma^2)$.
 
-For each type of misspecification, we will discuss its origins, consequences, detection, and fixes ([@sec-non-normality]-[@sec-outliers]). We conclude with an R demo ([@sec-R-demo-misspecification]).
+For each type of misspecification, we will discuss its origins, consequences, detection, and fixes ([@sec-non-normality]-[@sec-outliers]). We then discuss methodological approaches to address model misspecification, including asymptotic robust inference methods (@sec-asymptotic-methods), the bootstrap (@sec-bootstrap), the permutation test (@sec-permutation-test), and robust estimation (@sec-robust-estimation). We conclude with an R demo ([@sec-R-demo-misspecification]).

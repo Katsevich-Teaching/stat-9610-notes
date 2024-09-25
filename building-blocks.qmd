@@ -99,7 +99,7 @@ $$
 \|\boldsymbol{\widehat{\epsilon}}\|^2 \sim \sigma^2 \chi^2_{n-p}.
 $$ {#eq-eps-norm-dist}
 
-From this result, it follows that $\mathbb{E}[\|\boldsymbol{\widehat{\epsilon}}\|^2] = n-p$, so
+From this result, it follows that $\mathbb{E}[\|\boldsymbol{\widehat{\epsilon}}\|^2] = \sigma^2(n-p)$, so
 
 $$
 \widehat{\sigma}^2 \equiv \frac{1}{n-p}\|\boldsymbol{\widehat{\epsilon}}\|^2

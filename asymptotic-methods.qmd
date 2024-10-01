@@ -1,16 +1,71 @@
 # Asymptotic methods {#sec-asymptotic-methods}
 
-Broadly speaking, approaches to fixing heteroskedastic or correlated errors can be divided into (1) those based on estimating $\boldsymbol{\Sigma}$ and (2) those based on resampling. Methods based on estimating $\boldsymbol{\Sigma}$ can use this estimate to either (i) build a better estimate $\boldsymbol{\widehat{\beta}}$ or (ii) build better standard errors for the least squares estimate. Resampling methods include the bootstrap (for estimation) and the permutation test (for testing).
+In this section, we present a set of asymptotic methods for fixing heteroskedastic or correlated errors, in the setting that
+$$
+\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma}).
+$$ {#eq-correlated-errors}
+These methods are based on estimating $\boldsymbol{\Sigma}$; they use this estimate to either (i) build a better estimate $\boldsymbol{\widehat{\beta}}$ or (ii) build better standard errors for the least squares estimate.
 
-## Methods that build a better estimate of $\boldsymbol{\widehat{\beta}}$ {#sec-better-estimate}
+## Methods that build a better estimate of $\boldsymbol{\beta}$ {#sec-better-estimate}
 
-Suppose $\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma})$. This is a *generalized least squares* problem for which inference can be carried out. The generalized least squares estimate is $\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{y}$, which is distributed as $\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1})$. This is the best linear unbiased estimate of $\boldsymbol{\beta}$, recovering efficiency. We can carry out inference based on the latter distributional result analogously to how we did so in Chapter 2. The issue, of course, is that we usually do not know $\boldsymbol{\Sigma}$. Therefore, we can consider the following approach: (1) estimate $\boldsymbol{\widehat{\beta}}$ using OLS, (2) use this estimate to get an estimate $\boldsymbol{\widehat{\Sigma}}$ of $\boldsymbol{\Sigma}$, (3) use $\boldsymbol{\widehat{\Sigma}}$ to get a (hopefully) more efficient estimator
+### Generalized least squares 
 
+Let us premultiply $\boldsymbol y$ by $\boldsymbol \Sigma^{-1/2}$ to obtain
+$$
+\boldsymbol \Sigma^{-1/2} \boldsymbol y \sim N(\boldsymbol \Sigma^{-1/2} \boldsymbol X \boldsymbol \beta, \boldsymbol I).
+$$
+Viewing $\boldsymbol \Sigma^{-1/2} \boldsymbol y$ as the new response and $\boldsymbol \Sigma^{-1/2} \boldsymbol X$ as the new model matrix, we can apply the usual least squares estimator to obtain
+$$
+\boldsymbol{\tilde \beta}^{\text{GLS}} = (\boldsymbol X^T \boldsymbol \Sigma^{-1} \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol \Sigma^{-1} \boldsymbol y.
+$$ {#eq-gls-estimate}
+This is the *generalized least squares* estimate for the model ([-@eq-correlated-errors]), and has the following distribution:
+$$
+\boldsymbol{\tilde{\beta}}^{\text{GLS}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}). 
+$$
+By the Gauss-Markov theorem, this is the best linear unbiased estimate of $\boldsymbol{\beta}$, recovering efficiency. We would like to carry out inference based on the latter distributional result analogously to how we did so in Chapter 2, as long as we can estimate $\boldsymbol \Sigma$ accurately enough.
+
+### Models for $\boldsymbol{\Sigma}$
+
+This class of methods typically postulates a parametric form for $\boldsymbol{\Sigma}$, denoted by $\boldsymbol{\Sigma}(\boldsymbol{\nu})$, where $\boldsymbol{\nu}$ is a vector of parameters, and then proceed by estimating $\boldsymbol \nu$. Below are a few examples of such parametric models:
+
+- **Heteroskedastic errors.** In this case, we can assume that $\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)$, where
+$$
+\log \sigma_i^2 = \boldsymbol{x}_i^T \boldsymbol{\nu}.
+$$
+- **Clustered errors.** Suppose that each observation $i$ falls into a cluster $c(i)$. Then, we can postulate a *random effects model*
+$$
+y_i = \boldsymbol{x}_i^T \boldsymbol{\beta} + \delta_{c(i)} + \tau_i, \quad \text{where} \quad \delta_c \overset{\text{i.i.d.}}\sim N(0, \sigma^2_{\delta}), \quad \tau_i \overset{\text{i.i.d.}}\sim N(0, \sigma^2_{\tau}).
+$$
+This imposes a block-diagonal structure on $\boldsymbol{\Sigma}$, where each block corresponds to a cluster.
+- **Temporal errors.** If the observations have a temporal structure, we might impose an AR(1) model on the residuals: 
+$$
+\epsilon_1 = \tau_1; \quad \epsilon_i = \rho \epsilon_{i-1} + \tau_i \quad \text{for } i > 1, \quad \text{where} \quad \tau_i \overset{\text{i.i.d.}}\sim N(0, \sigma^2).
+$$
+This imposes an approximately banded structure on $\boldsymbol{\Sigma}$, with $\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}$.
+
+::: {.callout-note}
+
+## Random versus fixed effects models
+
+Random effects models deal address correlated errors but not with model bias. The difference is that, in the case of correlated errors, the errors may be correlated with themselves but not with the regressors. In the case of model bias, the errors may be correlated with the regressors. To address model bias in the presence of clustering structure, fixed effects are necessary. Fixed effects models decrease model bias at the cost of increased variance, because more parameters must be estimated. Random effects models are more susceptible to model bias but have lower variance.
+:::
+
+### Estimating $\boldsymbol{\Sigma}$
+
+Given a parametric model for $\boldsymbol{\Sigma}$, we can estimate $\boldsymbol{\nu}$ by one of two approaches. The first approach, typical in statistics, is to maximize the likelihood as a function of $(\boldsymbol \beta, \boldsymbol \nu)$. The second approach, typical in econometrics, is to estimate $\boldsymbol{\beta}$ using OLS, and then to fit $\boldsymbol \nu$ based on the residuals. This gives us the estimate $\boldsymbol{\widehat \Sigma} = \boldsymbol{\widehat \Sigma}(\boldsymbol{\widehat \nu})$.
+
+### Inferring about $\boldsymbol \beta$ based on the estimate $\boldsymbol{\widehat \Sigma}$
+
+With an estimate $\boldsymbol{\widehat \Sigma}$ in hand, we can use it to build a (hopefully) better estimate of $\boldsymbol{\beta}$, using the following plug-in version of the GLS estimate ([-@eq-gls-estimate]):
 $$
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
 $$ {#eq-fgls-estimate}
 
-This is called the *feasible generalized least squares estimate* (FGLS), to contrast it with the infeasible estimate that assumes $\boldsymbol{\Sigma}$ is known exactly. The procedure above can be iterated until convergence. To estimate $\boldsymbol{\widehat{\Sigma}}$, we usually need to make some parametric assumptions. For example, in the case of grouped structure, we might assume a *random effects model*. In the case of a temporal structure, we might assume an *AR(1) model*.
+This is called the *feasible generalized least squares estimate* (FGLS) in econometrics, to contrast it with the infeasible estimate that assumes $\boldsymbol{\Sigma}$ is known exactly. Then, we can carry out inference based on the approximation distribution 
+$$
+\boldsymbol{\widehat{\beta}}^{\text{FGLS}} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}).
+$$
+
 
 ## Methods that build better standard errors for OLS estimate {#sec-better-standard-errors}
 
@@ -34,7 +89,7 @@ Different estimates $\boldsymbol{\widehat{\Sigma}}$ are appropriate in different
 
 ### Specific instances of sandwich standard errors {#sec-specific-sandwich-errors}
 
-**Huber-White standard errors.**
+**Huber-White standard errors**
 
 Suppose $\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)$ for some variances $\sigma_1^2, \dots, \sigma_n^2 > 0$. The Huber-White sandwich estimator is defined by ([-@eq-sandwich]), with
 
@@ -47,15 +102,15 @@ While each estimator $\widehat{\sigma}_i^2$ is very poor, Huber and White's insi
 $$
 \begin{split}
 \frac{1}{n}(\boldsymbol{X}^T \widehat{\boldsymbol{\Sigma}} \boldsymbol{X} - \boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X}) &= \frac{1}{n} \sum_{i=1}^n (\widehat{\sigma}_i^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
-&= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\widehat{\boldsymbol{\beta}} - \boldsymbol{\beta}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
+&= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\boldsymbol{\beta} - \boldsymbol{\widehat{\beta}}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
 &= \frac{1}{n} \sum_{i=1}^n \epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T + o_p(1) \\
-&\to_p 0.
+&\overset p \to 0.
 \end{split}
 $$
 
 The last step holds by the law of large numbers, since $\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0$ for each $i$.
 
-**Liang-Zeger standard errors.**
+**Liang-Zeger standard errors**
 
 Next, let's consider the case of group-correlated errors. Suppose that the observations are *clustered*, with correlated errors among clusters but not between clusters. Suppose there are $C$ clusters of observations, with the $i$th observation belonging to cluster $c(i) \in \{1, \dots, C\}$. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let $\boldsymbol{\widehat{\epsilon}}_c$ be the vector of residuals in cluster $c$, so that $\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)$. Then, the true covariance matrix is $\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)$ for some positive definite $\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C$. The Liang-Zeger estimator is then defined by ([-@eq-sandwich]), with
 
@@ -63,14 +118,14 @@ $$
 \boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
 $$
 
-Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each $\boldsymbol{\widehat{\Sigma}_c}$ is a poor estimator, the resulting estimate of the (averaged) quantity $\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}$ is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as "clustered standard errors" in the econometrics community.
+Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each $\boldsymbol{\widehat{\Sigma}_c}$ is a poor estimator, the resulting estimate of the (averaged) quantity $\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}$ is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as "clustered standard errors" in the econometrics community. It is recommended to employ clustered standard errors even when using cluster-level fixed effects, in order to capture remaining within-cluster correlations.
 
-**Newey-West standard errors.**
+**Newey-West standard errors**
 
-Finally, consider the case when our observations $i$ have a temporal structure, and we believe there to be nontrivial correlations between $\epsilon_{i1}$ and $\epsilon_{i2}$ for $|i1 - i2| \leq L$. Then, a natural extension of the Huber-White estimate of $\boldsymbol{\Sigma}$ is $\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ for each pair $(i1, i2)$ such that $|i1 - i2| \leq L$. Unfortunately, this is not guaranteed to give a positive semidefinite matrix $\boldsymbol{\widehat{\Sigma}}$. Therefore, Newey and West proposed a slightly modified estimator:
+Finally, consider the case when our observations $i$ have a temporal structure, and we believe there to be nontrivial correlations between $\epsilon_{i1}$ and $\epsilon_{i2}$ for $|i1 - i2| \leq L$. Then, a natural extension of the Huber-White estimate of $\boldsymbol{\Sigma}$ is $\widehat{\Sigma}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ for each pair $(i1, i2)$ such that $|i1 - i2| \leq L$. Unfortunately, this is not guaranteed to give a positive semidefinite matrix $\boldsymbol{\widehat{\Sigma}}$. Therefore, Newey and West proposed a slightly modified estimator:
 
 $$
-\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
+\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L+1}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
 $$
 
 This estimator shrinks the off-diagonal estimates $\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of $\boldsymbol{\widehat{\Sigma}}$.

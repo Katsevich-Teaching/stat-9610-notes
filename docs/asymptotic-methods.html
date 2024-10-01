@@ -360,7 +360,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-better-estimate" id="toc-sec-better-estimate" class="nav-link active" data-scroll-target="#sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></a></li>
+  <li><a href="#sec-better-estimate" id="toc-sec-better-estimate" class="nav-link active" data-scroll-target="#sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#generalized-least-squares" id="toc-generalized-least-squares" class="nav-link" data-scroll-target="#generalized-least-squares"><span class="header-section-number">14.1.1</span> Generalized least squares</a></li>
+  <li><a href="#models-for-boldsymbolsigma" id="toc-models-for-boldsymbolsigma" class="nav-link" data-scroll-target="#models-for-boldsymbolsigma"><span class="header-section-number">14.1.2</span> Models for <span class="math inline">\(\boldsymbol{\Sigma}\)</span></a></li>
+  <li><a href="#estimating-boldsymbolsigma" id="toc-estimating-boldsymbolsigma" class="nav-link" data-scroll-target="#estimating-boldsymbolsigma"><span class="header-section-number">14.1.3</span> Estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span></a></li>
+  <li><a href="#inferring-about-boldsymbol-beta-based-on-the-estimate-boldsymbolwidehat-sigma" id="toc-inferring-about-boldsymbol-beta-based-on-the-estimate-boldsymbolwidehat-sigma" class="nav-link" data-scroll-target="#inferring-about-boldsymbol-beta-based-on-the-estimate-boldsymbolwidehat-sigma"><span class="header-section-number">14.1.4</span> Inferring about <span class="math inline">\(\boldsymbol \beta\)</span> based on the estimate <span class="math inline">\(\boldsymbol{\widehat \Sigma}\)</span></a></li>
+  </ul></li>
   <li><a href="#sec-better-standard-errors" id="toc-sec-better-standard-errors" class="nav-link" data-scroll-target="#sec-better-standard-errors"><span class="header-section-number">14.2</span> Methods that build better standard errors for OLS estimate</a>
   <ul class="collapse">
   <li><a href="#sec-sandwich-errors" id="toc-sec-sandwich-errors" class="nav-link" data-scroll-target="#sec-sandwich-errors"><span class="header-section-number">14.2.1</span> Sandwich standard errors</a></li>
@@ -390,14 +396,62 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Broadly speaking, approaches to fixing heteroskedastic or correlated errors can be divided into (1) those based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> and (2) those based on resampling. Methods based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span> can use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> or (ii) build better standard errors for the least squares estimate. Resampling methods include the bootstrap (for estimation) and the permutation test (for testing).</p>
+<p>In this section, we present a set of asymptotic methods for fixing heteroskedastic or correlated errors, in the setting that <span id="eq-correlated-errors"><span class="math display">\[
+\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma}).
+\tag{14.1}\]</span></span> These methods are based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span>; they use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> or (ii) build better standard errors for the least squares estimate.</p>
 <section id="sec-better-estimate" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span></h2>
-<p>Suppose <span class="math inline">\(\boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma})\)</span>. This is a <em>generalized least squares</em> problem for which inference can be carried out. The generalized least squares estimate is <span class="math inline">\(\boldsymbol{\widehat{\beta}} = (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{y}\)</span>, which is distributed as <span class="math inline">\(\boldsymbol{\widehat{\beta}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1})\)</span>. This is the best linear unbiased estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, recovering efficiency. We can carry out inference based on the latter distributional result analogously to how we did so in Chapter 2. The issue, of course, is that we usually do not know <span class="math inline">\(\boldsymbol{\Sigma}\)</span>. Therefore, we can consider the following approach: (1) estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> using OLS, (2) use this estimate to get an estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, (3) use <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> to get a (hopefully) more efficient estimator</p>
-<p><span id="eq-fgls-estimate"><span class="math display">\[
+<h2 data-number="14.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span></h2>
+<section id="generalized-least-squares" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="generalized-least-squares"><span class="header-section-number">14.1.1</span> Generalized least squares</h3>
+<p>Let us premultiply <span class="math inline">\(\boldsymbol y\)</span> by <span class="math inline">\(\boldsymbol \Sigma^{-1/2}\)</span> to obtain <span class="math display">\[
+\boldsymbol \Sigma^{-1/2} \boldsymbol y \sim N(\boldsymbol \Sigma^{-1/2} \boldsymbol X \boldsymbol \beta, \boldsymbol I).
+\]</span> Viewing <span class="math inline">\(\boldsymbol \Sigma^{-1/2} \boldsymbol y\)</span> as the new response and <span class="math inline">\(\boldsymbol \Sigma^{-1/2} \boldsymbol X\)</span> as the new model matrix, we can apply the usual least squares estimator to obtain <span id="eq-gls-estimate"><span class="math display">\[
+\boldsymbol{\tilde \beta}^{\text{GLS}} = (\boldsymbol X^T \boldsymbol \Sigma^{-1} \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol \Sigma^{-1} \boldsymbol y.
+\tag{14.2}\]</span></span> This is the <em>generalized least squares</em> estimate for the model (<a href="#eq-correlated-errors"><span>14.1</span></a>), and has the following distribution: <span class="math display">\[
+\boldsymbol{\tilde{\beta}}^{\text{GLS}} \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\Sigma}^{-1}\boldsymbol{X})^{-1}).
+\]</span> By the Gauss-Markov theorem, this is the best linear unbiased estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, recovering efficiency. We would like to carry out inference based on the latter distributional result analogously to how we did so in Chapter 2, as long as we can estimate <span class="math inline">\(\boldsymbol \Sigma\)</span> accurately enough.</p>
+</section>
+<section id="models-for-boldsymbolsigma" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="models-for-boldsymbolsigma"><span class="header-section-number">14.1.2</span> Models for <span class="math inline">\(\boldsymbol{\Sigma}\)</span></h3>
+<p>This class of methods typically postulates a parametric form for <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, denoted by <span class="math inline">\(\boldsymbol{\Sigma}(\boldsymbol{\nu})\)</span>, where <span class="math inline">\(\boldsymbol{\nu}\)</span> is a vector of parameters, and then proceed by estimating <span class="math inline">\(\boldsymbol \nu\)</span>. Below are a few examples of such parametric models:</p>
+<ul>
+<li><strong>Heteroskedastic errors.</strong> In this case, we can assume that <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span>, where <span class="math display">\[
+\log \sigma_i^2 = \boldsymbol{x}_i^T \boldsymbol{\nu}.
+\]</span></li>
+<li><strong>Clustered errors.</strong> Suppose that each observation <span class="math inline">\(i\)</span> falls into a cluster <span class="math inline">\(c(i)\)</span>. Then, we can postulate a <em>random effects model</em> <span class="math display">\[
+y_i = \boldsymbol{x}_i^T \boldsymbol{\beta} + \delta_{c(i)} + \tau_i, \quad \text{where} \quad \delta_c \overset{\text{i.i.d.}}\sim N(0, \sigma^2_{\delta}), \quad \tau_i \overset{\text{i.i.d.}}\sim N(0, \sigma^2_{\tau}).
+\]</span> This imposes a block-diagonal structure on <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, where each block corresponds to a cluster.</li>
+<li><strong>Temporal errors.</strong> If the observations have a temporal structure, we might impose an AR(1) model on the residuals: <span class="math display">\[
+\epsilon_1 = \tau_1; \quad \epsilon_i = \rho \epsilon_{i-1} + \tau_i \quad \text{for } i &gt; 1, \quad \text{where} \quad \tau_i \overset{\text{i.i.d.}}\sim N(0, \sigma^2).
+\]</span> This imposes an approximately banded structure on <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, with <span class="math inline">\(\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}\)</span>.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Random versus fixed effects models
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Random effects models deal address correlated errors but not with model bias. The difference is that, in the case of correlated errors, the errors may be correlated with themselves but not with the regressors. In the case of model bias, the errors may be correlated with the regressors. To address model bias in the presence of clustering structure, fixed effects are necessary. Fixed effects models decrease model bias at the cost of increased variance, because more parameters must be estimated. Random effects models are more susceptible to model bias but have lower variance.</p>
+</div>
+</div>
+</section>
+<section id="estimating-boldsymbolsigma" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="estimating-boldsymbolsigma"><span class="header-section-number">14.1.3</span> Estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span></h3>
+<p>Given a parametric model for <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, we can estimate <span class="math inline">\(\boldsymbol{\nu}\)</span> by one of two approaches. The first approach, typical in statistics, is to maximize the likelihood as a function of <span class="math inline">\((\boldsymbol \beta, \boldsymbol \nu)\)</span>. The second approach, typical in econometrics, is to estimate <span class="math inline">\(\boldsymbol{\beta}\)</span> using OLS, and then to fit <span class="math inline">\(\boldsymbol \nu\)</span> based on the residuals. This gives us the estimate <span class="math inline">\(\boldsymbol{\widehat \Sigma} = \boldsymbol{\widehat \Sigma}(\boldsymbol{\widehat \nu})\)</span>.</p>
+</section>
+<section id="inferring-about-boldsymbol-beta-based-on-the-estimate-boldsymbolwidehat-sigma" class="level3" data-number="14.1.4">
+<h3 data-number="14.1.4" class="anchored" data-anchor-id="inferring-about-boldsymbol-beta-based-on-the-estimate-boldsymbolwidehat-sigma"><span class="header-section-number">14.1.4</span> Inferring about <span class="math inline">\(\boldsymbol \beta\)</span> based on the estimate <span class="math inline">\(\boldsymbol{\widehat \Sigma}\)</span></h3>
+<p>With an estimate <span class="math inline">\(\boldsymbol{\widehat \Sigma}\)</span> in hand, we can use it to build a (hopefully) better estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, using the following plug-in version of the GLS estimate (<a href="#eq-gls-estimate"><span>14.2</span></a>): <span id="eq-fgls-estimate"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
-\tag{14.1}\]</span></span></p>
-<p>This is called the <em>feasible generalized least squares estimate</em> (FGLS), to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. The procedure above can be iterated until convergence. To estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>, we usually need to make some parametric assumptions. For example, in the case of grouped structure, we might assume a <em>random effects model</em>. In the case of a temporal structure, we might assume an <em>AR(1) model</em>.</p>
+\tag{14.3}\]</span></span></p>
+<p>This is called the <em>feasible generalized least squares estimate</em> (FGLS) in econometrics, to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. Then, we can carry out inference based on the approximation distribution <span class="math display">\[
+\boldsymbol{\widehat{\beta}}^{\text{FGLS}} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}).
+\]</span></p>
+</section>
 </section>
 <section id="sec-better-standard-errors" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="sec-better-standard-errors"><span class="header-section-number">14.2</span> Methods that build better standard errors for OLS estimate</h2>
@@ -407,7 +461,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Let’s say that <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}\)</span>, where <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>. Then, we can compute that the covariance matrix of the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> is</p>
 <p><span id="eq-sandwich"><span class="math display">\[
 \text{Var}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\tag{14.2}\]</span></span></p>
+\tag{14.4}\]</span></span></p>
 <p>Note that this expression reduces to the usual <span class="math inline">\(\sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> when <span class="math inline">\(\boldsymbol{\Sigma} = \sigma^2 \boldsymbol{I}\)</span>. It is called the sandwich variance because we have the <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})\)</span> term sandwiched between two <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> terms. If we have some estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of the covariance matrix, we can construct</p>
 <p><span class="math display">\[
 \widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
@@ -416,8 +470,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sec-specific-sandwich-errors" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="sec-specific-sandwich-errors"><span class="header-section-number">14.2.2</span> Specific instances of sandwich standard errors</h3>
-<p><strong>Huber-White standard errors.</strong></p>
-<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>14.2</span></a>), with</p>
+<p><strong>Huber-White standard errors</strong></p>
+<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>14.4</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{diag}(\widehat{\sigma}_1^2, \dots, \widehat{\sigma}_n^2), \quad \text{where} \quad \widehat{\sigma}_i^2 = (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}})^2.
 \]</span></p>
@@ -425,22 +479,22 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[
 \begin{split}
 \frac{1}{n}(\boldsymbol{X}^T \widehat{\boldsymbol{\Sigma}} \boldsymbol{X} - \boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X}) &amp;= \frac{1}{n} \sum_{i=1}^n (\widehat{\sigma}_i^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
-&amp;= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\widehat{\boldsymbol{\beta}} - \boldsymbol{\beta}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
+&amp;= \frac{1}{n} \sum_{i=1}^n ((\epsilon_i + \boldsymbol{x}_{i*}^T(\boldsymbol{\beta} - \boldsymbol{\widehat{\beta}}))^2 - \sigma_i^2) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T \\
 &amp;= \frac{1}{n} \sum_{i=1}^n \epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T + o_p(1) \\
-&amp;\to_p 0.
+&amp;\overset p \to 0.
 \end{split}
 \]</span></p>
 <p>The last step holds by the law of large numbers, since <span class="math inline">\(\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0\)</span> for each <span class="math inline">\(i\)</span>.</p>
-<p><strong>Liang-Zeger standard errors.</strong></p>
-<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>14.2</span></a>), with</p>
+<p><strong>Liang-Zeger standard errors</strong></p>
+<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>14.4</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
 \]</span></p>
-<p>Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each <span class="math inline">\(\boldsymbol{\widehat{\Sigma}_c}\)</span> is a poor estimator, the resulting estimate of the (averaged) quantity <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}\)</span> is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as “clustered standard errors” in the econometrics community.</p>
-<p><strong>Newey-West standard errors.</strong></p>
-<p>Finally, consider the case when our observations <span class="math inline">\(i\)</span> have a temporal structure, and we believe there to be nontrivial correlations between <span class="math inline">\(\epsilon_{i1}\)</span> and <span class="math inline">\(\epsilon_{i2}\)</span> for <span class="math inline">\(|i1 - i2| \leq L\)</span>. Then, a natural extension of the Huber-White estimate of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> for each pair <span class="math inline">\((i1, i2)\)</span> such that <span class="math inline">\(|i1 - i2| \leq L\)</span>. Unfortunately, this is not guaranteed to give a positive semidefinite matrix <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>. Therefore, Newey and West proposed a slightly modified estimator:</p>
+<p>Note that the Liang-Zeger estimator is a generalization of the Huber-White estimator. Its justification is similar as well: while each <span class="math inline">\(\boldsymbol{\widehat{\Sigma}_c}\)</span> is a poor estimator, the resulting estimate of the (averaged) quantity <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}\boldsymbol{X}\)</span> is not bad as long as the number of clusters is large. Liang-Zeger standard errors are referred to as “clustered standard errors” in the econometrics community. It is recommended to employ clustered standard errors even when using cluster-level fixed effects, in order to capture remaining within-cluster correlations.</p>
+<p><strong>Newey-West standard errors</strong></p>
+<p>Finally, consider the case when our observations <span class="math inline">\(i\)</span> have a temporal structure, and we believe there to be nontrivial correlations between <span class="math inline">\(\epsilon_{i1}\)</span> and <span class="math inline">\(\epsilon_{i2}\)</span> for <span class="math inline">\(|i1 - i2| \leq L\)</span>. Then, a natural extension of the Huber-White estimate of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is <span class="math inline">\(\widehat{\Sigma}_{i1,i2} = \widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> for each pair <span class="math inline">\((i1, i2)\)</span> such that <span class="math inline">\(|i1 - i2| \leq L\)</span>. Unfortunately, this is not guaranteed to give a positive semidefinite matrix <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>. Therefore, Newey and West proposed a slightly modified estimator:</p>
 <p><span class="math display">\[
-\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
+\boldsymbol{\widehat{\Sigma}}_{i1,i2} = \max\left(0, 1-\frac{|i1-i2|}{L+1}\right)\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}.
 \]</span></p>
 <p>This estimator shrinks the off-diagonal estimates <span class="math inline">\(\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>.</p>
 </section>

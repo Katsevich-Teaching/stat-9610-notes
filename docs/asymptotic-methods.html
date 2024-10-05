@@ -371,8 +371,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#sec-sandwich-errors" id="toc-sec-sandwich-errors" class="nav-link" data-scroll-target="#sec-sandwich-errors"><span class="header-section-number">14.2.1</span> Sandwich standard errors</a></li>
   <li><a href="#sec-specific-sandwich-errors" id="toc-sec-specific-sandwich-errors" class="nav-link" data-scroll-target="#sec-specific-sandwich-errors"><span class="header-section-number">14.2.2</span> Specific instances of sandwich standard errors</a></li>
-  <li><a href="#sec-sandwich-inference" id="toc-sec-sandwich-inference" class="nav-link" data-scroll-target="#sec-sandwich-inference"><span class="header-section-number">14.2.3</span> Inference based on sandwich standard errors</a></li>
   </ul></li>
+  <li><a href="#sec-sandwich-inference" id="toc-sec-sandwich-inference" class="nav-link" data-scroll-target="#sec-sandwich-inference"><span class="header-section-number">14.3</span> Inference based on an approximate covariance matrix</a></li>
   </ul>
 </nav>
     </div>
@@ -398,7 +398,7 @@ ul.task-list li input[type="checkbox"] {
 
 <p>In this section, we present a set of asymptotic methods for fixing heteroskedastic or correlated errors, in the setting that <span id="eq-correlated-errors"><span class="math display">\[
 \boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma}).
-\tag{14.1}\]</span></span> These methods are based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span>; they use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> or (ii) build better standard errors for the least squares estimate.</p>
+\tag{14.1}\]</span></span> These methods are based on estimating <span class="math inline">\(\boldsymbol{\Sigma}\)</span>; they use this estimate to either (i) build a better estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> (<a href="#sec-better-estimate"><span>Section&nbsp;14.1</span></a>) or (ii) build better standard errors for the least squares estimate (<a href="#sec-better-standard-errors"><span>Section&nbsp;14.2</span></a>). We discuss these two approaches in turn, followed by how to carry out inference based on the resulting estimates (<a href="#sec-sandwich-inference"><span>Section&nbsp;14.3</span></a>).</p>
 <section id="sec-better-estimate" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="sec-better-estimate"><span class="header-section-number">14.1</span> Methods that build a better estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span></h2>
 <section id="generalized-least-squares" class="level3" data-number="14.1.1">
@@ -448,9 +448,9 @@ Random versus fixed effects models
 <p>With an estimate <span class="math inline">\(\boldsymbol{\widehat \Sigma}\)</span> in hand, we can use it to build a (hopefully) better estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span>, using the following plug-in version of the GLS estimate (<a href="#eq-gls-estimate"><span>14.2</span></a>): <span id="eq-fgls-estimate"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \equiv (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{y}.
 \tag{14.3}\]</span></span></p>
-<p>This is called the <em>feasible generalized least squares estimate</em> (FGLS) in econometrics, to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. Then, we can carry out inference based on the approximation distribution <span class="math display">\[
+<p>This is called the <em>feasible generalized least squares estimate</em> (FGLS) in econometrics, to contrast it with the infeasible estimate that assumes <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is known exactly. Then, we can carry out inference based on the approximation distribution <span id="eq-fgls-inference"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}).
-\]</span></p>
+\tag{14.4}\]</span></span></p>
 </section>
 </section>
 <section id="sec-better-standard-errors" class="level2" data-number="14.2">
@@ -461,17 +461,17 @@ Random versus fixed effects models
 <p>Let’s say that <span class="math inline">\(\boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}\)</span>, where <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \boldsymbol{\Sigma})\)</span>. Then, we can compute that the covariance matrix of the least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> is</p>
 <p><span id="eq-sandwich"><span class="math display">\[
 \text{Var}[\boldsymbol{\widehat{\beta}}] = (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\tag{14.4}\]</span></span></p>
+\tag{14.5}\]</span></span></p>
 <p>Note that this expression reduces to the usual <span class="math inline">\(\sigma^2(\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> when <span class="math inline">\(\boldsymbol{\Sigma} = \sigma^2 \boldsymbol{I}\)</span>. It is called the sandwich variance because we have the <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{\Sigma} \boldsymbol{X})\)</span> term sandwiched between two <span class="math inline">\((\boldsymbol{X}^T \boldsymbol{X})^{-1}\)</span> terms. If we have some estimate <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> of the covariance matrix, we can construct</p>
-<p><span class="math display">\[
+<p><span id="eq-sandwich-covariance"><span class="math display">\[
 \widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-\]</span></p>
+\tag{14.6}\]</span></span></p>
 <p>Different estimates <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span> are appropriate in different situations. Below we consider three of the most common choices: one for heteroskedasticity (due to Huber-White), one for group-correlated errors (due to Liang-Zeger), and one for temporally-correlated errors (due to Newey-West).</p>
 </section>
 <section id="sec-specific-sandwich-errors" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="sec-specific-sandwich-errors"><span class="header-section-number">14.2.2</span> Specific instances of sandwich standard errors</h3>
 <p><strong>Huber-White standard errors</strong></p>
-<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>14.4</span></a>), with</p>
+<p>Suppose <span class="math inline">\(\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \dots, \sigma_n^2)\)</span> for some variances <span class="math inline">\(\sigma_1^2, \dots, \sigma_n^2 &gt; 0\)</span>. The Huber-White sandwich estimator is defined by (<a href="#eq-sandwich"><span>14.5</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{diag}(\widehat{\sigma}_1^2, \dots, \widehat{\sigma}_n^2), \quad \text{where} \quad \widehat{\sigma}_i^2 = (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}})^2.
 \]</span></p>
@@ -486,7 +486,7 @@ Random versus fixed effects models
 \]</span></p>
 <p>The last step holds by the law of large numbers, since <span class="math inline">\(\mathbb{E}[\epsilon_i^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] = 0\)</span> for each <span class="math inline">\(i\)</span>.</p>
 <p><strong>Liang-Zeger standard errors</strong></p>
-<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>14.4</span></a>), with</p>
+<p>Next, let’s consider the case of group-correlated errors. Suppose that the observations are <em>clustered</em>, with correlated errors among clusters but not between clusters. Suppose there are <span class="math inline">\(C\)</span> clusters of observations, with the <span class="math inline">\(i\)</span>th observation belonging to cluster <span class="math inline">\(c(i) \in \{1, \dots, C\}\)</span>. Suppose for the sake of simplicity that the observations are ordered so that clusters are contiguous. Let <span class="math inline">\(\boldsymbol{\widehat{\epsilon}}_c\)</span> be the vector of residuals in cluster <span class="math inline">\(c\)</span>, so that <span class="math inline">\(\boldsymbol{\widehat{\epsilon}} = (\boldsymbol{\widehat{\epsilon}}_1, \dots, \boldsymbol{\widehat{\epsilon}}_C)\)</span>. Then, the true covariance matrix is <span class="math inline">\(\boldsymbol{\Sigma} = \text{block-diag}(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C)\)</span> for some positive definite <span class="math inline">\(\boldsymbol{\Sigma}_1, \dots, \boldsymbol{\Sigma}_C\)</span>. The Liang-Zeger estimator is then defined by (<a href="#eq-sandwich"><span>14.5</span></a>), with</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\Sigma}} \equiv \text{block-diag}(\boldsymbol{\widehat{\Sigma}_1}, \dots, \boldsymbol{\widehat{\Sigma}_C}), \quad \text{where} \quad  \boldsymbol{\widehat{\Sigma}_c} \equiv \boldsymbol{\widehat{\epsilon}}_c \boldsymbol{\widehat{\epsilon}}_c^T.
 \]</span></p>
@@ -498,20 +498,57 @@ Random versus fixed effects models
 \]</span></p>
 <p>This estimator shrinks the off-diagonal estimates <span class="math inline">\(\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}\)</span> based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of <span class="math inline">\(\boldsymbol{\widehat{\Sigma}}\)</span>.</p>
 </section>
-<section id="sec-sandwich-inference" class="level3" data-number="14.2.3">
-<h3 data-number="14.2.3" class="anchored" data-anchor-id="sec-sandwich-inference"><span class="header-section-number">14.2.3</span> Inference based on sandwich standard errors</h3>
-<p>We now have a matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> such that</p>
-<p><span class="math display">\[
+</section>
+<section id="sec-sandwich-inference" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="sec-sandwich-inference"><span class="header-section-number">14.3</span> Inference based on an approximate covariance matrix</h2>
+<p>Whether based on the relations (<a href="#eq-fgls-inference"><span>14.4</span></a>) or (<a href="#eq-sandwich-covariance"><span>14.6</span></a>), we end up with an estimator <span class="math inline">\(\boldsymbol{\widehat \beta}\)</span> and an approximate covariance matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span>, so that <span class="math display">\[
 \boldsymbol{\widehat{\beta}} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \widehat{\boldsymbol{\Omega}}).
 \]</span></p>
-<p>This allows us to construct confidence intervals and hypothesis tests for each <span class="math inline">\(\beta_j\)</span>, by simply replacing <span class="math inline">\(\text{SE}(\beta_j)\)</span> with <span class="math inline">\(\sqrt{\widehat{\Omega}_{jj}}\)</span>. For contrasts and prediction intervals, we can use the fact that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})\)</span>, so that <span class="math inline">\(\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}\)</span>. It is less obvious how to use the matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> to test the hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span>. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Chapter 4). The Wald test statistic is</p>
+<p>This allows us to construct confidence intervals and hypothesis tests for each <span class="math inline">\(\beta_j\)</span>, by simply replacing <span class="math inline">\(\text{SE}(\beta_j)\)</span> with <span class="math inline">\(\sqrt{\widehat{\Omega}_{jj}}\)</span>. For contrasts and prediction intervals, we can use the fact that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})\)</span>, so that <span class="math inline">\(\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}\)</span>. It is less obvious how to use the matrix <span class="math inline">\(\widehat{\boldsymbol{\Omega}}\)</span> to test the hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span>. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Unit 4). The Wald test statistic is</p>
 <p><span class="math display">\[
 W = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S,
 \]</span></p>
-<p>which is asymptotically distributed as <span class="math inline">\(\chi^2_{|S|}\)</span> under the null hypothesis. It turns out that the usual regression <span class="math inline">\(F\)</span>-test is asymptotically equivalent to this Wald test.</p>
+<p>which is asymptotically distributed as <span class="math inline">\(\chi^2_{|S|}\)</span> under the null hypothesis. This is based on the following result.</p>
+<div id="lem-chisq-wald" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 14.1 </strong></span>Let <span class="math inline">\(\boldsymbol Z \sim N(0, \boldsymbol \Sigma)\)</span> be a <span class="math inline">\(d\)</span>-dimensional random vector, with <span class="math inline">\(\boldsymbol \Sigma\)</span> invertible. Then, <span class="math display">\[
+\boldsymbol Z^T \boldsymbol \Sigma^{-1} \boldsymbol Z \sim \chi^2_d.
+\]</span></p>
+</div>
+<p>This gives us the test <span id="eq-wald-test"><span class="math display">\[
+\phi_{\text{Wald}}(\boldsymbol X, \boldsymbol y) = \mathbb{I}\left\{ \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S &gt; \chi^2_{|S|} (1-\alpha) \right\}.
+\tag{14.7}\]</span></span> As it turns out, under the usual linear model assumptions, this test is asymptotically equivalent to the usual <span class="math inline">\(F\)</span>-test for the hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span>.</p>
+<div id="prp-wald-f" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 14.1 </strong></span>The homoskedasticity-based <span class="math inline">\(F\)</span>-statistic for the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{0}\)</span> can be expressed as <span class="math display">\[
+F = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S / |S|,
+\]</span> allowing us to rewrite the Wald test as <span class="math display">\[
+\phi_{\text{Wald}}(\boldsymbol X, \boldsymbol y) = \mathbb{I}\left\{ F &gt; \tfrac{1}{|S|}\chi^2_{|S|} (1-\alpha) \right\}.
+\]</span> Since <span class="math inline">\(F_{|S|, n-p} \overset d \to \tfrac{1}{|S|}\chi^2_{|S|}\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>, it follows that the <span class="math inline">\(F\)</span>-test and the Wald test are asymptotically equivalent.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Recall from <a href="hypothesis-testing.html"><span>Chapter&nbsp;8</span></a> that the <span class="math inline">\(F\)</span>-test statistic can be expressed as <span class="math display">\[
+F = \frac{\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y \|^2 / |S|}{\|(\boldsymbol I - \boldsymbol H) \boldsymbol y \|^2 / (n-p)} = \frac{\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y \|^2 / |S|}{\widehat \sigma^2},
+\]</span> where <span class="math inline">\(\boldsymbol H - \boldsymbol H_{\text{-}S}\)</span> is the projection matrix onto <span class="math inline">\(C(\boldsymbol X_{*, S}^\perp)\)</span>. Now, let <span class="math inline">\(\boldsymbol{\widehat \beta}\)</span> be the least squares estimate in the regression of <span class="math inline">\(\boldsymbol y\)</span> on <span class="math inline">\(\boldsymbol X\)</span>. Then, we have <span class="math display">\[
+\begin{split}
+(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y &amp;= (\boldsymbol H - \boldsymbol H_{\text{-}S})(\boldsymbol X_{*,S} \boldsymbol{\widehat \beta}_S + \boldsymbol X_{*,\text{-}S} \boldsymbol{\widehat \beta}_{\text{-}S} + \boldsymbol{\widehat \epsilon}) \\
+&amp;= (\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol X_{*,S} \boldsymbol{\widehat \beta}_S \\
+&amp;= \boldsymbol X_{*,S}^\perp \boldsymbol{\widehat \beta}_S.
+\end{split}
+\]</span> Therefore, we have <span class="math display">\[
+\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y\|^2 = \boldsymbol{\widehat \beta}_S^T (\boldsymbol X_{*,S}^\perp)^T \boldsymbol X_{*,S}^\perp \boldsymbol{\widehat \beta}_S.
+\]</span> Next, we claim that <span id="eq-claim-wald-f"><span class="math display">\[
+(\boldsymbol X_{*,S}^\perp)^T \boldsymbol X_{*,S}^\perp = \{[(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}]\}^{-1}.
+\tag{14.8}\]</span></span> To see this, note that <span id="eq-beta-s-1"><span class="math display">\[
+\boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}).
+\tag{14.9}\]</span></span> On the other hand, since <span class="math inline">\(\boldsymbol{\widehat \beta}_S\)</span> can be obtained by regressing <span class="math inline">\(\boldsymbol y\)</span> onto <span class="math inline">\(\boldsymbol X_{*,S}^{\perp}\)</span>, we also have that <span id="eq-beta-s-2"><span class="math display">\[
+\boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X_{*,S}^{\perp})^T \boldsymbol X_{*,S}^{\perp}]^{-1}).
+\tag{14.10}\]</span></span> Combining <a href="#eq-beta-s-1"><span>14.9</span></a> and <a href="#eq-beta-s-2"><span>14.10</span></a>, we verify the claimed relationship <a href="#eq-claim-wald-f"><span>14.8</span></a>. Therefore, we have <span class="math display">\[
+F = \frac{\boldsymbol{\widehat \beta}_S^T [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
+\]</span> Recalling that <span class="math inline">\(\boldsymbol{\widehat \Omega} = \widehat \sigma^2 (\boldsymbol X^T \boldsymbol X)^{-1}\)</span>, we find that <span class="math display">\[
+F = \boldsymbol{\widehat \beta}_S^T \left(\boldsymbol{\widehat \Omega}_{S,S}\right)^{-1} \boldsymbol{\widehat \beta}_S / |S|,
+\]</span> as desired.</p>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

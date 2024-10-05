@@ -4,7 +4,7 @@ In this section, we present a set of asymptotic methods for fixing heteroskedast
 $$
 \boldsymbol{y} \sim N(\boldsymbol{X} \boldsymbol{\beta}, \boldsymbol{\Sigma}).
 $$ {#eq-correlated-errors}
-These methods are based on estimating $\boldsymbol{\Sigma}$; they use this estimate to either (i) build a better estimate $\boldsymbol{\widehat{\beta}}$ or (ii) build better standard errors for the least squares estimate.
+These methods are based on estimating $\boldsymbol{\Sigma}$; they use this estimate to either (i) build a better estimate $\boldsymbol{\widehat{\beta}}$ (@sec-better-estimate) or (ii) build better standard errors for the least squares estimate (@sec-better-standard-errors). We discuss these two approaches in turn, followed by how to carry out inference based on the resulting estimates (@sec-sandwich-inference).
 
 ## Methods that build a better estimate of $\boldsymbol{\beta}$ {#sec-better-estimate}
 
@@ -64,7 +64,7 @@ $$ {#eq-fgls-estimate}
 This is called the *feasible generalized least squares estimate* (FGLS) in econometrics, to contrast it with the infeasible estimate that assumes $\boldsymbol{\Sigma}$ is known exactly. Then, we can carry out inference based on the approximation distribution 
 $$
 \boldsymbol{\widehat{\beta}}^{\text{FGLS}} \overset \cdot \sim N(\boldsymbol{\beta}, (\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}}^{-1}\boldsymbol{X})^{-1}).
-$$
+$$ {#eq-fgls-inference}
 
 
 ## Methods that build better standard errors for OLS estimate {#sec-better-standard-errors}
@@ -83,7 +83,7 @@ Note that this expression reduces to the usual $\sigma^2(\boldsymbol{X}^T \bolds
 
 $$
 \widehat{\text{Var}}[\boldsymbol{\widehat{\beta}}] \equiv (\boldsymbol{X}^T \boldsymbol{X})^{-1}(\boldsymbol{X}^T \boldsymbol{\widehat{\Sigma}} \boldsymbol{X})(\boldsymbol{X}^T \boldsymbol{X})^{-1}.
-$$
+$$ {#eq-sandwich-covariance}
 
 Different estimates $\boldsymbol{\widehat{\Sigma}}$ are appropriate in different situations. Below we consider three of the most common choices: one for heteroskedasticity (due to Huber-White), one for group-correlated errors (due to Liang-Zeger), and one for temporally-correlated errors (due to Newey-West).
 
@@ -130,18 +130,88 @@ $$
 
 This estimator shrinks the off-diagonal estimates $\widehat{\epsilon}_{i1}\widehat{\epsilon}_{i2}$ based on their distance to the diagonal. It can be shown that this modification restores positive semidefiniteness of $\boldsymbol{\widehat{\Sigma}}$.
 
-### Inference based on sandwich standard errors {#sec-sandwich-inference}
+## Inference based on an approximate covariance matrix {#sec-sandwich-inference}
 
-We now have a matrix $\widehat{\boldsymbol{\Omega}}$ such that 
-
+Whether based on the relations ([-@eq-fgls-inference]) or ([-@eq-sandwich-covariance]), we end up with an estimator $\boldsymbol{\widehat \beta}$ and an approximate covariance matrix $\widehat{\boldsymbol{\Omega}}$, so that
 $$
 \boldsymbol{\widehat{\beta}} \overset{\cdot}{\sim} N(\boldsymbol{\beta}, \widehat{\boldsymbol{\Omega}}).
 $$
 
-This allows us to construct confidence intervals and hypothesis tests for each $\beta_j$, by simply replacing $\text{SE}(\beta_j)$ with $\sqrt{\widehat{\Omega}_{jj}}$. For contrasts and prediction intervals, we can use the fact that $\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})$, so that $\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}$. It is less obvious how to use the matrix $\widehat{\boldsymbol{\Omega}}$ to test the hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Chapter 4). The Wald test statistic is
+This allows us to construct confidence intervals and hypothesis tests for each $\beta_j$, by simply replacing $\text{SE}(\beta_j)$ with $\sqrt{\widehat{\Omega}_{jj}}$. For contrasts and prediction intervals, we can use the fact that $\boldsymbol{c}^T \boldsymbol{\beta} \overset{\cdot}{\sim} N(\boldsymbol{c}^T \boldsymbol{\beta}, \boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c})$, so that $\text{CE}(\boldsymbol{c}^T \boldsymbol{\beta}) = \sqrt{\boldsymbol{c}^T \widehat{\boldsymbol{\Omega}} \boldsymbol{c}}$. It is less obvious how to use the matrix $\widehat{\boldsymbol{\Omega}}$ to test the hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$. To this end, we can use a Wald test (we will discuss Wald tests in more detail in Unit 4). The Wald test statistic is
 
 $$
 W = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S,
 $$
 
-which is asymptotically distributed as $\chi^2_{|S|}$ under the null hypothesis. It turns out that the usual regression $F$-test is asymptotically equivalent to this Wald test.
+which is asymptotically distributed as $\chi^2_{|S|}$ under the null hypothesis. This is based on the following result.
+
+::: {#lem-chisq-wald}
+
+Let $\boldsymbol Z \sim N(0, \boldsymbol \Sigma)$ be a $d$-dimensional random vector, with $\boldsymbol \Sigma$ invertible. Then, 
+$$
+\boldsymbol Z^T \boldsymbol \Sigma^{-1} \boldsymbol Z \sim \chi^2_d.
+$$
+
+:::
+
+This gives us the test
+$$
+\phi_{\text{Wald}}(\boldsymbol X, \boldsymbol y) = \mathbb{I}\left\{ \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S > \chi^2_{|S|} (1-\alpha) \right\}.
+$$ {#eq-wald-test}
+As it turns out, under the usual linear model assumptions, this test is asymptotically equivalent to the usual $F$-test for the hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$.
+
+::: {#prp-wald-f}
+
+The homoskedasticity-based $F$-statistic for the null hypothesis $H_0: \boldsymbol{\beta}_S = \boldsymbol{0}$ can be expressed as
+$$
+F = \boldsymbol{\widehat{\beta}}_S^T (\widehat{\boldsymbol{\Omega}}_{S, S})^{-1} \boldsymbol{\widehat{\beta}}_S / |S|,
+$$
+allowing us to rewrite the Wald test as
+$$
+\phi_{\text{Wald}}(\boldsymbol X, \boldsymbol y) = \mathbb{I}\left\{ F > \tfrac{1}{|S|}\chi^2_{|S|} (1-\alpha) \right\}.
+$$
+Since $F_{|S|, n-p} \overset d \to \tfrac{1}{|S|}\chi^2_{|S|}$ as $n \rightarrow \infty$, it follows that the $F$-test and the Wald test are asymptotically equivalent.
+
+:::
+
+::: {.proof}
+
+Recall from @sec-hypothesis-testing-chapter that the $F$-test statistic can be expressed as
+$$
+F = \frac{\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y \|^2 / |S|}{\|(\boldsymbol I - \boldsymbol H) \boldsymbol y \|^2 / (n-p)} = \frac{\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y \|^2 / |S|}{\widehat \sigma^2},
+$$
+where $\boldsymbol H - \boldsymbol H_{\text{-}S}$ is the projection matrix onto $C(\boldsymbol X_{*, S}^\perp)$. Now, let $\boldsymbol{\widehat \beta}$ be the least squares estimate in the regression of $\boldsymbol y$ on $\boldsymbol X$. Then, we have
+$$
+\begin{split}
+(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y &= (\boldsymbol H - \boldsymbol H_{\text{-}S})(\boldsymbol X_{*,S} \boldsymbol{\widehat \beta}_S + \boldsymbol X_{*,\text{-}S} \boldsymbol{\widehat \beta}_{\text{-}S} + \boldsymbol{\widehat \epsilon}) \\
+&= (\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol X_{*,S} \boldsymbol{\widehat \beta}_S \\
+&= \boldsymbol X_{*,S}^\perp \boldsymbol{\widehat \beta}_S.
+\end{split}
+$$
+Therefore, we have
+$$
+\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y\|^2 = \boldsymbol{\widehat \beta}_S^T (\boldsymbol X_{*,S}^\perp)^T \boldsymbol X_{*,S}^\perp \boldsymbol{\widehat \beta}_S.
+$$
+Next, we claim that
+$$
+(\boldsymbol X_{*,S}^\perp)^T \boldsymbol X_{*,S}^\perp = \{[(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}]\}^{-1}.
+$$ {#eq-claim-wald-f}
+To see this, note that
+$$
+\boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}).
+$$ {#eq-beta-s-1}
+On the other hand, since $\boldsymbol{\widehat \beta}_S$ can be obtained by regressing $\boldsymbol y$ onto $\boldsymbol X_{*,S}^{\perp}$, we also have that
+$$
+\boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X_{*,S}^{\perp})^T \boldsymbol X_{*,S}^{\perp}]^{-1}).
+$$ {#eq-beta-s-2}
+Combining [-@eq-beta-s-1] and [-@eq-beta-s-2], we verify the claimed relationship [-@eq-claim-wald-f]. Therefore, we have
+$$
+F = \frac{\boldsymbol{\widehat \beta}_S^T [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
+$$
+Recalling that $\boldsymbol{\widehat \Omega} = \widehat \sigma^2 (\boldsymbol X^T \boldsymbol X)^{-1}$, we find that
+$$
+F = \boldsymbol{\widehat \beta}_S^T \left(\boldsymbol{\widehat \Omega}_{S,S}\right)^{-1} \boldsymbol{\widehat \beta}_S / |S|,
+$$
+as desired.
+
+:::

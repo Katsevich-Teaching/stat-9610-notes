@@ -400,7 +400,7 @@ L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
 \]</span> Unlike least squares, this equation does not have a closed-form solution. However, it can be solved using an iterative algorithm. The resulting estimator can be shown to be consistent. Furthermore, we can construct hypothesis tests and confidence intervals using <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> based on the following asymptotic normality statement, assuming a random design: <span class="math display">\[
 \sqrt{n}(\boldsymbol{\widehat{\beta}}^{\text{Huber}} - \boldsymbol{\beta}) \xrightarrow{d} N(\boldsymbol{0}, \boldsymbol A^{-1}\boldsymbol B \boldsymbol A^{-1}),
 \]</span> where <span class="math display">\[
-\boldsymbol A = \mathbb{E}[L'_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
+\boldsymbol A = \mathbb{E}[L''_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L'_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
 \]</span> The asymptotic covariance can be consistently estimated based on the residuals from the Huber regression.</p>
 
 

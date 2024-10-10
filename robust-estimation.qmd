@@ -57,6 +57,6 @@ $$
 $$
 where
 $$
-\boldsymbol A = \mathbb{E}[L'_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
+\boldsymbol A = \mathbb{E}[L''_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L'_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
 $$
 The asymptotic covariance can be consistently estimated based on the residuals from the Huber regression.

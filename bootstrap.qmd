@@ -39,7 +39,7 @@ The *bootstrap* is an approach to more robust inference that obtains such sampli
 $$
 \begin{split}
 &\text{CI}^{\text{boot}}(\beta_j) \\
-&\quad \equiv \{\beta_j: g(\boldsymbol{\widehat \beta}, \boldsymbol \beta) \in [Q_{\alpha/2}[g(\boldsymbol{\widehat \beta}^{(b)}, \boldsymbol{\widehat \beta})], \mathbb Q_{1-\alpha/2}[g(\boldsymbol{\widehat \beta}^{(b)}, \boldsymbol{\widehat \beta})]]\}.
+&\quad \equiv \{\beta_j: g(\boldsymbol{\widehat \beta}, \boldsymbol \beta) \in [\mathbb Q_{\alpha/2}[g(\boldsymbol{\widehat \beta}^{(b)}, \boldsymbol{\widehat \beta})], \mathbb Q_{1-\alpha/2}[g(\boldsymbol{\widehat \beta}^{(b)}, \boldsymbol{\widehat \beta})]]\}.
 \end{split}
 $$ {#eq-bootstrap-confidence-interval}
 

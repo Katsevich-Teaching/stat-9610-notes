@@ -360,8 +360,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#example" id="toc-example" class="nav-link active" data-scroll-target="#example"><span class="header-section-number">16.1</span> Example</a></li>
-  <li><a href="#strengths-and-weaknesses" id="toc-strengths-and-weaknesses" class="nav-link" data-scroll-target="#strengths-and-weaknesses"><span class="header-section-number">16.2</span> Strengths and weaknesses</a></li>
+  <li><a href="#general-formulation-of-the-permutation-test" id="toc-general-formulation-of-the-permutation-test" class="nav-link active" data-scroll-target="#general-formulation-of-the-permutation-test"><span class="header-section-number">16.1</span> General formulation of the permutation test</a>
+  <ul class="collapse">
+  <li><a href="#permutation-test-based-on-the-entire-permutation-group" id="toc-permutation-test-based-on-the-entire-permutation-group" class="nav-link" data-scroll-target="#permutation-test-based-on-the-entire-permutation-group"><span class="header-section-number">16.1.1</span> Permutation test based on the entire permutation group</a></li>
+  <li><a href="#permutation-test-based-on-a-sample-of-the-permutation-group" id="toc-permutation-test-based-on-a-sample-of-the-permutation-group" class="nav-link" data-scroll-target="#permutation-test-based-on-a-sample-of-the-permutation-group"><span class="header-section-number">16.1.2</span> Permutation test based on a sample of the permutation group</a></li>
+  <li><a href="#obtaining-p-values-from-permutation-tests" id="toc-obtaining-p-values-from-permutation-tests" class="nav-link" data-scroll-target="#obtaining-p-values-from-permutation-tests"><span class="header-section-number">16.1.3</span> Obtaining <span class="math inline">\(p\)</span>-values from permutation tests</a></li>
+  </ul></li>
+  <li><a href="#special-case-two-groups-model" id="toc-special-case-two-groups-model" class="nav-link" data-scroll-target="#special-case-two-groups-model"><span class="header-section-number">16.2</span> Special case: Two-groups model</a></li>
+  <li><a href="#permutation-test-versus-bootstrap" id="toc-permutation-test-versus-bootstrap" class="nav-link" data-scroll-target="#permutation-test-versus-bootstrap"><span class="header-section-number">16.3</span> Permutation test versus bootstrap</a></li>
   </ul>
 </nav>
     </div>
@@ -385,57 +391,144 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Unlike the residual bootstrap, the pairs bootstrap cannot accommodate hypothesis testing. If we would like resampling-based hypothesis tests in the presence of heteroskedasticity, we can consider permutation tests instead. Permutation tests are an easy way of testing the null hypothesis of independence between two random variables (or vectors). For our purposes, suppose that <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> are drawn i.i.d. from some joint distribution <span class="math inline">\(F\)</span> (as opposed to the usual assumption that <span class="math inline">\(\boldsymbol{X}\)</span> is fixed). Then, consider the null hypothesis:</p>
-<p><span id="eq-independence-1"><span class="math display">\[
-H_0: \boldsymbol{x} \perp\!\!\!\perp y.
-\tag{16.1}\]</span></span></p>
-<p>This null hypothesis is related to the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = 0\)</span> in a linear regression, as formalized by the following lemma.</p>
-<div id="lem-independence" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 16.1 </strong></span>Suppose <span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^{p-1}\)</span> has a nondegenerate distribution <span class="math inline">\(F_{\boldsymbol{x}}\)</span> in the sense that there does not exist a vector <span class="math inline">\(c \in \mathbb{R}^{p-1}\)</span> such that <span class="math inline">\(\boldsymbol{c}^T \boldsymbol{x}\)</span> is deterministic. Suppose also that <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> is a distribution such that <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}\)</span> and that the distribution <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> is specified by its mean. Then,</p>
-<p><span class="math display">\[
-\boldsymbol{x} \perp\!\!\!\perp y \quad \Longleftrightarrow \quad \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}.
-\]</span></p>
+<p>Consider a linear regression model with intercept: <span id="eq-linear-model-with-intercept"><span class="math display">\[
+y_i = \beta_0 + \boldsymbol{x}_{i,\text{-}0}^T \boldsymbol{\beta}_{\text{-}0} + \epsilon_i, \quad \epsilon_i \overset{\text{i.i.d.}} \sim F, \quad i = 1, \ldots, n,
+\tag{16.1}\]</span></span> where <span class="math inline">\(F\)</span> is an unknown distribution. Suppose we wish to test the null hypothesis that none of the variables in <span class="math inline">\(\boldsymbol{x}_{\text{-}0}\)</span> are associated with <span class="math inline">\(y\)</span>: <span id="eq-permutation-null-hypothesis"><span class="math display">\[
+H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}.
+\tag{16.2}\]</span></span> Furthermore, suppose the sample size <span class="math inline">\(n\)</span> is small enough that neither asymptotic inference nor the bootstrap are reliable. In this case, we can use the <em>permutation test</em>, which controls Type-I error for any sample size <span class="math inline">\(n\)</span>.</p>
+<section id="general-formulation-of-the-permutation-test" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="general-formulation-of-the-permutation-test"><span class="header-section-number">16.1</span> General formulation of the permutation test</h2>
+<p>Note that the null hypothesis can be formulated as follows: <span class="math display">\[
+H_0: y_i \overset{\text{i.i.d.}}\sim G \quad \text{for some distribution } G.
+\]</span> If we view the model matrix <span class="math inline">\(\boldsymbol X\)</span> as random, then we can also formulate <span class="math inline">\(H_0\)</span> as an independence null hypothesis: <span class="math display">\[
+H_0: \boldsymbol{x}_{\text{-}0} \perp\!\!\!\perp y.
+\]</span> Both of these reformulations suggest that, under the null hypothesis, the null distribution of the data <span class="math inline">\((\boldsymbol X, \boldsymbol y)\)</span> is invariant to permutations of <span class="math inline">\(\boldsymbol y\)</span>, while keeping <span class="math inline">\(\boldsymbol X\)</span> fixed. In other words, <span id="eq-permutation-invariance"><span class="math display">\[
+(\boldsymbol X, \pi \boldsymbol y) \overset{d}{=} (\boldsymbol X, \boldsymbol y), \quad \text{for all } \pi \in \mathcal{S}_n,
+\tag{16.3}\]</span></span> where <span class="math inline">\(\mathcal{S}_n\)</span> is the group of all permutations of <span class="math inline">\(\{1, \ldots, n\}\)</span> and <span class="math inline">\(\pi \boldsymbol y\)</span> is the permuted response vector. Therefore, we can use permuted instances of the data to approximate the null distribution of any test statistic under <span class="math inline">\(H_0\)</span>. There are two instances of the permutation test: one based on the entire group <span class="math inline">\(\mathcal S_n\)</span> and the other based on a random sample of <span class="math inline">\(\mathcal S_n\)</span>.</p>
+<section id="permutation-test-based-on-the-entire-permutation-group" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="permutation-test-based-on-the-entire-permutation-group"><span class="header-section-number">16.1.1</span> Permutation test based on the entire permutation group</h3>
+<p>Consider any test statistic <span class="math inline">\(T: (\boldsymbol X, \boldsymbol y) \mapsto \mathbb R\)</span>. For example, this may be the usual <span class="math inline">\(F\)</span>-statistic for testing the hypothesis (<a href="#eq-permutation-null-hypothesis"><span>16.2</span></a>) in the model (<a href="#eq-linear-model-with-intercept"><span>16.1</span></a>). Then, the permutation test based on the entire permutation group is as follows:</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Permutation test based on the entire permutation group
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Compute the observed value of the test statistic <span class="math inline">\(T(\boldsymbol X, \boldsymbol y)\)</span>.</li>
+<li>For each <span class="math inline">\(\pi \in \mathcal{S}_n\)</span>, compute the test statistic on the permuted data, <span class="math inline">\(T(\boldsymbol X, \pi \boldsymbol y)\)</span>.</li>
+<li>Compute the quantile <span class="math inline">\(\mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]\)</span>.</li>
+<li>Reject if <span class="math inline">\(T(\boldsymbol X, \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]\)</span>.</li>
+</ol>
+</div>
+</div>
+<p>As claimed at the outset of this chapter, this test has non-asymptotic Type-I error control.</p>
+<div id="thm-permutation-test-full" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.1 </strong></span>For any <span class="math inline">\(n\)</span>, the permutation test based on the entire permutation group has Type-I error at most <span class="math inline">\(\alpha\)</span> for testing the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span>.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>If <span class="math inline">\(\boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span>, then <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0\)</span>. Therefore, the mean of <span class="math inline">\(y\)</span> does not depend on <span class="math inline">\(\boldsymbol{x}\)</span>. By the assumption on <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span>, it follows that the entire distribution <span class="math inline">\(F_{y|\boldsymbol{x}}\)</span> does not depend on <span class="math inline">\(\boldsymbol{x}\)</span>, i.e., <span class="math inline">\(y \perp\!\!\!\perp \boldsymbol{x}\)</span>. If <span class="math inline">\(\boldsymbol{\beta}_{\text{-}0} \neq \boldsymbol{0}\)</span>, then <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}] = \beta_0 + \boldsymbol{x}^T \boldsymbol{\beta}_{\text{-}0}\)</span>, which by assumption is non-constant. Since <span class="math inline">\(\mathbb{E}[y|\boldsymbol{x}]\)</span> depends on <span class="math inline">\(\boldsymbol{x}\)</span>, it follows that <span class="math inline">\(y\)</span> is not independent of <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
+<p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\(H_0\)</span> holds. Let <span class="math inline">\(\tau \in \mathcal S_n\)</span>. Then, by the permutation invariance property (<a href="#eq-permutation-invariance"><span>16.3</span></a>), we have <span class="math display">\[
+\begin{split}
+&amp;\mathbb P[T(\boldsymbol X, \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]] \\
+&amp;\quad= \mathbb P[T(\boldsymbol X, \tau (\tau^{-1} \boldsymbol y)) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau (\tau^{-1}  \boldsymbol y)): \pi \in \mathcal S_n\}]] \\
+&amp;\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau \boldsymbol y): \pi \in \mathcal S_n\}]] \\
+&amp;\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]].
+\end{split}
+\]</span> Therefore, the probability that <span class="math inline">\(T(\boldsymbol X, \boldsymbol y)\)</span> exceeds the <span class="math inline">\((1-\alpha)\)</span>-quantile of the permutation distribution is the same as the probability that any other permuted test statistic exceeds the <span class="math inline">\((1-\alpha)\)</span>-quantile. Therefore, we have <span id="eq-permutation-test-full-proof"><span class="math display">\[
+\begin{split}
+&amp;\mathbb P[T(\boldsymbol X, \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]] \\
+&amp;\quad= \frac{1}{|\mathcal S_n|} \sum_{\tau \in \mathcal S_n} \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]] \\
+&amp;\quad = \mathbb E\left[\frac{|\{\tau \in \mathcal S_n: T(\boldsymbol X, \tau \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}\}|}{|\mathcal S_n|}\right] \\
+&amp;\quad \leq \alpha.
+\end{split}
+\tag{16.4}\]</span></span></p>
 </div>
-<p>Therefore, any valid independence test automatically gives a non-normality-robust and heteroskedasticity-robust test of <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span> in a linear regression.</p>
-<p>Now, suppose we have <span class="math inline">\(n\)</span> i.i.d. samples <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> from <span class="math inline">\(F\)</span>. Under the independence null hypothesis (<a href="#eq-independence-1"><span>16.1</span></a>), the distribution of the data is unchanged if we permute the response variables <span class="math inline">\(y_i\)</span>. Formally, let <span class="math inline">\(\boldsymbol{y}_{()}\)</span> be the order statistics of the response variable, let <span class="math inline">\(S_n\)</span> be the permutation group on <span class="math inline">\(\{1, \dots, n\}\)</span>, and let <span class="math inline">\(\boldsymbol{y}_\tau\)</span> denote the permutation of <span class="math inline">\(\boldsymbol{y}\)</span> by <span class="math inline">\(\tau \in S_n\)</span>. Then,</p>
-<p><span class="math display">\[
-\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(\boldsymbol{y}_{\tau}).
-\]</span></p>
-<p>Now, let <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y})\)</span> be any test statistic measuring the association between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{X}\)</span>, e.g., a linear regression <span class="math inline">\(F\)</span>-statistic. Then, the above distributional result implies that</p>
-<p><span class="math display">\[
-T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()} \sim \frac{1}{n!}\sum_{\tau \in S_n} \delta(T(\boldsymbol{X}, \boldsymbol{y}_{\tau})).
-\]</span></p>
-<p>Hence, we can compute the null distribution of <span class="math inline">\(T\)</span> by repeatedly permuting the response <span class="math inline">\(\boldsymbol{y}\)</span> and recomputing <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}_{\tau})\)</span>. This gives rise to the permutation <span class="math inline">\(p\)</span>-value:</p>
-<p><span class="math display">\[
-p^{\text{perm}} \equiv \frac{1}{n!}\sum_{\tau \in S_n} 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau}) \geq T(\boldsymbol{X}, \boldsymbol{y})).
-\]</span></p>
-<p>The uniform distribution of <span class="math inline">\(T(\boldsymbol{X}, \boldsymbol{y}) | \boldsymbol{X}, \boldsymbol{y}_{()}\)</span> implies that</p>
-<p><span class="math display">\[
-\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}] \leq t \quad \Longrightarrow \quad \mathbb{P}[p^{\text{perm}} \leq t] = \mathbb{E}[\mathbb{P}[p^{\text{perm}} \leq t | \boldsymbol{X}, \boldsymbol{y}_{()}]] \leq t \quad \text{for all } t \in [0,1].
-\]</span></p>
-<p>In practice, <span class="math inline">\(p^{\text{perm}}\)</span> is approximated by independently sampling <span class="math inline">\(B\)</span> permutations <span class="math inline">\(\tau_1, \dots, \tau_B\)</span> from the uniform distribution over <span class="math inline">\(S_n\)</span>. Letting <span class="math inline">\(\tau_0\)</span> be the identity permutation, it follows that</p>
-<p><span class="math display">\[
-\boldsymbol{y} | \boldsymbol{X}, \boldsymbol{y} \in \{\boldsymbol{y}_{\tau_0}, \dots, \boldsymbol{y}_{\tau_B}\} \sim \frac{1}{B+1}\sum_{b = 0}^B \delta(\boldsymbol{y}_{\tau_b}).
-\]</span></p>
-<p>Similar logic as above leads to the approximate permutation <span class="math inline">\(p\)</span>-value:</p>
-<p><span id="eq-p-perm-hat"><span class="math display">\[
-\widehat{p}^{\text{perm}} \equiv \frac{1}{B+1}\sum_{b = 0}^B 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y})) = \frac{1}{B+1}\left(1 + \sum_{b = 1}^B 1(T(\boldsymbol{X}, \boldsymbol{y}_{\tau_b}) \geq T(\boldsymbol{X}, \boldsymbol{y}))\right).
-\tag{16.2}\]</span></span></p>
-<p>Although <span class="math inline">\(\widehat{p}^{\text{perm}}\)</span> can be viewed as an approximation to <span class="math inline">\(\boldsymbol{p}^{\text{perm}}\)</span>, it is also stochastically larger than the uniform distribution in finite samples:</p>
-<p><span id="eq-permutation-pvalue-validity"><span class="math display">\[
-\mathbb{P}[\widehat{p}^{\text{perm}} \leq t] \leq t \quad \text{for all } t \in [0,1].
-\tag{16.3}\]</span></span></p>
-<p><strong>Warning:</strong> A common mistake is to omit the “1+” in the numerator and denominator of the definition (<a href="#eq-p-perm-hat"><span>16.2</span></a>). The resulting <span class="math inline">\(p\)</span>-value is <em>not valid</em> in the sense of (<a href="#eq-permutation-pvalue-validity"><span>16.3</span></a>).</p>
-<section id="example" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="example"><span class="header-section-number">16.1</span> Example</h2>
-<p>A common application of the permutation test is testing for equality of distributions in the two-sample problem, where the permutation test amounts to generating a null distribution for any test statistic (e.g., a difference in means) by pooling together the two samples and randomly reassigning the classes of the samples.</p>
 </section>
-<section id="strengths-and-weaknesses" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="strengths-and-weaknesses"><span class="header-section-number">16.2</span> Strengths and weaknesses</h2>
-<p>The strength of the permutation test is that it is valid under almost no assumptions on the data-generating process. Its main weakness is that it is not applicable to the hypothesis <span class="math inline">\(H_0: \beta_S = 0\)</span> for any group of predictors <span class="math inline">\(S \neq \{1, \dots, p-1\}\)</span>. Intuitively, this would require a fancy kind of permutation that breaks the association between <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{X}_{*, S}\)</span> while preserving the association between <span class="math inline">\(\boldsymbol{X}_{*, S}\)</span> and <span class="math inline">\(\boldsymbol{X}_{*, \text{-}S}\)</span>. This amounts to a test of <em>conditional</em> independence, which requires more assumptions on the joint distribution <span class="math inline">\(F_{\boldsymbol{x}, y}\)</span> than an independence test. Another weakness of a permutation test is that it is computationally expensive, although in the 21st century this is not a huge issue.</p>
+<section id="permutation-test-based-on-a-sample-of-the-permutation-group" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="permutation-test-based-on-a-sample-of-the-permutation-group"><span class="header-section-number">16.1.2</span> Permutation test based on a sample of the permutation group</h3>
+<p>The permutation test based on the entire permutation group is computationally infeasible for large <span class="math inline">\(n\)</span>. Instead, we can use a random sample of the permutation group to approximate the null distribution of the test statistic.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Permutation test based on a sample of the permutation group
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Compute the observed value of the test statistic <span class="math inline">\(T(\boldsymbol X, \boldsymbol y)\)</span>.</li>
+<li>Draw a random sample <span class="math inline">\((\pi_1, \dots, \pi_B)\)</span> from <span class="math inline">\(\mathcal S_n\)</span>.</li>
+<li>For each <span class="math inline">\(b = 1, \dots, B\)</span>, compute the test statistic on the permuted data, <span class="math inline">\(T(\boldsymbol X, \pi_b \boldsymbol y)\)</span>.</li>
+<li>Compute the quantile <span class="math inline">\(\mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\}]\)</span>.</li>
+<li>Reject if <span class="math inline">\(T(\boldsymbol X, \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\}]\)</span>.</li>
+</ol>
+</div>
+</div>
+<p>This gives us not just an approximation to the permutation test based on the entire permutation group, but a finite-sample valid test in its own right. The inclusion of the original test statistic <span class="math inline">\(T(\boldsymbol X, \boldsymbol y)\)</span> in the quantile computation ensures that the test has finite-sample Type-I error control; see the exchangeability-based argument in the proof.</p>
+<div id="thm-permutation-test-sample" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.2 </strong></span>For any <span class="math inline">\(n\)</span>, the permutation test based on a sample of the permutation group has Type-I error at most <span class="math inline">\(\alpha\)</span> for testing the null hypothesis <span class="math inline">\(H_0: \boldsymbol{\beta}_{\text{-}0} = \boldsymbol{0}\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Suppose <span class="math inline">\(H_0\)</span> holds. We claim that the <span class="math inline">\(B+1\)</span> test statistics <span class="math display">\[
+\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\}
+\]</span> are <em>exchangeable</em>, i.e., their joint distribution is independent of their ordering. To see that, let <span class="math inline">\(\tau\)</span> be a randomly sampled permutation from <span class="math inline">\(\mathcal S_n\)</span>. Then, by the permutation invariance property (<a href="#eq-permutation-invariance"><span>16.3</span></a>), we have <span class="math display">\[
+\begin{split}
+&amp;\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\} \\
+&amp;\quad\stackrel{d}{=} \{T(\boldsymbol X, \tau \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \tau \boldsymbol y): b = 1, \dots, B\}.
+\end{split}
+\]</span> It is not hard to see that <span class="math inline">\(\{\tau, \pi_1 \tau, \dots, \pi_B\tau\}\)</span> is an i.i.d. sample from <span class="math inline">\(\mathcal S_n\)</span>, from which the claimed exchangeability follows. From this exchangeability, we get that <span class="math display">\[
+\begin{split}
+&amp;\mathbb P[T(\boldsymbol X, \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\}]] \\
+&amp;\quad= \mathbb P[T(\boldsymbol X, \pi_b \boldsymbol y) &gt; \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \boldsymbol y)\} \cup \{T(\boldsymbol X, \pi_b \boldsymbol y): b = 1, \dots, B\}]]
+\end{split}
+\]</span> for each <span class="math inline">\(b = 1, \dots, B\)</span>, from which Type-I error control follows by the same argument as in the derivation (<a href="#eq-permutation-test-full-proof"><span>16.4</span></a>).</p>
+</div>
+</section>
+<section id="obtaining-p-values-from-permutation-tests" class="level3" data-number="16.1.3">
+<h3 data-number="16.1.3" class="anchored" data-anchor-id="obtaining-p-values-from-permutation-tests"><span class="header-section-number">16.1.3</span> Obtaining <span class="math inline">\(p\)</span>-values from permutation tests</h3>
+<p>In some cases, it is desirable to extract <span class="math inline">\(p\)</span>-values from permutation tests, rather than just the decision to accept or reject at a fixed level <span class="math inline">\(\alpha\)</span>. The <span class="math inline">\(p\)</span>-value is the smallest level at which the null hypothesis can be rejected, i.e., the probability under the permutation distribution of observing a test statistic at least as extreme as the observed test statistic. For permutation tests based on the full permutation group, the <span class="math inline">\(p\)</span>-value can be computed as follows: <span class="math display">\[
+p = \frac{1}{|\mathcal S_n|}\sum_{\tau \in \mathcal S_n} \mathbb I\{T(\boldsymbol X, \tau \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}.
+\]</span> For permutation tests based on a sample of the permutation group, the <span class="math inline">\(p\)</span>-value can be computed as <span id="eq-p-value-permutation-test-sample"><span class="math display">\[
+p = \frac{1}{B+1}\left(1 + \sum_{b=1}^B \mathbb I\{T(\boldsymbol X, \pi_b \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}\right).
+\tag{16.5}\]</span></span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A common mistake is to omit the “1+” term from the numerator and denominator of equation (<a href="#eq-p-value-permutation-test-sample"><span>16.5</span></a>). These terms is essential for constructing a valid <span class="math inline">\(p\)</span>-value. In particular, these terms prevent the <span class="math inline">\(p\)</span>-value from being exactly zero.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="special-case-two-groups-model" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="special-case-two-groups-model"><span class="header-section-number">16.2</span> Special case: Two-groups model</h2>
+<p>The most common application of the permutation test is to the two-groups model: <span class="math display">\[
+y_i = \beta_0 + \beta_1 x_{i,1} + \epsilon_i, \quad \text{where } x_{i,1} \in \{0, 1\}.
+\]</span> The goal here is to test whether the binary “treatment” variable has any effect on the response variable: <span class="math display">\[
+H_0: \beta_1 = 0.
+\]</span> To make the two groups more explicit, we can write <span class="math display">\[
+\{y_i: x_{i,1} = 0\} \overset{\text{i.i.d.}}\sim G_0, \quad \{y_i: x_{i,1} = 1\} \overset{\text{i.i.d.}}\sim G_1,
+\]</span> and the null hypothesis can be reformulated as <span class="math display">\[
+H_0: G_0 = G_1.
+\]</span> In this case, the permutation mechanism randomly reassigns observations to the two groups. A commonly used test statistic <span class="math inline">\(T\)</span> used in conjunction with this test is the difference in means between the two groups. While the permutation test controls Type-I error exactly under the hypothesis that the two groups come from exactly the same distribution, we might want to test a weaker hypothesis that the two groups have the same mean. It turns out that, at least asymptotically, the permutation test controls Type-I error under this weaker null hypothesis if it is based on a <em>studentized</em> statistic, such as <span class="math display">\[
+T(\boldsymbol X, \boldsymbol y) = \frac{\bar y_1 - \bar y_0}{\sqrt{\frac{\hat \sigma_0^2}{n_0} + \frac{\hat \sigma_1^2}{n_1}}},
+\]</span> where <span class="math inline">\(\bar y_0\)</span> and <span class="math inline">\(\bar y_1\)</span> are the sample means of the two groups, <span class="math inline">\(\hat \sigma_0^2\)</span> and <span class="math inline">\(\hat \sigma_1^2\)</span> are the sample variances of the two groups, and <span class="math inline">\(n_0\)</span> and <span class="math inline">\(n_1\)</span> are the sample sizes of the two groups.</p>
+</section>
+<section id="permutation-test-versus-bootstrap" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="permutation-test-versus-bootstrap"><span class="header-section-number">16.3</span> Permutation test versus bootstrap</h2>
+<p>The bootstrap and permutation are both resampling-based tests that use computation as a substitute for mathematical derivations of sampling distributions. Both methods have better finite-sample performance than their asymptotic counterparts. The bootstrap and the permutation test are typically considered primarily in the context of confidence interval construction and hypothesis testing, respectively, although the bootstrap can also be used for hypothesis testing in certain cases. The key difference is that the permutation test has valid Type-I error control in finite samples, while the bootstrap requires an asymptotic justification (even if the asymptotic convergence is faster than typical CLT-based asymptotics). Furthermore, the bootstrap is somewhat more versatile than the permutation test, as the latter is restricted to testing null hypotheses about all non-intercept coefficients.</p>
 
 
 </section>

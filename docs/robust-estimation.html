@@ -383,14 +383,25 @@ ul.task-list li input[type="checkbox"] {
 L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
 \begin{cases}
 \frac{1}{2}(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2, \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| \leq \delta; \\
-\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\delta), \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| &gt; \delta.
+\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\tfrac12\delta), \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| &gt; \delta.
 \end{cases}
 \]</span></p>
-<p>This function is differentiable, like the squared error loss, but grows linearly as opposed to quadratically. We can then define:</p>
+<p>This function is differentiable at the origin, like the squared error loss, but grows linearly as opposed to quadratically.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="robust-estimation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="288"></p>
+</div>
+</div>
+<p>We can then define:</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}).
-\]</span></p>
-<p>This is an <em>M-estimator</em>; it is consistent and has an asymptotic normal distribution that can be used for inference.</p>
+\]</span> The resulting <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> is an <em>M-estimator</em>. We can compute this estimator by taking a derivative of the objective and setting it to zero: <span class="math display">\[
+\sum_{i = 1}^n L'_\delta(y - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) \boldsymbol{x}_{i*} = 0.
+\]</span> Unlike least squares, this equation does not have a closed-form solution. However, it can be solved using an iterative algorithm. The resulting estimator can be shown to be consistent. Furthermore, we can construct hypothesis tests and confidence intervals using <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> based on the following asymptotic normality statement, assuming a random design: <span class="math display">\[
+\sqrt{n}(\boldsymbol{\widehat{\beta}}^{\text{Huber}} - \boldsymbol{\beta}) \xrightarrow{d} N(\boldsymbol{0}, \boldsymbol A^{-1}\boldsymbol B \boldsymbol A^{-1}),
+\]</span> where <span class="math display">\[
+\boldsymbol A = \mathbb{E}[L'_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
+\]</span> The asymptotic covariance can be consistently estimated based on the residuals from the Huber regression.</p>
 
 
 

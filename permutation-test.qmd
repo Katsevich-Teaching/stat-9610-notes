@@ -134,7 +134,7 @@ $$ {#eq-p-value-permutation-test-sample}
 
 ::: {.callout-warning}
 
-A common mistake is to omit the "1+" term from the numerator and denominator of equation ([-@eq-p-value-permutation-test-sample]). These terms is essential for constructing a valid $p$-value. In particular, these terms prevent the $p$-value from being exactly zero.
+A common mistake is to omit the "1+" term from the numerator and denominator of equation ([-@eq-p-value-permutation-test-sample]). These terms are essential for constructing a valid $p$-value. In particular, these terms prevent the $p$-value from being exactly zero.
 
 :::
 

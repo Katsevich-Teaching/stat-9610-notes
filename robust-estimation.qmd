@@ -6,14 +6,57 @@ $$
 L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
 \begin{cases}
 \frac{1}{2}(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2, \quad &\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| \leq \delta; \\
-\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\delta), \quad &\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| > \delta.
+\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\tfrac12\delta), \quad &\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| > \delta.
 \end{cases}
 $$
 
-This function is differentiable, like the squared error loss, but grows linearly as opposed to quadratically. We can then define:
+This function is differentiable at the origin, like the squared error loss, but grows linearly as opposed to quadratically. 
+
+```{r, echo = FALSE, message = FALSE, fig.width = 3, fig.height = 3.5}
+library(ggplot2)
+
+# define the Huber loss function
+huber_loss <- function(x, delta) {
+  ifelse(abs(x) <= delta, 0.5 * x^2, delta * (abs(x) - 0.5*delta))
+}
+
+# plot the Huber loss using stat_function()
+delta <- 1
+ggplot() +
+  stat_function(fun = huber_loss, 
+                args = list(delta = 1), 
+                geom = "line", 
+                xlim = c(-4,4), aes(color = "Huber")) +
+  stat_function(fun = function(x) 0.5 * x^2, 
+                geom = "line", 
+                xlim = c(-4,4), aes(color = "Squared error")) +
+  # geom_point(aes(x = 1, y = huber_loss(1, delta)), color = "darkblue") +
+  # geom_point(aes(x = -1, y = huber_loss(-1, delta)), color = "darkblue") +
+  labs(x = expression(d),
+       y = expression(L[delta](d)),
+       title = "Loss functions") + 
+  scale_color_manual(values = c("darkblue", "darkred")) +
+  theme_bw() + 
+  theme(legend.position = "bottom", 
+        legend.title = element_blank(), 
+        plot.title = element_text(hjust = 0.5))
+```
+
+We can then define:
 
 $$
 \boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}).
 $$
-
-This is an *M-estimator*; it is consistent and has an asymptotic normal distribution that can be used for inference.
+The resulting $\boldsymbol{\widehat{\beta}}^{\text{Huber}}$ is an *M-estimator*. We can compute this estimator by taking a derivative of the objective and setting it to zero:
+$$
+\sum_{i = 1}^n L'_\delta(y - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) \boldsymbol{x}_{i*} = 0.
+$$
+Unlike least squares, this equation does not have a closed-form solution. However, it can be solved using an iterative algorithm. The resulting estimator can be shown to be consistent. Furthermore, we can construct hypothesis tests and confidence intervals using $\boldsymbol{\widehat{\beta}}^{\text{Huber}}$ based on the following asymptotic normality statement, assuming a random design:
+$$
+\sqrt{n}(\boldsymbol{\widehat{\beta}}^{\text{Huber}} - \boldsymbol{\beta}) \xrightarrow{d} N(\boldsymbol{0}, \boldsymbol A^{-1}\boldsymbol B \boldsymbol A^{-1}),
+$$
+where
+$$
+\boldsymbol A = \mathbb{E}[L'_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
+$$
+The asymptotic covariance can be consistently estimated based on the residuals from the Huber regression.

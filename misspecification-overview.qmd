@@ -141,7 +141,7 @@ An outlier can have the effect of biasing the estimate $\boldsymbol{\widehat{\be
 There are a few measures associated with an observation that can be used to detect outliers, though none are perfect. The first quantity is called the *leverage*, defined as:
 
 $$
-\text{leverage of observation } i \equiv \text{corr}^2(y_i, \widehat{\mu}_i)^2.
+\text{leverage of observation } i \equiv \text{corr}^2(y_i, \widehat{\mu}_i).
 $$
 
 This quantity measures the extent to which the fitted value $\widehat{\mu}_i$ is sensitive to the (noise in the) observation $y_i$. It can be derived that:

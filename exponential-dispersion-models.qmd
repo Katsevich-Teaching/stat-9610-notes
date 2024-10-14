@@ -5,7 +5,10 @@
 Let's start with the Gaussian distribution. If $y \sim N(\mu, \sigma^2)$, then it has the following density with respect to the Lebesgue measure $\nu$ on $\mathbb{R}$:
 
 $$
-f_{\mu, \sigma^2}(y) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) = \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\begin{split}
+f_{\mu, \sigma^2}(y) &= \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) \\
+&= \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\end{split}
 $$ 
 
 We can consider a more general class of densities with respect to any measure $\nu$:
@@ -53,7 +56,10 @@ Hence, the Bernoulli distribution is an EDM, as well as a one-parameter exponent
 Consider the binomial proportion $y$: $my \sim \text{Bin}(m, \mu)$. We have
 
 $$
-f(y) = {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} = \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
+\begin{split}
+f(y) &= {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} \\
+&= \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
+\end{split}
 $$
 
 so
@@ -105,7 +111,11 @@ $$ {#eq-psi-dot}
 Thus, the first derivative of the log partition function is the mean of $y$. Differentiating again, we get
 
 $$
-\phi \cdot \ddot \psi(\theta) = \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) = \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) = \text{Var}[y].
+\begin{split}
+\phi \cdot \ddot \psi(\theta) &= \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) \\
+&= \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) \\
+&= \text{Var}[y].
+\end{split}
 $$
 
 Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of $y$.
@@ -165,7 +175,11 @@ The unit deviance is nonnegative, and minimized by $\mu = y$. For the normal dis
 For the Poisson distribution, we have $t(y, \mu) = y\log \mu - \mu$, so
 
 $$
-d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)) = 2(y\log y - y - y \log \mu + \mu) = 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
+\begin{split}
+d(y, \mu) &\equiv 2(t(y, y) - t(y, \mu)) \\
+&= 2(y\log y - y - y \log \mu + \mu) \\
+&= 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
+\end{split}
 $$
 
 See @fig-poisson-unit-deviance for an example of the shape of this function.
@@ -225,7 +239,11 @@ $$
 Here, “boundary” represents the nearest boundary of the parameter space to $\mu$. For example, if $y \sim \frac{1}{m}\text{Bin}(m, \mu)$, then we have
 
 $$
-\tau = \frac{\frac{1}{m} \cdot \mu \cdot (1-\mu)}{\min(\mu, 1-\mu)^2} = \frac{1}{m} \cdot \max\left(\frac{\mu}{1-\mu}, \frac{1-\mu}{\mu}\right) \approx \frac{1}{m} \cdot \max\left(\frac 1 \mu, \frac 1 {1-\mu}\right),
+\begin{split}
+\tau &= \frac{\frac{1}{m} \cdot \mu \cdot (1-\mu)}{\min(\mu, 1-\mu)^2} \\
+&= \frac{1}{m} \cdot \max\left(\frac{\mu}{1-\mu}, \frac{1-\mu}{\mu}\right) \\
+&\approx \frac{1}{m} \cdot \max\left(\frac 1 \mu, \frac 1 {1-\mu}\right),
+\end{split}
 $$
 
 so $\tau \leq 1/5$ roughly if $m \mu \leq 5$ and $m (1-\mu) \leq 5$. For Poisson distributions, we always have $\tau = 1$, but for some reason small-dispersion asymptotics still applies as $\mu \rightarrow \infty$ as opposed to $\tau \rightarrow 0$. The criterion $\tau \leq 1/5$ is satisfied when $\mu \leq 5$.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAT 9610 Lecture Notes - 17&nbsp; Robust estimation</title>
+<title>STAT 9610 Lecture Notes - 17&nbsp; Robust estimation and inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./robust-estimation.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./robust-estimation.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -234,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -356,14 +356,24 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#drawback-of-squared-error-loss" id="toc-drawback-of-squared-error-loss" class="nav-link active" data-scroll-target="#drawback-of-squared-error-loss"><span class="header-section-number">17.1</span> Drawback of squared error loss</a></li>
+  <li><a href="#the-huber-loss" id="toc-the-huber-loss" class="nav-link" data-scroll-target="#the-huber-loss"><span class="header-section-number">17.2</span> The Huber loss</a></li>
+  <li><a href="#scale-estimation" id="toc-scale-estimation" class="nav-link" data-scroll-target="#scale-estimation"><span class="header-section-number">17.3</span> Scale estimation</a></li>
+  <li><a href="#huber-estimation" id="toc-huber-estimation" class="nav-link" data-scroll-target="#huber-estimation"><span class="header-section-number">17.4</span> Huber estimation</a></li>
+  <li><a href="#inference-based-on-huber-estimates" id="toc-inference-based-on-huber-estimates" class="nav-link" data-scroll-target="#inference-based-on-huber-estimates"><span class="header-section-number">17.5</span> Inference based on Huber estimates</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-robust-estimation" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></h1>
+<h1 class="title"><span id="sec-robust-estimation" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></h1>
 </div>
 
 
@@ -378,12 +388,22 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>The squared error loss <span class="math inline">\(\sum_{i = 1}^n (y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2\)</span> is sensitive to outliers in the sense that a large value of <span class="math inline">\(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span> can have a significant impact on the loss function. The least squares estimate, as the minimizer of this loss function, is therefore sensitive to outliers. One way of addressing this challenge is to replace the squared error loss with a different loss that does not grow so quickly in <span class="math inline">\(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span>. A popular choice for such a loss function is the Huber loss:</p>
+<section id="drawback-of-squared-error-loss" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="drawback-of-squared-error-loss"><span class="header-section-number">17.1</span> Drawback of squared error loss</h2>
+<p>Suppose that <span id="eq-robust-model"><span class="math display">\[
+y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i, \quad \epsilon_i \overset{\text{i.i.d.}}\sim G, \quad i = 1, \ldots, n, \quad
+\tag{17.1}\]</span></span> for some distribution <span class="math inline">\(G\)</span>. If the distribution <span class="math inline">\(G\)</span> has heavy tails, then the residuals will contain outliers. Recall that the least squares estimate is defined as <span class="math display">\[
+\boldsymbol{\widehat \beta} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}), \quad \text{where} \quad L(d) \equiv \frac{1}{2}d^2.
+\]</span> The squared error loss <span class="math inline">\(L(d)\)</span> is sensitive to outliers in the sense that a large value of <span class="math inline">\(d_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span> can have a significant impact on the loss function <span class="math inline">\(L(d_i)\)</span>. The least squares estimate, as the minimizer of this loss function, is therefore sensitive to outliers.</p>
+</section>
+<section id="the-huber-loss" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="the-huber-loss"><span class="header-section-number">17.2</span> The Huber loss</h2>
+<p>One way of addressing this challenge is to replace the squared error loss with a different loss that does not grow so quickly in <span class="math inline">\(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}\)</span>. A popular choice for such a loss function is the <em>Huber loss</em>:</p>
 <p><span class="math display">\[
-L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
+L_\delta(d) =
 \begin{cases}
-\frac{1}{2}(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta})^2, \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| \leq \delta; \\
-\delta(|y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|-\tfrac12\delta), \quad &amp;\text{if } |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}| &gt; \delta.
+\frac{1}{2}d^2, \quad &amp;\text{if } |d| \leq \delta; \\
+\delta(|d|-\tfrac12\delta), \quad &amp;\text{if } |d| &gt; \delta.
 \end{cases}
 \]</span></p>
 <p>This function is differentiable at the origin, like the squared error loss, but grows linearly as opposed to quadratically.</p>
@@ -392,18 +412,53 @@ L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) =
 <p><img src="robust-estimation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
-<p>We can then define:</p>
+</section>
+<section id="scale-estimation" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="scale-estimation"><span class="header-section-number">17.3</span> Scale estimation</h2>
+<p>The choice of <span class="math inline">\(\delta &gt; 0\)</span> depends on the scale of the noise terms <span class="math inline">\(\epsilon_i\)</span>. Supposing that <span class="math inline">\(\text{Var}[\epsilon_i] = \sigma^2\)</span>, a large residual is one where <span class="math inline">\(|\epsilon_i/\sigma|\)</span> is large. In this sense, <span class="math inline">\(\delta\)</span> should be on the same scale as <span class="math inline">\(\sigma\)</span>. Of course, <span class="math inline">\(\sigma\)</span> is unknown, so a first step towards obtaining a robust estimate is to estimate <span class="math inline">\(\sigma\)</span>. While we would usually estimate <span class="math inline">\(\sigma\)</span> based on the residuals from the least squares estimate, this approach is not robust to outliers. Instead, we can obtain a pilot estimate of the coefficients using the least absolute deviation (LAD) estimator, a scale-free and outlier-robust estimate: <span class="math display">\[
+\boldsymbol{\widehat{\beta}}^{\text{LAD}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}|.
+\]</span> Then, we can estimate <span class="math inline">\(\sigma\)</span> from the residuals based on the LAD estimate. Since some of these residuals are outliers, it is better to avoid simply taking a sample variance. Instead, we can use the median absolute deviation (MAD) of the residuals, which is a robust estimate of the scale of the noise terms. <span class="math display">\[
+\widehat{\sigma} \equiv \frac{1}{0.675}\text{median}\left\{ |y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}^{\text{LAD}}| \right\}.
+\]</span> The purpose of the scaling factor of <span class="math inline">\(0.675\)</span> is to connect the MAD to the standard deviation of the distribution of <span class="math inline">\(\epsilon_i\)</span>; it is derived based on the normal distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In principle, <span class="math inline">\(\widehat{\boldsymbol \beta}^{\text{LAD}}\)</span> could be used not just for estimation of <span class="math inline">\(\sigma\)</span> but also for inference for <span class="math inline">\(\boldsymbol \beta\)</span> itself. However, the LAD estimator may be less efficient than the Huber estimator, so the latter estimator is usually preferred.</p>
+</div>
+</div>
+</section>
+<section id="huber-estimation" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="huber-estimation"><span class="header-section-number">17.4</span> Huber estimation</h2>
+<p>With an estimate of <span class="math inline">\(\sigma\)</span> in hand, we can use the Huber loss function to estimate <span class="math inline">\(\boldsymbol{\beta}\)</span>: <span class="math display">\[
+\boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta\left(\frac{y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}}{\widehat \sigma}\right).
+\]</span></p>
+<p>A common choice for <span class="math inline">\(\delta\)</span> is <span class="math inline">\(\delta = 1.345\)</span>, which makes the Huber estimator 95% efficient relative to the least squares estimator under normality. The resulting <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> is an <em>M-estimator</em>. We can compute this estimator by taking a derivative of the objective and setting it to zero: <span class="math display">\[
+\sum_{i = 1}^n L'_\delta\left(\frac{y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}}{\widehat \sigma}\right) \boldsymbol{x}_{i*} = 0.
+\]</span> Unlike least squares, this equation does not have a closed-form solution. However, it can be solved using an iterative algorithm. Under certain assumptions, the resulting estimator can be shown to be consistent.</p>
+</section>
+<section id="inference-based-on-huber-estimates" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="inference-based-on-huber-estimates"><span class="header-section-number">17.5</span> Inference based on Huber estimates</h2>
+<p>We can construct hypothesis tests and confidence intervals using <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> based on the following result.</p>
+<div id="thm-huber-inference" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 17.1 (Asymptotic normality of Huber estimator (informal)) </strong></span>Suppose the data <span class="math inline">\((\boldsymbol X, \boldsymbol y)\)</span> follow the model (<a href="#eq-robust-model"><span>17.1</span></a>), with fixed design matrix <span class="math inline">\(\boldsymbol X\)</span>. Then, if <span class="math inline">\(\hat \sigma\)</span> is a consistent estimator of <span class="math inline">\(\sigma\)</span> and if the noise distribution <span class="math inline">\(G\)</span> is symmetric, then</p>
 <p><span class="math display">\[
-\boldsymbol{\widehat{\beta}}^{\text{Huber}} \equiv \underset{\boldsymbol{\beta}}{\arg \min}\ \sum_{i = 1}^n L_\delta(y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}).
-\]</span> The resulting <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> is an <em>M-estimator</em>. We can compute this estimator by taking a derivative of the objective and setting it to zero: <span class="math display">\[
-\sum_{i = 1}^n L'_\delta(y - \boldsymbol{x}_{i*}^T \boldsymbol{\beta}) \boldsymbol{x}_{i*} = 0.
-\]</span> Unlike least squares, this equation does not have a closed-form solution. However, it can be solved using an iterative algorithm. The resulting estimator can be shown to be consistent. Furthermore, we can construct hypothesis tests and confidence intervals using <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span> based on the following asymptotic normality statement, assuming a random design: <span class="math display">\[
-\sqrt{n}(\boldsymbol{\widehat{\beta}}^{\text{Huber}} - \boldsymbol{\beta}) \xrightarrow{d} N(\boldsymbol{0}, \boldsymbol A^{-1}\boldsymbol B \boldsymbol A^{-1}),
-\]</span> where <span class="math display">\[
-\boldsymbol A = \mathbb{E}[L''_\delta(\epsilon_i) \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T] \quad \text{and} \quad \boldsymbol B = \mathbb{E}[L'_\delta(\epsilon_i)^2 \boldsymbol{x}_{i*} \boldsymbol{x}_{i*}^T].
-\]</span> The asymptotic covariance can be consistently estimated based on the residuals from the Huber regression.</p>
+\boldsymbol{\widehat{\beta}}^{\text{Huber}} \overset \cdot \sim N(\boldsymbol{\beta}, v (\boldsymbol X^T \boldsymbol X)^{-1}), \quad \text{where} \quad v \equiv \sigma^2 \frac{\mathbb E[L'_\delta(\epsilon_i/\sigma)^2]}{\mathbb E[L''_\delta(\epsilon_i/\sigma)]^2}.
+\]</span> Letting <span class="math inline">\(\hat \epsilon_i \equiv y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}^{\text{Huber}}\)</span>, we can estimate <span class="math inline">\(v\)</span> via <span class="math display">\[
+\widehat v \equiv \hat \sigma^2 \frac{\frac{1}{n} \sum_{i = 1}^n L'_\delta(\hat \epsilon_i/\hat \sigma)^2}{\left(\frac{1}{n} \sum_{i = 1}^n L''_\delta(\hat \epsilon_i/\hat \sigma)\right)^2}.
+\]</span> Under appropriate regularity conditions, <span class="math inline">\(\widehat v\)</span> is a consistent estimator of <span class="math inline">\(v\)</span>, so that <span class="math display">\[
+\boldsymbol{\widehat{\beta}}^{\text{Huber}} \overset \cdot \sim N(\boldsymbol{\beta}, \hat v (\boldsymbol X^T \boldsymbol X)^{-1}).
+\]</span></p>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -234,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -411,7 +411,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="19.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">19.1</span> Definition</h2>
 <p>Let’s start with the Gaussian distribution. If <span class="math inline">\(y \sim N(\mu, \sigma^2)\)</span>, then it has the following density with respect to the Lebesgue measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(\mathbb{R}\)</span>:</p>
 <p><span class="math display">\[
-f_{\mu, \sigma^2}(y) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) = \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\begin{split}
+f_{\mu, \sigma^2}(y) &amp;= \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y-\mu)^2\right) \\
+&amp;= \exp\left(\frac{\mu y - \frac{1}{2}\mu^2}{\sigma^2}\right) \cdot \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\end{split}
 \]</span></p>
 <p>We can consider a more general class of densities with respect to any measure <span class="math inline">\(\nu\)</span>:</p>
 <p><span id="eq-edm-def"><span class="math display">\[
@@ -448,7 +451,10 @@ f(y) = \mu^{y}(1-\mu)^{1-y} = \exp\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu) \
 <h3 data-number="19.2.3" class="anchored" data-anchor-id="binomial-distribution"><span class="header-section-number">19.2.3</span> Binomial distribution</h3>
 <p>Consider the binomial proportion <span class="math inline">\(y\)</span>: <span class="math inline">\(my \sim \text{Bin}(m, \mu)\)</span>. We have</p>
 <p><span class="math display">\[
-f(y) = {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} = \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
+\begin{split}
+f(y) &amp;= {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} \\
+&amp;= \exp\left(m\left(y \log \frac{\mu}{1-\mu} + \log(1-\mu)\right)\right){m \choose my},
+\end{split}
 \]</span></p>
 <p>so</p>
 <p><span class="math display">\[
@@ -486,7 +492,11 @@ f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
 \tag{19.2}\]</span></span></p>
 <p>Thus, the first derivative of the log partition function is the mean of <span class="math inline">\(y\)</span>. Differentiating again, we get</p>
 <p><span class="math display">\[
-\phi \cdot \ddot \psi(\theta) = \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) = \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) = \text{Var}[y].
+\begin{split}
+\phi \cdot \ddot \psi(\theta) &amp;= \phi \int \ddot \psi(\theta) f_{\theta, \phi}(y) d\nu(y) \\
+&amp;= \int (y - \dot \psi(\theta))^2 f_{\theta, \phi}(y) dy = \int (y - \mu)^2f_{\theta, \phi}(y) d\nu(y) \\
+&amp;= \text{Var}[y].
+\end{split}
 \]</span></p>
 <p>Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of <span class="math inline">\(y\)</span>.</p>
 </section>
@@ -532,7 +542,11 @@ d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
 <h3 data-number="19.5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">19.5.1</span> Example</h3>
 <p>For the Poisson distribution, we have <span class="math inline">\(t(y, \mu) = y\log \mu - \mu\)</span>, so</p>
 <p><span class="math display">\[
-d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)) = 2(y\log y - y - y \log \mu + \mu) = 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
+\begin{split}
+d(y, \mu) &amp;\equiv 2(t(y, y) - t(y, \mu)) \\
+&amp;= 2(y\log y - y - y \log \mu + \mu) \\
+&amp;= 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
+\end{split}
 \]</span></p>
 <p>See <a href="#fig-poisson-unit-deviance">Figure&nbsp;<span>19.1</span></a> for an example of the shape of this function.</p>
 <div id="fig-poisson-unit-deviance" class="quarto-figure quarto-figure-center anchored">
@@ -581,7 +595,11 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 \]</span></p>
 <p>Here, “boundary” represents the nearest boundary of the parameter space to <span class="math inline">\(\mu\)</span>. For example, if <span class="math inline">\(y \sim \frac{1}{m}\text{Bin}(m, \mu)\)</span>, then we have</p>
 <p><span class="math display">\[
-\tau = \frac{\frac{1}{m} \cdot \mu \cdot (1-\mu)}{\min(\mu, 1-\mu)^2} = \frac{1}{m} \cdot \max\left(\frac{\mu}{1-\mu}, \frac{1-\mu}{\mu}\right) \approx \frac{1}{m} \cdot \max\left(\frac 1 \mu, \frac 1 {1-\mu}\right),
+\begin{split}
+\tau &amp;= \frac{\frac{1}{m} \cdot \mu \cdot (1-\mu)}{\min(\mu, 1-\mu)^2} \\
+&amp;= \frac{1}{m} \cdot \max\left(\frac{\mu}{1-\mu}, \frac{1-\mu}{\mu}\right) \\
+&amp;\approx \frac{1}{m} \cdot \max\left(\frac 1 \mu, \frac 1 {1-\mu}\right),
+\end{split}
 \]</span></p>
 <p>so <span class="math inline">\(\tau \leq 1/5\)</span> roughly if <span class="math inline">\(m \mu \leq 5\)</span> and <span class="math inline">\(m (1-\mu) \leq 5\)</span>. For Poisson distributions, we always have <span class="math inline">\(\tau = 1\)</span>, but for some reason small-dispersion asymptotics still applies as <span class="math inline">\(\mu \rightarrow \infty\)</span> as opposed to <span class="math inline">\(\tau \rightarrow 0\)</span>. The criterion <span class="math inline">\(\tau \leq 1/5\)</span> is satisfied when <span class="math inline">\(\mu \leq 5\)</span>.</p>
 </section>

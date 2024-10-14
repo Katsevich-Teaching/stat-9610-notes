@@ -123,11 +123,11 @@ The methods for learning the data distribution lie on a spectrum based on how fl
 
 | Method                  | Non-normality | Hetero-skedasticity | Group correlation | Temporal correlation |
 |-------------------------|---------------|---------------------|-------------------|----------------------|
-| Parametric              | &#10008;      | &#10008;            | &#10008;          | &#10008;             |
-| Residual                | &#10004;      | &#10008;            | &#10008;          | &#10008;             |
-| Pairs                   | &#10004;      | &#10004;            | &#10008;          | &#10008;             |
-| Clustered               | &#10004;      | &#10004;            | &#10004;          | &#10008;             |
-| Moving Blocks           | &#10004;      | &#10004;            | &#10008;          | &#10004;             |
+| Parametric              | No      | No            | No          | No             |
+| Residual                | Yes      | No            | No          | No             |
+| Pairs                   | Yes      | Yes            | No          | No             |
+| Clustered               | Yes      | Yes            | Yes          | No             |
+| Moving Blocks           | Yes      | Yes            | No          | Yes             |  
 
 </div>
 

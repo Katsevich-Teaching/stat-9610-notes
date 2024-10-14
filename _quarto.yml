@@ -88,4 +88,3 @@ format:
       \setlength{\headheight}{13.6pt} % fixes minor warning
       \makeatother % change back interpretation of @
 
-

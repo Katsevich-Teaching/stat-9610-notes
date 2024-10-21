@@ -623,8 +623,8 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 \]</span></p>
 <p>This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
-<section id="approximation-accuracy" class="level4" data-number="19.6.1.2">
-<h4 data-number="19.6.1.2" class="anchored" data-anchor-id="approximation-accuracy"><span class="header-section-number">19.6.1.2</span> Approximation accuracy</h4>
+<section id="sec-normal-approx-accuracy" class="level4" data-number="19.6.1.2">
+<h4 data-number="19.6.1.2" class="anchored" data-anchor-id="sec-normal-approx-accuracy"><span class="header-section-number">19.6.1.2</span> Normal approximation accuracy</h4>
 <p>We have</p>
 <p><span class="math display">\[
 \tilde f^{\text{normal}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) + O(\sqrt{\phi}).
@@ -674,8 +674,8 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 \]</span></p>
 <p>Here, we are using the unit deviance rather than the squared distance to measure the deviation of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(y\)</span>. This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
-<section id="approximation-accuracy-1" class="level4" data-number="19.6.2.2">
-<h4 data-number="19.6.2.2" class="anchored" data-anchor-id="approximation-accuracy-1"><span class="header-section-number">19.6.2.2</span> Approximation accuracy</h4>
+<section id="sec-saddlepoint-approximation-accuracy" class="level4" data-number="19.6.2.2">
+<h4 data-number="19.6.2.2" class="anchored" data-anchor-id="sec-saddlepoint-approximation-accuracy"><span class="header-section-number">19.6.2.2</span> Saddlepoint approximation accuracy</h4>
 <p>We have still used a normal approximation, but this time we have used it to approximate <span class="math inline">\(f_{y, \phi}(y)\)</span> instead of <span class="math inline">\(f_{\mu, \phi}(y)\)</span>. Since the normal approximation is applied to a distribution (<span class="math inline">\(f_{y, \phi}\)</span>) at its mean, we expect it to be more accurate than a normal approximation applied to a distribution (<span class="math inline">\(f_{\mu, \phi}\)</span>) at a point potentially far from its mean. The saddlepoint approximation yields an approximation to the density that is <em>multiplicative</em> rather than <em>additive</em>, and of order <span class="math inline">\(O(\phi)\)</span> rather than <span class="math inline">\(O(\sqrt{\phi})\)</span>:</p>
 <p><span class="math display">\[
 \tilde f^{\text{saddle}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) \cdot (1 + O(\phi)).

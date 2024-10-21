@@ -205,7 +205,7 @@ $$
 \frac{D(\boldsymbol{y}, \boldsymbol{\widehat{\mu}}) - D(\boldsymbol{y}, \boldsymbol{y})}{\phi_0} = \frac{D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}})}{\phi_0} \overset{\cdot}{\sim} \chi^2_{n-p}.
 $$
 
-Note that the goodness of fit test is a significance test with respect to the saturated model ([-@eq-saturated-model]), which has $n$ free parameters. Therefore, the number of free parameters increases with the sample size, so large-sample asymptotics cannot justify this test. Instead, we must rely on small-dispersion asymptotics.
+Note that the goodness of fit test is a significance test with respect to the saturated model ([-@eq-saturated-model]), which has $n$ free parameters. Therefore, the number of free parameters increases with the sample size, so large-sample asymptotics cannot justify this test. Instead, we must rely on small-dispersion asymptotics. In particular, the likelihood ratio test relies on the saddlepoint approximation for small dispersions. To verify whether the saddlepoint approximation is accurate, we can apply the rules of thumb from @sec-saddlepoint-approximation-accuracy for each observation $y_i$, when it is drawn from the distribution fitted under the GLM (rather than the saturated model). For instance, we can check that $m \hat \mu_i \geq 3$ and $m(1-\hat \mu_i) \geq 3$ in the case of grouped logistic regression of $\hat \mu_i \geq 3$ for Poisson regression. Here, $\hat \mu_i$ are the fitted means under the GLM.
 
 ### Likelihood ratio inference for $\phi_0$ unknown {#sec-likelihood-ratio-unknown-dispersion}
 
@@ -304,6 +304,8 @@ $$
 $$
 
 In the context of contingency table analysis (see the next chapter), this test reduces to the Pearson chi-square test of independence between two categorical variables. This test was proposed in 1900; it was only pointed out about a century later that this is a score test (Smyth 2003).
+
+As with the likelihood ratio test for goodness of fit, the score test for goodness of fit must be justified by small-dispersion asymptotics. In particular, the score test for goodness of fit relies on the central limit theorem for small dispersions. To verify whether this approximation is accurate, we can apply the rules of thumb from @sec-normal-approx-accuracy for each observation $y_i$, when it is drawn from the distribution fitted under the GLM (rather than the saturated model). For instance, we can check that $m \hat \mu_i \geq 5$ and $m(1-\hat \mu_i) \geq 5$ in the case of grouped logistic regression of $\hat \mu_i \geq 5$ for Poisson regression. Here, $\hat \mu_i$ are the fitted means under the GLM.
 
 ### Score test inference for $\phi_0$ unknown {#sec-score-test-unknown-dispersion}
 

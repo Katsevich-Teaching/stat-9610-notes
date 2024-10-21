@@ -286,7 +286,7 @@ $$
 
 This fact will be useful to us as we carry out inference for GLMs.
 
-#### Approximation accuracy
+#### Normal approximation accuracy {#sec-normal-approx-accuracy}
 
 We have
 
@@ -352,7 +352,7 @@ $$
 
 Here, we are using the unit deviance rather than the squared distance to measure the deviation of $\mu$ from $y$. This fact will be useful to us as we carry out inference for GLMs.
 
-#### Approximation accuracy
+#### Saddlepoint approximation accuracy {#sec-saddlepoint-approximation-accuracy}
 
 We have still used a normal approximation, but this time we have used it to approximate $f_{y, \phi}(y)$ instead of $f_{\mu, \phi}(y)$. Since the normal approximation is applied to a distribution ($f_{y, \phi}$) at its mean, we expect it to be more accurate than a normal approximation applied to a distribution ($f_{\mu, \phi}$) at a point potentially far from its mean. The saddlepoint approximation yields an approximation to the density that is *multiplicative* rather than *additive*, and of order $O(\phi)$ rather than $O(\sqrt{\phi})$:
 

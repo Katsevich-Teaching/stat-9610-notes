@@ -4,7 +4,7 @@ In this class, the focus is on building models that tie a vector of predictors $
 
 ## Definition
 
-We define $\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n$ as following a generalized linear model based on the exponential dispersion model $f_{\theta, \phi}$, monotonic and differentiable link function $g$, and observation weights $w_i$ if
+We define $\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n$ as following a generalized linear model based on the exponential dispersion model $f_{\theta, \phi}$, monotonic and differentiable link function $g$, offset terms $o_i \in \mathbb R$, and observation weights $w_i > 0$ if
 
 $$
 y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
@@ -18,7 +18,7 @@ $$
 g(\mu) = \dot \psi^{-1}(\mu),
 $$
 
-which, given the relationship ([-@eq-psi-dot]), gives $\eta = \dot \psi^{-1}(\mu) = \theta$, i.e. the linear predictor coincides with the natural parameter. As discussed in the context of equation ([-@eq-dmu-dtheta]), $\dot \psi^{-1}$ is a valid link function because it is monotonic and differentiable. Canonical link functions are very commonly used with EDMs because they lead to various nice properties that general EDMs do not enjoy (e.g. concave log-likelihood).
+which, given the relationship ([-@eq-psi-dot]), gives $\eta = \dot \psi^{-1}(\mu) = \theta$, i.e. the linear predictor coincides with the natural parameter. As discussed in the context of equation ([-@eq-dmu-dtheta]), $\dot \psi^{-1}$ is a valid link function because it is monotonic and differentiable. Canonical link functions are very commonly used with GLMs because they lead to various nice properties that general GLMs do not enjoy (e.g. concave log-likelihood).
 
 ## Examples
 

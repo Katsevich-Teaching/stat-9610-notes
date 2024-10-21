@@ -72,7 +72,12 @@ $$
 Therefore, we cannot view the mapping $\boldsymbol{y} \mapsto \boldsymbol{\widehat \mu}$ as a linear projection. Nevertheless, it is possible to interpret $\boldsymbol{\widehat \mu}$ as the "closest" point (in some sense) to $\boldsymbol{y}$ in $C(\boldsymbol{X})$. To see this, recall the deviance form of the EDM density ([-@eq-deviance-form]). Taking a logarithm and summing over $i = 1, \dots, n$, we find the following expression for the negative log likelihood:
 
 $$
--\log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C = \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
+\begin{split}
+-\log \mathcal L(\boldsymbol{\beta}) &= \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C \\
+&= \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \\
+&\equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \\
+&\equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
+\end{split}
 $$ {#eq-glm-likelihood-via-deviance}
 
 $D(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *deviance* or the *total deviance*, and it can be interpreted as a kind of distance between the mean vector $\boldsymbol{\mu}$ and the observation vector $\boldsymbol{y}$. For example, in the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2$. The quantity $D^*(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *scaled deviance.* In the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}$. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:
@@ -99,12 +104,14 @@ Proposition [-@prp-log-concavity] gives us confidence that an iterative algorith
 
 ### Newton-Raphson {#sec-newton-raphson}
 
-We can maximize the log-likelihood ([-@eq-glm-log-likelihood]) via the Newton-Raphson algorithm, which involves the gradient and Hessian of the function we'd like to maximize. The gradient is the score vector ([-@eq-glm-score]), while the Hessian is the Fisher information ([-@eq-glm-fisher-info]). The Newton-Raphson iteration is therefore:
+We can maximize the log-likelihood ([-@eq-glm-log-likelihood]) via the Newton-Raphson algorithm, which involves the gradient and Hessian of the function we would like to maximize. We derive the Newton-Raphson algorithm for canonical GLMs. In this case, the gradient is the score vector ([-@eq-glm-score]), while the Hessian is the Fisher information ([-@eq-glm-fisher-info]).[^1] The Newton-Raphson iteration is therefore:
+
+[^1]: The Fisher information is the expectation of the Hessian, but for canonical links, the Hessian is non-random, so the two coincide. 
 
 $$
 \begin{split}
 \boldsymbol{\widehat \beta}^{(t+1)} &= \boldsymbol{\widehat \beta}^{(t)} - (\nabla^2_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}))^{-1} \nabla_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}) \\
-&= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\widehat W}^{(t)}\boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
+&= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
 \end{split}
 $$ {#eq-nr-iteration}
 
@@ -117,25 +124,35 @@ See @fig-newton-raphson.
 A nice interpretation of the Newton-Raphson algorithm is as a sequence of weighted least squares fits, known as the iteratively reweighted least squares (IRLS) algorithm. Suppose that we have a current estimate $\boldsymbol{\widehat \beta}^{(t)}$, and suppose we are looking for a vector $\boldsymbol{\beta}$ near $\boldsymbol{\widehat \beta}^{(t)}$ that fits the model even better. We have:
 
 $$
-\mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] = g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
+\begin{split}
+\mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] &= g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \\
+&\approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) \\
+&= \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
+\end{split}
 $$
 
 and
 
 $$
-\text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2},
+\text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2} = \phi_0 \boldsymbol{\widehat W}^{(t)},
 $$
 
 recalling equation ([-@eq-glm-variance-y]). Thus, up to the first two moments, near $\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}$ the distribution of $\boldsymbol{y}$ is approximately:
 
 $$
-\boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim N\left(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2}\right),
+\begin{align}
+\boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \\
+\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \phi_0 \boldsymbol{\widehat W}^{(t)}),
+\end{align}
 $$
 
 or, equivalently:
 
 $$
-\boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \quad \boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
+\begin{align}
+\boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \\
+\boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
+\end{align}
 $$ {#eq-second-order-approximation}
 
 The regression of the *adjusted response variable* $\boldsymbol{z}^{(t)}$ on $\boldsymbol{X}$ leaves us with a weighted linear regression (hence the name *working weights* for $W_i$), whose maximum likelihood estimate is:
@@ -169,7 +186,11 @@ $$
 recall that the total deviance $D(\boldsymbol{y}; \boldsymbol{\widehat \mu})$ is a generalization of the residual sum of squares. The other, based on the Pearson residuals, is called the *Pearson estimator of dispersion*:
 
 $$
-\widetilde \phi^P_0 \equiv \frac{1}{n-p}X^2 \equiv \frac{1}{n-p}\|r^P\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
+\begin{split}
+\widetilde \phi^P_0 &\equiv \frac{1}{n-p}X^2 \\
+&\equiv \frac{1}{n-p}\|r^P\|^2 \\
+&\equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
+\end{split}
 $$ {#eq-pearson-estimator-dispersion}
 
 $X^2$ is known as the Pearson $X^2$ statistic. The deviance-based estimator can be more accurate than the Pearson estimator under small-dispersion asymptotics. However, the Pearson estimator is more robust when only the first two moments of the EDM model are correct and in the absence of small-dispersion asymptotics. For these reasons, the Pearson estimator is generally preferred.

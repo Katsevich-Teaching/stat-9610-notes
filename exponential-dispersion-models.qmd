@@ -17,13 +17,28 @@ $$
 f_{\theta, \phi}(y) \equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi), \quad \theta \in \Theta \subseteq \mathbb{R}, \ \phi > 0.
 $$ {#eq-edm-def}
 
-Here $\theta$ is called the *natural parameter*, $\psi$ is called the *log-partition function*, $\Theta \equiv \{\theta: \psi(\theta) < \infty\}$ is called the natural parameter space, $\phi > 0$ is called the *dispersion parameter*, and $h$ is called the *base density*. The distribution with density $f_{\theta, \phi}$ with respect to a measure $\nu$ on $\mathbb{R}$ is called an *exponential dispersion model* (EDM). Sometimes, we parameterize this distribution using its mean and dispersion, writing
+Here $\theta$ is called the *natural parameter*, $\psi$ is called the *log-partition function*, $\Theta \equiv \{\theta: \psi(\theta) < \infty\}$ is called the natural parameter space,[^1] $\phi > 0$ is called the *dispersion parameter*, and $h$ is called the *base density*. The distribution with density $f_{\theta, \phi}$ with respect to a measure $\nu$ on $\mathbb{R}$ is called an *exponential dispersion model* (EDM).[^2] Sometimes, we parameterize this distribution using its mean and dispersion, writing
 
 $$
 y \sim \text{EDM}(\mu, \phi).
 $$
 
-When $\phi = 1$, the distribution becomes a *one-parameter natural exponential family*. The support of an EDM distribution remains fixed as $(\theta, \phi)$ vary.
+When $\phi = 1$, the distribution becomes a *one-parameter natural exponential family* (see @fig-edms-exp-fams).
+
+![Relationship between exponential dispersion models and one-parameter exponential families.](figures/edms-exp-fams.png){width=50% #fig-edms-exp-fams}
+
+The following proposition presents a useful property of EDMs, which facilitates inference by ruling out pathological cases.
+
+::: {#prp-edm-support}
+
+The support of $y \sim \text{EDM}(\mu, \phi)$ remains fixed as $(\mu, \phi)$ vary.
+
+:::
+
+
+[^1]: In this class, we will always have $\Theta = \mathbb R$.
+
+[^2]: If you are not familiar with measure theory, you can view $\nu$ as specifying the support of a distribution (the set of values it can take). For example, for binary $y$, $\nu$ would indicate that $y$ is supported on $\{0,1\}$, and the "density" $f_{\theta, \phi}$ would be a probability mass function. 
 
 ## Examples
 
@@ -118,7 +133,18 @@ $$
 \end{split}
 $$
 
-Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of $y$.
+Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of $y$. The following proposition summarizes these results.
+
+::: {#prp-moments-edm}
+
+## EDM moments
+
+If $y \sim \text{EDM}(\mu, \phi)$, then 
+$$
+\mathbb E[y] = \dot \psi(\theta), \quad \text{Var}[y] = \phi \cdot \ddot \psi(\theta).
+$$
+
+:::
 
 ## Relationships among the mean, variance, and natural parameter
 
@@ -144,47 +170,85 @@ so that $\text{Var}[y] = \phi V(\mu)$. For example, a Poisson random variable wi
 
 ## The unit deviance
 
-It's possible to rewrite the EDM distribution in terms of $\mu$ rather than in terms of $\theta$. Take the quantity in the numerator of the exponential in the EDM density ([-@eq-edm-def]) and call it $t(y, \mu)$:
-
+A key quantity in the analysis of normal linear regression models is $(y, \mu) \mapsto (y - \mu)^2$, which is a notion of distance between the parameter $\mu$ and the observation $y$. The *unit deviance* is a generalization of this quantity to EDMs. As a starting point, consider the log-likelihood of an EDM:
 $$
-t(y, \mu) \equiv \theta y - \psi(\theta).
+\ell(y, \mu) = \frac{\theta y - \psi(\theta)}{\phi} + \log h(y, \phi) = \frac{\theta(\mu) y - \psi(\theta(\mu))}{\phi} + \log h(y, \phi),
 $$
-
-Let's consider the shape of this function by taking the first two derivatives with respect to $\theta$:
-
+where $\theta(\mu) = \dot \psi^{-1}(\mu)$, recalling the relationship ([-@eq-psi-dot]). The quantity $\ell(y, \mu)$ is larger to the extent that $\mu$ is a better fit for $y$. Furthermore, it is easy to verify that $\mu \mapsto \ell(y, \mu)$ is maximized by $\mu = y$. Motivated by this observation, we calculate that twice the log-likelihood ratio between $\mu = \mu$ and $\mu = y$ is
 $$
-\frac{\partial}{\partial \theta}t(y, \mu) = y - \mu
+\begin{split}
+&2(\ell(y, y) - \ell(y, \mu)) \\
+&\quad= \frac{2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\}}{\phi} \\
+&\quad\equiv \frac{d(y, \mu)}{\phi}.
+\end{split}
 $$
+The quantity in the numerator is the *unit deviance* $d(y, \mu)$, defined as the dispersion $\phi$ times twice the log-likelihood ratio between $y$ and $\mu$. As we will see in @sec-normal-deviance, $d(y, \mu)$ generalizes the quantity $(y - \mu)^2$ for the normal distribution. The following proposition summarizes a few key properties of the unit deviance.
 
-and
+::: {#prp-unit-deviance}
 
+## Unit deviance properties
+
+When viewed as a function of $\mu$, the unit deviance $d(y, \mu)$ is nonnegative function that achieves a unique global minimum of zero for $\mu = y$ and increases as $\mu$ moves away from $y$.
+
+:::
+
+::: {.proof}
+
+Differentiating $d(y, \mu)$ in $\mu$, we have
 $$
-\frac{\partial^2}{\partial \theta^2}t(y, \mu) = -V(\mu) < 0.
+\frac{\partial d(y, \mu)}{\partial \mu} = \frac{\partial d(y, \mu)}{\partial \theta} \frac{\partial \theta}{\partial \mu} = \frac{\mu - y}{V(\mu)}.
 $$
+Since $V(\mu) > 0$, this establishes that $d(y, \mu)$ decreases on $\mu \in (\infty, y)$ and then increases on $(y, \infty)$, Therefore, $d(y, \mu) \geq d(y, y) = 0$ for all $\mu$.
+:::
 
-Hence, $t(y, \mu)$ has a unique global maximum at $\mu = y$. We can then define the *unit deviance* $d(y, \mu)$ as twice the distance between the value $t(y, \mu)$ and the optimal value $t(y,y)$:
+### Example: Normal distribution {#sec-normal-deviance}
 
+For the normal distribution, we have $\theta = \mu$ and $\psi(\theta) = \frac12 \theta^2$. Therefore, 
 $$
-d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
+\begin{split}
+d(y, \mu) &= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&= 2\{[y^2 - \tfrac12 y^2] - [\mu y - \tfrac12 \mu^2]\} \\
+&= (y - \mu)^2.
+\end{split}
 $$
+@fig-normal-unit-deviance displays an example of the normal unit deviance.
+```{r, fig.width = 3, fig.height = 2, echo = FALSE, fig.cap = "The normal unit deviance for $y = 4$."}
+#| label: fig-normal-unit-deviance
+library(ggplot2)
+y <- 4
+ggplot() +
+  stat_function(fun = function(mu)((mu - y)^2), xlim = c(0, 8)) +
+  geom_vline(xintercept = y, linetype = "dashed") +
+  labs(x = expression(mu), y = expression(d(y, mu))) +
+  theme_bw()
+```
 
-The unit deviance is nonnegative, and minimized by $\mu = y$. For the normal distribution, the unit deviance is $d(y, \mu) = (y - \mu)^2$. The unit deviance can therefore be viewed as a  “distance” between the mean $\mu$ and the observation $y$.
+### Example: Poisson distribution
 
-### Example
-
-For the Poisson distribution, we have $t(y, \mu) = y\log \mu - \mu$, so
+For the Poisson distribution, we have $\theta = \log \mu$ and $\psi(\theta) = e^\theta$, so
 
 $$
 \begin{split}
-d(y, \mu) &\equiv 2(t(y, y) - t(y, \mu)) \\
-&= 2(y\log y - y - y \log \mu + \mu) \\
+d(y, \mu) &= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&= 2\{[y\log y - y] - [y \log \mu - \mu]\} \\
 &= 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
 \end{split}
 $$
 
 See @fig-poisson-unit-deviance for an example of the shape of this function.
 
-![The Poisson unit deviance for $y = 4$.](figures/poisson-unit-deviance.png){#fig-poisson-unit-deviance width=50%}
+```{r, fig.width = 3, fig.height = 2, echo = FALSE, fig.cap = "The Poisson unit deviance for $y = 4$."}
+#| label: fig-poisson-unit-deviance
+library(ggplot2)
+y <- 4
+ggplot() +
+  stat_function(fun = function(mu)(2*(y*log(y/mu) - (y - mu))), xlim = c(0, 10)) +
+  geom_vline(xintercept = y, linetype = "dashed") +
+  labs(x = expression(mu), y = expression(d(y, mu))) +
+  scale_x_continuous(breaks = seq(0, 10, 2)) +
+  coord_cartesian(ylim = c(0, 11)) +
+  theme_bw()
+```
 
 Note that the Poisson deviance is asymmetric about $\mu = y$. This is a consequence of the nontrivial mean-variance relationship for the Poisson distribution. In particular, the Poisson distribution's variance grows with its mean. Therefore, an observation of $y = 4$ is less likely to have come from a Poisson distribution with mean $\mu = 2$ than from a Poisson distribution with mean $\mu = 6$.
 

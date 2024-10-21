@@ -376,7 +376,8 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#the-unit-deviance" id="toc-the-unit-deviance" class="nav-link" data-scroll-target="#the-unit-deviance"><span class="header-section-number">19.5</span> The unit deviance</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">19.5.1</span> Example</a></li>
+  <li><a href="#sec-normal-deviance" id="toc-sec-normal-deviance" class="nav-link" data-scroll-target="#sec-normal-deviance"><span class="header-section-number">19.5.1</span> Example: Normal distribution</a></li>
+  <li><a href="#example-poisson-distribution" id="toc-example-poisson-distribution" class="nav-link" data-scroll-target="#example-poisson-distribution"><span class="header-section-number">19.5.2</span> Example: Poisson distribution</a></li>
   </ul></li>
   <li><a href="#small-dispersion-approximations-to-an-edm" id="toc-small-dispersion-approximations-to-an-edm" class="nav-link" data-scroll-target="#small-dispersion-approximations-to-an-edm"><span class="header-section-number">19.6</span> Small-dispersion approximations to an EDM</a>
   <ul class="collapse">
@@ -420,11 +421,21 @@ f_{\mu, \sigma^2}(y) &amp;= \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\
 <p><span id="eq-edm-def"><span class="math display">\[
 f_{\theta, \phi}(y) \equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi), \quad \theta \in \Theta \subseteq \mathbb{R}, \ \phi &gt; 0.
 \tag{19.1}\]</span></span></p>
-<p>Here <span class="math inline">\(\theta\)</span> is called the <em>natural parameter</em>, <span class="math inline">\(\psi\)</span> is called the <em>log-partition function</em>, <span class="math inline">\(\Theta \equiv \{\theta: \psi(\theta) &lt; \infty\}\)</span> is called the natural parameter space, <span class="math inline">\(\phi &gt; 0\)</span> is called the <em>dispersion parameter</em>, and <span class="math inline">\(h\)</span> is called the <em>base density</em>. The distribution with density <span class="math inline">\(f_{\theta, \phi}\)</span> with respect to a measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(\mathbb{R}\)</span> is called an <em>exponential dispersion model</em> (EDM). Sometimes, we parameterize this distribution using its mean and dispersion, writing</p>
+<p>Here <span class="math inline">\(\theta\)</span> is called the <em>natural parameter</em>, <span class="math inline">\(\psi\)</span> is called the <em>log-partition function</em>, <span class="math inline">\(\Theta \equiv \{\theta: \psi(\theta) &lt; \infty\}\)</span> is called the natural parameter space,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(\phi &gt; 0\)</span> is called the <em>dispersion parameter</em>, and <span class="math inline">\(h\)</span> is called the <em>base density</em>. The distribution with density <span class="math inline">\(f_{\theta, \phi}\)</span> with respect to a measure <span class="math inline">\(\nu\)</span> on <span class="math inline">\(\mathbb{R}\)</span> is called an <em>exponential dispersion model</em> (EDM).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Sometimes, we parameterize this distribution using its mean and dispersion, writing</p>
 <p><span class="math display">\[
 y \sim \text{EDM}(\mu, \phi).
 \]</span></p>
-<p>When <span class="math inline">\(\phi = 1\)</span>, the distribution becomes a <em>one-parameter natural exponential family</em>. The support of an EDM distribution remains fixed as <span class="math inline">\((\theta, \phi)\)</span> vary.</p>
+<p>When <span class="math inline">\(\phi = 1\)</span>, the distribution becomes a <em>one-parameter natural exponential family</em> (see <a href="#fig-edms-exp-fams">Figure&nbsp;<span>19.1</span></a>).</p>
+<div id="fig-edms-exp-fams" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/edms-exp-fams.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;19.1: Relationship between exponential dispersion models and one-parameter exponential families.</figcaption>
+</figure>
+</div>
+<p>The following proposition presents a useful property of EDMs, which facilitates inference by ruling out pathological cases.</p>
+<div id="prp-edm-support" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 19.1 </strong></span>The support of <span class="math inline">\(y \sim \text{EDM}(\mu, \phi)\)</span> remains fixed as <span class="math inline">\((\mu, \phi)\)</span> vary.</p>
+</div>
 </section>
 <section id="examples" class="level2" data-number="19.2">
 <h2 data-number="19.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">19.2</span> Examples</h2>
@@ -498,7 +509,12 @@ f(y) = e^{-\mu}\frac{\mu^y}{y!} = \exp(y \log \mu - \mu)\frac{1}{y!}.
 &amp;= \text{Var}[y].
 \end{split}
 \]</span></p>
-<p>Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of <span class="math inline">\(y\)</span>.</p>
+<p>Thus, the second derivative of the log-partition function multiplied by the dispersion parameter is the variance of <span class="math inline">\(y\)</span>. The following proposition summarizes these results.</p>
+<div id="prp-moments-edm" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 19.2 (EDM moments) </strong></span>If <span class="math inline">\(y \sim \text{EDM}(\mu, \phi)\)</span>, then <span class="math display">\[
+\mathbb E[y] = \dot \psi(\theta), \quad \text{Var}[y] = \phi \cdot \ddot \psi(\theta).
+\]</span></p>
+</div>
 </section>
 <section id="relationships-among-the-mean-variance-and-natural-parameter" class="level2" data-number="19.4">
 <h2 data-number="19.4" class="anchored" data-anchor-id="relationships-among-the-mean-variance-and-natural-parameter"><span class="header-section-number">19.4</span> Relationships among the mean, variance, and natural parameter</h2>
@@ -521,39 +537,63 @@ V(\mu) \equiv \frac{d\mu}{d\theta},
 </section>
 <section id="the-unit-deviance" class="level2" data-number="19.5">
 <h2 data-number="19.5" class="anchored" data-anchor-id="the-unit-deviance"><span class="header-section-number">19.5</span> The unit deviance</h2>
-<p>It’s possible to rewrite the EDM distribution in terms of <span class="math inline">\(\mu\)</span> rather than in terms of <span class="math inline">\(\theta\)</span>. Take the quantity in the numerator of the exponential in the EDM density (<a href="#eq-edm-def"><span>19.1</span></a>) and call it <span class="math inline">\(t(y, \mu)\)</span>:</p>
-<p><span class="math display">\[
-t(y, \mu) \equiv \theta y - \psi(\theta).
-\]</span></p>
-<p>Let’s consider the shape of this function by taking the first two derivatives with respect to <span class="math inline">\(\theta\)</span>:</p>
-<p><span class="math display">\[
-\frac{\partial}{\partial \theta}t(y, \mu) = y - \mu
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\frac{\partial^2}{\partial \theta^2}t(y, \mu) = -V(\mu) &lt; 0.
-\]</span></p>
-<p>Hence, <span class="math inline">\(t(y, \mu)\)</span> has a unique global maximum at <span class="math inline">\(\mu = y\)</span>. We can then define the <em>unit deviance</em> <span class="math inline">\(d(y, \mu)\)</span> as twice the distance between the value <span class="math inline">\(t(y, \mu)\)</span> and the optimal value <span class="math inline">\(t(y,y)\)</span>:</p>
-<p><span class="math display">\[
-d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
-\]</span></p>
-<p>The unit deviance is nonnegative, and minimized by <span class="math inline">\(\mu = y\)</span>. For the normal distribution, the unit deviance is <span class="math inline">\(d(y, \mu) = (y - \mu)^2\)</span>. The unit deviance can therefore be viewed as a “distance” between the mean <span class="math inline">\(\mu\)</span> and the observation <span class="math inline">\(y\)</span>.</p>
-<section id="example" class="level3" data-number="19.5.1">
-<h3 data-number="19.5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">19.5.1</span> Example</h3>
-<p>For the Poisson distribution, we have <span class="math inline">\(t(y, \mu) = y\log \mu - \mu\)</span>, so</p>
+<p>A key quantity in the analysis of normal linear regression models is <span class="math inline">\((y, \mu) \mapsto (y - \mu)^2\)</span>, which is a notion of distance between the parameter <span class="math inline">\(\mu\)</span> and the observation <span class="math inline">\(y\)</span>. The <em>unit deviance</em> is a generalization of this quantity to EDMs. As a starting point, consider the log-likelihood of an EDM: <span class="math display">\[
+\ell(y, \mu) = \frac{\theta y - \psi(\theta)}{\phi} + \log h(y, \phi) = \frac{\theta(\mu) y - \psi(\theta(\mu))}{\phi} + \log h(y, \phi),
+\]</span> where <span class="math inline">\(\theta(\mu) = \dot \psi^{-1}(\mu)\)</span>, recalling the relationship (<a href="#eq-psi-dot"><span>19.2</span></a>). The quantity <span class="math inline">\(\ell(y, \mu)\)</span> is larger to the extent that <span class="math inline">\(\mu\)</span> is a better fit for <span class="math inline">\(y\)</span>. Furthermore, it is easy to verify that <span class="math inline">\(\mu \mapsto \ell(y, \mu)\)</span> is maximized by <span class="math inline">\(\mu = y\)</span>. Motivated by this observation, we calculate that twice the log-likelihood ratio between <span class="math inline">\(\mu = \mu\)</span> and <span class="math inline">\(\mu = y\)</span> is <span class="math display">\[
+\begin{split}
+&amp;2(\ell(y, y) - \ell(y, \mu)) \\
+&amp;\quad= \frac{2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\}}{\phi} \\
+&amp;\quad\equiv \frac{d(y, \mu)}{\phi}.
+\end{split}
+\]</span> The quantity in the numerator is the <em>unit deviance</em> <span class="math inline">\(d(y, \mu)\)</span>, defined as the dispersion <span class="math inline">\(\phi\)</span> times twice the log-likelihood ratio between <span class="math inline">\(y\)</span> and <span class="math inline">\(\mu\)</span>. As we will see in <a href="#sec-normal-deviance"><span>Section&nbsp;19.5.1</span></a>, <span class="math inline">\(d(y, \mu)\)</span> generalizes the quantity <span class="math inline">\((y - \mu)^2\)</span> for the normal distribution. The following proposition summarizes a few key properties of the unit deviance.</p>
+<div id="prp-unit-deviance" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 19.3 (Unit deviance properties) </strong></span>When viewed as a function of <span class="math inline">\(\mu\)</span>, the unit deviance <span class="math inline">\(d(y, \mu)\)</span> is nonnegative function that achieves a unique global minimum of zero for <span class="math inline">\(\mu = y\)</span> and increases as <span class="math inline">\(\mu\)</span> moves away from <span class="math inline">\(y\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Differentiating <span class="math inline">\(d(y, \mu)\)</span> in <span class="math inline">\(\mu\)</span>, we have <span class="math display">\[
+\frac{\partial d(y, \mu)}{\partial \mu} = \frac{\partial d(y, \mu)}{\partial \theta} \frac{\partial \theta}{\partial \mu} = \frac{\mu - y}{V(\mu)}.
+\]</span> Since <span class="math inline">\(V(\mu) &gt; 0\)</span>, this establishes that <span class="math inline">\(d(y, \mu)\)</span> decreases on <span class="math inline">\(\mu \in (\infty, y)\)</span> and then increases on <span class="math inline">\((y, \infty)\)</span>, Therefore, <span class="math inline">\(d(y, \mu) \geq d(y, y) = 0\)</span> for all <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<section id="sec-normal-deviance" class="level3" data-number="19.5.1">
+<h3 data-number="19.5.1" class="anchored" data-anchor-id="sec-normal-deviance"><span class="header-section-number">19.5.1</span> Example: Normal distribution</h3>
+<p>For the normal distribution, we have <span class="math inline">\(\theta = \mu\)</span> and <span class="math inline">\(\psi(\theta) = \frac12 \theta^2\)</span>. Therefore, <span class="math display">\[
+\begin{split}
+d(y, \mu) &amp;= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&amp;= 2\{[y^2 - \tfrac12 y^2] - [\mu y - \tfrac12 \mu^2]\} \\
+&amp;= (y - \mu)^2.
+\end{split}
+\]</span> <a href="#fig-normal-unit-deviance">Figure&nbsp;<span>19.2</span></a> displays an example of the normal unit deviance.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-normal-unit-deviance" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="exponential-dispersion-models_files/figure-html/fig-normal-unit-deviance-1.png" class="img-fluid figure-img" width="288"></p>
+<figcaption class="figure-caption">Figure&nbsp;19.2: The normal unit deviance for <span class="math inline">\(y = 4\)</span>.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="example-poisson-distribution" class="level3" data-number="19.5.2">
+<h3 data-number="19.5.2" class="anchored" data-anchor-id="example-poisson-distribution"><span class="header-section-number">19.5.2</span> Example: Poisson distribution</h3>
+<p>For the Poisson distribution, we have <span class="math inline">\(\theta = \log \mu\)</span> and <span class="math inline">\(\psi(\theta) = e^\theta\)</span>, so</p>
 <p><span class="math display">\[
 \begin{split}
-d(y, \mu) &amp;\equiv 2(t(y, y) - t(y, \mu)) \\
-&amp;= 2(y\log y - y - y \log \mu + \mu) \\
+d(y, \mu) &amp;= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&amp;= 2\{[y\log y - y] - [y \log \mu - \mu]\} \\
 &amp;= 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
 \end{split}
 \]</span></p>
-<p>See <a href="#fig-poisson-unit-deviance">Figure&nbsp;<span>19.1</span></a> for an example of the shape of this function.</p>
+<p>See <a href="#fig-poisson-unit-deviance">Figure&nbsp;<span>19.3</span></a> for an example of the shape of this function.</p>
+<div class="cell">
+<div class="cell-output-display">
 <div id="fig-poisson-unit-deviance" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/poisson-unit-deviance.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;19.1: The Poisson unit deviance for <span class="math inline">\(y = 4\)</span>.</figcaption>
+<p><img src="exponential-dispersion-models_files/figure-html/fig-poisson-unit-deviance-1.png" class="img-fluid figure-img" width="288"></p>
+<figcaption class="figure-caption">Figure&nbsp;19.3: The Poisson unit deviance for <span class="math inline">\(y = 4\)</span>.</figcaption>
 </figure>
+</div>
+</div>
 </div>
 <p>Note that the Poisson deviance is asymmetric about <span class="math inline">\(\mu = y\)</span>. This is a consequence of the nontrivial mean-variance relationship for the Poisson distribution. In particular, the Poisson distribution’s variance grows with its mean. Therefore, an observation of <span class="math inline">\(y = 4\)</span> is less likely to have come from a Poisson distribution with mean <span class="math inline">\(\mu = 2\)</span> than from a Poisson distribution with mean <span class="math inline">\(\mu = 6\)</span>.</p>
 </section>
@@ -651,6 +691,13 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>In this class, we will always have <span class="math inline">\(\Theta = \mathbb R\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>If you are not familiar with measure theory, you can view <span class="math inline">\(\nu\)</span> as specifying the support of a distribution (the set of values it can take). For example, for binary <span class="math inline">\(y\)</span>, <span class="math inline">\(\nu\)</span> would indicate that <span class="math inline">\(y\)</span> is supported on <span class="math inline">\(\{0,1\}\)</span>, and the “density” <span class="math inline">\(f_{\theta, \phi}\)</span> would be a probability mass function.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

@@ -1,10 +1,10 @@
 # GLM definition {#sec-glm-def}
 
-In this class, the focus is on building models that tie a vector of predictors $(\boldsymbol{x_{i*}})$ to a response $y_i$. For linear regression, the mean of $y$ was modeled as a linear combination of the predictors $\boldsymbol{x_{i*}^T} \boldsymbol{\beta}$: $\mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}$. More generally, we might want to model *a function* of the mean $\eta_i = g(\mu_i)$ as a linear combination of the predictors; $g$ is called the *link function* and $\eta_i$ the *linear predictor*. Pairing a link function with an EDM gives us a *generalized linear model* (GLM):
+In this class, the focus is on building models that tie a vector of predictors $(\boldsymbol x_{i*})$ to a response $y_i$. For linear regression, the mean of $y$ was modeled as a linear combination of the predictors $\boldsymbol x_{i*}^T \boldsymbol{\beta}$: $\mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}$. More generally, we might want to model *a function* of the mean $\eta_i = g(\mu_i)$ as a linear combination of the predictors; $g$ is called the *link function* and $\eta_i$ the *linear predictor*. Pairing a link function with an EDM gives us a *generalized linear model* (GLM):
 
 ## Definition
 
-We define $\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n$ as following a generalized linear model based on the exponential dispersion model $f_{\theta, \phi}$, monotonic and differentiable link function $g$, offset terms $o_i \in \mathbb R$, and observation weights $w_i > 0$ if
+We define $\{(y_i, \boldsymbol x_{i*})\}_{i = 1}^n$ as following a generalized linear model based on the exponential dispersion model $f_{\theta, \phi}$, monotonic and differentiable link function $g$, offset terms $o_i \in \mathbb R$, and observation weights $w_i > 0$ if
 
 $$
 y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
@@ -27,7 +27,7 @@ which, given the relationship ([-@eq-psi-dot]), gives $\eta = \dot \psi^{-1}(\mu
 The linear regression model is a special case of a GLM, with $\phi_0 = \sigma^2$ (unknown), $w_i = 1$, $o_i = 0$, and identity (canonical) link function:
 
 $$
-y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 $$
 
 ### Example: Weighted linear regression model
@@ -35,7 +35,7 @@ $$
 If each observation $y_i$ is the mean of $m_i$ independent repeated observations, then we get a weighted linear regression model, with $\phi_0 = \sigma^2$ (unknown), $w_i = m_i$, $o_i = 0$, and identity (canonical) link function:
 
 $$
-y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 $$
 
 ### Example: Ungrouped logistic regression model
@@ -43,7 +43,7 @@ $$
 The *ungrouped logistic regression model* is the GLM based on the Bernoulli EDM with $\phi_0 = 1$ (known), $w_i = 1$, $o_i = 0$, and the canonical link function:
 
 $$
-y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 $$
 
 Thus the canonical link function for logistic regression is the *logistic link function* $g(\mu) = \log \frac{\mu}{1-\mu}$.
@@ -63,7 +63,7 @@ Note that a binomial proportion $y_i$ based on $m_i$ trials and a success probab
 *Poisson regression* is the Poisson EDM with $\phi_0 = 1$ (known), $w_i = 1$, $o_i = 0$, and the canonical link function:
 
 $$
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 $$
 
 Thus the canonical link function for Poisson regression is the *log link function* $g(\mu) = \log \mu$.

@@ -392,10 +392,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>In this class, the focus is on building models that tie a vector of predictors <span class="math inline">\((\boldsymbol{x_{i*}})\)</span> to a response <span class="math inline">\(y_i\)</span>. For linear regression, the mean of <span class="math inline">\(y\)</span> was modeled as a linear combination of the predictors <span class="math inline">\(\boldsymbol{x_{i*}^T} \boldsymbol{\beta}\)</span>: <span class="math inline">\(\mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}\)</span>. More generally, we might want to model <em>a function</em> of the mean <span class="math inline">\(\eta_i = g(\mu_i)\)</span> as a linear combination of the predictors; <span class="math inline">\(g\)</span> is called the <em>link function</em> and <span class="math inline">\(\eta_i\)</span> the <em>linear predictor</em>. Pairing a link function with an EDM gives us a <em>generalized linear model</em> (GLM):</p>
+<p>In this class, the focus is on building models that tie a vector of predictors <span class="math inline">\((\boldsymbol x_{i*})\)</span> to a response <span class="math inline">\(y_i\)</span>. For linear regression, the mean of <span class="math inline">\(y\)</span> was modeled as a linear combination of the predictors <span class="math inline">\(\boldsymbol x_{i*}^T \boldsymbol{\beta}\)</span>: <span class="math inline">\(\mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}\)</span>. More generally, we might want to model <em>a function</em> of the mean <span class="math inline">\(\eta_i = g(\mu_i)\)</span> as a linear combination of the predictors; <span class="math inline">\(g\)</span> is called the <em>link function</em> and <span class="math inline">\(\eta_i\)</span> the <em>linear predictor</em>. Pairing a link function with an EDM gives us a <em>generalized linear model</em> (GLM):</p>
 <section id="definition" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">20.1</span> Definition</h2>
-<p>We define <span class="math inline">\(\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n\)</span> as following a generalized linear model based on the exponential dispersion model <span class="math inline">\(f_{\theta, \phi}\)</span>, monotonic and differentiable link function <span class="math inline">\(g\)</span>, offset terms <span class="math inline">\(o_i \in \mathbb R\)</span>, and observation weights <span class="math inline">\(w_i &gt; 0\)</span> if</p>
+<p>We define <span class="math inline">\(\{(y_i, \boldsymbol x_{i*})\}_{i = 1}^n\)</span> as following a generalized linear model based on the exponential dispersion model <span class="math inline">\(f_{\theta, \phi}\)</span>, monotonic and differentiable link function <span class="math inline">\(g\)</span>, offset terms <span class="math inline">\(o_i \in \mathbb R\)</span>, and observation weights <span class="math inline">\(w_i &gt; 0\)</span> if</p>
 <p><span id="eq-glm-def"><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
 \tag{20.1}\]</span></span></p>
@@ -412,21 +412,21 @@ g(\mu) = \dot \psi^{-1}(\mu),
 <h3 data-number="20.2.1" class="anchored" data-anchor-id="example-linear-regression-model"><span class="header-section-number">20.2.1</span> Example: Linear regression model</h3>
 <p>The linear regression model is a special case of a GLM, with <span class="math inline">\(\phi_0 = \sigma^2\)</span> (unknown), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and identity (canonical) link function:</p>
 <p><span class="math display">\[
-y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]</span></p>
 </section>
 <section id="example-weighted-linear-regression-model" class="level3" data-number="20.2.2">
 <h3 data-number="20.2.2" class="anchored" data-anchor-id="example-weighted-linear-regression-model"><span class="header-section-number">20.2.2</span> Example: Weighted linear regression model</h3>
 <p>If each observation <span class="math inline">\(y_i\)</span> is the mean of <span class="math inline">\(m_i\)</span> independent repeated observations, then we get a weighted linear regression model, with <span class="math inline">\(\phi_0 = \sigma^2\)</span> (unknown), <span class="math inline">\(w_i = m_i\)</span>, <span class="math inline">\(o_i = 0\)</span>, and identity (canonical) link function:</p>
 <p><span class="math display">\[
-y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]</span></p>
 </section>
 <section id="example-ungrouped-logistic-regression-model" class="level3" data-number="20.2.3">
 <h3 data-number="20.2.3" class="anchored" data-anchor-id="example-ungrouped-logistic-regression-model"><span class="header-section-number">20.2.3</span> Example: Ungrouped logistic regression model</h3>
 <p>The <em>ungrouped logistic regression model</em> is the GLM based on the Bernoulli EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
-y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]</span></p>
 <p>Thus the canonical link function for logistic regression is the <em>logistic link function</em> <span class="math inline">\(g(\mu) = \log \frac{\mu}{1-\mu}\)</span>.</p>
 </section>
@@ -442,7 +442,7 @@ m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} =
 <h3 data-number="20.2.5" class="anchored" data-anchor-id="example-poisson-regression-model"><span class="header-section-number">20.2.5</span> Example: Poisson regression model</h3>
 <p><em>Poisson regression</em> is the Poisson EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]</span></p>
 <p>Thus the canonical link function for Poisson regression is the <em>log link function</em> <span class="math inline">\(g(\mu) = \log \mu\)</span>.</p>
 

@@ -397,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="20.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">20.1</span> Definition</h2>
 <p>We define <span class="math inline">\(\{(y_i, \boldsymbol x_{i*})\}_{i = 1}^n\)</span> as following a generalized linear model based on the exponential dispersion model <span class="math inline">\(f_{\theta, \phi}\)</span>, monotonic and differentiable link function <span class="math inline">\(g\)</span>, offset terms <span class="math inline">\(o_i \in \mathbb R\)</span>, and observation weights <span class="math inline">\(w_i &gt; 0\)</span> if</p>
 <p><span id="eq-glm-def"><span class="math display">\[
-y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol x^T_{i*}\boldsymbol{\beta}.
 \tag{20.1}\]</span></span></p>
 <p>The offset terms <span class="math inline">\(o_i\)</span> and observation weights <span class="math inline">\(w_i\)</span> are both known in advance. The free parameters in a GLM are the coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> and, possibly, the parameter <span class="math inline">\(\phi_0\)</span> controlling the dispersion. We will see examples where <span class="math inline">\(\phi_0\)</span> is known (e.g.&nbsp;Poisson regression) and those where <span class="math inline">\(\phi_0\)</span> is unknown (e.g.&nbsp;linear regression).</p>
 <p>The “default” choice for the link function <span class="math inline">\(g\)</span> is the <em>canonical link function</em></p>
@@ -434,7 +434,7 @@ y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\f
 <h3 data-number="20.2.4" class="anchored" data-anchor-id="example-grouped-logistic-regression-model"><span class="header-section-number">20.2.4</span> Example: Grouped logistic regression model</h3>
 <p>Suppose <span class="math inline">\(y_i\)</span> is a binomial proportion based on <span class="math inline">\(m_i\)</span> trials. The <em>grouped logistic regression model</em> is the GLM based on the binomial EDM with <span class="math inline">\(\phi_0 = 1\)</span> (known), <span class="math inline">\(w_i = 1/m_i\)</span>, <span class="math inline">\(o_i = 0\)</span>, and the canonical link function:</p>
 <p><span class="math display">\[
-m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol x^T_{i*}\boldsymbol{\beta}.
 \]</span></p>
 <p>Note that a binomial proportion <span class="math inline">\(y_i\)</span> based on <span class="math inline">\(m_i\)</span> trials and a success probability of <span class="math inline">\(\mu_i\)</span> can be equivalently represented as <span class="math inline">\(m_i\)</span> independent Bernoulli draws with the same success probability <span class="math inline">\(\mu_i\)</span>. Therefore, any grouped logistic regression model can be equivalently represented as an ungrouped logistic regression model with <span class="math inline">\(\sum_{i = 1}^n m_i\)</span> observations. We will see that, despite this equivalence, grouped logistic regression models have some useful properties that ungrouped logistic regression models do not.</p>
 </section>

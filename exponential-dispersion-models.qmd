@@ -341,7 +341,7 @@ $$
 For the normal EDM, note that the normal approximation is exact. For the Poisson distribution, we get
 
 $$
-\widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(y \log \frac y \mu - (y - \mu)\right).
+\widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(-y \log \frac y \mu + (y - \mu)\right).
 $$
 
 The approximation can be shown to lead to the following consequence:

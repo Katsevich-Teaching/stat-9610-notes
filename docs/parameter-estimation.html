@@ -367,8 +367,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#log-concavity-of-glm-likelihood" id="toc-log-concavity-of-glm-likelihood" class="nav-link" data-scroll-target="#log-concavity-of-glm-likelihood"><span class="header-section-number">21.3.1</span> Log-concavity of GLM likelihood</a></li>
   <li><a href="#sec-newton-raphson" id="toc-sec-newton-raphson" class="nav-link" data-scroll-target="#sec-newton-raphson"><span class="header-section-number">21.3.2</span> Newton-Raphson</a></li>
   <li><a href="#sec-irls-interpretation" id="toc-sec-irls-interpretation" class="nav-link" data-scroll-target="#sec-irls-interpretation"><span class="header-section-number">21.3.3</span> Iteratively reweighted least squares (IRLS)</a></li>
-  <li><a href="#sec-glm-residuals" id="toc-sec-glm-residuals" class="nav-link" data-scroll-target="#sec-glm-residuals"><span class="header-section-number">21.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</a></li>
   </ul></li>
+  <li><a href="#sec-glm-residuals" id="toc-sec-glm-residuals" class="nav-link" data-scroll-target="#sec-glm-residuals"><span class="header-section-number">21.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</a></li>
   </ul>
 </nav>
     </div>
@@ -439,7 +439,7 @@ ul.task-list li input[type="checkbox"] {
 \boldsymbol{X}^T (\boldsymbol{y} - \widehat{\boldsymbol{\mu}}) = 0.
 \tag{21.5}\]</span></span></p>
 <p>We recognize these as the normal equation for linear regression. Since both ungrouped logistic regression and Poisson regression also use canonical links and have unit weights, the simplified normal equations (<a href="#eq-canonical-normal-equations"><span>21.5</span></a>) apply to the latter regressions as well.</p>
-<p>In the linear regression case, we interpreted the normal equations (<a href="#eq-canonical-normal-equations"><span>21.5</span></a>) as an orthogonality statement: <span class="math inline">\(\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})\)</span>. In the case of GLMs, the <span class="math inline">\(C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}\)</span> is no longer a linear space. In fact, it is a nonlinear transformation of the column space of <span class="math inline">\(\boldsymbol{X}\)</span> (a <span class="math inline">\(p\)</span>-dimensional manifold in <span class="math inline">\(\mathbb{R}^n\)</span>):</p>
+<p>In the linear regression case, we interpreted the normal equations (<a href="#eq-canonical-normal-equations"><span>21.5</span></a>) as an orthogonality statement: <span class="math inline">\(\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})\)</span>. In the case of GLMs, the set <span class="math inline">\(C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}\)</span> is no longer a linear space. In fact, it is a nonlinear transformation of the column space of <span class="math inline">\(\boldsymbol{X}\)</span> (a <span class="math inline">\(p\)</span>-dimensional manifold in <span class="math inline">\(\mathbb{R}^n\)</span>):</p>
 <p><span class="math display">\[
 C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\} = \{g^{-1}(\boldsymbol{X} \boldsymbol{\beta}): \boldsymbol{\beta} \in \mathbb{R}^p\}.
 \]</span></p>
@@ -452,7 +452,7 @@ C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \bolds
 &amp;\equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
 \end{split}
 \tag{21.6}\]</span></span></p>
-<p><span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>deviance</em> or the <em>total deviance</em>, and it can be interpreted as a kind of distance between the mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and the observation vector <span class="math inline">\(\boldsymbol{y}\)</span>. For example, in the linear model case, <span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2\)</span>. The quantity <span class="math inline">\(D^*(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>scaled deviance.</em> In the linear model case, <span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}\)</span>. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:</p>
+<p><span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>deviance</em> or the <em>total deviance</em>, and it can be interpreted as a kind of distance between the mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and the observation vector <span class="math inline">\(\boldsymbol{y}\)</span>. For example, in the linear model case, <span class="math inline">\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2\)</span>. The quantity <span class="math inline">\(D^*(\boldsymbol{y}, \boldsymbol{\mu})\)</span> is called the <em>scaled deviance.</em> In the linear model case, <span class="math inline">\(D^*(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}\)</span>. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:</p>
 <p><span class="math display">\[
 \boldsymbol{\widehat \beta} = \underset{\boldsymbol{\beta}}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}(\boldsymbol{\beta})), \quad \text{so that} \quad \boldsymbol{\widehat \mu} = \underset{\boldsymbol{\mu} \in C(\boldsymbol{X})}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}).
 \]</span></p>
@@ -521,8 +521,9 @@ C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \bolds
 \tag{21.9}\]</span></span></p>
 <p>which we define as our next iterate. It’s easy to verify that the IRLS iteration (<a href="#eq-irls-iteration"><span>21.9</span></a>) is equivalent to the Newton-Raphson iteration (<a href="#eq-nr-iteration"><span>21.7</span></a>). Note that we have derived these algorithms for canonical links; they each can be derived for non-canonical links but need not be equivalent in this more general case.</p>
 </section>
-<section id="sec-glm-residuals" class="level3" data-number="21.3.4">
-<h3 data-number="21.3.4" class="anchored" data-anchor-id="sec-glm-residuals"><span class="header-section-number">21.3.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</h3>
+</section>
+<section id="sec-glm-residuals" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="sec-glm-residuals"><span class="header-section-number">21.4</span> Estimation of <span class="math inline">\(\phi_0\)</span> and GLM residuals</h2>
 <p>While sometimes the parameter <span class="math inline">\(\phi_0\)</span> is known (e.g., for binomial or Poisson GLMs), in other cases <span class="math inline">\(\phi_0\)</span> must be estimated (e.g., for the normal linear model). Recall from the linear model that we estimated <span class="math inline">\(\sigma^2 = \phi_0\)</span> by taking the sum of the squares of the residuals: <span class="math inline">\(\widehat \sigma^2 = \frac{1}{n-p}\|\boldsymbol{y} - \boldsymbol{\widehat \mu}\|^2\)</span>. However, it’s unclear in the GLM context exactly how to define a residual. In fact, there are two common ways of doing so, called <em>deviance residuals</em> and <em>Pearson residuals</em>. Deviance residuals are defined in terms of the unit deviance:</p>
 <p><span class="math display">\[
   r^D_i \equiv \text{sign}(y_i - \widehat \mu_i)\sqrt{w_i d(y_i, \widehat \mu_i)}.
@@ -546,7 +547,6 @@ C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \bolds
 <p><span class="math inline">\(X^2\)</span> is known as the Pearson <span class="math inline">\(X^2\)</span> statistic. The deviance-based estimator can be more accurate than the Pearson estimator under small-dispersion asymptotics. However, the Pearson estimator is more robust when only the first two moments of the EDM model are correct and in the absence of small-dispersion asymptotics. For these reasons, the Pearson estimator is generally preferred.</p>
 
 
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

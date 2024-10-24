@@ -63,7 +63,7 @@ $$ {#eq-canonical-normal-equations}
 
 We recognize these as the normal equation for linear regression. Since both ungrouped logistic regression and Poisson regression also use canonical links and have unit weights, the simplified normal equations ([-@eq-canonical-normal-equations]) apply to the latter regressions as well.
 
-In the linear regression case, we interpreted the normal equations ([-@eq-canonical-normal-equations]) as an orthogonality statement: $\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})$. In the case of GLMs, the $C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}$ is no longer a linear space. In fact, it is a nonlinear transformation of the column space of $\boldsymbol{X}$ (a $p$-dimensional manifold in $\mathbb{R}^n$):
+In the linear regression case, we interpreted the normal equations ([-@eq-canonical-normal-equations]) as an orthogonality statement: $\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})$. In the case of GLMs, the set $C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}$ is no longer a linear space. In fact, it is a nonlinear transformation of the column space of $\boldsymbol{X}$ (a $p$-dimensional manifold in $\mathbb{R}^n$):
 
 $$
 C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\} = \{g^{-1}(\boldsymbol{X} \boldsymbol{\beta}): \boldsymbol{\beta} \in \mathbb{R}^p\}.
@@ -80,7 +80,7 @@ $$
 \end{split}
 $$ {#eq-glm-likelihood-via-deviance}
 
-$D(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *deviance* or the *total deviance*, and it can be interpreted as a kind of distance between the mean vector $\boldsymbol{\mu}$ and the observation vector $\boldsymbol{y}$. For example, in the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2$. The quantity $D^*(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *scaled deviance.* In the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}$. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:
+$D(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *deviance* or the *total deviance*, and it can be interpreted as a kind of distance between the mean vector $\boldsymbol{\mu}$ and the observation vector $\boldsymbol{y}$. For example, in the linear model case, $D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2$. The quantity $D^*(\boldsymbol{y}, \boldsymbol{\mu})$ is called the *scaled deviance.* In the linear model case, $D^*(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}$. Therefore, maximizing the GLM log likelihood is equivalent to minimizing the deviance:
 
 $$
 \boldsymbol{\widehat \beta} = \underset{\boldsymbol{\beta}}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}(\boldsymbol{\beta})), \quad \text{so that} \quad \boldsymbol{\widehat \mu} = \underset{\boldsymbol{\mu} \in C(\boldsymbol{X})}{\arg \min}\ D(\boldsymbol{y}, \boldsymbol{\mu}).
@@ -163,7 +163,7 @@ $$ {#eq-irls-iteration}
 
 which we define as our next iterate. It's easy to verify that the IRLS iteration ([-@eq-irls-iteration]) is equivalent to the Newton-Raphson iteration ([-@eq-nr-iteration]). Note that we have derived these algorithms for canonical links; they each can be derived for non-canonical links but need not be equivalent in this more general case.
 
-### Estimation of $\phi_0$ and GLM residuals {#sec-glm-residuals}
+## Estimation of $\phi_0$ and GLM residuals {#sec-glm-residuals}
 
 While sometimes the parameter $\phi_0$ is known (e.g., for binomial or Poisson GLMs), in other cases $\phi_0$ must be estimated (e.g., for the normal linear model). Recall from the linear model that we estimated $\sigma^2 = \phi_0$ by taking the sum of the squares of the residuals: $\widehat \sigma^2 = \frac{1}{n-p}\|\boldsymbol{y} - \boldsymbol{\widehat \mu}\|^2$. However, it's unclear in the GLM context exactly how to define a residual. In fact, there are two common ways of doing so, called *deviance residuals* and *Pearson residuals*. Deviance residuals are defined in terms of the unit deviance:
 

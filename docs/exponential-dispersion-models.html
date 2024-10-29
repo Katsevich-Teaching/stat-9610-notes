@@ -618,9 +618,9 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 \text{Poi}(\mu) \approx N(\mu, \mu).
 \]</span></p>
 <p>For the normal EDM, note that the normal approximation is exact. One consequence of the normal approximation is</p>
-<p><span class="math display">\[
+<p><span id="eq-clt-chi-squared"><span class="math display">\[
 \frac{(y - \mu)^2}{\phi \cdot V(\mu)} \overset \cdot \sim \chi^2_1.
-\]</span></p>
+\tag{19.4}\]</span></span></p>
 <p>This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
 <section id="sec-normal-approx-accuracy" class="level4" data-number="19.6.1.2">
@@ -629,7 +629,7 @@ y \overset \cdot \sim N(\mu, \phi \cdot V(\mu)) \equiv \tilde f^{\text{normal}}_
 <p><span class="math display">\[
 \tilde f^{\text{normal}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) + O(\sqrt{\phi}).
 \]</span></p>
-<p>In practice, the rule of thumb for the applicability of this approximation is that</p>
+<p>In practice, the rule of thumb for the applicability of this approximation to get statements like (<a href="#eq-clt-chi-squared"><span>19.4</span></a>) is that</p>
 <p><span class="math display">\[
 \tau \equiv \frac{\phi \cdot V(\mu)}{(\mu - \text{boundary})^2} \leq \frac{1}{5}.
 \]</span></p>
@@ -655,12 +655,12 @@ f_{\mu, \phi}(y) &amp;\equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\righ
 &amp;= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)\exp\left(\frac{\theta(y) y - \psi(\theta(y))}{\phi}\right) h(y, \phi) \\
 &amp;= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)f_{y, \phi}(y).
 \end{split}
-\tag{19.4}\]</span></span></p>
+\tag{19.5}\]</span></span></p>
 <p>Now, we apply the central limit theorem to approximate <span class="math inline">\(f_{y, \phi}(y)\)</span>:</p>
 <p><span class="math display">\[
 f_{y, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}.
 \]</span></p>
-<p>Substituting this approximation into (<a href="#eq-deviance-form"><span>19.4</span></a>), we obtain the <em>saddlepoint approximation</em>:</p>
+<p>Substituting this approximation into (<a href="#eq-deviance-form"><span>19.5</span></a>), we obtain the <em>saddlepoint approximation</em>:</p>
 <p><span class="math display">\[
 f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \mu)}{2\phi}\right) \equiv \widetilde f^{\text{saddle}}_{\mu, \phi}(y).
 \]</span></p>
@@ -669,9 +669,9 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 \widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(-y \log \frac y \mu + (y - \mu)\right).
 \]</span></p>
 <p>The approximation can be shown to lead to the following consequence:</p>
-<p><span class="math display">\[
+<p><span id="eq-spa-chi-squared"><span class="math display">\[
 \frac{d(y, \mu)}{\phi} \overset \cdot \sim \chi^2_1.
-\]</span></p>
+\tag{19.6}\]</span></span></p>
 <p>Here, we are using the unit deviance rather than the squared distance to measure the deviation of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(y\)</span>. This fact will be useful to us as we carry out inference for GLMs.</p>
 </section>
 <section id="sec-saddlepoint-approximation-accuracy" class="level4" data-number="19.6.2.2">
@@ -680,7 +680,7 @@ f_{\mu, \phi}(y) \approx \frac{1}{\sqrt{2\pi \phi V(y)}}\exp\left(-\frac{d(y, \m
 <p><span class="math display">\[
 \tilde f^{\text{saddle}}_{\mu, \phi}(y) = f_{\mu, \phi}(y) \cdot (1 + O(\phi)).
 \]</span></p>
-<p>In practice, the rule of thumb for the applicability of this approximation is that <span class="math inline">\(\tau \leq 1/3\)</span>; the looser requirement on <span class="math inline">\(\tau\)</span> reflects the greater accuracy of the saddlepoint approximation. This translates to <span class="math inline">\(m\mu \geq 3\)</span> and <span class="math inline">\(m(1-\mu) \geq 3\)</span> for the binomial and <span class="math inline">\(\mu \geq 3\)</span> for the Poisson.</p>
+<p>In practice, the rule of thumb for the applicability of this approximation to get statements like (<a href="#eq-spa-chi-squared"><span>19.6</span></a>) is that <span class="math inline">\(\tau \leq 1/3\)</span>; the looser requirement on <span class="math inline">\(\tau\)</span> reflects the greater accuracy of the saddlepoint approximation. This translates to <span class="math inline">\(m\mu \geq 3\)</span> and <span class="math inline">\(m(1-\mu) \geq 3\)</span> for the binomial and <span class="math inline">\(\mu \geq 3\)</span> for the Poisson.</p>
 </section>
 </section>
 <section id="comparing-the-two-approximations" class="level3" data-number="19.6.3">

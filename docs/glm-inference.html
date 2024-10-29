@@ -464,7 +464,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 \begin{split}
 \widehat \beta_j &amp;\overset{\cdot}{\sim} N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{jj}) \\
 &amp;\approx N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}) \\
-&amp;\equiv N(0, \text{SE}(\widehat \beta_j)^2),
+&amp;\equiv N(\beta_j^0, \text{SE}(\widehat \beta_j)^2),
 \end{split}
 \]</span></p>
 <p>where we have used a plug-in estimator of the variance. This leads us to the Wald <span class="math inline">\(z\)</span>-test:</p>
@@ -598,36 +598,59 @@ F \equiv \frac{(D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\b
 <h3 data-number="22.4.1" class="anchored" data-anchor-id="sec-score-test-multiple-coeff"><span class="header-section-number">22.4.1</span> Testing multiple coefficients (<span class="math inline">\(\phi_0\)</span> known)</h3>
 <p>Let <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span> be a null hypothesis about a subset of variables <span class="math inline">\(S\)</span>, and let <span class="math inline">\(\boldsymbol{\widehat{\beta}}^0\)</span> be the maximum likelihood estimate under this null hypothesis. In particular, let <span class="math inline">\(\boldsymbol{\widehat{\beta}}^0_S \equiv \boldsymbol{\beta}_S^0\)</span> and <span id="eq-score-null-estimate"><span class="math display">\[
 \boldsymbol{\widehat{\beta}}^0_{\text{-}S} = \underset{\boldsymbol{\beta}_{\text{-}S}}{\arg \max}\ \ell(\boldsymbol{\beta}^0_{S}, \boldsymbol{\beta}_{\text{-}S}).
-\tag{22.5}\]</span></span> Recalling that <span class="math inline">\(U(\boldsymbol{\beta}) = \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\)</span> is the score vector, score test inference is based on the following asymptotic approximation: <span id="eq-score-approximation-1"><span class="math display">\[
-[U(\boldsymbol{\widehat{\beta}}^0)]_S \overset{\cdot}{\sim} N(\boldsymbol{0}, \{[\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S}\}^{-1}),
-\tag{22.6}\]</span></span> from which it follows that <span id="eq-score-approximation-2"><span class="math display">\[
-[U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S \overset{\cdot}{\sim} \chi^2_{|S|}.
-\tag{22.7}\]</span></span> This approximation can be justified either by small-dispersion asymptotics or large-sample asymptotics (both based on the central limit theorem). Recalling the expressions (<a href="parameter-estimation.html#eq-glm-score"><span>21.2</span></a>) and (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>21.4</span></a>) for the score vector and information matrix, we have that:</p>
-<p><span class="math display">\[
+\tag{22.5}\]</span></span> Let us partition the score vector <span class="math inline">\(\boldsymbol U(\boldsymbol{\beta}) = \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} \equiv (\boldsymbol U_S(\boldsymbol \beta), \boldsymbol U_{\text{-}S}(\boldsymbol \beta))\)</span>. We have <span id="eq-glm-score-distribution"><span class="math display">\[
 \begin{split}
-&amp;[U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S = \\
-&amp;\quad\frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
+\boldsymbol U(\boldsymbol \beta) &amp;= { \boldsymbol U_S(\boldsymbol \beta) \choose \boldsymbol U_{\text{-}S}(\boldsymbol \beta) } \\
+&amp;\sim N\left(0, \boldsymbol I(\boldsymbol \beta)\right) = N\left(0, \begin{bmatrix} \boldsymbol I_{S,S}(\boldsymbol \beta) &amp; \boldsymbol I_{S,\text{-}S}(\boldsymbol \beta) \\ \boldsymbol I_{\text{-}S,S}(\boldsymbol \beta) &amp; \boldsymbol I_{\text{-}S,\text{-}S}(\boldsymbol \beta) \end{bmatrix}\right).
 \end{split}
-\]</span></p>
-<p>Therefore, we arrive at the score test for <span class="math inline">\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\)</span>:</p>
-<p><span class="math display">\[
-\small
+\tag{22.6}\]</span></span> This approximation can be justified either by small-dispersion asymptotics or large-sample asymptotics (both based on the central limit theorem). The score test statistic is based on plugging in the null estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}^0\)</span> into the score vector and extracting the components corresponding to <span class="math inline">\(S\)</span>: <span class="math display">\[
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0).
+\]</span> This vector does not have the distribution obtained from the coordinates <span class="math inline">\(S\)</span> of equation (<a href="#eq-glm-score-distribution"><span>22.6</span></a>) because an estimate is plugged in. Instead, we can derive the distribution of this vector by conditioning on <span class="math inline">\(\boldsymbol U_{\text{-}S}(\boldsymbol{\widehat{\beta}}^0) = 0\)</span>: <span id="eq-conditioning-score-test"><span class="math display">\[
 \begin{split}
-&amp;\phi(\boldsymbol{X}, \boldsymbol{y}) \\
-&amp;\quad= 1\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) &gt; \phi_0 \chi^2_{|S|}(1-\alpha)\right).
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) &amp;\overset d \approx \left.\mathcal L(\boldsymbol U_S(\boldsymbol \beta) \mid \boldsymbol U_{\text{-}S}(\boldsymbol \beta) = 0)\right|_{\boldsymbol \beta = \boldsymbol{\widehat{\beta}}^0} \\
+&amp; \overset \cdot \sim N\left(0, \boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right).
 \end{split}
-\]</span></p>
-<p>The nice thing about a score test is that the model need only be fit under the null hypothesis. If there are several variables one is considering adding to a model, the model need not be refit upon the addition of each variable.</p>
+\tag{22.7}\]</span></span> The second line is obtained from (<a href="#eq-glm-score-distribution"><span>22.6</span></a>) using the formula for a conditional distribution of a multivariate normal distribution. Therefore, the score test is based on the following chi-square approximation: <span class="math display">\[
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T \left[\boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \overset \cdot \sim \chi^2_{|S|}.
+\]</span> Recalling the expressions for the score (<a href="parameter-estimation.html#eq-glm-score"><span>21.2</span></a>) and Fisher information matrix (<a href="parameter-estimation.html#eq-glm-fisher-info"><span>21.4</span></a>) in GLMs, we derive the score statistic <span class="math display">\[
+\begin{split}
+&amp;T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) \equiv \\
+&amp;\frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{*,S} \times \\
+&amp; \quad \left[\boldsymbol X_{*,S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,S} - \boldsymbol X_{*,S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}S}(\boldsymbol X_{*,\text{-}S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}S})^{-1}\boldsymbol X_{*,\text{-}S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,S} \right]^{-1} \times \\
+&amp; \quad \boldsymbol{X}_{*,S}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
+\end{split}
+\]</span> The score test is therefore <span class="math display">\[
+\phi(\boldsymbol X, \boldsymbol y) \equiv 1(T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) &gt; \chi^2_{|S|}(1-\alpha)).
+\]</span> An equivalent formulation of the score test can be derived by noting that <span class="math display">\[
+\left[I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} = [\boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S}.
+\]</span> Hence, we have <span class="math display">\[
+\begin{split}
+&amp;\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T \left[\boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \\
+&amp;\quad= \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T [\boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \\
+&amp;\quad= \boldsymbol U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1} \boldsymbol U(\boldsymbol{\widehat{\beta}}^0),
+\end{split}
+\]</span> where the last step used the fact that <span class="math inline">\(\boldsymbol U_{\text{-}S}(\boldsymbol{\widehat \beta}^{0}) = 0\)</span>. Specializing to GLMs, we find that the score test statistic can be written as <span id="eq-score-stat-alternative"><span class="math display">\[
+\begin{split}
+&amp;T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) = \\
+&amp;\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0) \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
+\end{split}
+\tag{22.8}\]</span></span></p>
 </section>
 <section id="sec-score-test-single-coeff" class="level3" data-number="22.4.2">
 <h3 data-number="22.4.2" class="anchored" data-anchor-id="sec-score-test-single-coeff"><span class="header-section-number">22.4.2</span> Testing a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
-<p>If <span class="math inline">\(S = \{j\}\)</span>, the score test becomes univariate and can be based on the normal approximation (<a href="#eq-score-approximation-1"><span>22.6</span></a>), which specializes to <span id="eq-score-test-univariate"><span class="math display">\[
-\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} \overset{\cdot}{\sim} N(0, 1).
-\tag{22.8}\]</span></span></p>
+<p>If <span class="math inline">\(S = \{j\}\)</span>, the normal approximation (<a href="#eq-conditioning-score-test"><span>22.7</span></a>) specializes to <span class="math display">\[
+T_{\text{score}} \overset{\cdot}{\sim} N(0, 1),
+\]</span> where <span class="math display">\[
+\begin{split}
+&amp;T_{\text{score}} = \\
+&amp;\frac{\boldsymbol{x}_{*,j}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 (\boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j} - \boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j}(\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j})^{-1}\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j})}}.
+\end{split}
+\]</span></p>
 <p>Unlike its multivariate counterparts, we can construct not just a two-sided test but also one-sided tests based on this normal approximation. For example, below is a right-sided score test for <span class="math inline">\(H_0: \beta_j = \beta_j^0\)</span>:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; z_{1-\alpha}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(T_{\text{score}} &gt; z_{1-\alpha}\right).
 \]</span></p>
+<p>The nice thing about the score test is that the model need only be fit under the null hypothesis. Therefore, computation can be recycled if <span class="math inline">\(\boldsymbol X_{*, \text{-}j}\)</span> is a standard set of control variables and there are several options for <span class="math inline">\(\boldsymbol x_{*, j}\)</span> to test.</p>
 </section>
 <section id="sec-score-ci-single-coeff" class="level3" data-number="22.4.3">
 <h3 data-number="22.4.3" class="anchored" data-anchor-id="sec-score-ci-single-coeff"><span class="header-section-number">22.4.3</span> Confidence interval for a single coefficient (<span class="math inline">\(\phi_0\)</span> known)</h3>
@@ -635,23 +658,22 @@ F \equiv \frac{(D(\boldsymbol{y}; \boldsymbol{\widehat{\mu}}_{\text{-}S}) - D(\b
 </section>
 <section id="sec-score-goodness-of-fit" class="level3" data-number="22.4.4">
 <h3 data-number="22.4.4" class="anchored" data-anchor-id="sec-score-goodness-of-fit"><span class="header-section-number">22.4.4</span> Goodness of fit testing (<span class="math inline">\(\phi_0\)</span> known)</h3>
-<p>We can view goodness of fit testing as testing a hypothesis about the coefficients in a GLM with <span class="math inline">\(\boldsymbol{X} = \boldsymbol{I}_{n \times n}\)</span>, which amounts to the saturated model that allows unrestricted means for each observation. Furthermore, the coefficient vector fitted under the null hypothesis amounts to fitting the GLM as usual. Such a test, however, does not exactly fall into the framework of <a href="#sec-score-test-multiple-coeff"><span>Section&nbsp;22.4.1</span></a>, because the null hypothesis concerns the entire coefficient vector rather than just a subset. To generalize the score test approximation (<a href="#eq-score-approximation-1"><span>22.6</span></a>), note first that equation (<a href="#eq-score-null-estimate"><span>22.5</span></a>) implies that <span class="math display">\[
-[U(\boldsymbol{\widehat{\beta}}^0)]_{\text{-}S} \equiv \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\widehat{\beta}}^0) = \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\beta}^0_{S}, \boldsymbol{\widehat{\beta}}_{\text{-}S}) = 0.
-\]</span> Therefore, we find that <span class="math display">\[
-[U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S = U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0).
-\]</span> from which we find that <span class="math display">\[
-U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) \overset{\cdot}{\sim} \chi^2_{|S|}.
-\]</span> Note that the latter formulation does not rely on extracting subsets of <span class="math inline">\(\boldsymbol U\)</span> or <span class="math inline">\(\boldsymbol I\)</span>, and the quantity <span class="math inline">\(|S|\)</span> can be interpreted as the difference in the number of parameters in the null and alternative models. This formulation is amenable the goodness of fit setting. We derive that <span class="math display">\[
+<p>We can view goodness of fit testing as testing a hypothesis about the coefficients in the following augmented GLM: <span class="math display">\[
+y_i \sim \text{EDM}(\mu_i, \phi_i); \quad g(\mu_i) = \boldsymbol x_{i*}^T \boldsymbol \beta + \boldsymbol z_{i*}^T \boldsymbol \gamma,
+\]</span> where <span class="math inline">\(\boldsymbol Z \in \mathbb R^{n \times (n-p)}\)</span> is a matrix of extra variables so that the columns of the augmented model matrix <span class="math inline">\(\widetilde{\boldsymbol X} \equiv [\boldsymbol X, \boldsymbol Z]\)</span> form a basis for <span class="math inline">\(\mathbb R^n\)</span>. Then, the goodness of fit null hypothesis is <span class="math inline">\(H_0: \boldsymbol \gamma = \boldsymbol 0\)</span>, and the alternative hypothesis is the saturated model. To test this hypothesis, we use the score test statistic in the form of equation (<a href="#eq-score-stat-alternative"><span>22.8</span></a>) with the augmented model matrix <span class="math inline">\(\widetilde{\boldsymbol X}\)</span> in place of <span class="math inline">\(\boldsymbol X\)</span> and the GLM fits <span class="math inline">\(\boldsymbol {\widehat \mu}, \boldsymbol{\widehat W}, \boldsymbol{\widehat M}\)</span> in place of <span class="math inline">\(\boldsymbol{\widehat \mu}^0, \boldsymbol{\widehat W}^0, \boldsymbol{\widehat M}^0\)</span> to reflect that the full original GLM is being fit under the null hypothesis. Therefore, we get the score statistic <span class="math display">\[
+T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
+\]</span> Now, note that the matrix <span class="math inline">\(\widetilde{\boldsymbol X}\)</span> is a full-rank square matrix, and therefore it is invertible. Hence, we can simplify the statistic as follows: <span class="math display">\[
 \begin{split}
-U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{-1} U(\boldsymbol{\widehat{\beta}}) &amp;= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}} \boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{\widehat{M}} \boldsymbol{\widehat{W}} (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
+T^2_{\text{score}} &amp;= \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} \widetilde{\boldsymbol X}^{-1} \boldsymbol{\widehat W}^{-1}((\widetilde{\boldsymbol X})^{T})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}) \\
+&amp;= \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \boldsymbol{\widehat W}^{-1} \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}) \\
 &amp;= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}}^2 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
 &amp;= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \text{diag}\left( \frac{w_i}{V(\widehat{\mu}_i)} \right) (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
-&amp;= \frac{1}{\phi_0}\sum_{i=1}^n \frac{w_i (y_i - \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)} \equiv \frac{1}{\phi_0} X^2,
+&amp;= \frac{1}{\phi_0}\sum_{i=1}^n \frac{w_i (y_i - \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)} \\
+&amp;\equiv \frac{1}{\phi_0} X^2,
 \end{split}
-\]</span></p>
-<p>where <span class="math inline">\(X^2\)</span> is the Pearson chi-square statistic. Therefore, the score test for goodness of fit is:</p>
+\]</span> where <span class="math inline">\(X^2\)</span> is the Pearson chi-square statistic. Therefore, the score test for goodness of fit is:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 \phi_0 &gt; \chi^2_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 &gt; \phi_0 \chi^2_{n-p}(1-\alpha)\right).
 \]</span></p>
 <p>In the context of contingency table analysis (see the next chapter), this test reduces to the Pearson chi-square test of independence between two categorical variables. This test was proposed in 1900; it was only pointed out about a century later that this is a score test (Smyth 2003).</p>
 <p>As with the likelihood ratio test for goodness of fit, the score test for goodness of fit must be justified by small-dispersion asymptotics. In particular, the score test for goodness of fit relies on the central limit theorem for small dispersions. To verify whether this approximation is accurate, we can apply the rules of thumb from <a href="exponential-dispersion-models.html#sec-normal-approx-accuracy"><span>Section&nbsp;19.6.1.2</span></a> for each observation <span class="math inline">\(y_i\)</span>, when it is drawn from the distribution fitted under the GLM (rather than the saturated model). For instance, we can check that <span class="math inline">\(m \hat \mu_i \geq 5\)</span> and <span class="math inline">\(m(1-\hat \mu_i) \geq 5\)</span> in the case of grouped logistic regression of <span class="math inline">\(\hat \mu_i \geq 5\)</span> for Poisson regression. Here, <span class="math inline">\(\hat \mu_i\)</span> are the fitted means under the GLM.</p>
@@ -660,7 +682,12 @@ U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{
 <h3 data-number="22.4.5" class="anchored" data-anchor-id="sec-score-test-unknown-dispersion"><span class="header-section-number">22.4.5</span> Score test inference for <span class="math inline">\(\phi_0\)</span> unknown</h3>
 <p>Score test inference for one or more coefficients <span class="math inline">\(\boldsymbol{\beta}_S\)</span> can be achieved by replacing <span class="math inline">\(\phi_0\)</span> with one of its estimators and replacing the normal and chi-square distributions with <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions, respectively. For example, the score test for a single coefficient <span class="math inline">\(\beta_j\)</span> is:</p>
 <p><span class="math display">\[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} &gt; t_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(T_{\text{score}} &gt; t_{n-p}(1-\alpha)\right),
+\]</span> where <span class="math display">\[
+\begin{split}
+&amp;T_{\text{score}} = \\
+&amp;\frac{\boldsymbol{x}_{*,j}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\tilde \phi_0 (\boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j} - \boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j}(\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j})^{-1}\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j})}}.
+\end{split}
 \]</span></p>
 <p>The <span class="math inline">\(t\)</span> and <span class="math inline">\(F\)</span> distributions are not exact in finite samples, but are better approximations than the normal and chi-square distributions. The score test for goodness of fit is not applicable in the case when <span class="math inline">\(\phi_0\)</span> is unknown, similarly to the likelihood ratio test. Indeed, note the relationship between the Pearson goodness of fit test, which rejects when <span class="math inline">\(\frac{1}{\phi_0}X^2 &gt; \chi^2_{n-p}(1-\alpha)\)</span>, and the Pearson estimator of the dispersion parameter: <span class="math inline">\(\widetilde{\phi}_0 \equiv \frac{X^2}{n-p}\)</span>. If we try to plug in the Pearson estimator for the dispersion into the Pearson goodness of fit test, we end up with a test statistic deterministically equal to <span class="math inline">\(n-p\)</span>. This reflects the fact that the residual degrees of freedom can either be used to estimate the dispersion or to test goodness of fit; they cannot be used for both.</p>
 

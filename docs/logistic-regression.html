@@ -469,7 +469,11 @@ e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 
 <p>In a prospective study (e.g.&nbsp;a clinical trial), we assign treatment or control (i.e., <span class="math inline">\(x\)</span>) to individuals, and then observe a binary outcome (i.e., <span class="math inline">\(y\)</span>). Sometimes, the outcome <span class="math inline">\(y\)</span> takes a long time to measure or has a highly imbalanced distribution in the population (e.g., the development of lung cancer). In this case, an appealing study design is the <em>retrospective study</em>, where individuals are sampled based on their <em>response values</em> (e.g., presence of lung cancer) rather than their treatment/exposure status (e.g., smoking). It turns out that a logistic regression model is appropriate for such retrospective study designs as well.</p>
 <p>Indeed, suppose that <span class="math inline">\(y|\boldsymbol{x}\)</span> follows a logistic regression model. Let’s try to figure out the distribution of <span class="math inline">\(y|\boldsymbol{x}\)</span> in the retrospectively gathered sample. Letting <span class="math inline">\(z \in \{0,1\}\)</span> denote the indicator that an observation is sampled, define <span class="math inline">\(\rho_1 \equiv \mathbb{P}[z = 1|y = 1]\)</span> and <span class="math inline">\(\rho_0 \equiv \mathbb{P}[z = 1|y = 0]\)</span>, and assume that <span class="math inline">\(\mathbb{P}[z = 1, y, \boldsymbol{x}] = \mathbb{P}[z = 1 | y]\)</span>. The latter assumption states that the predictors <span class="math inline">\(\boldsymbol{x}\)</span> were not used in the retrospective sampling process. Then,</p>
 <p><span class="math display">\[
-\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) = \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} = \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) = \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+\begin{split}
+\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) &amp;= \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} \\
+&amp;= \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) \\
+&amp;= \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+\end{split}
 \]</span></p>
 <p>Thus, conditioning on retrospective sampling changes only the intercept term, but preserves the coefficients of <span class="math inline">\(\boldsymbol{x}\)</span>. Therefore, we can carry out inference for <span class="math inline">\(\boldsymbol{\beta}_{-0}\)</span> in the same way regardless of whether the study design is prospective or retrospective.</p>
 </section>
@@ -497,9 +501,8 @@ e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 
 \]</span></p>
 <p>Here we have substituted the notation <span class="math inline">\(\boldsymbol{\pi}\)</span> for <span class="math inline">\(\boldsymbol{\mu}\)</span>, and recall that for logistic regression, <span class="math inline">\(\phi_0 = 1\)</span>, <span class="math inline">\(w_i = m_i\)</span>, and <span class="math inline">\(V(\pi_i) = \pi_i(1-\pi_i)\)</span>. Therefore, the score equations for logistic regression are</p>
 <p><span id="eq-logistic-score-equations"><span class="math display">\[
-0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0, \quad j = 0, \dots, p-1.
-\tag{24.1}\]</span></span></p>
-<p>We can solve these equations using IRLS. The Fisher information is</p>
+0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0,
+\tag{24.1}\]</span></span> for <span class="math inline">\(j = 0, \dots, p-1\)</span>. We can solve these equations using IRLS. The Fisher information is</p>
 <p><span class="math display">\[
 \boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \text{diag}\left(m_i \pi_i(1-\pi_i)\right) \boldsymbol{X}.
 \]</span></p>
@@ -544,11 +547,15 @@ y_0 \sim \frac{1}{m_0}\text{Bin}(m_0, \pi_0); \quad y_1 \sim \frac{1}{m_1}\text{
 my \sim \text{Bin}(m, \pi); \quad \text{logit}(\pi) = \beta_0.
 \]</span></p>
 <p>The Wald test statistic is <span class="math inline">\(z \equiv \widehat \beta/\text{SE} = \text{logit}(y)\sqrt{my(1-y)}\)</span>. This test statistic actually tends to <em>decrease</em> as <span class="math inline">\(y \rightarrow 1\)</span> (see <a href="#fig-hauck-donner">Figure&nbsp;<span>24.1</span></a>), since the standard error grows faster than the estimate itself. So the test statistic becomes less significant as we go further away from the null! A similar situation arises in the <span class="math inline">\(2 \times 2\)</span> contingency table example above, where the Wald test for <span class="math inline">\(H_0: \beta_1 = 0\)</span> becomes less significant as <span class="math inline">\(y_0 \rightarrow 0\)</span> and <span class="math inline">\(y_1 \rightarrow 1\)</span>. As a limiting case of this, the Wald test is undefined if <span class="math inline">\(y_0 = 0\)</span> and <span class="math inline">\(y_1 = 1\)</span>. This situation is a special case of <em>perfect separability</em> in logistic regression: when a hyperplane in covariate space separates observations with <span class="math inline">\(y_i = 0\)</span> from those with <span class="math inline">\(y_i = 1\)</span>. Some of the maximum likelihood coefficient estimates are infinite in this case, causing the Wald test to be undefined since it uses these coefficient estimates as test statistics.</p>
+<div class="cell">
+<div class="cell-output-display">
 <div id="fig-hauck-donner" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="figures/hauck-donner.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p><img src="logistic-regression_files/figure-html/fig-hauck-donner-1.png" class="img-fluid figure-img" width="480"></p>
 <figcaption class="figure-caption">Figure&nbsp;24.1: The Hauck-Donner effect: The Wald statistic for testing <span class="math inline">\(H_0: \pi = 0.5\)</span> within the model <span class="math inline">\(my \sim \text{Bin}(m, \pi)\)</span> decreases as the proportion <span class="math inline">\(y\)</span> approaches 1. Here, <span class="math inline">\(m = 25\)</span>.</figcaption>
 </figure>
+</div>
+</div>
 </div>
 </section>
 <section id="sec-likelihood-ratio-inference" class="level3" data-number="24.3.5">
@@ -569,7 +576,10 @@ d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \f
 \]</span></p>
 <p>The total deviance, therefore, is</p>
 <p><span id="eq-logistic-deviance"><span class="math display">\[
-D(\boldsymbol y, \hat{\boldsymbol \pi}) \equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
+\begin{split}
+D(\boldsymbol y, \hat{\boldsymbol \pi}) &amp;\equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) \\
+&amp;= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
+\end{split}
 \tag{24.2}\]</span></span></p>
 </section>
 </section>
@@ -577,27 +587,33 @@ D(\boldsymbol y, \hat{\boldsymbol \pi}) \equiv \sum_{i = 1}^n w_i d(y_i, \wideha
 <h3 data-number="24.3.6" class="anchored" data-anchor-id="sec-comparing-deviances"><span class="header-section-number">24.3.6</span> Comparing the deviances of grouped and ungrouped logistic regression models.</h3>
 <p>Let us pause to compare the total deviances of grouped and ungrouped logistic regression models. Consider the following grouped and ungrouped models:</p>
 <p><span class="math display">\[
-y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i, \quad \text{where} \quad \text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
+y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i,
+\]</span> where <span class="math display">\[
+\text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
 \]</span></p>
 <p>The relationship between the grouped and ungrouped observations is that</p>
 <p><span class="math display">\[
 y^{\text{grp}}_i = \frac{1}{m_i}\sum_{k = 1}^{m_i} y^{\text{ungrp}}_{ik} \equiv \bar y^{\text{ungrp}}_i.
 \]</span></p>
-<p>Since the grouped and ungrouped logistic regression models have the same likelihoods, it follows that they have the same maximum likelihood estimates <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> and <span class="math inline">\(\widehat{\boldsymbol \pi}\)</span>. However, the total deviances of the two models are different. The total deviance of the grouped model is given by (<a href="#eq-logistic-deviance"><span>24.2</span></a>):</p>
+<p>Since the grouped and ungrouped logistic regression models have the same likelihoods, it follows that they have the same maximum likelihood estimates <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> and <span class="math inline">\(\widehat{\boldsymbol \pi}\)</span>. However, the total deviances of the two models are different. The total deviance of the grouped model can be derived from equation (<a href="#eq-logistic-deviance"><span>24.2</span></a>):</p>
 <p><span id="eq-total-deviance-grouped"><span class="math display">\[
-D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) = 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
+\begin{split}
+&amp;D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \\
+&amp;\quad= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
+\end{split}
 \tag{24.3}\]</span></span></p>
 <p>On the other hand, the total deviance of the ungrouped model is</p>
 <p><span id="eq-total-deviance-ungrouped"><span class="math display">\[
 \begin{split}
-D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) &amp;= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
+&amp;D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \\
+&amp;= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
 &amp;= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{1}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1}{1-\widehat \pi_i}\right) \\
 &amp;= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{1}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1}{1-\widehat \pi_i}\right).
 \end{split}
 \tag{24.4}\]</span></span></p>
-<p>In the second line, we used the fact that <span class="math inline">\(y \log y \rightarrow 0\)</span> and <span class="math inline">\((1-y)\log(1-y) \rightarrow 0\)</span> as <span class="math inline">\(y \rightarrow 0\)</span> or <span class="math inline">\(y \rightarrow 1\)</span>. Comparing the grouped (<a href="#eq-total-deviance-grouped"><span>24.3</span></a>) and ungrouped (<a href="#eq-total-deviance-ungrouped"><span>24.4</span></a>) total deviances, we see that these are given by related, but different expressions. Because small dispersion asymptotics applies to the grouped model but not the ungrouped model, we have that</p>
+<p>In the second line, we used the fact that <span class="math inline">\(y \log y \rightarrow 0\)</span> and <span class="math inline">\((1-y)\log(1-y) \rightarrow 0\)</span> as <span class="math inline">\(y \rightarrow 0\)</span> or <span class="math inline">\(y \rightarrow 1\)</span>. Comparing the grouped (<a href="#eq-total-deviance-grouped"><span>24.3</span></a>) and ungrouped (<a href="#eq-total-deviance-ungrouped"><span>24.4</span></a>) total deviances, we see that these are given by related, but different expressions. Because small dispersion asymptotics applies to the grouped model but not the ungrouped model, we have that under small-dispersion asymptotics,</p>
 <p><span class="math display">\[
-\text{under small-dispersion asymptotics,} \quad D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
+D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
 \]</span></p>
 <section id="sec-likelihood-ratio-test" class="level4" data-number="24.3.6.1">
 <h4 data-number="24.3.6.1" class="anchored" data-anchor-id="sec-likelihood-ratio-test"><span class="header-section-number">24.3.6.1</span> Likelihood ratio inference for one or more coefficients.</h4>
@@ -613,7 +629,10 @@ D(\boldsymbol y, \boldsymbol{\widehat \pi}_0) - D(\boldsymbol y, \boldsymbol{\wi
 <h2 data-number="24.4" class="anchored" data-anchor-id="sec-goodness-of-fit"><span class="header-section-number">24.4</span> Goodness of fit testing</h2>
 <p>In grouped logistic regression, we can also use the likelihood ratio test to test goodness of fit. To do so, we compare the total deviance of the fitted model (<a href="#eq-logistic-deviance"><span>24.2</span></a>) to a chi-squared quantile. In particular, the deviance-based goodness of fit test rejects when:</p>
 <p><span id="eq-goodness-of-fit"><span class="math display">\[
-D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) &gt; \chi^2_{n-p}(1-\alpha).
+\begin{split}
+&amp;D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = \\
+&amp;2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) &gt; \chi^2_{n-p}(1-\alpha).
+\end{split}
 \tag{24.5}\]</span></span></p>
 <p>This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when <span class="math inline">\(\min(m_i \pi_i, (1-m_i)\pi_i) \geq 3\)</span> for each <span class="math inline">\(i\)</span>.</p>
 </section>
@@ -627,19 +646,23 @@ m_0 (y_0 - \hat \pi) + m_1 (y_1 - \hat \pi) = 0 \quad \Longrightarrow \quad \hat
 <p><span class="math display">\[
 \begin{split}
 D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &amp;= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) \\
-&amp;= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
+&amp;= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \\
+&amp;\quad \quad \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
 &amp;&gt; \chi^2_{1}(1-\alpha).
 \end{split}
 \]</span></p>
 <p>Likelihood ratio inference can give nontrivial conclusions in cases when Wald inference cannot, e.g.&nbsp;in the case of perfect separability. In the above example, suppose <span class="math inline">\(y_0 = 0\)</span> and <span class="math inline">\(y_1 = 1\)</span>, giving perfect separability. Then, we can use the fact that <span class="math inline">\(y \log y \rightarrow 0\)</span> and <span class="math inline">\((1-y)\log(1-y) \rightarrow 0\)</span> as <span class="math inline">\(y \rightarrow 0\)</span> or <span class="math inline">\(y \rightarrow 1\)</span> to see that:</p>
 <p><span id="eq-perfect-separability"><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) = 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) = 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
+\begin{split}
+D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &amp;= 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) \\
+&amp;= 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
+\end{split}
 \tag{24.6}\]</span></span></p>
 <p>This gives us a finite value, which we can compare to <span class="math inline">\(\chi^2_{1}(1-\alpha)\)</span> to test <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Even though the likelihood ratio statistic is still defined, we do still have to be careful because the data may suggest that the parameters are too close to the boundary of the parameter space. However, the rate at which the test breaks down as the parameters approach this boundary is slower than the rate at which the Wald test breaks down.</p>
 </section>
 <section id="sec-score-based-inference" class="level2" data-number="24.6">
 <h2 data-number="24.6" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">24.6</span> Score-based inference</h2>
-<p>Here we present only the score-based goodness-of-fit test. Recalling Section <a href="glm-inference.html#sec-score-goodness-of-fit"><span>Section&nbsp;22.3.4</span></a>, the score statistic for goodness of fit is Pearson’s <span class="math inline">\(X^2\)</span> statistic:</p>
+<p>Here we present only the score-based goodness-of-fit test. Recalling <a href="glm-inference.html#sec-score-goodness-of-fit"><span>Section&nbsp;22.4.4</span></a>, the score statistic for goodness of fit is Pearson’s <span class="math inline">\(X^2\)</span> statistic:</p>
 <p><span id="eq-pearson-statistic"><span class="math display">\[
 X^2 = \sum_{i = 1}^n \frac{w_i (y_i - \widehat \mu_i)^2}{V(\widehat \mu_i)} = \sum_{i = 1}^n \frac{m_i(y_i - \widehat \pi_i)^2}{\widehat \pi_i(1-\widehat \pi_i)}.
 \tag{24.7}\]</span></span></p>
@@ -654,10 +677,11 @@ s_1 = m_1y_1 \sim \text{Bin}(m_1, \pi_1) \quad \text{and} \quad s_2 = m_2y_2 \si
 <p>The trick is to conduct inference <em>conditional on</em> <span class="math inline">\(s_1 + s_2\)</span>. Note that under <span class="math inline">\(H_0: \pi_1 = \pi_2\)</span>, we have:</p>
 <p><span id="eq-exact-test"><span class="math display">\[
 \begin{split}
-\mathbb{P}[s_1 = t | s_1+s_2 = v] &amp;= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
-&amp;= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
-&amp;= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
-&amp;= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
+&amp;\mathbb{P}[s_1 = t | s_1+s_2 = v] \\
+&amp;\quad= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
+&amp;\quad= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
+&amp;\quad= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
+&amp;\quad= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
 \end{split}
 \tag{24.9}\]</span></span></p>
 <p>Therefore, a finite-sample <span class="math inline">\(p\)</span>-value to test <span class="math inline">\(H_0: \pi_1 = \pi_2\)</span> versus <span class="math inline">\(H_1: \pi_1 &gt; \pi_2\)</span> is <span class="math inline">\(\mathbb{P}[s_1 \geq t | s_1 + s_2]\)</span>, which can be computed exactly based on the formula above.</p>

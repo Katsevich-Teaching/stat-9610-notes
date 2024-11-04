@@ -85,6 +85,7 @@ We can carry out a goodness-of-fit test via:
 $$
 D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
 $$
+This approximation is justified by the saddlepoint approximation in small-dispersion asymptotics, which is reliable if $\hat \mu_i \geq 3$ for all $i$.
 
 ### Score-based inference {#sec-score-based-inference}
 
@@ -102,6 +103,7 @@ On the other hand, the score test for goodness-of-fit is based on the Pearson $X
 $$
 X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
 $$
+This approximation is justified by the central limit theorem in small-dispersion asymptotics, which is reliable if $\hat \mu_i \geq 5$ for all $i$.
 
 ## Relationship between Poisson and multinomial distributions {#sec-poisson-multinomial}
 
@@ -278,7 +280,7 @@ so $x_1 \perp \!\!\! \perp x_2$ if and only if $\tilde{\beta_1} = 0$. Due to the
 
 ## Example: Poisson models for $J \times K$ contingency tables {#sec-poisson-jk-tables}
 
-Suppose now that $x_1 \in \{1, \dots, J\}$ and $x_2 \in \{1, \dots, K\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $j$ and $k$, which amounts to a goodness-of-fit test for the Poisson model:
+Suppose now that $x_1 \in \{0, 1, \dots, J-1\}$ and $x_2 \in \{0, 1, \dots, K-1\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $j$ and $k$, which amounts to a goodness-of-fit test for the Poisson model:
 
 $$
 y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
@@ -287,14 +289,14 @@ $$
 The score (Pearson) and deviance-based goodness-of-fit statistics for this test are:
 
 $$
-X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 1}^J \sum_{k = 1}^K y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
+X^2 = \sum_{j = 0}^{J-1} \sum_{k = 0}^{K-1} \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 0}^{J-1} \sum_{k = 0}^{K-1} y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
 $$
 
 where $\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}$. Like with the $2 \times 2$ case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is $JK$, while the degrees of freedom in the partial model is $J + K - 1$, so the degrees of freedom for the goodness-of-fit test is $JK - J - K + 1 = (J - 1)(K - 1)$. Pearson erroneously concluded that the test had $JK - 1$ degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.
 
 ## Example: Poisson models for $J \times K \times L$ contingency tables {#sec-poisson-jkl-tables}
 
-These ideas can be extended to multi-way tables, for example, three-way tables. If we have $x_1 \in \{1, \dots, J\}$, $x_2 \in \{1, \dots, K\}$, $x_3 \in \{1, \dots, L\}$, then we might be interested in testing several kinds of null hypotheses:
+These ideas can be extended to multi-way tables, for example, three-way tables. If we have $x_1 \in \{0, 1, \dots, J-1\}$, $x_2 \in \{0, 1, \dots, K-1\}$, $x_3 \in \{0, 1, \dots, L-1\}$, then we might be interested in testing several kinds of null hypotheses:
 
 - Mutual independence: $H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3$.
 - Joint independence: $H_0: x_1 \perp \!\!\! \perp (x_2, x_3)$.

@@ -398,11 +398,20 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="26.1" class="anchored" data-anchor-id="overdispersion"><span class="header-section-number">26.1</span> Overdispersion</h2>
 <p>A pervasive issue with Poisson regression is <em>overdispersion</em>: that the variances of observations are greater than the corresponding means. A common cause of overdispersion is omitted variable bias. Suppose that <span class="math inline">\(y \sim \text{Poi}(\mu)\)</span>, where <span class="math inline">\(\log \mu = \beta_0 + \beta_1 x_1 + \beta_2 x_2\)</span>. However, we omitted variable <span class="math inline">\(x_2\)</span> and are considering the GLM based on <span class="math inline">\(\log \mu = \beta_0 + \beta_1 x_1\)</span>. If <span class="math inline">\(\beta_2 \neq 0\)</span> and <span class="math inline">\(x_2\)</span> is correlated with <span class="math inline">\(x_1\)</span>, then we have a confounding issue. Let’s consider the more benign situation that <span class="math inline">\(x_2\)</span> is independent of <span class="math inline">\(x_1\)</span>. Then, we have</p>
 <p><span id="eq-mean-variance"><span class="math display">\[
-\mathbb{E}[y|x_1] = \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] = \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] = e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+\begin{split}
+\mathbb{E}[y|x_1] &amp;= \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] \\
+&amp;= \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] \\
+&amp;= e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+\end{split}
 \tag{26.1}\]</span></span></p>
 <p>So in the model for the mean of <span class="math inline">\(y\)</span>, the impact of omitted variable <span class="math inline">\(x_2\)</span> seems only to have impacted the intercept. Let’s consider the variance of <span class="math inline">\(y\)</span>:</p>
 <p><span id="eq-var-greater-mean"><span class="math display">\[
-\text{Var}[y|x_1] = \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] = e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] &gt; e^{\beta'_0 + \beta_1 x_1} = \mathbb{E}[y|x_1].
+\begin{split}
+\text{Var}[y|x_1] &amp;= \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] \\
+&amp;= e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] \\
+&amp;&gt; e^{\beta'_0 + \beta_1 x_1} \\
+&amp;= \mathbb{E}[y|x_1].
+\end{split}
 \tag{26.2}\]</span></span></p>
 <p>So indeed, the variance is larger than what we would have expected under the Poisson model.</p>
 </section>
@@ -429,7 +438,10 @@ f(\lambda; k, \mu) = \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1},
 \tag{26.6}\]</span></span></p>
 <p>The negative binomial probability mass function is</p>
 <p><span id="eq-nb-pmf"><span class="math display">\[
-p(y; \mu, k) = \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda = \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+\begin{split}
+p(y; \mu, k) &amp;= \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda \\
+&amp;= \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+\end{split}
 \tag{26.7}\]</span></span></p>
 <p>This random variable has mean and variance given by</p>
 <p><span id="eq-nb-moments"><span class="math display">\[
@@ -465,11 +477,17 @@ y_i \overset{\text{ind}}{\sim} \text{NegBin}(\mu_i, \gamma), \quad \log \mu_i = 
 <h2 data-number="26.6" class="anchored" data-anchor-id="score-and-fisher-information"><span class="header-section-number">26.6</span> Score and Fisher information</h2>
 <p>Recall from Chapter 4 that</p>
 <p><span id="eq-score-fisher-info"><span class="math display">\[
-\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+\begin{aligned}
+\boldsymbol{U}(\boldsymbol{\beta}) &amp;= \frac{1}{\phi_0}\boldsymbol{X}^T  \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}); \\
+\boldsymbol{I}(\boldsymbol{\beta}) &amp;= \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+\end{aligned}
 \tag{26.13}\]</span></span></p>
 <p>where</p>
 <p><span id="eq-w-m-matrix"><span class="math display">\[
-\boldsymbol{W} \equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right) \quad \text{and} \quad \boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+\begin{aligned}
+\boldsymbol{W} &amp;\equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right); \\
+\boldsymbol{M} &amp;\equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+\end{aligned}
 \tag{26.14}\]</span></span></p>
 <p>In our case, we have</p>
 <p><span id="eq-w-v-deriv"><span class="math display">\[

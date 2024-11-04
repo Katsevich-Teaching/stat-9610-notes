@@ -462,7 +462,7 @@ D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat 
 <p>We can carry out a goodness-of-fit test via:</p>
 <p><span class="math display">\[
 D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
-\]</span></p>
+\]</span> This approximation is justified by the saddlepoint approximation in small-dispersion asymptotics, which is reliable if <span class="math inline">\(\hat \mu_i \geq 3\)</span> for all <span class="math inline">\(i\)</span>.</p>
 </section>
 <section id="sec-score-based-inference" class="level3" data-number="25.3.3">
 <h3 data-number="25.3.3" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">25.3.3</span> Score-based inference</h3>
@@ -474,7 +474,7 @@ D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\ha
 <p>On the other hand, the score test for goodness-of-fit is based on the Pearson <span class="math inline">\(X^2\)</span> statistic:</p>
 <p><span class="math display">\[
 X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
-\]</span></p>
+\]</span> This approximation is justified by the central limit theorem in small-dispersion asymptotics, which is reliable if <span class="math inline">\(\hat \mu_i \geq 5\)</span> for all <span class="math inline">\(i\)</span>.</p>
 </section>
 </section>
 <section id="sec-poisson-multinomial" class="level2" data-number="25.4">
@@ -604,19 +604,19 @@ p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\p
 </section>
 <section id="sec-poisson-jk-tables" class="level2" data-number="25.6">
 <h2 data-number="25.6" class="anchored" data-anchor-id="sec-poisson-jk-tables"><span class="header-section-number">25.6</span> Example: Poisson models for <span class="math inline">\(J \times K\)</span> contingency tables</h2>
-<p>Suppose now that <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span> and <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>. Then, we denote <span class="math inline">\(\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}\)</span>. We still are interested in testing for independence between <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, which amounts to a goodness-of-fit test for the Poisson model:</p>
+<p>Suppose now that <span class="math inline">\(x_1 \in \{0, 1, \dots, J-1\}\)</span> and <span class="math inline">\(x_2 \in \{0, 1, \dots, K-1\}\)</span>. Then, we denote <span class="math inline">\(\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}\)</span>. We still are interested in testing for independence between <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, which amounts to a goodness-of-fit test for the Poisson model:</p>
 <p><span class="math display">\[
 y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
 \]</span></p>
 <p>The score (Pearson) and deviance-based goodness-of-fit statistics for this test are:</p>
 <p><span class="math display">\[
-X^2 = \sum_{j = 1}^J \sum_{k = 1}^K \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 1}^J \sum_{k = 1}^K y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
+X^2 = \sum_{j = 0}^{J-1} \sum_{k = 0}^{K-1} \frac{(y_{jk} - \widehat \mu_{jk})^2}{\widehat \mu_{jk}} \quad \text{and} \quad G^2 = 2\sum_{j = 0}^{J-1} \sum_{k = 0}^{K-1} y_{jk}\log \frac{y_{jk}}{\widehat \mu_{jk}},
 \]</span></p>
 <p>where <span class="math inline">\(\widehat \mu_{jk} = \widehat y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}}\)</span>. Like with the <span class="math inline">\(2 \times 2\)</span> case, the test is the same regardless of whether we condition on the row sums, column sums, total count, or if we do not condition at all. The degrees of freedom in the full model is <span class="math inline">\(JK\)</span>, while the degrees of freedom in the partial model is <span class="math inline">\(J + K - 1\)</span>, so the degrees of freedom for the goodness-of-fit test is <span class="math inline">\(JK - J - K + 1 = (J - 1)(K - 1)\)</span>. Pearson erroneously concluded that the test had <span class="math inline">\(JK - 1\)</span> degrees of freedom, which, when Fisher corrected it, created a lot of animosity between these two statisticians.</p>
 </section>
 <section id="sec-poisson-jkl-tables" class="level2" data-number="25.7">
 <h2 data-number="25.7" class="anchored" data-anchor-id="sec-poisson-jkl-tables"><span class="header-section-number">25.7</span> Example: Poisson models for <span class="math inline">\(J \times K \times L\)</span> contingency tables</h2>
-<p>These ideas can be extended to multi-way tables, for example, three-way tables. If we have <span class="math inline">\(x_1 \in \{1, \dots, J\}\)</span>, <span class="math inline">\(x_2 \in \{1, \dots, K\}\)</span>, <span class="math inline">\(x_3 \in \{1, \dots, L\}\)</span>, then we might be interested in testing several kinds of null hypotheses:</p>
+<p>These ideas can be extended to multi-way tables, for example, three-way tables. If we have <span class="math inline">\(x_1 \in \{0, 1, \dots, J-1\}\)</span>, <span class="math inline">\(x_2 \in \{0, 1, \dots, K-1\}\)</span>, <span class="math inline">\(x_3 \in \{0, 1, \dots, L-1\}\)</span>, then we might be interested in testing several kinds of null hypotheses:</p>
 <ul>
 <li>Mutual independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp x_2 \perp \!\!\! \perp x_3\)</span>.</li>
 <li>Joint independence: <span class="math inline">\(H_0: x_1 \perp \!\!\! \perp (x_2, x_3)\)</span>.</li>

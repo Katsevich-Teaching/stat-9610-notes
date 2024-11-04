@@ -5,13 +5,22 @@
 A pervasive issue with Poisson regression is *overdispersion*: that the variances of observations are greater than the corresponding means. A common cause of overdispersion is omitted variable bias. Suppose that $y \sim \text{Poi}(\mu)$, where $\log \mu = \beta_0 + \beta_1 x_1 + \beta_2 x_2$. However, we omitted variable $x_2$ and are considering the GLM based on $\log \mu = \beta_0 + \beta_1 x_1$. If $\beta_2 \neq 0$ and $x_2$ is correlated with $x_1$, then we have a confounding issue. Let's consider the more benign situation that $x_2$ is independent of $x_1$. Then, we have
 
 $$
-\mathbb{E}[y|x_1] = \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] = \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] = e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+\begin{split}
+\mathbb{E}[y|x_1] &= \mathbb{E}[\mathbb{E}[y|x_1, x_2]|x_1] \\
+&= \mathbb{E}[e^{\beta_0 + \beta_1 x_1 + \beta_2 x_2}|x_1] \\
+&= e^{\beta_0 + \beta_1 x_1}\mathbb{E}[e^{\beta_2 x_2}] = e^{\beta'_0 + \beta_1 x_1}.
+\end{split}
 $$ {#eq-mean-variance}
 
 So in the model for the mean of $y$, the impact of omitted variable $x_2$ seems only to have impacted the intercept. Let's consider the variance of $y$:
 
 $$
-\text{Var}[y|x_1] = \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] = e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] > e^{\beta'_0 + \beta_1 x_1} = \mathbb{E}[y|x_1].
+\begin{split}
+\text{Var}[y|x_1] &= \mathbb{E}[\text{Var}[y|x_1, x_2]|x_1] + \text{Var}[\mathbb{E}[y|x_1, x_2]|x_1] \\
+&= e^{\beta'_0 + \beta_1 x_1} + e^{2(\beta'_0 + \beta_1 x_1)}\text{Var}[e^{\beta_2 x_2}] \\
+&> e^{\beta'_0 + \beta_1 x_1} \\
+&= \mathbb{E}[y|x_1].
+\end{split}
 $$ {#eq-var-greater-mean}
 
 So indeed, the variance is larger than what we would have expected under the Poisson model.
@@ -47,7 +56,10 @@ $$ {#eq-nb-definition}
 The negative binomial probability mass function is
 
 $$
-p(y; \mu, k) = \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda = \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+\begin{split}
+p(y; \mu, k) &= \int_0^\infty \frac{(k/\mu)^k}{\Gamma(k)}e^{-k\lambda/\mu}\lambda^{k-1}e^{-\lambda}\frac{\lambda^y}{y!}d\lambda \\
+&= \frac{\Gamma(y+k)}{\Gamma(k)\Gamma(y+1)}\left(\frac{\mu}{\mu + k}\right)^{y}\left(\frac{k}{\mu + k}\right)^{k}.
+\end{split}
 $$ {#eq-nb-pmf}
 
 This random variable has mean and variance given by
@@ -95,13 +107,19 @@ Notice that we typically assume that all observations share the same dispersion 
 Recall from Chapter 4 that
 
 $$
-\boldsymbol{U}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}) \quad \text{and} \quad \boldsymbol{I}(\boldsymbol{\beta}) = \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+\begin{aligned}
+\boldsymbol{U}(\boldsymbol{\beta}) &= \frac{1}{\phi_0}\boldsymbol{X}^T  \boldsymbol{M} \boldsymbol{W} (\boldsymbol{y} - \boldsymbol{\mu}); \\
+\boldsymbol{I}(\boldsymbol{\beta}) &= \frac{1}{\phi_0}\boldsymbol{X}^T \boldsymbol{W} \boldsymbol{X},
+\end{aligned}
 $$ {#eq-score-fisher-info}
 
 where
 
 $$
-\boldsymbol{W} \equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right) \quad \text{and} \quad \boldsymbol{M} \equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+\begin{aligned}
+\boldsymbol{W} &\equiv \text{diag}\left(\frac{w_i}{V(\mu_i)(d\eta_i/d\mu_i)^2}\right); \\
+\boldsymbol{M} &\equiv \text{diag}\left(\frac{\partial\eta_i}{\partial \mu_i}\right).
+\end{aligned}
 $$ {#eq-w-m-matrix}
 
 In our case, we have

@@ -181,7 +181,7 @@ $$
 &\quad= \frac{2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\}}{\phi} \\
 &\quad\equiv \frac{d(y, \mu)}{\phi}.
 \end{split}
-$$
+$$ {#eq-unit-deviance}
 The quantity in the numerator is the *unit deviance* $d(y, \mu)$, defined as the dispersion $\phi$ times twice the log-likelihood ratio between $y$ and $\mu$. As we will see in @sec-normal-deviance, $d(y, \mu)$ generalizes the quantity $(y - \mu)^2$ for the normal distribution. The following proposition summarizes a few key properties of the unit deviance.
 
 ::: {#prp-unit-deviance}

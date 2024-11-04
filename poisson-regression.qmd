@@ -74,10 +74,10 @@ $$
 D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
 $$
 
-The last equality holds for any model containing the intercept, since by the normal equations we have $\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0$. We can carry out a likelihood ratio test for $H_0: \boldsymbol{\beta_S} = \boldsymbol{0}$ via:
+The last equality holds for any model containing the intercept, since by the normal equations we have $\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0$. We can carry out a likelihood ratio test for $H_0: \boldsymbol \beta_S = \boldsymbol{0}$ via:
 
 $$
-D(\boldsymbol{y}, \boldsymbol{\hat \mu^0}) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
+D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
 $$
 
 We can carry out a goodness-of-fit test via:
@@ -88,10 +88,13 @@ $$
 
 ### Score-based inference {#sec-score-based-inference}
 
-Recalling equation ([-@eq-score-test-univariate]), the score test for $H_0: \beta_j = 0$ is based on:
-
+Recalling @sec-score-test-single-coeff, the score test for $H_0: \beta_j = 0$ is based on the approximation
 $$
-\frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).
+\frac{\boldsymbol{x}_{*,j}^T (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j} - \boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j}(\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j})^{-1}\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j}}} \overset{\cdot}\sim N(0,1),
+$$
+where
+$$
+\boldsymbol {\widehat W}^{0} = \text{diag}(\boldsymbol{\widehat{\mu}}^0).
 $$
 
 On the other hand, the score test for goodness-of-fit is based on the Pearson $X^2$ statistic:
@@ -108,11 +111,14 @@ $$
 \begin{split}
 \mathbb{P}\left[y_1 = m_1, \dots, y_n = m_n \left| \sum_{i}y_i = m\right.\right] &= \frac{\mathbb{P}[y_1 = m_1, \dots, y_n = m_n]}{\mathbb{P}[\sum_{i}y_i = m]} \\
 &= \frac{\prod_{i = 1}^n e^{-\mu_i}\frac{\mu_i^{m_i}}{m_i!}}{e^{-\sum_i \mu_i}\frac{(\sum_i \mu_i)^m}{m!}} \\
-&= {m \choose m_1, \dots, m_n} \prod_{i = 1}^n \pi_i^{m_i}; \quad \pi_i \equiv \frac{\mu_i}{\sum_{i' = 1}^n \mu_{i'}}.
+&= {m \choose m_1, \dots, m_n} \prod_{i = 1}^n \pi_i^{m_i},
 \end{split}
 $$
-
-We recognize the last expression as the probability mass function of the multinomial distribution with parameters $(\pi_1, \dots, \pi_n)$ summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.
+where
+$$
+\pi_i \equiv \frac{\mu_i}{\sum_{i' = 1}^n \mu_{i'}}.
+$$
+We recognize the last expression in the previous display as the probability mass function of the multinomial distribution with parameters $(\pi_1, \dots, \pi_n)$ summing to one. In words, the joint distribution of a set of independent Poisson distributions conditional on their sum is a multinomial distribution.
 
 ## Example: $2 \times 2$ contingency tables {#sec-example-2x2-tables}
 
@@ -127,8 +133,12 @@ $$
 Our primary question is whether these two random variables are independent, i.e.
 
 $$
-\pi_{jk} = \pi_{j+}\pi_{+k}, \quad \text{where} \quad \pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
+\pi_{jk} = \pi_{j+}\pi_{+k},
 $$ {#eq-null-product-formulation}
+where
+$$
+\pi_{j+} \equiv \mathbb{P}[x_1 = j] = \pi_{j1} + \pi_{j2}; \quad \pi_{+k} \equiv \mathbb{P}[x_2 = k] = \pi_{1k} + \pi_{2k}.
+$$
 
 We can express this equivalently as:
 
@@ -148,16 +158,22 @@ $$
 y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
 $$
 
-Let $i \in \{1,2,3,4\}$ index the four pairs $(x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\}$, so that:
-
+Let $i \in \{1,2,3,4\}$ index the four pairs 
 $$
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2}, \quad i = 1, \dots, 4,
+(x_1, x_2) \in \{(0,0), (0,1), (1,0), (1,1)\},
+$$
+so that for $i = 1, \dots, 4$, we have
+$$
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12}x_{i1} x_{i2},
 $$ {#eq-2x2-poisson-reg}
 
 where:
 
 $$
-\beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \quad \beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
+\begin{aligned}
+\beta_0 = \log \mu_{++} + \log \pi_{00}; \quad \beta_1 = \log \frac{\pi_{10}}{\pi_{00}}; \\
+\beta_2 = \log \frac{\pi_{01}}{\pi_{00}}; \quad \beta_{12} = \log\frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}}.
+\end{aligned}
 $$ {#eq-2x2-poisson-reg-coefs}
 
 Note that the independence hypothesis ([-@eq-independence-2]) reduces to the hypothesis $H_0: \beta_{12} = 0$:
@@ -177,7 +193,11 @@ $$ {#eq-2x2-poisson-reg-null}
 The normal equations give us the following:
 
 $$
-y_{++} \equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \quad y_{+1} \equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \quad y_{1+} \equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
+\begin{aligned}
+y_{++} &\equiv \sum_{j, k = 0}^1 y_{jk} = \sum_{j, k = 0}^1 \hat \mu_{jk} \equiv \hat \mu_{++}; \\
+y_{+1} &\equiv \sum_{j = 0}^1 y_{j1} = \sum_{j = 0}^1 \hat \mu_{j1} \equiv \hat \mu_{+1}; \\
+y_{1+} &\equiv \sum_{k = 0}^1 y_{1k} = \sum_{k = 0}^1 \hat \mu_{1k} \equiv \hat \mu_{1+}.
+\end{aligned}
 $$
 
 By combining these equations, we arrive at:
@@ -217,7 +237,10 @@ $$
 so:
 
 $$
-\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) = \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+\begin{split}
+\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) &= \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) \\
+&= C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+\end{split}
 $$
 
 In other words, the log-likelihoods of the Poisson and multinomial models, as a function of $\boldsymbol{\pi}$, differ from each other by a constant. Therefore, any likelihood-based inference in these models is equivalent. The same argument shows that conditioning on the row or column totals (as opposed to the overall total) also yields the same exact inference. Therefore, regardless of the sampling mechanism, we can always conduct an independence test in a $2 \times 2$ table via a Poisson regression.
@@ -233,7 +256,10 @@ $$
 However, we have:
 
 $$
-\beta_{12} = \log \frac{\pi_{11}\pi_{00}}{\pi_{01}\pi_{10}} = \log \frac{\pi_{11}/\pi_{01}}{\pi_{01}/\pi_{00}} = \log \frac{\mathbb{P}[x_2 = 1 \mid x_1 = 1] / \mathbb{P}[x_2 = 0 \mid x_1 = 1]}{\mathbb{P}[x_2 = 1 \mid x_1 = 0] / \mathbb{P}[x_2 = 0 \mid x_1 = 0]}.
+\begin{split}
+\beta_{12} &= \log \frac{\pi_{11}\pi_{00}}{\pi_{01}\pi_{10}} \\
+&= \log \frac{\pi_{11}/\pi_{01}}{\pi_{01}/\pi_{00}} = \log \frac{\mathbb{P}[x_2 = 1 \mid x_1 = 1] / \mathbb{P}[x_2 = 0 \mid x_1 = 1]}{\mathbb{P}[x_2 = 1 \mid x_1 = 0] / \mathbb{P}[x_2 = 0 \mid x_1 = 0]}.
+\end{split}
 $$
 
 Recalling the logistic regression of $x_2$ on $x_1$:

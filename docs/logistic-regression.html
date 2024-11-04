@@ -362,24 +362,19 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#sec-logistic-model" id="toc-sec-logistic-model" class="nav-link active" data-scroll-target="#sec-logistic-model"><span class="header-section-number">24.1</span> Model definition and interpretation</a>
   <ul class="collapse">
-  <li><a href="#model-definition." id="toc-model-definition." class="nav-link" data-scroll-target="#model-definition."><span class="header-section-number">24.1.1</span> Model definition.</a></li>
-  <li><a href="#generative-model-equivalent." id="toc-generative-model-equivalent." class="nav-link" data-scroll-target="#generative-model-equivalent."><span class="header-section-number">24.1.2</span> Generative model equivalent.</a></li>
-  <li><a href="#sec-2x2-contingency" id="toc-sec-2x2-contingency" class="nav-link" data-scroll-target="#sec-2x2-contingency"><span class="header-section-number">24.1.3</span> Special case: <span class="math inline">\(2 \times 2\)</span> contingency table.</a></li>
+  <li><a href="#model-definition" id="toc-model-definition" class="nav-link" data-scroll-target="#model-definition"><span class="header-section-number">24.1.1</span> Model definition</a></li>
+  <li><a href="#generative-model-equivalent" id="toc-generative-model-equivalent" class="nav-link" data-scroll-target="#generative-model-equivalent"><span class="header-section-number">24.1.2</span> Generative model equivalent</a></li>
+  <li><a href="#sec-2x2-contingency" id="toc-sec-2x2-contingency" class="nav-link" data-scroll-target="#sec-2x2-contingency"><span class="header-section-number">24.1.3</span> Special case: <span class="math inline">\(2 \times 2\)</span> contingency table</a></li>
   </ul></li>
   <li><a href="#sec-logistic-case-control" id="toc-sec-logistic-case-control" class="nav-link" data-scroll-target="#sec-logistic-case-control"><span class="header-section-number">24.2</span> Logistic regression with case-control studies</a></li>
   <li><a href="#sec-estimation-inference" id="toc-sec-estimation-inference" class="nav-link" data-scroll-target="#sec-estimation-inference"><span class="header-section-number">24.3</span> Estimation and inference</a>
   <ul class="collapse">
   <li><a href="#sec-score-fisher" id="toc-sec-score-fisher" class="nav-link" data-scroll-target="#sec-score-fisher"><span class="header-section-number">24.3.1</span> Score and Fisher information</a></li>
   <li><a href="#sec-wald-inference" id="toc-sec-wald-inference" class="nav-link" data-scroll-target="#sec-wald-inference"><span class="header-section-number">24.3.2</span> Wald inference</a></li>
-  <li><a href="#sec-2x2-contingency-table" id="toc-sec-2x2-contingency-table" class="nav-link" data-scroll-target="#sec-2x2-contingency-table"><span class="header-section-number">24.3.3</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency table.</a></li>
-  <li><a href="#sec-hauck-donner-effect" id="toc-sec-hauck-donner-effect" class="nav-link" data-scroll-target="#sec-hauck-donner-effect"><span class="header-section-number">24.3.4</span> Hauck-Donner effect.</a></li>
-  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">24.3.5</span> Likelihood ratio inference</a></li>
-  <li><a href="#sec-comparing-deviances" id="toc-sec-comparing-deviances" class="nav-link" data-scroll-target="#sec-comparing-deviances"><span class="header-section-number">24.3.6</span> Comparing the deviances of grouped and ungrouped logistic regression models.</a></li>
+  <li><a href="#sec-likelihood-ratio-inference" id="toc-sec-likelihood-ratio-inference" class="nav-link" data-scroll-target="#sec-likelihood-ratio-inference"><span class="header-section-number">24.3.3</span> Likelihood ratio inference</a></li>
+  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">24.3.4</span> Score-based inference</a></li>
+  <li><a href="#sec-fisher-exact-test" id="toc-sec-fisher-exact-test" class="nav-link" data-scroll-target="#sec-fisher-exact-test"><span class="header-section-number">24.3.5</span> Fisher’s exact test</a></li>
   </ul></li>
-  <li><a href="#sec-goodness-of-fit" id="toc-sec-goodness-of-fit" class="nav-link" data-scroll-target="#sec-goodness-of-fit"><span class="header-section-number">24.4</span> Goodness of fit testing</a></li>
-  <li><a href="#sec-example-2x2-table" id="toc-sec-example-2x2-table" class="nav-link" data-scroll-target="#sec-example-2x2-table"><span class="header-section-number">24.5</span> Example: <span class="math inline">\(2 \times 2\)</span> table</a></li>
-  <li><a href="#sec-score-based-inference" id="toc-sec-score-based-inference" class="nav-link" data-scroll-target="#sec-score-based-inference"><span class="header-section-number">24.6</span> Score-based inference</a></li>
-  <li><a href="#sec-fisher-exact-test" id="toc-sec-fisher-exact-test" class="nav-link" data-scroll-target="#sec-fisher-exact-test"><span class="header-section-number">24.7</span> Fisher’s exact test</a></li>
   </ul>
 </nav>
     </div>
@@ -405,14 +400,14 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="sec-logistic-model" class="level2" data-number="24.1">
 <h2 data-number="24.1" class="anchored" data-anchor-id="sec-logistic-model"><span class="header-section-number">24.1</span> Model definition and interpretation</h2>
-<section id="model-definition." class="level3" data-number="24.1.1">
-<h3 data-number="24.1.1" class="anchored" data-anchor-id="model-definition."><span class="header-section-number">24.1.1</span> Model definition.</h3>
+<section id="model-definition" class="level3" data-number="24.1.1">
+<h3 data-number="24.1.1" class="anchored" data-anchor-id="model-definition"><span class="header-section-number">24.1.1</span> Model definition</h3>
 <p>Recall from Chapter 4 that the logistic regression model is <span class="math display">\[
 m_i y_i \overset{\text{ind}} \sim \text{Bin}(m_i, \pi_i); \quad \text{logit}(\pi_i) = \log\frac{\pi_i}{1-\pi_i} = \boldsymbol{x}^T_{i*}\boldsymbol{\beta}.
 \]</span> Here we use the canonical logit link function, although other link functions are possible. We also set the offsets to 0. The interpretation of the parameter <span class="math inline">\(\beta_j\)</span> is that a unit increase in <span class="math inline">\(x_j\)</span>—other predictors held constant—is associated with an (additive) increase of <span class="math inline">\(\beta_j\)</span> on the log-odds scale or a multiplicative increase of <span class="math inline">\(e^{\beta_j}\)</span> on the odds scale. Note that logistic regression data come in two formats: <em>ungrouped</em> and <em>grouped</em>. For ungrouped data, we have <span class="math inline">\(m_1 = \dots = m_n = 1\)</span>, so <span class="math inline">\(y_i \in \{0,1\}\)</span> are Bernoulli random variables. For grouped data, we can have several independent Bernoulli observations per predictor <span class="math inline">\(\boldsymbol{x}_{i*}\)</span>, which give rise to binomial proportions <span class="math inline">\(y_i \in [0,1]\)</span>. This happens most often when all the predictors are discrete. You can always convert grouped data into ungrouped data, but not necessarily vice versa. We’ll discuss below that the grouped and ungrouped formulations of logistic regression have the same MLE and standard errors but different deviances.</p>
 </section>
-<section id="generative-model-equivalent." class="level3" data-number="24.1.2">
-<h3 data-number="24.1.2" class="anchored" data-anchor-id="generative-model-equivalent."><span class="header-section-number">24.1.2</span> Generative model equivalent.</h3>
+<section id="generative-model-equivalent" class="level3" data-number="24.1.2">
+<h3 data-number="24.1.2" class="anchored" data-anchor-id="generative-model-equivalent"><span class="header-section-number">24.1.2</span> Generative model equivalent</h3>
 <p>Consider the following generative model for <span class="math inline">\((\boldsymbol{x}, y) \in \mathbb{R}^{p-1} \times \{0,1\}\)</span>: <span class="math display">\[
 y \sim \text{Ber}(\pi); \quad \boldsymbol{x}|y \sim \begin{cases} N(\boldsymbol{\mu}_0, \boldsymbol{V}) \quad \text{if } y = 0 \\ N(\boldsymbol{\mu}_1, \boldsymbol{V}) \quad \text{if } y = 1 \end{cases}.
 \]</span> Then, we can derive that <span class="math inline">\(y|\boldsymbol{x}\)</span> follows a logistic regression model (called a <em>discriminative</em> model because it conditions on <span class="math inline">\(\boldsymbol{x}\)</span>). Indeed, <span class="math display">\[
@@ -425,7 +420,7 @@ y \sim \text{Ber}(\pi); \quad \boldsymbol{x}|y \sim \begin{cases} N(\boldsymbol{
 \]</span> This is another natural route to motivating the logistic regression model.</p>
 </section>
 <section id="sec-2x2-contingency" class="level3" data-number="24.1.3">
-<h3 data-number="24.1.3" class="anchored" data-anchor-id="sec-2x2-contingency"><span class="header-section-number">24.1.3</span> Special case: <span class="math inline">\(2 \times 2\)</span> contingency table.</h3>
+<h3 data-number="24.1.3" class="anchored" data-anchor-id="sec-2x2-contingency"><span class="header-section-number">24.1.3</span> Special case: <span class="math inline">\(2 \times 2\)</span> contingency table</h3>
 <p>Suppose that <span class="math inline">\(x \in \{0,1\}\)</span>, and consider the logistic regression model <span class="math inline">\(\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i\)</span>. For example, suppose that <span class="math inline">\(x \in \{0,1\}\)</span> encodes treatment (1) and control (0) in a clinical trial, and <span class="math inline">\(y_i \in \{0,1\}\)</span> encodes success (1) and failure (0). We make <span class="math inline">\(n\)</span> observations of <span class="math inline">\((x_i, y_i)\)</span> in this ungrouped setup. The parameter <span class="math inline">\(e^{\beta_1}\)</span> can be interpreted as the <em>odds ratio</em>: <span class="math display">\[
 e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 1|x=0]/\mathbb{P}[y = 0|x=0]}.
 \]</span> This parameter is the multiple by which the odds of success increase when going from control to treatment. We can summarize such data via the <span class="math inline">\(2 \times 2\)</span> <em>contingency table</em> (<a href="#tbl-2-by-2-table">Table&nbsp;<span>24.1</span></a>). A grouped version of this data would be <span class="math inline">\(\{(x_1, y_1) = (0, 7/24), (x_2, y_2) = (1, 9/21)\}\)</span>. The null hypothesis <span class="math inline">\(H_0: \beta_1 = 0 \Longleftrightarrow H_0: e^{\beta_1} = 1\)</span> states that the success probability in both rows of the table is the same.</p>
@@ -514,9 +509,8 @@ e^{\beta_1} = \frac{\mathbb{P}[y = 1|x=1]/\mathbb{P}[y = 0|x=1]}{\mathbb{P}[y = 
 \boldsymbol{\widehat \beta} \overset \cdot \sim N\left(\boldsymbol \beta, \left(\boldsymbol X^T\text{diag}(m_i \widehat \pi_i(1-\widehat \pi_i))\boldsymbol X\right)^{-1}\right).
 \]</span></p>
 <p>This approximation holds for <span class="math inline">\(\sum_{i = 1}^n m_i \rightarrow \infty\)</span>.</p>
-</section>
-<section id="sec-2x2-contingency-table" class="level3" data-number="24.3.3">
-<h3 data-number="24.3.3" class="anchored" data-anchor-id="sec-2x2-contingency-table"><span class="header-section-number">24.3.3</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency table.</h3>
+<section id="sec-2x2-contingency-table" class="level4" data-number="24.3.2.1">
+<h4 data-number="24.3.2.1" class="anchored" data-anchor-id="sec-2x2-contingency-table"><span class="header-section-number">24.3.2.1</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency table</h4>
 <p>Suppose we have a <span class="math inline">\(2 \times 2\)</span> contingency table. The grouped logistic regression formulation of these data is</p>
 <p><span class="math display">\[
 y_0 \sim \frac{1}{m_0}\text{Bin}(m_0, \pi_0); \quad y_1 \sim \frac{1}{m_1}\text{Bin}(m_1, \pi_1); \quad \text{logit}(\pi_i) = \beta_0 + \beta_1 x_i.
@@ -540,8 +534,8 @@ y_0 \sim \frac{1}{m_0}\text{Bin}(m_0, \pi_0); \quad y_1 \sim \frac{1}{m_1}\text{
 \left|\frac{\hat \beta_1}{\text{SE}(\hat \beta_1)}\right| = \left|\frac{\log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}}{\sqrt{\frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}}}\right| &gt; z_{1-\alpha/2}.
 \]</span></p>
 </section>
-<section id="sec-hauck-donner-effect" class="level3" data-number="24.3.4">
-<h3 data-number="24.3.4" class="anchored" data-anchor-id="sec-hauck-donner-effect"><span class="header-section-number">24.3.4</span> Hauck-Donner effect.</h3>
+<section id="sec-hauck-donner-effect" class="level4" data-number="24.3.2.2">
+<h4 data-number="24.3.2.2" class="anchored" data-anchor-id="sec-hauck-donner-effect"><span class="header-section-number">24.3.2.2</span> Hauck-Donner effect</h4>
 <p>Unfortunately, Wald inference in finite samples does not always perform very well. The Wald test above is known to be conservative if one or more of the mean parameters (in this case, <span class="math inline">\(\pi_i\)</span>) tends to the edge of the parameter space (in this case, <span class="math inline">\(\pi_i \rightarrow 0\)</span> or <span class="math inline">\(\pi_i \rightarrow 1\)</span>). This is called the <em>Hauck-Donner effect</em>. As an example, consider testing <span class="math inline">\(H_0: \beta_0 = 0\)</span> in the intercept-only model</p>
 <p><span class="math display">\[
 my \sim \text{Bin}(m, \pi); \quad \text{logit}(\pi) = \beta_0.
@@ -558,21 +552,18 @@ my \sim \text{Bin}(m, \pi); \quad \text{logit}(\pi) = \beta_0.
 </div>
 </div>
 </section>
-<section id="sec-likelihood-ratio-inference" class="level3" data-number="24.3.5">
-<h3 data-number="24.3.5" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">24.3.5</span> Likelihood ratio inference</h3>
-<section id="sec-bernoulli-binomial-deviance" class="level4" data-number="24.3.5.1">
-<h4 data-number="24.3.5.1" class="anchored" data-anchor-id="sec-bernoulli-binomial-deviance"><span class="header-section-number">24.3.5.1</span> The Bernoulli and binomial deviance.</h4>
-<p>Let’s first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. The unit deviance is</p>
+</section>
+<section id="sec-likelihood-ratio-inference" class="level3" data-number="24.3.3">
+<h3 data-number="24.3.3" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">24.3.3</span> Likelihood ratio inference</h3>
+<section id="sec-bernoulli-binomial-deviance" class="level4" data-number="24.3.3.1">
+<h4 data-number="24.3.3.1" class="anchored" data-anchor-id="sec-bernoulli-binomial-deviance"><span class="header-section-number">24.3.3.1</span> The Bernoulli and binomial deviance</h4>
+<p>Let’s first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. Recalling the definition of the unit deviance (<a href="exponential-dispersion-models.html#eq-unit-deviance"><span>19.4</span></a>), we have</p>
 <p><span class="math display">\[
-t(y, \pi) = y \log \pi + (1-y)\log(1-\pi).
-\]</span></p>
-<p>Hence, we have</p>
-<p><span class="math display">\[
-t(y, y) = y \log y + (1-y) \log(1-y).
-\]</span></p>
-<p>Hence, the unit deviance is</p>
-<p><span class="math display">\[
-d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
+\begin{split}
+d(y, \mu) &amp;\equiv 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&amp;= 2\{[y \log\tfrac{y}{1-y} + \log(1-y)] - [y \log \tfrac{\pi}{1-\pi} + \log(1-\pi)]\} \\
+&amp;= 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
+\end{split}
 \]</span></p>
 <p>The total deviance, therefore, is</p>
 <p><span id="eq-logistic-deviance"><span class="math display">\[
@@ -582,9 +573,8 @@ D(\boldsymbol y, \hat{\boldsymbol \pi}) &amp;\equiv \sum_{i = 1}^n w_i d(y_i, \w
 \end{split}
 \tag{24.2}\]</span></span></p>
 </section>
-</section>
-<section id="sec-comparing-deviances" class="level3" data-number="24.3.6">
-<h3 data-number="24.3.6" class="anchored" data-anchor-id="sec-comparing-deviances"><span class="header-section-number">24.3.6</span> Comparing the deviances of grouped and ungrouped logistic regression models.</h3>
+<section id="sec-comparing-deviances" class="level4" data-number="24.3.3.2">
+<h4 data-number="24.3.3.2" class="anchored" data-anchor-id="sec-comparing-deviances"><span class="header-section-number">24.3.3.2</span> Comparing the deviances of grouped and ungrouped logistic regression models</h4>
 <p>Let us pause to compare the total deviances of grouped and ungrouped logistic regression models. Consider the following grouped and ungrouped models:</p>
 <p><span class="math display">\[
 y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i,
@@ -615,18 +605,17 @@ y^{\text{grp}}_i = \frac{1}{m_i}\sum_{k = 1}^{m_i} y^{\text{ungrp}}_{ik} \equiv 
 <p><span class="math display">\[
 D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
 \]</span></p>
-<section id="sec-likelihood-ratio-test" class="level4" data-number="24.3.6.1">
-<h4 data-number="24.3.6.1" class="anchored" data-anchor-id="sec-likelihood-ratio-test"><span class="header-section-number">24.3.6.1</span> Likelihood ratio inference for one or more coefficients.</h4>
+</section>
+<section id="sec-likelihood-ratio-test" class="level4" data-number="24.3.3.3">
+<h4 data-number="24.3.3.3" class="anchored" data-anchor-id="sec-likelihood-ratio-test"><span class="header-section-number">24.3.3.3</span> Likelihood ratio inference for one or more coefficients</h4>
 <p>Letting <span class="math inline">\(\boldsymbol{\widehat \pi}_0\)</span> and <span class="math inline">\(\boldsymbol{\widehat \pi}_1\)</span> be the MLEs from two nested models, we can then express the likelihood ratio statistic as</p>
 <p><span class="math display">\[
 D(\boldsymbol y, \boldsymbol{\widehat \pi}_0) - D(\boldsymbol y, \boldsymbol{\widehat \pi}_1) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{\widehat \pi_{i1}}{\widehat \pi_{i0}} + m_i(1-y_i) \log\frac{1-\widehat \pi_{i1}}{1-\widehat \pi_{i0}}\right).
 \]</span></p>
 <p>Note that this expression holds for grouped or ungrouped logistic regression models. We can then construct a likelihood ratio test in the usual way. Likelihood ratio inference can be justified by either large-sample or small-dispersion asymptotics.</p>
 </section>
-</section>
-</section>
-<section id="sec-goodness-of-fit" class="level2" data-number="24.4">
-<h2 data-number="24.4" class="anchored" data-anchor-id="sec-goodness-of-fit"><span class="header-section-number">24.4</span> Goodness of fit testing</h2>
+<section id="sec-goodness-of-fit" class="level4" data-number="24.3.3.4">
+<h4 data-number="24.3.3.4" class="anchored" data-anchor-id="sec-goodness-of-fit"><span class="header-section-number">24.3.3.4</span> Goodness of fit testing</h4>
 <p>In grouped logistic regression, we can also use the likelihood ratio test to test goodness of fit. To do so, we compare the total deviance of the fitted model (<a href="#eq-logistic-deviance"><span>24.2</span></a>) to a chi-squared quantile. In particular, the deviance-based goodness of fit test rejects when:</p>
 <p><span id="eq-goodness-of-fit"><span class="math display">\[
 \begin{split}
@@ -634,10 +623,10 @@ D(\boldsymbol y, \boldsymbol{\widehat \pi}_0) - D(\boldsymbol y, \boldsymbol{\wi
 &amp;2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) &gt; \chi^2_{n-p}(1-\alpha).
 \end{split}
 \tag{24.5}\]</span></span></p>
-<p>This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when <span class="math inline">\(\min(m_i \pi_i, (1-m_i)\pi_i) \geq 3\)</span> for each <span class="math inline">\(i\)</span>.</p>
+<p>This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when <span class="math inline">\(\min(m_i \widehat \pi_i, (1-m_i)\widehat \pi_i) \geq 3\)</span> for each <span class="math inline">\(i\)</span>.</p>
 </section>
-<section id="sec-example-2x2-table" class="level2" data-number="24.5">
-<h2 data-number="24.5" class="anchored" data-anchor-id="sec-example-2x2-table"><span class="header-section-number">24.5</span> Example: <span class="math inline">\(2 \times 2\)</span> table</h2>
+<section id="sec-example-2x2-table" class="level4" data-number="24.3.3.5">
+<h4 data-number="24.3.3.5" class="anchored" data-anchor-id="sec-example-2x2-table"><span class="header-section-number">24.3.3.5</span> Example: <span class="math inline">\(2 \times 2\)</span> table</h4>
 <p>Let us revisit the example of the <span class="math inline">\(2 \times 2\)</span> table model, within which we would like to test <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Note that we can view this as a goodness of fit test of the intercept-only model in a grouped logistic regression model since the alternative model is the saturated model (it has two observations and two parameters). To compute the likelihood ratio statistic, we first need to fit the intercept-only model. The score equations (<a href="#eq-logistic-score-equations"><span>24.1</span></a>) reduce to:</p>
 <p><span class="math display">\[
 m_0 (y_0 - \hat \pi) + m_1 (y_1 - \hat \pi) = 0 \quad \Longrightarrow \quad \hat \pi_0 = \hat \pi_1 = \hat \pi = \frac{m_0 y_0 + m_1 y_1}{m_0 + m_1}.
@@ -660,16 +649,17 @@ D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &amp;= 2\left(m_0 \log\frac{1}{1-\h
 \tag{24.6}\]</span></span></p>
 <p>This gives us a finite value, which we can compare to <span class="math inline">\(\chi^2_{1}(1-\alpha)\)</span> to test <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Even though the likelihood ratio statistic is still defined, we do still have to be careful because the data may suggest that the parameters are too close to the boundary of the parameter space. However, the rate at which the test breaks down as the parameters approach this boundary is slower than the rate at which the Wald test breaks down.</p>
 </section>
-<section id="sec-score-based-inference" class="level2" data-number="24.6">
-<h2 data-number="24.6" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">24.6</span> Score-based inference</h2>
+</section>
+<section id="sec-score-based-inference" class="level3" data-number="24.3.4">
+<h3 data-number="24.3.4" class="anchored" data-anchor-id="sec-score-based-inference"><span class="header-section-number">24.3.4</span> Score-based inference</h3>
 <p>Here we present only the score-based goodness-of-fit test. Recalling <a href="glm-inference.html#sec-score-goodness-of-fit"><span>Section&nbsp;22.4.4</span></a>, the score statistic for goodness of fit is Pearson’s <span class="math inline">\(X^2\)</span> statistic:</p>
 <p><span id="eq-pearson-statistic"><span class="math display">\[
 X^2 = \sum_{i = 1}^n \frac{w_i (y_i - \widehat \mu_i)^2}{V(\widehat \mu_i)} = \sum_{i = 1}^n \frac{m_i(y_i - \widehat \pi_i)^2}{\widehat \pi_i(1-\widehat \pi_i)}.
 \tag{24.7}\]</span></span></p>
 <p>This test is justified by small-dispersion asymptotics based on the central limit theorem, which is decent when <span class="math inline">\(\min(m_i \pi_i, (1-m_i)\pi_i) \geq 5\)</span> for each <span class="math inline">\(i\)</span>.</p>
 </section>
-<section id="sec-fisher-exact-test" class="level2" data-number="24.7">
-<h2 data-number="24.7" class="anchored" data-anchor-id="sec-fisher-exact-test"><span class="header-section-number">24.7</span> Fisher’s exact test</h2>
+<section id="sec-fisher-exact-test" class="level3" data-number="24.3.5">
+<h3 data-number="24.3.5" class="anchored" data-anchor-id="sec-fisher-exact-test"><span class="header-section-number">24.3.5</span> Fisher’s exact test</h3>
 <p>As an alternative to asymptotic tests for logistic regression, in the case of <span class="math inline">\(2 \times 2\)</span> tables, there is an <em>exact</em> test of <span class="math inline">\(H_0: \beta_1 = 0\)</span>. Suppose we have:</p>
 <p><span id="eq-binomial"><span class="math display">\[
 s_1 = m_1y_1 \sim \text{Bin}(m_1, \pi_1) \quad \text{and} \quad s_2 = m_2y_2 \sim \text{Bin}(m_2, \pi_2).
@@ -687,6 +677,7 @@ s_1 = m_1y_1 \sim \text{Bin}(m_1, \pi_1) \quad \text{and} \quad s_2 = m_2y_2 \si
 <p>Therefore, a finite-sample <span class="math inline">\(p\)</span>-value to test <span class="math inline">\(H_0: \pi_1 = \pi_2\)</span> versus <span class="math inline">\(H_1: \pi_1 &gt; \pi_2\)</span> is <span class="math inline">\(\mathbb{P}[s_1 \geq t | s_1 + s_2]\)</span>, which can be computed exactly based on the formula above.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

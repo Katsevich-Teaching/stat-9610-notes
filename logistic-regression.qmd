@@ -2,14 +2,14 @@
 
 ## Model definition and interpretation {#sec-logistic-model}
 
-### Model definition. 
+### Model definition
 Recall from Chapter 4 that the logistic regression model is
 $$
 m_i y_i \overset{\text{ind}} \sim \text{Bin}(m_i, \pi_i); \quad \text{logit}(\pi_i) = \log\frac{\pi_i}{1-\pi_i} = \boldsymbol{x}^T_{i*}\boldsymbol{\beta}.
 $$
 Here we use the canonical logit link function, although other link functions are possible. We also set the offsets to 0. The interpretation of the parameter $\beta_j$ is that a unit increase in $x_j$—other predictors held constant—is associated with an (additive) increase of $\beta_j$ on the log-odds scale or a multiplicative increase of $e^{\beta_j}$ on the odds scale. Note that logistic regression data come in two formats: *ungrouped* and *grouped*. For ungrouped data, we have $m_1 = \dots = m_n = 1$, so $y_i \in \{0,1\}$ are Bernoulli random variables. For grouped data, we can have several independent Bernoulli observations per predictor $\boldsymbol{x}_{i*}$, which give rise to binomial proportions $y_i \in [0,1]$. This happens most often when all the predictors are discrete. You can always convert grouped data into ungrouped data, but not necessarily vice versa. We'll discuss below that the grouped and ungrouped formulations of logistic regression have the same MLE and standard errors but different deviances.
 
-### Generative model equivalent.
+### Generative model equivalent
 Consider the following generative model for $(\boldsymbol{x}, y) \in \mathbb{R}^{p-1} \times \{0,1\}$:
 $$
 y \sim \text{Ber}(\pi); \quad \boldsymbol{x}|y \sim \begin{cases} N(\boldsymbol{\mu}_0, \boldsymbol{V}) \quad \text{if } y = 0 \\ N(\boldsymbol{\mu}_1, \boldsymbol{V}) \quad \text{if } y = 1 \end{cases}.
@@ -25,7 +25,7 @@ $$
 $$
 This is another natural route to motivating the logistic regression model.
 
-### Special case: $2 \times 2$ contingency table. {#sec-2x2-contingency}
+### Special case: $2 \times 2$ contingency table {#sec-2x2-contingency}
 
 Suppose that $x \in \{0,1\}$, and consider the logistic regression model $\text{logit}(\pi_i) = \beta_0 + \beta_1 x_i$. For example, suppose that $x \in \{0,1\}$ encodes treatment (1) and control (0) in a clinical trial, and $y_i \in \{0,1\}$ encodes success (1) and failure (0). We make $n$ observations of $(x_i, y_i)$ in this ungrouped setup. The parameter $e^{\beta_1}$ can be interpreted as the *odds ratio*:
 $$
@@ -106,7 +106,7 @@ $$
 
 This approximation holds for $\sum_{i = 1}^n m_i \rightarrow \infty$. 
 
-### Example: $2 \times 2$ contingency table. {#sec-2x2-contingency-table}
+#### Example: $2 \times 2$ contingency table {#sec-2x2-contingency-table}
 
 Suppose we have a $2 \times 2$ contingency table. The grouped logistic regression formulation of these data is
 
@@ -138,7 +138,7 @@ $$
 \left|\frac{\hat \beta_1}{\text{SE}(\hat \beta_1)}\right| = \left|\frac{\log \frac{y_1 / (1 - y_1)}{y_0 / (1 - y_0)}}{\sqrt{\frac{1}{m_0y_0(1-y_0)} + \frac{1}{m_1y_1(1-y_1)}}}\right| > z_{1-\alpha/2}.
 $$
 
-### Hauck-Donner effect. {#sec-hauck-donner-effect}
+#### Hauck-Donner effect {#sec-hauck-donner-effect}
 
 Unfortunately, Wald inference in finite samples does not always perform very well. The Wald test above is known to be conservative if one or more of the mean parameters (in this case, $\pi_i$) tends to the edge of the parameter space (in this case, $\pi_i \rightarrow 0$ or $\pi_i \rightarrow 1$). This is called the *Hauck-Donner effect*. As an example, consider testing $H_0: \beta_0 = 0$ in the intercept-only model
 
@@ -183,24 +183,16 @@ p1 + p2
 
 ### Likelihood ratio inference {#sec-likelihood-ratio-inference}
 
-#### The Bernoulli and binomial deviance. {#sec-bernoulli-binomial-deviance}
+#### The Bernoulli and binomial deviance {#sec-bernoulli-binomial-deviance}
 
-Let's first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. The unit deviance is
-
-$$
-t(y, \pi) = y \log \pi + (1-y)\log(1-\pi).
-$$
-
-Hence, we have
+Let's first compute the deviance of a Bernoulli or binomial model. These deviances are the same because these two models have the same natural parameter and log-partition function. Recalling the definition of the unit deviance ([-@eq-unit-deviance]), we have
 
 $$
-t(y, y) = y \log y + (1-y) \log(1-y).
-$$
-
-Hence, the unit deviance is
-
-$$
-d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
+\begin{split}
+d(y, \mu) &\equiv 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&= 2\{[y \log\tfrac{y}{1-y} + \log(1-y)] - [y \log \tfrac{\pi}{1-\pi} + \log(1-\pi)]\} \\
+&= 2\left(y \log \frac{y}{\pi} + (1-y)\log \frac{1-y}{1-\pi}\right).
+\end{split}
 $$
 
 The total deviance, therefore, is
@@ -212,7 +204,7 @@ D(\boldsymbol y, \hat{\boldsymbol \pi}) &\equiv \sum_{i = 1}^n w_i d(y_i, \wideh
 \end{split}
 $$ {#eq-logistic-deviance}
 
-### Comparing the deviances of grouped and ungrouped logistic regression models. {#sec-comparing-deviances}
+#### Comparing the deviances of grouped and ungrouped logistic regression models {#sec-comparing-deviances}
 
 Let us pause to compare the total deviances of grouped and ungrouped logistic regression models. Consider the following grouped and ungrouped models:
 
@@ -256,7 +248,7 @@ $$
 D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
 $$
 
-#### Likelihood ratio inference for one or more coefficients. {#sec-likelihood-ratio-test}
+#### Likelihood ratio inference for one or more coefficients {#sec-likelihood-ratio-test}
 
 Letting $\boldsymbol{\widehat \pi}_0$ and $\boldsymbol{\widehat \pi}_1$ be the MLEs from two nested models, we can then express the likelihood ratio statistic as
 
@@ -266,7 +258,7 @@ $$
 
 Note that this expression holds for grouped or ungrouped logistic regression models. We can then construct a likelihood ratio test in the usual way. Likelihood ratio inference can be justified by either large-sample or small-dispersion asymptotics.
 
-## Goodness of fit testing {#sec-goodness-of-fit}
+#### Goodness of fit testing {#sec-goodness-of-fit}
 
 In grouped logistic regression, we can also use the likelihood ratio test to test goodness of fit. To do so, we compare the total deviance of the fitted model ([-@eq-logistic-deviance]) to a chi-squared quantile. In particular, the deviance-based goodness of fit test rejects when:
 
@@ -277,9 +269,9 @@ $$
 \end{split}
 $$ {#eq-goodness-of-fit}
 
-This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when $\min(m_i \pi_i, (1-m_i)\pi_i) \geq 3$ for each $i$.
+This test is justified by small-dispersion asymptotics based on the saddlepoint approximation, which is decent when $\min(m_i \widehat \pi_i, (1-m_i)\widehat \pi_i) \geq 3$ for each $i$.
 
-## Example: $2 \times 2$ table {#sec-example-2x2-table}
+#### Example: $2 \times 2$ table {#sec-example-2x2-table}
 
 Let us revisit the example of the $2 \times 2$ table model, within which we would like to test $H_0: \beta_1 = 0$. Note that we can view this as a goodness of fit test of the intercept-only model in a grouped logistic regression model since the alternative model is the saturated model (it has two observations and two parameters). To compute the likelihood ratio statistic, we first need to fit the intercept-only model. The score equations ([-@eq-logistic-score-equations]) reduce to:
 
@@ -309,7 +301,7 @@ $$ {#eq-perfect-separability}
 
 This gives us a finite value, which we can compare to $\chi^2_{1}(1-\alpha)$ to test $H_0: \beta_1 = 0$. Even though the likelihood ratio statistic is still defined, we do still have to be careful because the data may suggest that the parameters are too close to the boundary of the parameter space. However, the rate at which the test breaks down as the parameters approach this boundary is slower than the rate at which the Wald test breaks down.
 
-## Score-based inference {#sec-score-based-inference}
+### Score-based inference {#sec-score-based-inference}
 
 Here we present only the score-based goodness-of-fit test. Recalling @sec-score-goodness-of-fit, the score statistic for goodness of fit is Pearson's $X^2$ statistic:
 
@@ -319,7 +311,7 @@ $$ {#eq-pearson-statistic}
 
 This test is justified by small-dispersion asymptotics based on the central limit theorem, which is decent when $\min(m_i \pi_i, (1-m_i)\pi_i) \geq 5$ for each $i$.
 
-## Fisher's exact test {#sec-fisher-exact-test}
+### Fisher's exact test {#sec-fisher-exact-test}
 
 As an alternative to asymptotic tests for logistic regression, in the case of $2 \times 2$ tables, there is an *exact* test of $H_0: \beta_1 = 0$. Suppose we have:
 

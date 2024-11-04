@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 9610 Lecture Notes - 9&nbsp; Power</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./confidence-intervals.html" rel="next">
+<link href="./hypothesis-testing.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./power.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">STAT 9610 Lecture Notes</a> 
+        <div class="sidebar-tools-main">
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-power-of-a-t-test" id="toc-the-power-of-a-t-test" class="nav-link active" data-scroll-target="#the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</a>
+  <ul class="collapse">
+  <li><a href="#power-formula" id="toc-power-formula" class="nav-link" data-scroll-target="#power-formula"><span class="header-section-number">9.1.1</span> Power formula</a></li>
+  <li><a href="#power-of-the-t-test-when-predictors-are-added-to-the-model" id="toc-power-of-the-t-test-when-predictors-are-added-to-the-model" class="nav-link" data-scroll-target="#power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.1.2</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</a></li>
+  <li><a href="#application-adjusting-for-covariates-in-randomized-experiments." id="toc-application-adjusting-for-covariates-in-randomized-experiments." class="nav-link" data-scroll-target="#application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.1.3</span> Application: Adjusting for covariates in randomized experiments.</a></li>
+  </ul></li>
+  <li><a href="#the-power-of-an-f-test" id="toc-the-power-of-an-f-test" class="nav-link" data-scroll-target="#the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-power" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><em>See also Agresti 3.2.5</em></p>
+<p>So far we’ve been focused on finding the null distributions of various test statistics in order to construct tests with Type-I error control. Now let’s shift our attention to examining the power of these tests.</p>
+<section id="the-power-of-a-t-test" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="the-power-of-a-t-test"><span class="header-section-number">9.1</span> The power of a <span class="math inline">\(t\)</span>-test</h2>
+<section id="power-formula" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="power-formula"><span class="header-section-number">9.1.1</span> Power formula</h3>
+<p>Consider the <span class="math inline">\(t\)</span>-test of the null hypothesis <span class="math inline">\(H_0: \beta_j = 0\)</span>. Suppose that, in reality, <span class="math inline">\(\beta_j \neq 0\)</span>. What is the probability the <span class="math inline">\(t\)</span>-test will reject the null hypothesis? To answer this question, recall that <span class="math inline">\(\widehat \beta_j \sim N(\beta_j, \sigma^2/s_j^2)\)</span>. Therefore,</p>
+<p><span id="eq-t-alt-dist-1"><span class="math display">\[
+t = \frac{\widehat \beta_j}{\text{SE}(\widehat \beta_j)} = \frac{\beta_j}{\text{SE}(\widehat \beta_j)} + \frac{\widehat \beta_j - \beta_j}{\text{SE}(\widehat \beta_j)} \overset{\cdot}{\sim} N\left(\frac{\beta_j s_j}{\sigma}, 1\right)
+\tag{9.1}\]</span></span></p>
+<p>Here we have made the approximation <span class="math inline">\(\text{SE}(\widehat \beta_j) \approx \frac{\sigma}{s_j}\)</span>, which is pretty good when <span class="math inline">\(n-p\)</span> is large. Therefore, the power of the two-sided <span class="math inline">\(t\)</span>-test is</p>
+<p><span class="math display">\[
+\mathbb{E}[\phi_t] = \mathbb{P}[\phi_t = 1] \approx \mathbb{P}[|t| &gt; z_{1-\alpha/2}] \approx \mathbb{P}\left[\left|N\left(\frac{\beta_j s_j}{\sigma}, 1\right)\right| &gt; z_{1-\alpha/2}\right]
+\]</span></p>
+<p>Therefore, the quantity <span class="math inline">\(\frac{\beta_j s_j}{\sigma}\)</span> determines the power of the <span class="math inline">\(t\)</span>-test. To understand <span class="math inline">\(s_j\)</span> a little better, let’s assume that the rows <span class="math inline">\(\boldsymbol{x}_{i*}\)</span> of the model matrix are drawn i.i.d. from some distribution <span class="math inline">\((x_0, \dots, x_{p-1})\)</span>. Then we have roughly</p>
+<p><span class="math display">\[
+\boldsymbol{x}_{*j}^\perp \approx \boldsymbol{x}_{*j} - \mathbb{E}[\boldsymbol{x}_{*j}|\boldsymbol{X}_{*, \text{-}j}],
+\]</span></p>
+<p>so <span class="math inline">\(x_{ij}^\perp \approx x_{ij} - \mathbb{E}[x_{ij}|\boldsymbol{x}_{i,\text{-}j}]\)</span>. Hence,</p>
+<p><span class="math display">\[
+s_j^2 \equiv \|\boldsymbol{x}_{*j}^\perp\|^2 \approx n\mathbb{E}[(x_j-\mathbb{E}[x_j|\boldsymbol{x}_{\text{-}j}])^2] = n\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]].
+\]</span></p>
+<p>Hence, we can rewrite the alternative distribution (<a href="#eq-t-alt-dist-1"><span>9.1</span></a>) as</p>
+<p><span id="eq-t-alt-dist-2"><span class="math display">\[
+t \overset{\cdot}{\sim} N\left(\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]}}{\sigma}, 1\right)
+\tag{9.2}\]</span></span></p>
+<p>We can see clearly now how the power of the <span class="math inline">\(t\)</span>-test varies with the effect size <span class="math inline">\(\beta_j\)</span>, the sample size <span class="math inline">\(n\)</span>, the degree of collinearity <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span>, and the noise standard deviation <span class="math inline">\(\sigma\)</span>.</p>
+</section>
+<section id="power-of-the-t-test-when-predictors-are-added-to-the-model" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="power-of-the-t-test-when-predictors-are-added-to-the-model"><span class="header-section-number">9.1.2</span> Power of the <span class="math inline">\(t\)</span>-test when predictors are added to the model</h3>
+<p>As we know, the outcome of a regression is a function of the predictors that are used. What happens to the <span class="math inline">\(t\)</span>-test <span class="math inline">\(p\)</span>-value for <span class="math inline">\(H_0: \beta_j = 0\)</span> when a predictor is added to the model? To keep things simple, let’s consider the</p>
+<p><span class="math display">\[
+\text{true underlying model:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
+\]</span></p>
+<p>Let’s consider the power of testing <span class="math inline">\(H_0: \beta_0 = 0\)</span> in the regression models</p>
+<p><span class="math display">\[
+\text{model 0:}\ y = \beta_0 x_0 + \epsilon \quad \text{versus} \quad \text{model 1:}\ y = \beta_0 x_0 + \beta_1 x_1 + \epsilon.
+\]</span></p>
+<p>There are four cases based on <span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}]\)</span> and the value of <span class="math inline">\(\beta_1\)</span> in the true model:</p>
+<ol type="1">
+<li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] \neq 0\)</span> and <span class="math inline">\(\beta_1 \neq 0\)</span>. In this case, in model 0 we have omitted an important variable that is correlated with <span class="math inline">\(\boldsymbol{x}_{*0}\)</span>. Therefore, the meaning of <span class="math inline">\(\beta_0\)</span> differs between model 0 and model 1, so it may not be meaningful to compare the <span class="math inline">\(p\)</span>-values arising from these two models.</li>
+<li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] \neq 0\)</span> and <span class="math inline">\(\beta_1 = 0\)</span>. In this case, we are adding a null predictor that is correlated with <span class="math inline">\(x_{*0}\)</span>. Recall that the power of the <span class="math inline">\(t\)</span>-test hinges on the quantity <span class="math inline">\(\frac{\beta_j \cdot \sqrt{n} \cdot \sqrt{\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]}}{\sigma}\)</span>. Adding the predictor <span class="math inline">\(x_1\)</span> has the effect of reducing the conditional predictor variance <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span>, therefore reducing the power. This is a case of <em>predictor competition</em>.</li>
+<li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 \neq 0\)</span>. In this case, we are adding a non-null predictor that is orthogonal to <span class="math inline">\(\boldsymbol{x}_{*0}\)</span>. While the conditional predictor variance <span class="math inline">\(\mathbb{E}[\text{Var}[x_j|\boldsymbol{x}_{\text{-}j}]]\)</span> remains the same due to orthogonality, the residual variance <span class="math inline">\(\sigma^2\)</span> is reduced when going from model 0 to model 1. Therefore, in this case adding <span class="math inline">\(x_1\)</span> to the model increases the power for testing <span class="math inline">\(H_0: \beta_0 = 0\)</span>. This is a case of <em>predictor collaboration</em>.</li>
+<li><span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 = 0\)</span>. In this case, we are adding an orthogonal null variable, which does not change the conditional predictor variance or the residual variance, and therefore keeps the power of the test the same.</li>
+</ol>
+<p>In conclusion, adding a predictor can either increase or decrease the power of a <span class="math inline">\(t\)</span>-test.</p>
+</section>
+<section id="application-adjusting-for-covariates-in-randomized-experiments." class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="application-adjusting-for-covariates-in-randomized-experiments."><span class="header-section-number">9.1.3</span> Application: Adjusting for covariates in randomized experiments.</h3>
+<p>Case 3 above, i.e., <span class="math inline">\(\text{cor}[\boldsymbol{x}_{*0}, \boldsymbol{x}_{*1}] = 0\)</span> and <span class="math inline">\(\beta_1 \neq 0\)</span>, arises in the context of randomized experiments in causal inference. In this case, <span class="math inline">\(y\)</span> represents the outcome, <span class="math inline">\(x_0\)</span> represents the treatment, and <span class="math inline">\(x_1\)</span> represents a covariate. Because the treatment is randomized, there is no correlation between <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>. Therefore, it is not necessary to adjust for <span class="math inline">\(x_1\)</span> in order to get an unbiased estimate of the average treatment effect. However, it is known that adjusting for covariates can lead to more <em>precise</em> estimates of the treatment effect due to the phenomenon discussed in case 3 above. This point is also related to the discussion in Chapter 1 about the fact that if <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span> are orthogonal, then the least squares coefficient <span class="math inline">\(\widehat \beta_0\)</span> is the same regardless of whether <span class="math inline">\(x_1\)</span> is included in the model. As we see here, either including <span class="math inline">\(x_1\)</span> in the model or adjusting <span class="math inline">\(y\)</span> for <span class="math inline">\(x_1\)</span> is necessary to get better power.</p>
+</section>
+</section>
+<section id="the-power-of-an-f-test" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="the-power-of-an-f-test"><span class="header-section-number">9.2</span> The power of an <span class="math inline">\(F\)</span>-test</h2>
+<p>Now let’s turn our attention to computing the power of the <span class="math inline">\(F\)</span>-test. We have</p>
+<p><span class="math display">\[
+\begin{split}
+F &amp;= \frac{\|\boldsymbol{X}\boldsymbol{\widehat \beta} - \boldsymbol{X}_{*, \text{-}S}\boldsymbol{\widehat \beta}_{-S}\|^2/|S|}{\|\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\widehat \beta}\|^2/|n-p|} \\
+&amp;= \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\|(\boldsymbol{I} - \boldsymbol{H})\boldsymbol{y}\|^2/|n-p|} \\
+&amp;\approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2}.
+\end{split}
+\]</span></p>
+<p>To calculate the distribution of the numerator, we need to introduce the notion of a <em>non-central chi-squared random variable</em>.</p>
+<div id="def-noncentral-chi-square" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 9.1 </strong></span>For some vector <span class="math inline">\(\boldsymbol{\mu} \in \mathbb{R}^d\)</span>, suppose <span class="math inline">\(\boldsymbol{z} \sim N(\boldsymbol{\mu}, \boldsymbol{I}_d)\)</span>. Then, we define the distribution of <span class="math inline">\(\|\boldsymbol{z}\|^2\)</span> as the noncentral chi-square random variable with <span class="math inline">\(d\)</span> degrees of freedom and noncentrality parameter <span class="math inline">\(\|\boldsymbol{\mu}\|^2\)</span> and denote this distribution by <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span>.</p>
+</div>
+<p>The following proposition states two useful facts about noncentral chi-square distributions.</p>
+<div id="prp-noncentral-chi-square" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 9.1 </strong></span>The following two relations hold:</p>
+<ol type="1">
+<li>The mean of a <span class="math inline">\(\chi^2_d(\|\boldsymbol{\mu}\|^2)\)</span> random variable is <span class="math inline">\(d + \|\boldsymbol{\mu}\|^2\)</span>.</li>
+<li>If <span class="math inline">\(\boldsymbol{P}\)</span> is a projection matrix and <span class="math inline">\(\boldsymbol{y} = \boldsymbol{\mu} + \boldsymbol{\epsilon}\)</span>, then <span class="math inline">\(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{y}\|^2 \sim \chi^2_{\text{tr}(\boldsymbol{P})}\left(\frac{1}{\sigma^2}\|\boldsymbol{P} \boldsymbol{\mu}\|^2\right).\)</span></li>
+</ol>
+</div>
+<p>It therefore follows that</p>
+<p><span class="math display">\[
+\begin{split}
+F &amp;\approx \frac{\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S}) \boldsymbol{y}\|^2/|S|}{\sigma^2} \\
+&amp;\sim \frac{1}{|S|}\chi^2_{|S|}\left(\|(\boldsymbol{H}-\boldsymbol{H}_{\text{-}S})\boldsymbol{X} \boldsymbol{\beta}\|^2\right) \\
+&amp;= \frac{1}{|S|}\chi^2_{|S|}\left(\frac{1}{\sigma^2}\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2\right).
+\end{split}
+\]</span></p>
+<p>Assuming as before that the rows of <span class="math inline">\(\boldsymbol{X}\)</span> are samples from a joint distribution, we can write</p>
+<p><span class="math display">\[
+\|\boldsymbol{X}^\perp_{*, S}\boldsymbol{\beta}_S\|^2 \approx n\boldsymbol{\beta}_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S.
+\]</span></p>
+<p>Therefore,</p>
+<p><span class="math display">\[
+F \overset{\cdot}{\sim} \frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)
+\]</span></p>
+<p>which is similar in spirit to equation (<a href="#eq-t-alt-dist-2"><span>9.2</span></a>). To get a better sense of what this relationship implies for the power of the <span class="math inline">\(F\)</span>-test, we find from the first part of <a href="#prp-noncentral-chi-square">Proposition&nbsp;<span>9.1</span></a> that, under the alternative,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbb{E}[F] &amp;\approx \mathbb{E}\left[\frac{1}{|S|}\chi^2_{|S|}\left(\frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{\sigma^2}\right)\right] \\
+&amp;= 1 + \frac{n\beta_S^T \mathbb{E}[\text{Var}[\boldsymbol{x}_S|\boldsymbol{x}_{\text{-}S}]] \boldsymbol{\beta}_S}{|S| \cdot \sigma^2}.
+\end{split}
+\]</span></p>
+<p>By contrast, under the null, the mean of the <span class="math inline">\(F\)</span>-statistic is 1. The <span class="math inline">\(|S|\)</span> term in the denominator above suggests that testing larger sets of variables explaining the same amount of variation in <span class="math inline">\(\boldsymbol{y}\)</span> will hurt power. The test must accommodate for the fact that larger sets of variables will explain more of the variability in <span class="math inline">\(y\)</span> even under the null hypothesis.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./hypothesis-testing.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./confidence-intervals.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 9610 Lecture Notes - 12&nbsp; R demo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./linear-models-misspecification.html" rel="next">
+<link href="./practical-considerations.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-inference.html">Linear models: Inference</a></li><li class="breadcrumb-item"><a href="./r-demo-part-2.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">STAT 9610 Lecture Notes</a> 
+        <div class="sidebar-tools-main">
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#exploration" id="toc-exploration" class="nav-link active" data-scroll-target="#exploration"><span class="header-section-number">12.1</span> Exploration</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">12.2</span> Hypothesis testing</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">12.3</span> Confidence intervals</a></li>
+  <li><a href="#predictor-competition-and-collaboration" id="toc-predictor-competition-and-collaboration" class="nav-link" data-scroll-target="#predictor-competition-and-collaboration"><span class="header-section-number">12.4</span> Predictor competition and collaboration</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-r-demo-part-2" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><em>See also Agresti 3.4.1, 3.4.3, Dunn and Smyth 2.6, 2.14</em></p>
+<p>Let’s put into practice what we’ve learned in this chapter by analyzing data about house prices.</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-2_ae623229209413eb14b2874294b60d65">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>houses_data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"data/Houses.dat"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>houses_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 7
+    case taxes  beds baths   new price  size
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1     1  3104     4     2     0  280.  2048
+ 2     2  1173     2     1     0  146.   912
+ 3     3  3076     4     2     0  238.  1654
+ 4     4  1608     3     2     0  200   2068
+ 5     5  1454     3     3     0  160.  1477
+ 6     6  2997     3     2     1  500.  3153
+ 7     7  4054     3     2     0  266.  1355
+ 8     8  3002     3     2     1  290.  2075
+ 9     9  6627     5     4     0  587   3990
+10    10   320     3     2     0   70   1160
+# ℹ 90 more rows</code></pre>
+</div>
+</div>
+<section id="exploration" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="exploration"><span class="header-section-number">12.1</span> Exploration</h2>
+<p>Let’s first do a bit of exploration:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-3_bb2c94fdffe15a70f15b2b2a72ec938a">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize distribution of housing prices, superimposing the mean</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> price)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(price)),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"red"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-4_18e044142cb3c4490d6ddd14300c6c8b">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare median and mean price</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_price =</span> <span class="fu">mean</span>(price),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(price)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_price median_price
+       &lt;dbl&gt;        &lt;dbl&gt;
+1       155.         133.</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-5_0790341cd96b96c1d8231066379e486e">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a pairs plot of continuous variables</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, size, taxes) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-6_00f8e8e7e2e22f8b58bc296dbc816ea3">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to beds</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(beds), <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="288"></p>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-7_29d7673ec796ff728e67862fd89974a3">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to baths</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(baths), <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="288"></p>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-8_ce76d91793cb6fb8a6a5910e65d3a581">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see how price relates to new</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(new), <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"dodgerblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="192"></p>
+</div>
+</div>
+</section>
+<section id="hypothesis-testing" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">12.2</span> Hypothesis testing</h2>
+<p>Let’s run a linear regression and interpret the summary. But first, we must decide whether to model beds/baths as categorical or continuous? We should probably model these as categorical, given the potentially nonlinear trend observed in the box plots.</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-9_9f65c72c47759cb437ceb1f7f98048b4">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> <span class="fu">factor</span>(baths) <span class="sc">+</span> new <span class="sc">+</span> size,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ factor(beds) + factor(baths) + new + size, 
+    data = houses_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-179.306  -32.037   -2.899   19.115  152.718 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     -19.26307   18.01344  -1.069 0.287730    
+factor(beds)3   -16.46430   15.04669  -1.094 0.276749    
+factor(beds)4   -12.48561   21.12357  -0.591 0.555936    
+factor(beds)5  -101.14581   55.83607  -1.811 0.073366 .  
+factor(baths)2    2.39872   15.44014   0.155 0.876885    
+factor(baths)3   -0.70410   26.45512  -0.027 0.978825    
+factor(baths)4  273.20079   83.65764   3.266 0.001540 ** 
+new              66.94940   18.50445   3.618 0.000487 ***
+size              0.10882    0.01234   8.822 7.46e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 51.17 on 91 degrees of freedom
+Multiple R-squared:  0.7653,    Adjusted R-squared:  0.7446 
+F-statistic: 37.08 on 8 and 91 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>We can read off the test statistics and <span class="math inline">\(p\)</span>-values for each variable from the regression summary, as well as for the <span class="math inline">\(F\)</span>-test against the constant model from the bottom of the summary.</p>
+<p>Let’s use an <span class="math inline">\(F\)</span>-test to assess whether the categorical <code>baths</code> variable is important.</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-10_05fc70b7d73893f5275b1c171aa04557">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm_fit_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> new <span class="sc">+</span> size,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_partial, lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ factor(beds) + new + size
+Model 2: price ~ factor(beds) + factor(baths) + new + size
+  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+1     94 273722                                
+2     91 238289  3     35433 4.5104 0.005374 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>What if we had not coded <code>baths</code> as a factor?</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-11_c66d46880b964312c2775747856beeca">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lm_fit_not_factor <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> baths <span class="sc">+</span> new <span class="sc">+</span> size,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> houses_data</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_partial, lm_fit_not_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ factor(beds) + new + size
+Model 2: price ~ factor(beds) + baths + new + size
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     94 273722                           
+2     93 273628  1     94.33 0.0321 0.8583</code></pre>
+</div>
+</div>
+<p>If we want to test for the equality of means across groups of a categorical predictor, without adjusting for other variables, we can use the ANOVA <span class="math inline">\(F\)</span>-test. There are several equivalent ways of doing so:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-12_2aea618208f86b7ef9b6937f06746b8f">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># just use the summary function</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>lm_fit_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_baths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ factor(baths), data = houses_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-146.44  -45.88   -7.89   22.22  352.01 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       90.21      19.51   4.624 1.17e-05 ***
+factor(baths)2    57.68      21.72   2.656  0.00927 ** 
+factor(baths)3   174.52      31.13   5.607 1.97e-07 ***
+factor(baths)4   496.79      82.77   6.002 3.45e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 80.44 on 96 degrees of freedom
+Multiple R-squared:  0.3881,    Adjusted R-squared:  0.369 
+F-statistic:  20.3 on 3 and 96 DF,  p-value: 2.865e-10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use the anova function as before</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lm_fit_const <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> houses_data)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_const, lm_fit_baths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ 1
+Model 2: price ~ factor(baths)
+  Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+1     99 1015150                                  
+2     96  621130  3    394020 20.299 2.865e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use the aov function</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>aov_fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+factor(baths)  3 394020  131340    20.3 2.86e-10 ***
+Residuals     96 621130    6470                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>We can also use an <span class="math inline">\(F\)</span>-test to test for the presence of an interaction with a multi-class categorical predictor.</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-13_d888baeeffddf5b0f8a4a8db07c372ca">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit_interaction <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size <span class="sc">*</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_interaction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ size * factor(beds), data = houses_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-232.643  -25.938   -0.942   19.172  155.517 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          50.12619   48.22282   1.039 0.301310    
+size                  0.05037    0.04210   1.197 0.234565    
+factor(beds)3      -103.85734   52.20373  -1.989 0.049620 *  
+factor(beds)4      -143.90213   67.31359  -2.138 0.035185 *  
+factor(beds)5      -507.88205  144.10191  -3.524 0.000663 ***
+size:factor(beds)3    0.07589    0.04368   1.738 0.085633 .  
+size:factor(beds)4    0.09234    0.04704   1.963 0.052638 .  
+size:factor(beds)5    0.21147    0.05957   3.550 0.000609 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 53.35 on 92 degrees of freedom
+Multiple R-squared:  0.7421,    Adjusted R-squared:  0.7225 
+F-statistic: 37.81 on 7 and 92 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lm_fit_size <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size <span class="sc">+</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_size, lm_fit_interaction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ size + factor(beds)
+Model 2: price ~ size * factor(beds)
+  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+1     95 300953                                
+2     92 261832  3     39121 4.5819 0.004905 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Contrasts of regression coefficients can be tested using the <code>glht()</code> function from the <code>multcomp</code> package.</p>
+</section>
+<section id="confidence-intervals" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">12.3</span> Confidence intervals</h2>
+<p>We can construct pointwise confidence intervals for each coefficient using <code>confint()</code>:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-14_d2991154b9e6aec749225005b62807f8">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       2.5 %      97.5 %
+(Intercept)     -55.04455734  16.5184161
+factor(beds)3   -46.35270691  13.4241025
+factor(beds)4   -54.44498235  29.4737689
+factor(beds)5  -212.05730801   9.7656895
+factor(baths)2  -28.27123130  33.0686620
+factor(baths)3  -53.25394742  51.8457394
+factor(baths)4  107.02516067 439.3764122
+new              30.19258305 103.7062177
+size              0.08431972   0.1333284</code></pre>
+</div>
+</div>
+<p>To create simultaneous confidence intervals, we need a somewhat more manual approach. We start with the coefficients and standard errors:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-15_59d0fb03e3522aa625952c13d1845738">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(lm_fit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   Estimate  Std. Error     t value     Pr(&gt;|t|)
+(Intercept)     -19.2630706 18.01344052 -1.06937209 2.877304e-01
+factor(beds)3   -16.4643022 15.04669172 -1.09421410 2.767490e-01
+factor(beds)4   -12.4856067 21.12356937 -0.59107467 5.559357e-01
+factor(beds)5  -101.1458092 55.83607248 -1.81147786 7.336590e-02
+factor(baths)2    2.3987153 15.44014266  0.15535578 8.768849e-01
+factor(baths)3   -0.7041040 26.45511871 -0.02661504 9.788251e-01
+factor(baths)4  273.2007864 83.65764044  3.26570036 1.540093e-03
+new              66.9494004 18.50445029  3.61801617 4.872475e-04
+size              0.1088241  0.01233621  8.82151661 7.460814e-14</code></pre>
+</div>
+</div>
+<p>Then we add lower and upper confidence interval endpoints based on the formula (<a href="confidence-intervals.html#eq-simultaneous-coordinatewise-se"><span>10.9</span></a>):</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-16_b33d627b2178b7461d44becf6850649d">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses_data)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">coef</span>(lm_fit))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>f_quantile <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n <span class="sc">-</span> p)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(lm_fit)) <span class="sc">|&gt;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Variable"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Estimate, <span class="st">`</span><span class="at">Std. Error</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_lower =</span> Estimate <span class="sc">-</span> <span class="st">`</span><span class="at">Std. Error</span><span class="st">`</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_upper =</span> Estimate <span class="sc">+</span> <span class="st">`</span><span class="at">Std. Error</span><span class="st">`</span> <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Variable     Estimate  Std. Error      CI_lower    CI_upper
+1    (Intercept)  -19.2630706 18.01344052  -95.38917389  56.8630327
+2  factor(beds)3  -16.4643022 15.04669172  -80.05271036  47.1241059
+3  factor(beds)4  -12.4856067 21.12356937 -101.75533960  76.7841262
+4  factor(beds)5 -101.1458092 55.83607248 -337.11309238 134.8214739
+5 factor(baths)2    2.3987153 15.44014266  -62.85244495  67.6498756
+6 factor(baths)3   -0.7041040 26.45511871 -112.50535022 111.0971422
+7 factor(baths)4  273.2007864 83.65764044  -80.34245635 626.7440292
+8            new   66.9494004 18.50445029  -11.25174573 145.1505465
+9           size    0.1088241  0.01233621    0.05669037   0.1609578</code></pre>
+</div>
+</div>
+<p>Note that the simultaneous intervals are substantially larger.</p>
+<p>To construct pointwise confidence intervals for the fit, we can use the <code>predict()</code> function:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-17_0de82b3cb9842e57e16cd833503a866b">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">interval =</span> <span class="st">"confidence"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        fit       lwr      upr
+1 193.52176 165.22213 221.8214
+2  79.98449  51.91430 108.0547
+3 150.64507 122.28397 179.0062
+4 191.71955 172.27396 211.1651
+5 124.30169  81.34488 167.2585
+6 376.74308 333.44559 420.0406</code></pre>
+</div>
+</div>
+<p>To get pointwise prediction intervals, we switch <code>"confidence"</code> to <code>"prediction"</code>:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-18_f336a2bec4198016edc21e8ec26c7b98">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">interval =</span> <span class="st">"prediction"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        fit       lwr      upr
+1 193.52176  88.00908 299.0344
+2  79.98449 -25.46688 185.4359
+3 150.64507  45.11589 256.1743
+4 191.71955  88.22951 295.2096
+5 124.30169  13.95069 234.6527
+6 376.74308 266.25901 487.2271</code></pre>
+</div>
+</div>
+<p>To construct simultaneous confidence intervals for the fit or predictions, we again need a slightly more manual approach. We call <code>predict()</code> again, but this time asking it for the standard errors rather than the confidence intervals:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-19_9660ab4e635fcc01c9fd5a5184a2697b">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_fit, <span class="at">newdata =</span> houses_data, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predictions<span class="sc">$</span>fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6 
+193.52176  79.98449 150.64507 191.71955 124.30169 376.74308 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predictions<span class="sc">$</span>se.fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        1         2         3         4         5         6 
+14.246855 14.131352 14.277804  9.789472 21.625709 21.797212 </code></pre>
+</div>
+</div>
+<p>Now we can construct the simultaneous confidence intervals via the formula (<a href="confidence-intervals.html#eq-simultaneous-fit-se"><span>10.8</span></a>):</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-20_7e7dcfeddfe3844dd2d0bdf1a90dbb79">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>f_quantile <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n <span class="sc">-</span> p)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> predictions<span class="sc">$</span>fit <span class="sc">-</span> predictions<span class="sc">$</span>se.fit <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> predictions<span class="sc">$</span>fit <span class="sc">+</span> predictions<span class="sc">$</span>se.fit <span class="sc">*</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 2
+   lower upper
+   &lt;dbl&gt; &lt;dbl&gt;
+ 1 133.   254.
+ 2  20.3  140.
+ 3  90.3  211.
+ 4 150.   233.
+ 5  32.9  216.
+ 6 285.   469.
+ 7  82.8  145.
+ 8 188.   331.
+ 9 371.   803.
+10  57.3  128.
+# ℹ 90 more rows</code></pre>
+</div>
+</div>
+<p>In the case of simple linear regression, we can plot these pointwise and simultaneous confidence intervals as bands:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-21_3209d585bbdd62681da2ed92f4e140b9">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to produce confidence intervals for fits in general, use the predict() function</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(houses_data)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> size, <span class="at">data =</span> houses_data)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_fit, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>t_quantile <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> p)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>f_quantile <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> p, <span class="at">df2 =</span> n <span class="sc">-</span> p)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fit =</span> predictions<span class="sc">$</span>fit,</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> predictions<span class="sc">$</span>se.fit,</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">ptwise_width =</span> t_quantile <span class="sc">*</span> se,</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">simultaneous_width =</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> f_quantile) <span class="sc">*</span> se</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> size)) <span class="sc">+</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit <span class="sc">+</span> ptwise_width, <span class="at">color =</span> <span class="st">"Pointwise"</span>)) <span class="sc">+</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit <span class="sc">-</span> ptwise_width, <span class="at">color =</span> <span class="st">"Pointwise"</span>)) <span class="sc">+</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit <span class="sc">+</span> simultaneous_width, <span class="at">color =</span> <span class="st">"Simultaneous"</span>)) <span class="sc">+</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> fit <span class="sc">-</span> simultaneous_width, <span class="at">color =</span> <span class="st">"Simultaneous"</span>)) <span class="sc">+</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="288"></p>
+</div>
+</div>
+</section>
+<section id="predictor-competition-and-collaboration" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="predictor-competition-and-collaboration"><span class="header-section-number">12.4</span> Predictor competition and collaboration</h2>
+<p>Let’s look at the power of detecting the association between <code>price</code> and <code>beds</code>. We can imagine that <code>beds</code> and <code>baths</code> are correlated:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-22_be1c1c21a05d4b6421c01e0ed03840c9">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>houses_data <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> beds, <span class="at">y =</span> baths)) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="r-demo-part-2_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="336"></p>
+</div>
+</div>
+<p>So let’s see how significant <code>beds</code> is, with and without <code>baths</code> in the model:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-23_cbb0bdedec6d84a999bdfde4eead3bd6">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_beds <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit_only_beds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ factor(beds), data = houses_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-234.35  -50.63  -15.69   24.56  365.86 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)     105.94      21.48   4.931 3.43e-06 ***
+factor(beds)3    44.69      24.47   1.827 0.070849 .  
+factor(beds)4   105.70      32.35   3.268 0.001504 ** 
+factor(beds)5   246.71      69.62   3.544 0.000611 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 93.65 on 96 degrees of freedom
+Multiple R-squared:  0.1706,    Adjusted R-squared:  0.1447 
+F-statistic: 6.583 on 3 and 96 DF,  p-value: 0.0004294</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-24_8f75ae2ccaf85a9b6d574648f182a161">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>lm_fit_beds_baths <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> <span class="fu">factor</span>(beds) <span class="sc">+</span> <span class="fu">factor</span>(baths), <span class="at">data =</span> houses_data)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_only_baths, lm_fit_beds_baths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ factor(baths)
+Model 2: price ~ factor(beds) + factor(baths)
+  Res.Df    RSS Df Sum of Sq     F  Pr(&gt;F)  
+1     96 621130                             
+2     93 572436  3     48693 2.637 0.05424 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>We see that the significance of <code>beds</code> dropped by two orders of magnitude. This is an example of predictor competition.</p>
+<p>On the other hand, note that the variable <code>new</code> is not very correlated with <code>beds</code>:</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-25_f60cacc70e5d1e6bfa6503ddb5de5b8b">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(new <span class="sc">~</span> beds, <span class="at">data =</span> houses_data)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = new ~ beds, data = houses_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.15762 -0.11000 -0.11000 -0.08619  0.91381 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  0.03857    0.14950   0.258    0.797
+beds         0.02381    0.04871   0.489    0.626
+
+Residual standard error: 0.3157 on 98 degrees of freedom
+Multiple R-squared:  0.002432,  Adjusted R-squared:  -0.007747 
+F-statistic: 0.2389 on 1 and 98 DF,  p-value: 0.6261</code></pre>
+</div>
+</div>
+<p>but we know it has a substantial impact on <code>price</code>. Let’s look at the significance of the test that <code>beds</code> is not important when we add <code>new</code> to the model.</p>
+<div class="cell" data-hash="r-demo-part-2_cache/html/unnamed-chunk-26_64edd27c4c65649066d8dd577a7a79bb">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>lm_fit_only_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new, <span class="at">data =</span> houses_data)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>lm_fit_beds_new <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> new <span class="sc">+</span> <span class="fu">factor</span>(beds), <span class="at">data =</span> houses_data)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_fit_only_new, lm_fit_beds_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: price ~ new
+Model 2: price ~ new + factor(beds)
+  Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+1     98 787781                                  
+2     95 619845  3    167936 8.5795 4.251e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Adding <code>new</code> to the model made the <span class="math inline">\(p\)</span>-value more significant by a factor of 10. This is an example of predictor collaboration.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./practical-considerations.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./linear-models-misspecification.html" class="pagination-link">
+        <span class="nav-page-text">Linear models: Misspecification</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

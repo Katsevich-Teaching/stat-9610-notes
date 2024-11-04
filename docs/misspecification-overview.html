@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>STAT 9610 Lecture Notes - 13&nbsp; Overview</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./asymptotic-methods.html" rel="next">
+<link href="./linear-models-misspecification.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear-models-misspecification.html">Linear models: Misspecification</a></li><li class="breadcrumb-item"><a href="./misspecification-overview.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">STAT 9610 Lecture Notes</a> 
+        <div class="sidebar-tools-main">
+    <a href="./STAT-9610-Lecture-Notes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Estimation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interpreting-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Interpreting linear models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./least-squares-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Least squares estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Analysis of variance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collinearity and adjustment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Inference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./building-blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Building blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./practical-considerations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Practical considerations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./linear-models-misspecification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear models: Misspecification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misspecification-overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./asymptotic-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./bootstrap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">The bootstrap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./permutation-test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">The permutation test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./robust-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Robust estimation and inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-general-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: General theory</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exponential-dispersion-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Exponential dispersion model (EDM) distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./generalized-linear-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">GLM definition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parameter-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Parameter estimation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glm-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Inference in GLMs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./glm-special-cases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generalized linear models: Special cases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logistic-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Logistic regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Poisson regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./negative-binomial-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Negative binomial regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-demo-part-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">R demo</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./multiple-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./global-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Global testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./multiple-testing-chapter.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-non-normality" id="toc-sec-non-normality" class="nav-link active" data-scroll-target="#sec-non-normality"><span class="header-section-number">13.1</span> Non-normality</a>
+  <ul class="collapse">
+  <li><a href="#origin" id="toc-origin" class="nav-link" data-scroll-target="#origin"><span class="header-section-number">13.1.1</span> Origin</a></li>
+  <li><a href="#consequences" id="toc-consequences" class="nav-link" data-scroll-target="#consequences"><span class="header-section-number">13.1.2</span> Consequences</a></li>
+  <li><a href="#detection" id="toc-detection" class="nav-link" data-scroll-target="#detection"><span class="header-section-number">13.1.3</span> Detection</a></li>
+  <li><a href="#fixes" id="toc-fixes" class="nav-link" data-scroll-target="#fixes"><span class="header-section-number">13.1.4</span> Fixes</a></li>
+  </ul></li>
+  <li><a href="#sec-heteroskedasticity" id="toc-sec-heteroskedasticity" class="nav-link" data-scroll-target="#sec-heteroskedasticity"><span class="header-section-number">13.2</span> Heteroskedastic and correlated errors</a>
+  <ul class="collapse">
+  <li><a href="#origin-1" id="toc-origin-1" class="nav-link" data-scroll-target="#origin-1"><span class="header-section-number">13.2.1</span> Origin</a></li>
+  <li><a href="#consequences-1" id="toc-consequences-1" class="nav-link" data-scroll-target="#consequences-1"><span class="header-section-number">13.2.2</span> Consequences</a></li>
+  <li><a href="#detection-1" id="toc-detection-1" class="nav-link" data-scroll-target="#detection-1"><span class="header-section-number">13.2.3</span> Detection</a></li>
+  </ul></li>
+  <li><a href="#sec-model-bias" id="toc-sec-model-bias" class="nav-link" data-scroll-target="#sec-model-bias"><span class="header-section-number">13.3</span> Model bias</a>
+  <ul class="collapse">
+  <li><a href="#origin-2" id="toc-origin-2" class="nav-link" data-scroll-target="#origin-2"><span class="header-section-number">13.3.1</span> Origin</a></li>
+  <li><a href="#consequences-2" id="toc-consequences-2" class="nav-link" data-scroll-target="#consequences-2"><span class="header-section-number">13.3.2</span> Consequences</a></li>
+  <li><a href="#detection-2" id="toc-detection-2" class="nav-link" data-scroll-target="#detection-2"><span class="header-section-number">13.3.3</span> Detection</a></li>
+  <li><a href="#overview-of-fixes" id="toc-overview-of-fixes" class="nav-link" data-scroll-target="#overview-of-fixes"><span class="header-section-number">13.3.4</span> Overview of fixes</a></li>
+  </ul></li>
+  <li><a href="#sec-outliers" id="toc-sec-outliers" class="nav-link" data-scroll-target="#sec-outliers"><span class="header-section-number">13.4</span> Outliers</a>
+  <ul class="collapse">
+  <li><a href="#origin-3" id="toc-origin-3" class="nav-link" data-scroll-target="#origin-3"><span class="header-section-number">13.4.1</span> Origin</a></li>
+  <li><a href="#consequences-3" id="toc-consequences-3" class="nav-link" data-scroll-target="#consequences-3"><span class="header-section-number">13.4.2</span> Consequences</a></li>
+  <li><a href="#detection-3" id="toc-detection-3" class="nav-link" data-scroll-target="#detection-3"><span class="header-section-number">13.4.3</span> Detection</a></li>
+  <li><a href="#overview-of-fixes-1" id="toc-overview-of-fixes-1" class="nav-link" data-scroll-target="#overview-of-fixes-1"><span class="header-section-number">13.4.4</span> Overview of fixes</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Overview</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="sec-non-normality" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="sec-non-normality"><span class="header-section-number">13.1</span> Non-normality</h2>
+<section id="origin" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="origin"><span class="header-section-number">13.1.1</span> Origin</h3>
+<p>Non-normality occurs when the distribution of <span class="math inline">\(y|\boldsymbol{x}\)</span> is either skewed or has heavier tails than the normal distribution. This may happen, for example, if there is some discreteness in <span class="math inline">\(y\)</span>.</p>
+</section>
+<section id="consequences" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="consequences"><span class="header-section-number">13.1.2</span> Consequences</h3>
+<p>Non-normality is the most benign of linear model misspecifications. While we derived linear model inferences under the normality assumption, all the corresponding statements hold asymptotically without this assumption. Recall Homework 2 Question 1, or take for example the simpler problem of estimating the mean <span class="math inline">\(\mu\)</span> of a distribution based on <span class="math inline">\(n\)</span> samples from it: We can test <span class="math inline">\(H_0: \mu = 0\)</span> and build a confidence interval for <span class="math inline">\(\mu\)</span> even if the underlying distribution is not normal. So if <span class="math inline">\(n\)</span> is relatively large and <span class="math inline">\(p\)</span> is relatively small, you need not worry too much. If <span class="math inline">\(n\)</span> is small and the errors are highly skewed or heavy-tailed, we may have issues with incorrect standard errors.</p>
+</section>
+<section id="detection" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="detection"><span class="header-section-number">13.1.3</span> Detection</h3>
+<p>Non-normality is a property of the error terms <span class="math inline">\(\epsilon_i\)</span>. We do not observe these directly, but we can approximate them using the residuals:</p>
+<p><span class="math display">\[
+\widehat{\epsilon}_i = y_i - \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}.
+\]</span></p>
+<p>Recall from equation (<a href="building-blocks.html#eq-fit-and-error-dist"><span>7.2</span></a>) that <span class="math inline">\(\text{Var}[\boldsymbol{\widehat{\epsilon}}] = \sigma^2(\boldsymbol{I} - \boldsymbol{H})\)</span>. Letting <span class="math inline">\(h_i\)</span> be the <span class="math inline">\(i\)</span>th diagonal entry of <span class="math inline">\(\boldsymbol{H}\)</span>, it follows that <span class="math inline">\(\widehat{\epsilon}_i \sim (0, \sigma^2(1-h_i))\)</span>. The <em>standardized residuals</em> are defined as:</p>
+<p><span id="eq-standardized-residuals"><span class="math display">\[
+r_i = \frac{\widehat{\epsilon}_i}{\widehat{\sigma} \sqrt{1-h_i}}.
+\tag{13.1}\]</span></span></p>
+<p>Under normality, we would expect <span class="math inline">\(r_i \overset{\cdot}{\sim} N(0,1)\)</span>. We can therefore assess normality by producing a histogram or normal QQ-plot of these residuals.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="misspecification-overview_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</section>
+<section id="fixes" class="level3" data-number="13.1.4">
+<h3 data-number="13.1.4" class="anchored" data-anchor-id="fixes"><span class="header-section-number">13.1.4</span> Fixes</h3>
+<p>As mentioned above, non-normality is not necessarily a problem that needs to be fixed, except in small samples. In small samples (but not too small!), we can apply the residual bootstrap for robust standard error computation and/or robust hypothesis testing.</p>
+</section>
+</section>
+<section id="sec-heteroskedasticity" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="sec-heteroskedasticity"><span class="header-section-number">13.2</span> Heteroskedastic and correlated errors</h2>
+<section id="origin-1" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="origin-1"><span class="header-section-number">13.2.1</span> Origin</h3>
+<p><strong>Heteroskedasticity</strong> can arise as follows. Suppose each observation <span class="math inline">\(y_i\)</span> is actually the average of <span class="math inline">\(n_i\)</span> underlying observations, each with variance <span class="math inline">\(\sigma^2\)</span>. Then, the variance of <span class="math inline">\(y_i\)</span> is <span class="math inline">\(\sigma^2/n_i\)</span>, which will differ across <span class="math inline">\(i\)</span> if <span class="math inline">\(n_i\)</span> differ. It is also common to see the variance of a distribution increase as the mean increases (as in <a href="#fig-heteroskedasticity">Figure&nbsp;<span>13.1</span></a>), whereas for a linear model the variance of <span class="math inline">\(y\)</span> stays constant as the mean of <span class="math inline">\(y\)</span> varies.</p>
+<p><strong>Correlated errors</strong> can arise when observations have group, spatial, or temporal structure. Below are examples:</p>
+<ul>
+<li><strong>Group/clustered structure</strong>: We have 10 samples <span class="math inline">\((\boldsymbol{x}_{i*}, y_i)\)</span> each from 100 schools.</li>
+<li><strong>Spatial structure</strong>: We have 100 soil samples from a <span class="math inline">\(10\times10\)</span> grid on a 1km <span class="math inline">\(\times\)</span> 1km field.</li>
+<li><strong>Temporal structure</strong>: We have 366 COVID positivity rate measurements, one from each day of the year 2020.</li>
+</ul>
+<p>The issue arises because there are common sources of variation among samples that are in the same group or spatially/temporally close to one another.</p>
+</section>
+<section id="consequences-1" class="level3" data-number="13.2.2">
+<h3 data-number="13.2.2" class="anchored" data-anchor-id="consequences-1"><span class="header-section-number">13.2.2</span> Consequences</h3>
+<p>All normal linear model inference from Unit 2 hinges on the assumption that <span class="math inline">\(\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I})\)</span>. If instead of <span class="math inline">\(\sigma^2 \boldsymbol{I}\)</span> we have <span class="math inline">\(\text{Var}[\boldsymbol{\epsilon}] = \boldsymbol{\Sigma}\)</span> for some matrix <span class="math inline">\(\boldsymbol{\Sigma}\)</span>, then we may suffer two consequences: wrong inference (in terms of confidence interval coverage and hypothesis test levels) and inefficient inference (in terms of confidence interval width and hypothesis test power). One way of seeing the consequence of heteroskedasticity for confidence interval coverage is the width of prediction intervals; see <a href="#fig-heteroskedasticity">Figure&nbsp;<span>13.1</span></a> for intuition.</p>
+<div id="fig-heteroskedasticity" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/heteroskedasticity.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;13.1: Heteroskedasticity in a simple bivariate linear model (image source: <a href="http://www3.wabash.edu/econometrics/EconometricsBook/chap19.htm">source</a>).</figcaption>
+</figure>
+</div>
+<p>Like with heteroskedastic errors, correlated errors can cause invalid standard errors. In particular, positively correlated errors typically cause standard errors to be smaller than they should be, leading to inflated Type-I error rates. For intuition, consider estimating the mean of a distribution based on <span class="math inline">\(n\)</span> samples. Consider the cases when these samples are independent, compared to when they are perfectly correlated. The effective sample size in the former case is <span class="math inline">\(n\)</span> and in the latter case is 1.</p>
+</section>
+<section id="detection-1" class="level3" data-number="13.2.3">
+<h3 data-number="13.2.3" class="anchored" data-anchor-id="detection-1"><span class="header-section-number">13.2.3</span> Detection</h3>
+<p>Heteroskedasticity is usually assessed via the <em>residual plot</em> (<a href="#fig-residual-plots">Figure&nbsp;<span>13.2</span></a>). In this plot, the standardized residuals <span class="math inline">\(r_i\)</span> (<a href="#eq-standardized-residuals"><span>13.1</span></a>) are plotted against the fitted values <span class="math inline">\(\widehat{\mu}_i\)</span>. In the absence of heteroskedasticity, the spread of the points around the origin should be roughly constant as a function of <span class="math inline">\(\widehat{\mu}\)</span> (<a href="#fig-residual-plots">Figure&nbsp;<span>13.2</span></a>(a)). A common sign of heteroskedasticity is the fan shape where variance increases as a function of <span class="math inline">\(\widehat{\mu}\)</span> (<a href="#fig-residual-plots">Figure&nbsp;<span>13.2</span></a>(c)).</p>
+<div id="fig-residual-plots" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/residual-plots.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;13.2: Residuals plotted against linear-model fitted values that reflect (a) model adequacy, (b) quadratic rather than linear relationship, and (c) nonconstant variance (image source: Agresti Figure 2.8).</figcaption>
+</figure>
+</div>
+<p>Residual plots once again come in handy to detect correlated errors. Instead of plotting the standardized residuals against the fitted values, we should plot the residuals against whatever variables we think might explain variation in the response that the regression does not account for. In the presence of group structures, we can plot residuals versus group (via a boxplot); in the presence of spatial or temporal structure, we can plot residuals as a function of space or time. If the residuals show a dependency on these variables, this suggests they are correlated. This dependency can be checked via formal means as well, e.g., via an ANOVA test in the case of groups or by estimating the autocorrelation function in the case of temporal structure.</p>
+</section>
+</section>
+<section id="sec-model-bias" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="sec-model-bias"><span class="header-section-number">13.3</span> Model bias</h2>
+<section id="origin-2" class="level3" data-number="13.3.1">
+<h3 data-number="13.3.1" class="anchored" data-anchor-id="origin-2"><span class="header-section-number">13.3.1</span> Origin</h3>
+<p>Model bias arises when predictors are left out of the regression model:</p>
+<p><span id="eq-confounding"><span class="math display">\[
+\text{assumed model: } \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}; \quad \text{actual model: } \boldsymbol{y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{Z} \boldsymbol{\gamma} + \boldsymbol{\epsilon}.
+\tag{13.2}\]</span></span></p>
+<p>We may not always know about or measure all the variables that impact a response <span class="math inline">\(\boldsymbol{y}\)</span>.</p>
+<p>Model bias can also arise when the predictors do not impact the response on the linear scale. For example:</p>
+<p><span id="eq-wrong-scale"><span class="math display">\[
+\text{assumed model: } \mathbb{E}[\boldsymbol{y}] = \boldsymbol{X} \boldsymbol{\beta}; \quad \text{actual model: } g(\mathbb{E}[\boldsymbol{y}]) = \boldsymbol{X} \boldsymbol{\beta}.
+\tag{13.3}\]</span></span></p>
+</section>
+<section id="consequences-2" class="level3" data-number="13.3.2">
+<h3 data-number="13.3.2" class="anchored" data-anchor-id="consequences-2"><span class="header-section-number">13.3.2</span> Consequences</h3>
+<p>In cases of model bias, the parameters <span class="math inline">\(\boldsymbol{\beta}\)</span> in the assumed linear model lose their meanings. The least squares estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> will be a biased estimate for the parameter we probably actually want to estimate. In the case (<a href="#eq-confounding"><span>13.2</span></a>) when predictors are left out of the regression model, these additional predictors <span class="math inline">\(\boldsymbol{Z}\)</span> will act as confounders and create bias in <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> as an estimate of the <span class="math inline">\(\boldsymbol{\beta}\)</span> parameters in the true model, unless <span class="math inline">\(\boldsymbol{X}^T \boldsymbol{Z} = 0\)</span>. As discussed in Unit 2, this can lead to misleading conclusions.</p>
+</section>
+<section id="detection-2" class="level3" data-number="13.3.3">
+<h3 data-number="13.3.3" class="anchored" data-anchor-id="detection-2"><span class="header-section-number">13.3.3</span> Detection</h3>
+<p>Similarly to the detection of correlated errors, we can try to identify model bias by plotting the standardized residuals against predictors that may have been left out of the model. A good place to start is to plot standardized residuals against the predictors <span class="math inline">\(\boldsymbol{X}\)</span> (one at a time) that are in the model, since nonlinear transformations of these might have been left out. In this case, you would see something like <a href="#fig-residual-plots">Figure&nbsp;<span>13.2</span></a>(b).</p>
+<p>It is possible to formally test for model bias in cases when we have repeated observations of the response for each value of the predictor vector. In particular, suppose that <span class="math inline">\(\boldsymbol{x}_{i*} = \boldsymbol{x}_c\)</span> for <span class="math inline">\(c = c(i)\)</span> and predictor vectors <span class="math inline">\(\boldsymbol{x}_1, \dots, \boldsymbol{x}_C \in \mathbb{R}^p\)</span>. Then, consider testing the following hypothesis:</p>
+<p><span class="math display">\[
+H_0: y_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + \epsilon_i \quad \text{versus} \quad H_1: y_i = \beta_{c(i)} + \epsilon_i.
+\]</span></p>
+<p>The model under <span class="math inline">\(H_0\)</span> (the linear model) is nested in the model for <span class="math inline">\(H_1\)</span> (the saturated model), and we can test this hypothesis using an <span class="math inline">\(F\)</span>-test called the <em>lack of fit <span class="math inline">\(F\)</span>-test</em>.</p>
+</section>
+<section id="overview-of-fixes" class="level3" data-number="13.3.4">
+<h3 data-number="13.3.4" class="anchored" data-anchor-id="overview-of-fixes"><span class="header-section-number">13.3.4</span> Overview of fixes</h3>
+<p>To fix model bias in the case (<a href="#eq-confounding"><span>13.2</span></a>), ideally we would identify the missing predictors <span class="math inline">\(\boldsymbol{Z}\)</span> and add them to the regression model. This may not always be feasible or possible. To fix model bias in the case (<a href="#eq-wrong-scale"><span>13.3</span></a>), it is sometimes advocated to find a transformation <span class="math inline">\(g\)</span> (e.g., a square root or a logarithm) of <span class="math inline">\(\boldsymbol{y}\)</span> such that <span class="math inline">\(\mathbb{E}[g(\boldsymbol{y})] = \boldsymbol{X} \boldsymbol{\beta}\)</span>. However, a better solution is to use a <em>generalized linear model</em>, which we will discuss starting in Unit 4.</p>
+</section>
+</section>
+<section id="sec-outliers" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="sec-outliers"><span class="header-section-number">13.4</span> Outliers</h2>
+<section id="origin-3" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="origin-3"><span class="header-section-number">13.4.1</span> Origin</h3>
+<p>Outliers often arise due to measurement or data entry errors. An observation can be an outlier in <span class="math inline">\(\boldsymbol{x}\)</span>, in <span class="math inline">\(y\)</span>, or both.</p>
+</section>
+<section id="consequences-3" class="level3" data-number="13.4.2">
+<h3 data-number="13.4.2" class="anchored" data-anchor-id="consequences-3"><span class="header-section-number">13.4.2</span> Consequences</h3>
+<p>An outlier can have the effect of biasing the estimate <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span>. This occurs when an observation has outlying <span class="math inline">\(\boldsymbol{x}\)</span> as well as outlying <span class="math inline">\(y\)</span>.</p>
+</section>
+<section id="detection-3" class="level3" data-number="13.4.3">
+<h3 data-number="13.4.3" class="anchored" data-anchor-id="detection-3"><span class="header-section-number">13.4.3</span> Detection</h3>
+<p>There are a few measures associated with an observation that can be used to detect outliers, though none are perfect. The first quantity is called the <em>leverage</em>, defined as:</p>
+<p><span class="math display">\[
+\text{leverage of observation } i \equiv \text{corr}^2(y_i, \widehat{\mu}_i).
+\]</span></p>
+<p>This quantity measures the extent to which the fitted value <span class="math inline">\(\widehat{\mu}_i\)</span> is sensitive to the (noise in the) observation <span class="math inline">\(y_i\)</span>. It can be derived that:</p>
+<p><span class="math display">\[
+\text{leverage of observation } i = h_i,
+\]</span></p>
+<p>which is the <span class="math inline">\(i\)</span>th diagonal element of the hat matrix <span class="math inline">\(\boldsymbol{H}\)</span>. This is related to the fact that <span class="math inline">\(\text{Var}[\widehat{\epsilon}_i] = \sigma^2(1-h_i)\)</span>. The larger the leverage, the smaller the variance of the residual, so the closer the line passes to the <span class="math inline">\(i\)</span>th observation. The leverage of an observation is larger to the extent that <span class="math inline">\(\boldsymbol{x}_{i*}\)</span> is far from <span class="math inline">\(\boldsymbol{\bar{x}}\)</span>. For example, in the bivariate linear model <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span>,</p>
+<p><span class="math display">\[
+h_i = \frac{1}{n} + \frac{(x_i - \bar{x})^2}{\sum_{i' = 1}^n (x_{i'} - \bar{x})^2}.
+\]</span></p>
+<p>Note that the average of the leverages is:</p>
+<p><span class="math display">\[
+\frac{1}{n}\sum_{i = 1}^n h_i = \frac{1}{n}\text{trace}(\boldsymbol{H}) = \frac{p}{n}.
+\]</span></p>
+<p>An observation’s leverage is considered large if it is significantly larger than this, e.g., three times larger.</p>
+<p>Note that the leverage is not a function of <span class="math inline">\(y_i\)</span>, so a high-leverage point might or might not be an outlier in <span class="math inline">\(y_i\)</span> and therefore might or might not have a strong impact on the regression. To assess more directly whether an observation is <em>influential</em>, we can compare the least squares fits with and without that observation. To this end, we define the <em>Cook’s distance</em>:</p>
+<p><span class="math display">\[
+D_i = \frac{\sum_{i' = 1}^n (\widehat{\mu}_{i'} - \widehat{\mu}^{\text{-}i}_{i'})^2}{p\widehat{\sigma}^2},
+\]</span></p>
+<p>where <span class="math inline">\(\widehat{\mu}^{\text{-}i}_{i'} = \boldsymbol{x}_{i*}^T \boldsymbol{\widehat{\beta}}^{\text{-}i}\)</span> and <span class="math inline">\(\boldsymbol{\widehat{\beta}}^{\text{-}i}\)</span> is the least squares estimate based on <span class="math inline">\((\boldsymbol{X}_{\text{-}i,*}, \boldsymbol{y}_{\text{-}i})\)</span>. An observation is considered influential if it has Cook’s distance greater than one.</p>
+<p>There is a connection between Cook’s distance and leverage:</p>
+<p><span class="math display">\[
+D_i = \left(\frac{y_i - \widehat{\mu}_i}{\widehat{\sigma} \sqrt{1-h_{ii}}}\right)^2 \cdot \frac{h_{ii}}{p(1-h_{ii})}.
+\]</span></p>
+<p>We recognize the first term as the standardized residual; therefore a point is influential if its residual and leverage are large.</p>
+<p>Note that Cook’s distance may not successfully identify outliers. For example, if there are groups of outliers, then they will <em>mask</em> each other in the calculation of Cook’s distance.</p>
+</section>
+<section id="overview-of-fixes-1" class="level3" data-number="13.4.4">
+<h3 data-number="13.4.4" class="anchored" data-anchor-id="overview-of-fixes-1"><span class="header-section-number">13.4.4</span> Overview of fixes</h3>
+<p>If outliers can be detected, then the fix is to remove them from the regression. But, we need to be careful. Definitively determining whether observations are outliers can be tricky. Outlier detection can even be used as a way to commit fraud with data, as now-defunct blood testing start-up <a href="https://arstechnica.com/tech-policy/2021/09/cherry-picking-data-was-routine-practice-at-theranos-former-lab-worker-says/">Theranos</a> is alleged to have done. As an alternative to removing outliers, we can fit estimators <span class="math inline">\(\boldsymbol{\widehat{\beta}}\)</span> that are less sensitive to outliers; see <a href="robust-estimation.html"><span>Chapter&nbsp;17</span></a>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./linear-models-misspecification.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Linear models: Misspecification</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./asymptotic-methods.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Asymptotic methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -418,13 +418,13 @@ y_i \overset{\text{ind}} \sim \text{Poi}(\pi_i t_i), \quad \log \pi_i = \boldsym
 <p><span class="math display">\[
 y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
 \]</span></p>
-<p>which is exactly equation (<a href="#eq-poisson-with-offsets"><span>25.1</span></a>) with offsets <span class="math inline">\(o_i = \log t_i\)</span>. For example, in single-cell RNA-sequencing, <span class="math inline">\(y_i\)</span> is the number of reads aligning to a gene in cell <span class="math inline">\(i\)</span> and <span class="math inline">\(t_i\)</span> is the total number of reads measured in the cell, a quantity called the <em>sequencing depth</em>. We might use a Poisson regression model to carry out a <em>differential expression analysis</em> between two cell types.</p>
+<p>which is exactly equation (<a href="#eq-poisson-with-offsets"><span>25.1</span></a>) with offsets <span class="math inline">\(o_i = \log t_i\)</span>. For example, in single-cell RNA-sequencing, <span class="math inline">\(y_i\)</span> is the number of RNA molecules aligning to a gene in cell <span class="math inline">\(i\)</span> and <span class="math inline">\(t_i\)</span> is the total number of RNA molecules measured in the cell, a quantity called the <em>library size</em>. We might use a Poisson regression model to carry out a <em>differential expression analysis</em> between two cell types.</p>
 </section>
 <section id="sec-estimation-inference" class="level2" data-number="25.3">
 <h2 data-number="25.3" class="anchored" data-anchor-id="sec-estimation-inference"><span class="header-section-number">25.3</span> Estimation and inference</h2>
 <section id="sec-wald-inference" class="level3" data-number="25.3.1">
 <h3 data-number="25.3.1" class="anchored" data-anchor-id="sec-wald-inference"><span class="header-section-number">25.3.1</span> Score, Fisher information, and Wald inference</h3>
-<p>We found in Chapter <span class="citation" data-cites="ch-glm-theory">@ch-glm-theory</span> that the score and Fisher information for Poisson regression are:</p>
+<p>We found in Chapter 4 that the score and Fisher information for Poisson regression are:</p>
 <p><span class="math display">\[
 \boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),
 \]</span></p>

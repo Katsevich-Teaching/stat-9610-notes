@@ -24,13 +24,13 @@ $$
 y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \boldsymbol{x}^T_{i*}\boldsymbol{\beta},
 $$
 
-which is exactly equation ([-@eq-poisson-with-offsets]) with offsets $o_i = \log t_i$. For example, in single-cell RNA-sequencing, $y_i$ is the number of reads aligning to a gene in cell $i$ and $t_i$ is the total number of reads measured in the cell, a quantity called the *sequencing depth*. We might use a Poisson regression model to carry out a *differential expression analysis* between two cell types.
+which is exactly equation ([-@eq-poisson-with-offsets]) with offsets $o_i = \log t_i$. For example, in single-cell RNA-sequencing, $y_i$ is the number of RNA molecules aligning to a gene in cell $i$ and $t_i$ is the total number of RNA molecules measured in the cell, a quantity called the *library size*. We might use a Poisson regression model to carry out a *differential expression analysis* between two cell types.
 
 ## Estimation and inference {#sec-estimation-inference}
 
 ### Score, Fisher information, and Wald inference {#sec-wald-inference}
 
-We found in Chapter @ch-glm-theory that the score and Fisher information for Poisson regression are:
+We found in Chapter 4 that the score and Fisher information for Poisson regression are:
 
 $$
 \boldsymbol{U}(\boldsymbol{ \beta}) = \boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\mu}),

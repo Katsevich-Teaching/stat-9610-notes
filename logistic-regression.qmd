@@ -292,8 +292,8 @@ Therefore, the deviance-based test of $H_0: \beta_1 = 0$ rejects when:
 $$
 \begin{split}
 D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) \\
-&= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \\
-&\quad \quad \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
+&= 2\left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \\
+&\quad \quad 2\left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
 &> \chi^2_{1}(1-\alpha).
 \end{split}
 $$

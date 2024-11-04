@@ -140,19 +140,19 @@ $$
 recalling equation ([-@eq-glm-variance-y]). Thus, up to the first two moments, near $\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}$ the distribution of $\boldsymbol{y}$ is approximately:
 
 $$
-\begin{align}
+\begin{aligned}
 \boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \\
 \boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \phi_0 \boldsymbol{\widehat W}^{(t)}),
-\end{align}
+\end{aligned}
 $$
 
 or, equivalently:
 
 $$
-\begin{align}
+\begin{aligned}
 \boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \\
 \boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
-\end{align}
+\end{aligned}
 $$ {#eq-second-order-approximation}
 
 The regression of the *adjusted response variable* $\boldsymbol{z}^{(t)}$ on $\boldsymbol{X}$ leaves us with a weighted linear regression (hence the name *working weights* for $W_i$), whose maximum likelihood estimate is:

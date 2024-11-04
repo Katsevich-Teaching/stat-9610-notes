@@ -16,7 +16,7 @@ y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \qu
 $$ {#eq-saturated-model}
 Let
 $$
-\mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: \mu_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
+\mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: g(\mu_i) = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
 $$
 be the set of mean vectors consistent with the GLM. Then, the goodness of fit testing problem is $H_0: \boldsymbol{\mu} \in \mathcal{M}^{\text{GLM}}$ versus $H_1: \boldsymbol{\mu} \notin \mathcal{M}^{\text{GLM}}$.
 

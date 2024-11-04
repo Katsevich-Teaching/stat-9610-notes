@@ -188,15 +188,15 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -244,7 +244,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, boxrule=0pt, breakable, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, interior hidden, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1369,11 +1369,9 @@ that would have occurred had the individual received the treatment and
 the control, respectively. These are called \emph{potential outcomes}.
 Let \(t_i \in \{0,1\}\) indicate whether the \(i\)th individual actually
 received treatment or control. Therefore, the observed outcome
-is\footnote{This requires the \emph{stable unit treatment value
-  assumption} (SUTVA), which prevents issues like \emph{interference},
-  where the treatment of individual \(i\) can be affected by the
-  assigned treatments of other individuals.}
-\begin{equation}\protect\hypertarget{eq-sutva}{}{
+is\footnote{The Fisher information is the expectation of the Hessian,
+  but for canonical links, the Hessian is non-random, so the two
+  coincide.} \begin{equation}\protect\hypertarget{eq-sutva}{}{
 y_i^{\text{obs}} = y_i(t_i). 
 }\label{eq-sutva}\end{equation} Based on the data
 \(\{(t_i, y_i^{\text{obs}})\}_{i = 1, \dots, n}\), the most basic goal
@@ -1437,7 +1435,7 @@ of the adjusted exposure on the adjusted outcome via a univariate linear
 model. This is the essence of \emph{covariate adjustment} in causal
 inference.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, left=2mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, leftrule=.75mm, opacitybacktitle=0.6, rightrule=.15mm, breakable, bottomtitle=1mm, arc=.35mm, titlerule=0mm, bottomrule=.15mm, toptitle=1mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, rightrule=.15mm, coltitle=black, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, opacityback=0, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, left=2mm, arc=.35mm, toptitle=1mm, toprule=.15mm, leftrule=.75mm]
 
 Causal inference is a vast field, which lies mostly beyond the scope of
 STAT 9610; see STAT 9210 instead.
@@ -4355,7 +4353,7 @@ a vector of parameters, and then proceed by estimating
   \(\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}\).
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, left=2mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, colback=white, leftrule=.75mm, opacitybacktitle=0.6, rightrule=.15mm, breakable, bottomtitle=1mm, arc=.35mm, titlerule=0mm, bottomrule=.15mm, toptitle=1mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, rightrule=.15mm, coltitle=black, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, titlerule=0mm, opacityback=0, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, left=2mm, arc=.35mm, toptitle=1mm, toprule=.15mm, leftrule=.75mm]
 
 Random effects models deal address correlated errors but not with model
 bias. The difference is that, in the case of correlated errors, the
@@ -4694,7 +4692,7 @@ to approximate the sampling distribution of any statistic by simulating
 from this approximate data-generating distribution. In more detail, the
 bootstrap paradigm is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, rightrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, arc=.35mm, bottomrule=.15mm, left=2mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacityback=0, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, left=2mm, arc=.35mm, colback=white, toprule=.15mm, breakable, leftrule=.75mm]
 
 \textbf{Bootstrap paradigm to build confidence intervals for
 \(\beta_j\)}\vspace{2mm}
@@ -4784,7 +4782,7 @@ g(\boldsymbol{\widehat \beta}, \boldsymbol{\beta}) = \widehat \beta_j- \beta_j,
 \text{CI}^{\text{boot}}(\beta_j) \equiv \left[\widehat \beta_j - \mathbb Q_{1-\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j], \widehat \beta_j - \mathbb Q_{\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j]\right].
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, left=2mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, colback=white, leftrule=.75mm, opacitybacktitle=0.6, rightrule=.15mm, breakable, bottomtitle=1mm, arc=.35mm, titlerule=0mm, bottomrule=.15mm, toptitle=1mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, rightrule=.15mm, coltitle=black, bottomrule=.15mm, colbacktitle=quarto-callout-important-color!10!white, colback=white, breakable, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, titlerule=0mm, opacityback=0, bottomtitle=1mm, colframe=quarto-callout-important-color-frame, left=2mm, arc=.35mm, toptitle=1mm, toprule=.15mm, leftrule=.75mm]
 
 A commonly used alternative to the empirical bootstrap is the
 \emph{percentile bootstrap}, defined by
@@ -5038,7 +5036,7 @@ paradigm can be adapted to perform hypothesis tests directly.
 \subsection{Bootstrap testing
 paradigm}\label{sec-bootstrap-testing-paradigm}}
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, rightrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, arc=.35mm, bottomrule=.15mm, left=2mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacityback=0, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, left=2mm, arc=.35mm, colback=white, toprule=.15mm, breakable, leftrule=.75mm]
 
 \textbf{Bootstrap paradigm to test
 \(H_0: \boldsymbol \beta_S = 0\)}\vspace{2mm}
@@ -5162,7 +5160,7 @@ this may be the usual \(F\)-statistic for testing the hypothesis
 (\ref{eq-linear-model-with-intercept}). Then, the permutation test based
 on the entire permutation group is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, rightrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, arc=.35mm, bottomrule=.15mm, left=2mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacityback=0, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, left=2mm, arc=.35mm, colback=white, toprule=.15mm, breakable, leftrule=.75mm]
 
 \textbf{Permutation test based on the entire permutation
 group}\vspace{2mm}
@@ -5232,7 +5230,7 @@ computationally infeasible for large \(n\). Instead, we can use a random
 sample of the permutation group to approximate the null distribution of
 the test statistic.
 
-\begin{tcolorbox}[enhanced jigsaw, colback=white, leftrule=.75mm, rightrule=.15mm, breakable, colframe=quarto-callout-note-color-frame, arc=.35mm, bottomrule=.15mm, left=2mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, opacityback=0, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, left=2mm, arc=.35mm, colback=white, toprule=.15mm, breakable, leftrule=.75mm]
 
 \textbf{Permutation test based on a sample of the permutation
 group}\vspace{2mm}
@@ -5317,7 +5315,7 @@ p = \frac{1}{|\mathcal S_n|}\sum_{\tau \in \mathcal S_n} \mathbb I\{T(\boldsymbo
 p = \frac{1}{B+1}\left(1 + \sum_{b=1}^B \mathbb I\{T(\boldsymbol X, \pi_b \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}\right).
 }\label{eq-p-value-permutation-test-sample}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-warning-color!10!white, colframe=quarto-callout-warning-color-frame, left=2mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, colback=white, leftrule=.75mm, opacitybacktitle=0.6, rightrule=.15mm, breakable, bottomtitle=1mm, arc=.35mm, titlerule=0mm, bottomrule=.15mm, toptitle=1mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, rightrule=.15mm, coltitle=black, bottomrule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, colback=white, breakable, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, titlerule=0mm, opacityback=0, bottomtitle=1mm, colframe=quarto-callout-warning-color-frame, left=2mm, arc=.35mm, toptitle=1mm, toprule=.15mm, leftrule=.75mm]
 
 A common mistake is to omit the ``1+'' term from the numerator and
 denominator of equation (\ref{eq-p-value-permutation-test-sample}).
@@ -5438,7 +5436,7 @@ the scale of the noise terms. \[
 to the standard deviation of the distribution of \(\epsilon_i\); it is
 derived based on the normal distribution.
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, left=2mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, leftrule=.75mm, opacitybacktitle=0.6, rightrule=.15mm, breakable, bottomtitle=1mm, arc=.35mm, titlerule=0mm, bottomrule=.15mm, toptitle=1mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, rightrule=.15mm, coltitle=black, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, colback=white, breakable, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, opacityback=0, bottomtitle=1mm, colframe=quarto-callout-note-color-frame, left=2mm, arc=.35mm, toptitle=1mm, toprule=.15mm, leftrule=.75mm]
 
 In principle, \(\widehat{\boldsymbol \beta}^{\text{LAD}}\) could be used
 not just for estimation of \(\sigma\) but also for inference for
@@ -6546,20 +6544,47 @@ f_{\theta, \phi}(y) \equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)
 Here \(\theta\) is called the \emph{natural parameter}, \(\psi\) is
 called the \emph{log-partition function},
 \(\Theta \equiv \{\theta: \psi(\theta) < \infty\}\) is called the
-natural parameter space, \(\phi > 0\) is called the \emph{dispersion
-parameter}, and \(h\) is called the \emph{base density}. The
-distribution with density \(f_{\theta, \phi}\) with respect to a measure
-\(\nu\) on \(\mathbb{R}\) is called an \emph{exponential dispersion
-model} (EDM). Sometimes, we parameterize this distribution using its
-mean and dispersion, writing
+natural parameter space,\footnote{The Fisher information is the
+  expectation of the Hessian, but for canonical links, the Hessian is
+  non-random, so the two coincide.} \(\phi > 0\) is called the
+\emph{dispersion parameter}, and \(h\) is called the \emph{base
+density}. The distribution with density \(f_{\theta, \phi}\) with
+respect to a measure \(\nu\) on \(\mathbb{R}\) is called an
+\emph{exponential dispersion model} (EDM).\footnote{If you are not
+  familiar with measure theory, you can view \(\nu\) as specifying the
+  support of a distribution (the set of values it can take). For
+  example, for binary \(y\), \(\nu\) would indicate that \(y\) is
+  supported on \(\{0,1\}\), and the ``density'' \(f_{\theta, \phi}\)
+  would be a probability mass function.} Sometimes, we parameterize this
+distribution using its mean and dispersion, writing
 
 \[
 y \sim \text{EDM}(\mu, \phi).
 \]
 
 When \(\phi = 1\), the distribution becomes a \emph{one-parameter
-natural exponential family}. The support of an EDM distribution remains
-fixed as \((\theta, \phi)\) vary.
+natural exponential family} (see Figure~\ref{fig-edms-exp-fams}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\textwidth,height=\textheight]{figures/edms-exp-fams.png}
+
+}
+
+\caption{\label{fig-edms-exp-fams}Relationship between exponential
+dispersion models and one-parameter exponential families.}
+
+\end{figure}
+
+The following proposition presents a useful property of EDMs, which
+facilitates inference by ruling out pathological cases.
+
+\begin{proposition}[]\protect\hypertarget{prp-edm-support}{}\label{prp-edm-support}
+
+The support of \(y \sim \text{EDM}(\mu, \phi)\) remains fixed as
+\((\mu, \phi)\) vary.
+
+\end{proposition}
 
 \hypertarget{examples}{%
 \section{Examples}\label{examples}}
@@ -6682,7 +6707,17 @@ Thus, the first derivative of the log partition function is the mean of
 \]
 
 Thus, the second derivative of the log-partition function multiplied by
-the dispersion parameter is the variance of \(y\).
+the dispersion parameter is the variance of \(y\). The following
+proposition summarizes these results.
+
+\begin{proposition}[EDM
+moments]\protect\hypertarget{prp-moments-edm}{}\label{prp-moments-edm}
+
+If \(y \sim \text{EDM}(\mu, \phi)\), then \[
+\mathbb E[y] = \dot \psi(\theta), \quad \text{Var}[y] = \phi \cdot \ddot \psi(\theta).
+\]
+
+\end{proposition}
 
 \hypertarget{relationships-among-the-mean-variance-and-natural-parameter}{%
 \section{Relationships among the mean, variance, and natural
@@ -6729,51 +6764,84 @@ on the mean. Therefore, heteroskedasticity is a natural feature of EDMs
 \hypertarget{the-unit-deviance}{%
 \section{The unit deviance}\label{the-unit-deviance}}
 
-It's possible to rewrite the EDM distribution in terms of \(\mu\) rather
-than in terms of \(\theta\). Take the quantity in the numerator of the
-exponential in the EDM density (\ref{eq-edm-def}) and call it
-\(t(y, \mu)\):
+A key quantity in the analysis of normal linear regression models is
+\((y, \mu) \mapsto (y - \mu)^2\), which is a notion of distance between
+the parameter \(\mu\) and the observation \(y\). The \emph{unit
+deviance} is a generalization of this quantity to EDMs. As a starting
+point, consider the log-likelihood of an EDM: \[
+\ell(y, \mu) = \frac{\theta y - \psi(\theta)}{\phi} + \log h(y, \phi) = \frac{\theta(\mu) y - \psi(\theta(\mu))}{\phi} + \log h(y, \phi),
+\] where \(\theta(\mu) = \dot \psi^{-1}(\mu)\), recalling the
+relationship (\ref{eq-psi-dot}). The quantity \(\ell(y, \mu)\) is larger
+to the extent that \(\mu\) is a better fit for \(y\). Furthermore, it is
+easy to verify that \(\mu \mapsto \ell(y, \mu)\) is maximized by
+\(\mu = y\). Motivated by this observation, we calculate that twice the
+log-likelihood ratio between \(\mu = \mu\) and \(\mu = y\) is \[
+\begin{split}
+&2(\ell(y, y) - \ell(y, \mu)) \\
+&\quad= \frac{2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\}}{\phi} \\
+&\quad\equiv \frac{d(y, \mu)}{\phi}.
+\end{split}
+\] The quantity in the numerator is the \emph{unit deviance}
+\(d(y, \mu)\), defined as the dispersion \(\phi\) times twice the
+log-likelihood ratio between \(y\) and \(\mu\). As we will see in
+Section~\ref{sec-normal-deviance}, \(d(y, \mu)\) generalizes the
+quantity \((y - \mu)^2\) for the normal distribution. The following
+proposition summarizes a few key properties of the unit deviance.
 
-\[
-t(y, \mu) \equiv \theta y - \psi(\theta).
-\]
+\begin{proposition}[Unit deviance
+properties]\protect\hypertarget{prp-unit-deviance}{}\label{prp-unit-deviance}
 
-Let's consider the shape of this function by taking the first two
-derivatives with respect to \(\theta\):
+When viewed as a function of \(\mu\), the unit deviance \(d(y, \mu)\) is
+nonnegative function that achieves a unique global minimum of zero for
+\(\mu = y\) and increases as \(\mu\) moves away from \(y\).
 
-\[
-\frac{\partial}{\partial \theta}t(y, \mu) = y - \mu
-\]
+\end{proposition}
 
-and
+\begin{proof}
 
-\[
-\frac{\partial^2}{\partial \theta^2}t(y, \mu) = -V(\mu) < 0.
-\]
+Differentiating \(d(y, \mu)\) in \(\mu\), we have \[
+\frac{\partial d(y, \mu)}{\partial \mu} = \frac{\partial d(y, \mu)}{\partial \theta} \frac{\partial \theta}{\partial \mu} = \frac{\mu - y}{V(\mu)}.
+\] Since \(V(\mu) > 0\), this establishes that \(d(y, \mu)\) decreases
+on \(\mu \in (\infty, y)\) and then increases on \((y, \infty)\),
+Therefore, \(d(y, \mu) \geq d(y, y) = 0\) for all \(\mu\).
 
-Hence, \(t(y, \mu)\) has a unique global maximum at \(\mu = y\). We can
-then define the \emph{unit deviance} \(d(y, \mu)\) as twice the distance
-between the value \(t(y, \mu)\) and the optimal value \(t(y,y)\):
+\end{proof}
 
-\[
-d(y, \mu) \equiv 2(t(y, y) - t(y, \mu)).
-\]
+\hypertarget{sec-normal-deviance}{%
+\subsection{Example: Normal distribution}\label{sec-normal-deviance}}
 
-The unit deviance is nonnegative, and minimized by \(\mu = y\). For the
-normal distribution, the unit deviance is \(d(y, \mu) = (y - \mu)^2\).
-The unit deviance can therefore be viewed as a ``distance'' between the
-mean \(\mu\) and the observation \(y\).
+For the normal distribution, we have \(\theta = \mu\) and
+\(\psi(\theta) = \frac12 \theta^2\). Therefore, \[
+\begin{split}
+d(y, \mu) &= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&= 2\{[y^2 - \tfrac12 y^2] - [\mu y - \tfrac12 \mu^2]\} \\
+&= (y - \mu)^2.
+\end{split}
+\] Figure~\ref{fig-normal-unit-deviance} displays an example of the
+normal unit deviance.
 
-\hypertarget{example}{%
-\subsection{Example}\label{example}}
+\begin{figure}
 
-For the Poisson distribution, we have \(t(y, \mu) = y\log \mu - \mu\),
-so
+{\centering \includegraphics{exponential-dispersion-models_files/figure-pdf/fig-normal-unit-deviance-1.pdf}
+
+}
+
+\caption{\label{fig-normal-unit-deviance}The normal unit deviance for
+\(y = 4\).}
+
+\end{figure}
+
+\hypertarget{example-poisson-distribution}{%
+\subsection{Example: Poisson
+distribution}\label{example-poisson-distribution}}
+
+For the Poisson distribution, we have \(\theta = \log \mu\) and
+\(\psi(\theta) = e^\theta\), so
 
 \[
 \begin{split}
-d(y, \mu) &\equiv 2(t(y, y) - t(y, \mu)) \\
-&= 2(y\log y - y - y \log \mu + \mu) \\
+d(y, \mu) &= 2\{[\theta(y) y - \psi(\theta(y))] - [\theta(\mu) y - \psi(\theta(\mu))]\} \\
+&= 2\{[y\log y - y] - [y \log \mu - \mu]\} \\
 &= 2\left(y\log \frac{y}{\mu} - (y - \mu)\right).
 \end{split}
 \]
@@ -6783,7 +6851,7 @@ of this function.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\textwidth,height=\textheight]{figures/poisson-unit-deviance.png}
+{\centering \includegraphics{exponential-dispersion-models_files/figure-pdf/fig-poisson-unit-deviance-1.pdf}
 
 }
 
@@ -6843,14 +6911,15 @@ For example, we have
 For the normal EDM, note that the normal approximation is exact. One
 consequence of the normal approximation is
 
-\[
+\begin{equation}\protect\hypertarget{eq-clt-chi-squared}{}{
 \frac{(y - \mu)^2}{\phi \cdot V(\mu)} \overset \cdot \sim \chi^2_1.
-\]
+}\label{eq-clt-chi-squared}\end{equation}
 
 This fact will be useful to us as we carry out inference for GLMs.
 
-\hypertarget{approximation-accuracy}{%
-\subsubsection{Approximation accuracy}\label{approximation-accuracy}}
+\hypertarget{sec-normal-approx-accuracy}{%
+\subsubsection{Normal approximation
+accuracy}\label{sec-normal-approx-accuracy}}
 
 We have
 
@@ -6859,7 +6928,7 @@ We have
 \]
 
 In practice, the rule of thumb for the applicability of this
-approximation is that
+approximation to get statements like (\ref{eq-clt-chi-squared}) is that
 
 \[
 \tau \equiv \frac{\phi \cdot V(\mu)}{(\mu - \text{boundary})^2} \leq \frac{1}{5}.
@@ -6905,9 +6974,7 @@ evaluated at its mean. Indeed,
 \begin{equation}\protect\hypertarget{eq-deviance-form}{}{
 \begin{split}
 f_{\mu, \phi}(y) &\equiv \exp\left(\frac{\theta y - \psi(\theta)}{\phi}\right)h(y, \phi) \\
-&= \exp\left(\frac{t(y, \mu)}{\phi}\right)h(y, \phi) \\
-&= \exp\left(\frac{-2(t(y, y) - t(y, \mu)) + 2t(y,y)}{2\phi}\right)h(y, \phi) \\
-&= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)\exp\left(\frac{t(y,y)}{\phi}\right) h(y, \phi) \\
+&= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)\exp\left(\frac{\theta(y) y - \psi(\theta(y))}{\phi}\right) h(y, \phi) \\
 &= \exp\left(-\frac{d(y, \mu)}{2\phi}\right)f_{y, \phi}(y).
 \end{split}
 }\label{eq-deviance-form}\end{equation}
@@ -6930,21 +6997,22 @@ For the normal EDM, note that the normal approximation is exact. For the
 Poisson distribution, we get
 
 \[
-\widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(y \log \frac y \mu - (y - \mu)\right).
+\widetilde f^{\text{saddle}}_{\mu, \phi}(y) = \frac{1}{\sqrt{2\pi y}}\exp\left(-y \log \frac y \mu + (y - \mu)\right).
 \]
 
 The approximation can be shown to lead to the following consequence:
 
-\[
+\begin{equation}\protect\hypertarget{eq-spa-chi-squared}{}{
 \frac{d(y, \mu)}{\phi} \overset \cdot \sim \chi^2_1.
-\]
+}\label{eq-spa-chi-squared}\end{equation}
 
 Here, we are using the unit deviance rather than the squared distance to
 measure the deviation of \(\mu\) from \(y\). This fact will be useful to
 us as we carry out inference for GLMs.
 
-\hypertarget{approximation-accuracy-1}{%
-\subsubsection{Approximation accuracy}\label{approximation-accuracy-1}}
+\hypertarget{sec-saddlepoint-approximation-accuracy}{%
+\subsubsection{Saddlepoint approximation
+accuracy}\label{sec-saddlepoint-approximation-accuracy}}
 
 We have still used a normal approximation, but this time we have used it
 to approximate \(f_{y, \phi}(y)\) instead of \(f_{\mu, \phi}(y)\). Since
@@ -6961,10 +7029,11 @@ approximation to the density that is \emph{multiplicative} rather than
 \]
 
 In practice, the rule of thumb for the applicability of this
-approximation is that \(\tau \leq 1/3\); the looser requirement on
-\(\tau\) reflects the greater accuracy of the saddlepoint approximation.
-This translates to \(m\mu \geq 3\) and \(m(1-\mu) \geq 3\) for the
-binomial and \(\mu \geq 3\) for the Poisson.
+approximation to get statements like (\ref{eq-spa-chi-squared}) is that
+\(\tau \leq 1/3\); the looser requirement on \(\tau\) reflects the
+greater accuracy of the saddlepoint approximation. This translates to
+\(m\mu \geq 3\) and \(m(1-\mu) \geq 3\) for the binomial and
+\(\mu \geq 3\) for the Poisson.
 
 \hypertarget{comparing-the-two-approximations}{%
 \subsection{Comparing the two
@@ -6981,10 +7050,10 @@ moments of the EDM are correctly specified.
 \chapter{GLM definition}\label{sec-glm-def}}
 
 In this class, the focus is on building models that tie a vector of
-predictors \((\boldsymbol{x_{i*}})\) to a response \(y_i\). For linear
+predictors \((\boldsymbol x_{i*})\) to a response \(y_i\). For linear
 regression, the mean of \(y\) was modeled as a linear combination of the
-predictors \(\boldsymbol{x_{i*}^T} \boldsymbol{\beta}\):
-\(\mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}\). More generally, we
+predictors \(\boldsymbol x_{i*}^T \boldsymbol{\beta}\):
+\(\mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}\). More generally, we
 might want to model \emph{a function} of the mean \(\eta_i = g(\mu_i)\)
 as a linear combination of the predictors; \(g\) is called the
 \emph{link function} and \(\eta_i\) the \emph{linear predictor}. Pairing
@@ -6994,13 +7063,14 @@ a link function with an EDM gives us a \emph{generalized linear model}
 \hypertarget{definition-1}{%
 \section{Definition}\label{definition-1}}
 
-We define \(\{(y_i, \boldsymbol{x_{i*}})\}_{i = 1}^n\) as following a
+We define \(\{(y_i, \boldsymbol x_{i*})\}_{i = 1}^n\) as following a
 generalized linear model based on the exponential dispersion model
 \(f_{\theta, \phi}\), monotonic and differentiable link function \(g\),
-and observation weights \(w_i\) if
+offset terms \(o_i \in \mathbb R\), and observation weights \(w_i > 0\)
+if
 
 \begin{equation}\protect\hypertarget{eq-glm-def}{}{
-y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i), \quad \eta_i \equiv g(\mu_i) = o_i + \boldsymbol x^T_{i*}\boldsymbol{\beta}.
 }\label{eq-glm-def}\end{equation}
 
 The offset terms \(o_i\) and observation weights \(w_i\) are both known
@@ -7022,8 +7092,8 @@ which, given the relationship (\ref{eq-psi-dot}), gives
 coincides with the natural parameter. As discussed in the context of
 equation (\ref{eq-dmu-dtheta}), \(\dot \psi^{-1}\) is a valid link
 function because it is monotonic and differentiable. Canonical link
-functions are very commonly used with EDMs because they lead to various
-nice properties that general EDMs do not enjoy (e.g.~concave
+functions are very commonly used with GLMs because they lead to various
+nice properties that general GLMs do not enjoy (e.g.~concave
 log-likelihood).
 
 \hypertarget{examples-1}{%
@@ -7038,7 +7108,7 @@ The linear regression model is a special case of a GLM, with
 (canonical) link function:
 
 \[
-y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, \sigma^2); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]
 
 \hypertarget{example-weighted-linear-regression-model}{%
@@ -7051,7 +7121,7 @@ observations, then we get a weighted linear regression model, with
 identity (canonical) link function:
 
 \[
-y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim N(\mu_i, {\textstyle \frac{\sigma^2}{m_i}}); \quad \eta_i = \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]
 
 \hypertarget{example-ungrouped-logistic-regression-model}{%
@@ -7063,7 +7133,7 @@ Bernoulli EDM with \(\phi_0 = 1\) (known), \(w_i = 1\), \(o_i = 0\), and
 the canonical link function:
 
 \[
-y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Ber}(\mu_i); \quad \eta_i = \theta_i = \log\frac{\mu_i}{1-\mu_i} = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]
 
 Thus the canonical link function for logistic regression is the
@@ -7079,7 +7149,7 @@ binomial EDM with \(\phi_0 = 1\) (known), \(w_i = 1/m_i\), \(o_i = 0\),
 and the canonical link function:
 
 \[
-m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol{x^T_{i*}}\boldsymbol{\beta}.
+m_i y_i \sim \text{Bin}(m_i, \mu_i); \quad \eta_i = \log \frac{\mu_i}{1-\mu_i} = o_i + \boldsymbol x^T_{i*}\boldsymbol{\beta}.
 \]
 
 Note that a binomial proportion \(y_i\) based on \(m_i\) trials and a
@@ -7099,7 +7169,7 @@ model}\label{example-poisson-regression-model}}
 (known), \(w_i = 1\), \(o_i = 0\), and the canonical link function:
 
 \[
-y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol{x_{i*}^T} \boldsymbol{\beta}.
+y_i \overset{\text{ind}}\sim \text{Poi}(\mu_i); \quad \eta_i = \theta_i = \log \mu_i = \boldsymbol x_{i*}^T \boldsymbol{\beta}.
 \]
 
 Thus the canonical link function for Poisson regression is the \emph{log
@@ -7196,7 +7266,7 @@ well.
 In the linear regression case, we interpreted the normal equations
 (\ref{eq-canonical-normal-equations}) as an orthogonality statement:
 \(\boldsymbol{y} - \widehat{\boldsymbol{\mu}} \perp C(\boldsymbol{X})\).
-In the case of GLMs, the
+In the case of GLMs, the set
 \(C(\boldsymbol{X}) \equiv \{\boldsymbol{\mu} = \mathbb{E}[\boldsymbol{y}]: \boldsymbol{\beta} \in \mathbb{R}^p\}\)
 is no longer a linear space. In fact, it is a nonlinear transformation
 of the column space of \(\boldsymbol{X}\) (a \(p\)-dimensional manifold
@@ -7216,7 +7286,12 @@ logarithm and summing over \(i = 1, \dots, n\), we find the following
 expression for the negative log likelihood:
 
 \begin{equation}\protect\hypertarget{eq-glm-likelihood-via-deviance}{}{
--\log \mathcal L(\boldsymbol{\beta}) = \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C = \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
+\begin{split}
+-\log \mathcal L(\boldsymbol{\beta}) &= \sum_{i = 1}^n \frac{d(y_i, \mu_i)}{2\phi_i} + C \\
+&= \frac{\sum_{i = 1}^n w_id(y_i, \mu_i)}{2\phi_0} + C  \\
+&\equiv \frac{D(\boldsymbol{y}, \boldsymbol{\mu})}{2\phi_0} + C \\
+&\equiv \frac12 D^*(\boldsymbol{y}, \boldsymbol{\mu}) + C.
+\end{split}
 }\label{eq-glm-likelihood-via-deviance}\end{equation}
 
 \(D(\boldsymbol{y}, \boldsymbol{\mu})\) is called the \emph{deviance} or
@@ -7227,7 +7302,7 @@ case,
 \(D(\boldsymbol{y}, \boldsymbol{\mu}) = \|\boldsymbol{y} - \boldsymbol{\mu}\|^2\).
 The quantity \(D^*(\boldsymbol{y}, \boldsymbol{\mu})\) is called the
 \emph{scaled deviance.} In the linear model case,
-\(D(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}\).
+\(D^*(\boldsymbol{y}, \boldsymbol{\mu}) = \frac{\|\boldsymbol{y} - \boldsymbol{\mu}\|^2}{\sigma^2}\).
 Therefore, maximizing the GLM log likelihood is equivalent to minimizing
 the deviance:
 
@@ -7276,14 +7351,18 @@ likelihood. We present such an iterative algorithm next.
 
 We can maximize the log-likelihood (\ref{eq-glm-log-likelihood}) via the
 Newton-Raphson algorithm, which involves the gradient and Hessian of the
-function we'd like to maximize. The gradient is the score vector
-(\ref{eq-glm-score}), while the Hessian is the Fisher information
-(\ref{eq-glm-fisher-info}). The Newton-Raphson iteration is therefore:
+function we would like to maximize. We derive the Newton-Raphson
+algorithm for canonical GLMs. In this case, the gradient is the score
+vector (\ref{eq-glm-score}), while the Hessian is the Fisher information
+(\ref{eq-glm-fisher-info}).\footnote{The Fisher information is the
+  expectation of the Hessian, but for canonical links, the Hessian is
+  non-random, so the two coincide.} The Newton-Raphson iteration is
+therefore:
 
 \begin{equation}\protect\hypertarget{eq-nr-iteration}{}{
 \begin{split}
 \boldsymbol{\widehat \beta}^{(t+1)} &= \boldsymbol{\widehat \beta}^{(t)} - (\nabla^2_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}))^{-1} \nabla_{\boldsymbol{\beta}} \log \mathcal L(\boldsymbol{\widehat \beta}^{(t)}) \\
-&= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{\widehat W}^{(t)}\boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
+&= \boldsymbol{\widehat \beta}^{(t)} + (\boldsymbol{X}^T \boldsymbol{\widehat W}^{(t)}\boldsymbol{X})^{-1}\boldsymbol{X}^T(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}).
 \end{split}
 }\label{eq-nr-iteration}\end{equation}
 
@@ -7313,13 +7392,17 @@ vector \(\boldsymbol{\beta}\) near \(\boldsymbol{\widehat \beta}^{(t)}\)
 that fits the model even better. We have:
 
 \[
-\mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] = g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
+\begin{split}
+\mathbb{E}_{\boldsymbol{\beta}}[\boldsymbol{y}] &= g^{-1}(\boldsymbol{X} \boldsymbol{\beta}) \\
+&\approx g^{-1}(\boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \text{diag}(\partial \mu_i/\partial \eta_i)(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) \\
+&= \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)})
+\end{split}
 \]
 
 and
 
 \[
-\text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2},
+\text{Var}_{\boldsymbol{\beta}}[\boldsymbol{y}] \approx \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2} = \phi_0 \boldsymbol{\widehat W}^{(t)},
 \]
 
 recalling equation (\ref{eq-glm-variance-y}). Thus, up to the first two
@@ -7327,13 +7410,19 @@ moments, near \(\boldsymbol{\beta} = \boldsymbol{\widehat \beta}^{(t)}\)
 the distribution of \(\boldsymbol{y}\) is approximately:
 
 \[
-\boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim N\left(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}(\boldsymbol{\widehat M}^{(t)})^{-2}\right),
+\begin{aligned}
+\boldsymbol{y} = \boldsymbol{\widehat \mu}^{(t)} + (\boldsymbol{\widehat M}^{(t)})^{-1}(\boldsymbol{X} \boldsymbol{\beta} - \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)}) + \boldsymbol{\epsilon}, \\
+\boldsymbol{\epsilon} \sim N(\boldsymbol{0}, \phi_0 \boldsymbol{\widehat W}^{(t)}),
+\end{aligned}
 \]
 
 or, equivalently:
 
 \begin{equation}\protect\hypertarget{eq-second-order-approximation}{}{
-\boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \quad \boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
+\begin{aligned}
+\boldsymbol{z}^{(t)} \equiv \boldsymbol{\widehat M}^{(t)}(\boldsymbol{y} - \boldsymbol{\widehat \mu}^{(t)}) + \boldsymbol{X} \boldsymbol{\widehat \beta}^{(t)} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}', \\
+\boldsymbol{\epsilon}' \sim N(\boldsymbol{0}, \phi_0 (\boldsymbol{\widehat W}^{(t)})^{-1}).
+\end{aligned}
 }\label{eq-second-order-approximation}\end{equation}
 
 The regression of the \emph{adjusted response variable}
@@ -7353,7 +7442,7 @@ non-canonical links but need not be equivalent in this more general
 case.
 
 \hypertarget{sec-glm-residuals}{%
-\subsection{\texorpdfstring{Estimation of \(\phi_0\) and GLM
+\section{\texorpdfstring{Estimation of \(\phi_0\) and GLM
 residuals}{Estimation of \textbackslash phi\_0 and GLM residuals}}\label{sec-glm-residuals}}
 
 While sometimes the parameter \(\phi_0\) is known (e.g., for binomial or
@@ -7394,7 +7483,11 @@ the residual sum of squares. The other, based on the Pearson residuals,
 is called the \emph{Pearson estimator of dispersion}:
 
 \begin{equation}\protect\hypertarget{eq-pearson-estimator-dispersion}{}{
-\widetilde \phi^P_0 \equiv \frac{1}{n-p}X^2 \equiv \frac{1}{n-p}\|r^P\|^2 \equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
+\begin{split}
+\widetilde \phi^P_0 &\equiv \frac{1}{n-p}X^2 \\
+&\equiv \frac{1}{n-p}\|r^P\|^2 \\
+&\equiv \frac{1}{n-p}\sum_{i = 1}^n w_i \frac{(y_i - \widehat \mu_i)^2}{V(\mu_i)}.
+\end{split}
 }\label{eq-pearson-estimator-dispersion}\end{equation}
 
 \(X^2\) is known as the Pearson \(X^2\) statistic. The deviance-based
@@ -7435,22 +7528,15 @@ confidence interval/region construction.
   \textbf{Goodness of fit}: The goodness of fit null hypothesis is that
   the GLM (\ref{eq-glm-def}) is correctly specified. Consider the
   \emph{saturated model}:
+  \begin{equation}\protect\hypertarget{eq-saturated-model}{}{
+  y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \quad i = 1,\dots,n.
+  }\label{eq-saturated-model}\end{equation} Let \[
+  \mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: g(\mu_i) = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
+  \] be the set of mean vectors consistent with the GLM. Then, the
+  goodness of fit testing problem is
+  \(H_0: \boldsymbol{\mu} \in \mathcal{M}^{\text{GLM}}\) versus
+  \(H_1: \boldsymbol{\mu} \notin \mathcal{M}^{\text{GLM}}\).
 \end{enumerate}
-
-\begin{equation}\protect\hypertarget{eq-saturated-model}{}{
-y_i \overset{\text{ind}} \sim \text{EDM}(\mu_i, \phi_0/w_i) \quad \text{for} \quad i = 1,\dots,n.
-}\label{eq-saturated-model}\end{equation}
-
-Let
-
-\[
-\mathcal{M}^{\text{GLM}} \equiv \{\boldsymbol{\mu}: \mu_i = \boldsymbol{x}_{i*}^T \boldsymbol{\beta} + o_i \text{ for some } \boldsymbol{\beta} \in \mathbb{R}^p\}
-\]
-
-be the set of mean vectors consistent with the GLM. Then, the goodness
-of fit testing problem is
-\(H_0: \boldsymbol{\mu} \in \mathcal{M}^{\text{GLM}}\) versus
-\(H_1: \boldsymbol{\mu} \notin \mathcal{M}^{\text{GLM}}\).
 
 \hypertarget{sec-confidence-interval-region}{%
 \subsubsection{Confidence interval/region
@@ -7526,13 +7612,13 @@ Wald inference is based on the following asymptotic normality statement:
 }\label{eq-wald-approximation}\end{equation}
 
 recalling our derivation of the Fisher information from equation
-(\ref{eq-glm-fisher-info}). This approximation can be justified via
-\emph{large-sample asymptotics} or \emph{small-dispersion asymptotics}.
-Wald inference is easy to carry out, and for this reason, it is
-considered the default type of inference. However, as we will see in
-Unit 5, it also tends to be the least accurate in small samples.
-Furthermore, Wald tests are usually not applied for testing goodness of
-fit.
+(\ref{eq-glm-fisher-info}). This normal approximation can be justified
+via the central limit theorem in the context of \emph{large-sample
+asymptotics} or \emph{small-dispersion asymptotics}. Wald inference is
+easy to carry out, and for this reason, it is considered the default
+type of inference. However, as we will see in Unit 5, it also tends to
+be the least accurate in small samples. Furthermore, Wald tests are
+usually not applied for testing goodness of fit.
 
 \hypertarget{sec-wald-test-single-coeff}{%
 \subsection{\texorpdfstring{Wald test for \(\beta_j = \beta_j^0\) (known
@@ -7542,14 +7628,18 @@ Based on the Wald approximation (\ref{eq-wald-approximation}), under the
 null hypothesis, we have:
 
 \[
-\widehat \beta_j \overset{\cdot}{\sim} N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{jj}) \approx N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}) \equiv N(0, \text{SE}(\beta_j)^2),
+\begin{split}
+\widehat \beta_j &\overset{\cdot}{\sim} N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\beta}) \boldsymbol{X})^{-1}]_{jj}) \\
+&\approx N(\beta_j^0, \phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}) \\
+&\equiv N(\beta_j^0, \text{SE}(\widehat \beta_j)^2),
+\end{split}
 \]
 
 where we have used a plug-in estimator of the variance. This leads us to
 the Wald \(z\)-test:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > z_{1-\alpha/2}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\widehat \beta_j)}\right| > z_{1-\alpha/2}\right).
 \]
 
 Since a one-dimensional parameter is being tested, we can make the test
@@ -7575,7 +7665,10 @@ and therefore:
 Hence, we have the Wald \(\chi^2\) test:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) > \chi^2_{|S|}(1-\alpha)\right).
+\begin{split}
+&\phi(\boldsymbol{X}, \boldsymbol{y}) \\
+&\equiv 1\left(\frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0) > \chi^2_{|S|}(1-\alpha)\right).
+\end{split}
 \]
 
 \hypertarget{sec-wald-ci-single-coeff}{%
@@ -7587,8 +7680,10 @@ Inverting the Wald test for \(\beta_j\), we get a Wald confidence
 interval:
 
 \begin{equation}\protect\hypertarget{eq-conf-int-beta}{}{
-\text{CI}(\beta_j) \equiv \widehat \beta_j \pm z_{1-\alpha/2} \cdot \text{SE}(\beta_j), \quad \text{where} \quad \text{SE}(\beta_j) \equiv \sqrt{\phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}.
-}\label{eq-conf-int-beta}\end{equation}
+\text{CI}(\beta_j) \equiv \widehat \beta_j \pm z_{1-\alpha/2} \cdot \text{SE}(\widehat \beta_j), 
+}\label{eq-conf-int-beta}\end{equation} where \[
+\text{SE}(\widehat \beta_j) \equiv \sqrt{\phi_0[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}.
+\]
 
 \hypertarget{sec-wald-cr-group-coeff}{%
 \subsection{\texorpdfstring{Wald confidence region for
@@ -7600,7 +7695,10 @@ By inverting the test of
 confidence region:
 
 \[
+\small
+\begin{split}
 \text{CR}(\boldsymbol{\beta}_S) \equiv \left\{\boldsymbol{\beta}_S: \frac{1}{\phi_0} (\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S) \leq \chi^2_{|S|}(1-\alpha)\right\}.
+\end{split}
 \]
 
 If \(S = \{0, 1, \dots, p-1\}\), we are left with:
@@ -7614,17 +7712,18 @@ If \(S = \{0, 1, \dots, p-1\}\), we are left with:
 \(\mu_i\) (known
 \(\phi_0\))}{Wald confidence intervals for \textbackslash eta\_i and \textbackslash mu\_i (known \textbackslash phi\_0)}}\label{sec-wald-ci-fitted-values}}
 
-Given the Wald approximation Equation~\ref{eq-wald-approximation}, we
-have:
+Given the Wald approximation (\ref{eq-wald-approximation}), we have:
 
 \[
-\widehat \eta_i \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\eta_i, \phi_0 \cdot \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}) \equiv N(\eta_i, \text{SE}(\eta_i)^2).
+\widehat \eta_i \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat \beta} \overset{\cdot}{\sim} N(\eta_i, \phi_0 \cdot \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}) \equiv N(\eta_i, \text{SE}(\hat \eta_i)^2).
 \]
 
 Hence, the Wald interval for \(\eta_i\) is:
 
 \[
-\text{CI}(\eta_i) \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat\beta} \pm z_{1-\alpha/2} \cdot \text{SE}(\eta_i), \quad \text{SE}(\eta_i) \equiv \sqrt{\phi_0 \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}}.
+\text{CI}(\eta_i) \equiv o_i + \boldsymbol{x}_{i*}^T \boldsymbol{\widehat\beta} \pm z_{1-\alpha/2} \cdot \text{SE}(\hat \eta_i),
+\] where \[
+\text{SE}(\hat \eta_i) \equiv \sqrt{\phi_0 \boldsymbol{x}_{i*}^T (\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1} \boldsymbol{x}_{i*}}.
 \]
 
 A confidence interval for
@@ -7642,11 +7741,9 @@ unknown}{Wald inference when \textbackslash phi\_0 is unknown}}\label{sec-wald-i
 
 When \(\phi_0\) is unknown, we need to plug in an estimate
 \(\widetilde \phi_0\) (e.g.~the deviance-based or Pearson-based
-estimate). Now our standard errors are
-\(\text{SE}(\beta_j) \equiv \sqrt{\widetilde \phi_0 \cdot [(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}\),
-and our test statistic for \(H_0: \beta_j = \beta_j^0\) is:
-
-\[
+estimate). Now our standard errors are \[
+\text{SE}(\widehat \beta_j) \equiv \sqrt{\widetilde \phi_0 \cdot [(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}},
+\] and our test statistic for \(H_0: \beta_j = \beta_j^0\) is \[
 \frac{\widehat \beta_j - \beta_j^0}{\sqrt{\widetilde \phi_0}\sqrt{[(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{jj}}}.
 \]
 
@@ -7657,7 +7754,7 @@ Therefore, the above statistic is \emph{approximately} distributed as
 \(t_{n-p}\). Hence, the test for \(H_0: \beta_j = \beta_j^0\) is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\beta_j)}\right| > t_{n-p}(1-\alpha/2)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(\left|\frac{\widehat \beta_j - \beta_j^0}{\text{SE}(\widehat \beta_j)}\right| > t_{n-p}(1-\alpha/2)\right).
 \]
 
 Likewise, we would replace \(z_{1-\alpha}\) by \(t_{n-p}(1-\alpha/2)\)
@@ -7667,7 +7764,11 @@ instead of approximate \(\chi^2\) distributions. For example:
 
 \[
 \frac{\frac{1}{|S|}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)^T \left([(\boldsymbol{X}^T \boldsymbol{W}(\boldsymbol{\widehat \beta}) \boldsymbol{X})^{-1}]_{S,S}\right)^{-1}(\boldsymbol{\widehat \beta}_S - \boldsymbol{\beta}_S^0)}{\widetilde \phi_0} \overset{\cdot}{\sim} F_{|S|, n-p}.
-\] \#\# Likelihood ratio inference \{\#sec-likelihood-ratio-inference\}
+\]
+
+\hypertarget{sec-likelihood-ratio-inference}{%
+\section{Likelihood ratio
+inference}\label{sec-likelihood-ratio-inference}}
 
 \hypertarget{sec-likelihood-ratio-coeff-known}{%
 \subsection{\texorpdfstring{Testing one or more coefficients (\(\phi_0\)
@@ -7746,11 +7847,19 @@ this end, we compare the deviances of the GLM and saturated model:
 \]
 
 Note that the goodness of fit test is a significance test with respect
-to the saturated model Equation~\ref{eq-saturated-model}, which has
-\(n\) free parameters. Therefore, the number of free parameters
-increases with the sample size, so large-sample asymptotics cannot
-justify this test. Instead, we must rely on small-dispersion
-asymptotics.
+to the saturated model (\ref{eq-saturated-model}), which has \(n\) free
+parameters. Therefore, the number of free parameters increases with the
+sample size, so large-sample asymptotics cannot justify this test.
+Instead, we must rely on small-dispersion asymptotics. In particular,
+the likelihood ratio test relies on the saddlepoint approximation for
+small dispersions. To verify whether the saddlepoint approximation is
+accurate, we can apply the rules of thumb from
+Section~\ref{sec-saddlepoint-approximation-accuracy} for each
+observation \(y_i\), when it is drawn from the distribution fitted under
+the GLM (rather than the saturated model). For instance, we can check
+that \(m \hat \mu_i \geq 3\) and \(m(1-\hat \mu_i) \geq 3\) in the case
+of grouped logistic regression of \(\hat \mu_i \geq 3\) for Poisson
+regression. Here, \(\hat \mu_i\) are the fitted means under the GLM.
 
 \hypertarget{sec-likelihood-ratio-unknown-dispersion}{%
 \subsection{\texorpdfstring{Likelihood ratio inference for \(\phi_0\)
@@ -7785,66 +7894,86 @@ known)}{Testing multiple coefficients (\textbackslash phi\_0 known)}}\label{sec-
 Let \(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\) be a null
 hypothesis about a subset of variables \(S\), and let
 \(\boldsymbol{\widehat{\beta}}^0\) be the maximum likelihood estimate
-under this null hypothesis. Score test inference is based on the
-asymptotic approximation:
-
-\[
-U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) \overset{\cdot}{\sim} \chi^2_{|S|},
-\]
-
-recalling that
-\(U(\boldsymbol{\beta}) = \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\)
-is the score vector. This approximation can be justified either by
-small-dispersion asymptotics or large-sample asymptotics (both based on
-the central limit theorem). Since:
-
-\[
-\boldsymbol{\widehat{\beta}}^0_{\text{-}S} = \underset{\boldsymbol{\beta}_{\text{-}S}}{\arg \max}\ \ell(\boldsymbol{\beta}^0_{S}, \boldsymbol{\beta}_{\text{-}S}),
-\]
-
-it follows that:
-
-\[
-[U(\boldsymbol{\widehat{\beta}}^0)]_{\text{-}S} \equiv \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\widehat{\beta}}^0) = \frac{\partial \ell}{\partial \boldsymbol{\beta}_{\text{-}S}}(\boldsymbol{\beta}^0_{S}, \boldsymbol{\widehat{\beta}}_{\text{-}S}) = 0.
-\]
-
-Hence, we have:
-
-\[
-U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = [U(\boldsymbol{\widehat{\beta}}^0)]_S^T [\boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} [U(\boldsymbol{\widehat{\beta}}^0)]_S.
-\]
-
-Recalling the expressions (\ref{eq-glm-score}) and
-(\ref{eq-glm-fisher-info}) for the score vector and information matrix,
-we have that:
-
-\[
-U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}}^0)^{-1} U(\boldsymbol{\widehat{\beta}}^0) = \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
-\]
-
-Therefore, we arrive at the score test for
-\(H_0: \boldsymbol{\beta}_S = \boldsymbol{\beta}_S^0\):
-
-\[
-\small
-\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left((\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{S,*}[(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{S,S} \boldsymbol{X}_{S,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0) > \phi_0 \chi^2_{|S|}(1-\alpha)\right).
-\]
-
-The nice thing about a score test is that the model need only be fit
-under the null hypothesis. If there are several variables one is
-considering adding to a model, the model need not be refit upon the
-addition of each variable.
+under this null hypothesis. In particular, let
+\(\boldsymbol{\widehat{\beta}}^0_S \equiv \boldsymbol{\beta}_S^0\) and
+\begin{equation}\protect\hypertarget{eq-score-null-estimate}{}{
+\boldsymbol{\widehat{\beta}}^0_{\text{-}S} = \underset{\boldsymbol{\beta}_{\text{-}S}}{\arg \max}\ \ell(\boldsymbol{\beta}^0_{S}, \boldsymbol{\beta}_{\text{-}S}).
+}\label{eq-score-null-estimate}\end{equation} Let us partition the score
+vector
+\(\boldsymbol U(\boldsymbol{\beta}) = \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} \equiv (\boldsymbol U_S(\boldsymbol \beta), \boldsymbol U_{\text{-}S}(\boldsymbol \beta))\).
+We have
+\begin{equation}\protect\hypertarget{eq-glm-score-distribution}{}{
+\begin{split}
+\boldsymbol U(\boldsymbol \beta) &= { \boldsymbol U_S(\boldsymbol \beta) \choose \boldsymbol U_{\text{-}S}(\boldsymbol \beta) } \\
+&\sim N\left(0, \boldsymbol I(\boldsymbol \beta)\right) = N\left(0, \begin{bmatrix} \boldsymbol I_{S,S}(\boldsymbol \beta) & \boldsymbol I_{S,\text{-}S}(\boldsymbol \beta) \\ \boldsymbol I_{\text{-}S,S}(\boldsymbol \beta) & \boldsymbol I_{\text{-}S,\text{-}S}(\boldsymbol \beta) \end{bmatrix}\right).
+\end{split}
+}\label{eq-glm-score-distribution}\end{equation} This approximation can
+be justified either by small-dispersion asymptotics or large-sample
+asymptotics (both based on the central limit theorem). The score test
+statistic is based on plugging in the null estimate
+\(\boldsymbol{\widehat{\beta}}^0\) into the score vector and extracting
+the components corresponding to \(S\): \[
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0).
+\] This vector does not have the distribution obtained from the
+coordinates \(S\) of equation (\ref{eq-glm-score-distribution}) because
+an estimate is plugged in. Instead, we can derive the distribution of
+this vector by conditioning on
+\(\boldsymbol U_{\text{-}S}(\boldsymbol{\widehat{\beta}}^0) = 0\):
+\begin{equation}\protect\hypertarget{eq-conditioning-score-test}{}{
+\begin{split}
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) &\overset d \approx \left.\mathcal L(\boldsymbol U_S(\boldsymbol \beta) \mid \boldsymbol U_{\text{-}S}(\boldsymbol \beta) = 0)\right|_{\boldsymbol \beta = \boldsymbol{\widehat{\beta}}^0} \\
+& \overset \cdot \sim N\left(0, \boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right).
+\end{split}
+}\label{eq-conditioning-score-test}\end{equation} The second line is
+obtained from (\ref{eq-glm-score-distribution}) using the formula for a
+conditional distribution of a multivariate normal distribution.
+Therefore, the score test is based on the following chi-square
+approximation: \[
+\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T \left[\boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \overset \cdot \sim \chi^2_{|S|}.
+\] Recalling the expressions for the score (\ref{eq-glm-score}) and
+Fisher information matrix (\ref{eq-glm-fisher-info}) in GLMs, we derive
+the score statistic \[
+\begin{split}
+&T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) \equiv \\
+&\frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)^T \boldsymbol{\widehat{W}}^0 \boldsymbol{\widehat{M}}^0 \boldsymbol{X}_{*,S} \times \\
+& \quad \left[\boldsymbol X_{*,S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,S} - \boldsymbol X_{*,S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}S}(\boldsymbol X_{*,\text{-}S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}S})^{-1}\boldsymbol X_{*,\text{-}S}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,S} \right]^{-1} \times \\
+& \quad \boldsymbol{X}_{*,S}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0).
+\end{split}
+\] The score test is therefore \[
+\phi(\boldsymbol X, \boldsymbol y) \equiv 1(T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) > \chi^2_{|S|}(1-\alpha)).
+\] An equivalent formulation of the score test can be derived by noting
+that \[
+\left[I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} = [\boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S}.
+\] Hence, we have \[
+\begin{split}
+&\boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T \left[\boldsymbol I_{S,S}(\boldsymbol{\widehat{\beta}}^0) - \boldsymbol I_{S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)\boldsymbol I_{\text{-}S, \text{-}S}(\boldsymbol{\widehat{\beta}}^0)^{-1}\boldsymbol I_{\text{-}S, S}(\boldsymbol{\widehat{\beta}}^0)\right]^{-1} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \\
+&\quad= \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0)^T [\boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1}]_{S,S} \boldsymbol U_S(\boldsymbol{\widehat{\beta}}^0) \\
+&\quad= \boldsymbol U(\boldsymbol{\widehat{\beta}}^0)^T \boldsymbol I(\boldsymbol{\widehat{\beta}}^0)^{-1} \boldsymbol U(\boldsymbol{\widehat{\beta}}^0),
+\end{split}
+\] where the last step used the fact that
+\(\boldsymbol U_{\text{-}S}(\boldsymbol{\widehat \beta}^{0}) = 0\).
+Specializing to GLMs, we find that the score test statistic can be
+written as
+\begin{equation}\protect\hypertarget{eq-score-stat-alternative}{}{
+\begin{split}
+&T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) = \\
+&\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0) \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
+\end{split}
+}\label{eq-score-stat-alternative}\end{equation}
 
 \hypertarget{sec-score-test-single-coeff}{%
 \subsection{\texorpdfstring{Testing a single coefficient (\(\phi_0\)
 known)}{Testing a single coefficient (\textbackslash phi\_0 known)}}\label{sec-score-test-single-coeff}}
 
-If \(S = \{j\}\), the score test becomes univariate and can be based on
-the following normal approximation:
-
-\begin{equation}\protect\hypertarget{eq-score-test-univariate}{}{
-\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} \overset{\cdot}{\sim} N(0, 1).
-}\label{eq-score-test-univariate}\end{equation}
+If \(S = \{j\}\), the normal approximation
+(\ref{eq-conditioning-score-test}) specializes to \[
+T_{\text{score}} \overset{\cdot}{\sim} N(0, 1),
+\] where \[
+\begin{split}
+&T_{\text{score}} = \\
+&\frac{\boldsymbol{x}_{*,j}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 (\boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j} - \boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j}(\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j})^{-1}\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j})}}.
+\end{split}
+\]
 
 Unlike its multivariate counterparts, we can construct not just a
 two-sided test but also one-sided tests based on this normal
@@ -7852,8 +7981,13 @@ approximation. For example, below is a right-sided score test for
 \(H_0: \beta_j = \beta_j^0\):
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\phi_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > z_{1-\alpha}\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(T_{\text{score}} > z_{1-\alpha}\right).
 \]
+
+The nice thing about the score test is that the model need only be fit
+under the null hypothesis. Therefore, computation can be recycled if
+\(\boldsymbol X_{*, \text{-}j}\) is a standard set of control variables
+and there are several options for \(\boldsymbol x_{*, j}\) to test.
 
 \hypertarget{sec-score-ci-single-coeff}{%
 \subsection{\texorpdfstring{Confidence interval for a single coefficient
@@ -7872,26 +8006,40 @@ computationally expensive search across a grid of possible
 known)}{Goodness of fit testing (\textbackslash phi\_0 known)}}\label{sec-score-goodness-of-fit}}
 
 We can view goodness of fit testing as testing a hypothesis about the
-coefficients in a GLM with
-\(\boldsymbol{X} = \boldsymbol{I}_{n \times n}\), which amounts to the
-saturated model that allows unrestricted means for each observation.
-Furthermore, the coefficient vector fitted under the null hypothesis
-amounts to fitting the GLM as usual. Therefore, we have:
-
-\[
+coefficients in the following augmented GLM: \[
+y_i \sim \text{EDM}(\mu_i, \phi_i); \quad g(\mu_i) = \boldsymbol x_{i*}^T \boldsymbol \beta + \boldsymbol z_{i*}^T \boldsymbol \gamma, 
+\] where \(\boldsymbol Z \in \mathbb R^{n \times (n-p)}\) is a matrix of
+extra variables so that the columns of the augmented model matrix
+\(\widetilde{\boldsymbol X} \equiv [\boldsymbol X, \boldsymbol Z]\) form
+a basis for \(\mathbb R^n\). Then, the goodness of fit null hypothesis
+is \(H_0: \boldsymbol \gamma = \boldsymbol 0\), and the alternative
+hypothesis is the saturated model. To test this hypothesis, we use the
+score test statistic in the form of equation
+(\ref{eq-score-stat-alternative}) with the augmented model matrix
+\(\widetilde{\boldsymbol X}\) in place of \(\boldsymbol X\) and the GLM
+fits
+\(\boldsymbol {\widehat \mu}, \boldsymbol{\widehat W}, \boldsymbol{\widehat M}\)
+in place of
+\(\boldsymbol{\widehat \mu}^0, \boldsymbol{\widehat W}^0, \boldsymbol{\widehat M}^0\)
+to reflect that the full original GLM is being fit under the null
+hypothesis. Therefore, we get the score statistic \[
+T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
+\] Now, note that the matrix \(\widetilde{\boldsymbol X}\) is a
+full-rank square matrix, and therefore it is invertible. Hence, we can
+simplify the statistic as follows: \[
 \begin{split}
-U(\boldsymbol{\widehat{\beta}})^T \boldsymbol{I}(\boldsymbol{\widehat{\beta}})^{-1} U(\boldsymbol{\widehat{\beta}}) &= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}} \boldsymbol{X} (\boldsymbol{X}^T \boldsymbol{\widehat{W}} \boldsymbol{X})^{-1} \boldsymbol{X}^T \boldsymbol{\widehat{M}} \boldsymbol{\widehat{W}} (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
+T^2_{\text{score}} &= \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} \widetilde{\boldsymbol X}^{-1} \boldsymbol{\widehat W}^{-1}((\widetilde{\boldsymbol X})^{T})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}) \\
+&= \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \boldsymbol{\widehat W}^{-1} \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}) \\
 &= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \boldsymbol{\widehat{W}} \boldsymbol{\widehat{M}}^2 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
 &= \frac{1}{\phi_0}(\boldsymbol{y} - \boldsymbol{\widehat{\mu}})^T \text{diag}\left( \frac{w_i}{V(\widehat{\mu}_i)} \right) (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \\
-&= \frac{1}{\phi_0}\sum_{i=1}^n \frac{w_i (y_i - \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)} \equiv \frac{1}{\phi_0} X^2,
+&= \frac{1}{\phi_0}\sum_{i=1}^n \frac{w_i (y_i - \widehat{\mu}_i)^2}{V(\widehat{\mu}_i)} \\
+&\equiv \frac{1}{\phi_0} X^2,
 \end{split}
-\]
-
-where \(X^2\) is the Pearson chi-square statistic. Therefore, the score
-test for goodness of fit is:
+\] where \(X^2\) is the Pearson chi-square statistic. Therefore, the
+score test for goodness of fit is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 \phi_0 > \chi^2_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) \equiv 1\left(X^2 > \phi_0 \chi^2_{n-p}(1-\alpha)\right).
 \]
 
 In the context of contingency table analysis (see the next chapter),
@@ -7899,6 +8047,18 @@ this test reduces to the Pearson chi-square test of independence between
 two categorical variables. This test was proposed in 1900; it was only
 pointed out about a century later that this is a score test (Smyth
 2003).
+
+As with the likelihood ratio test for goodness of fit, the score test
+for goodness of fit must be justified by small-dispersion asymptotics.
+In particular, the score test for goodness of fit relies on the central
+limit theorem for small dispersions. To verify whether this
+approximation is accurate, we can apply the rules of thumb from
+Section~\ref{sec-normal-approx-accuracy} for each observation \(y_i\),
+when it is drawn from the distribution fitted under the GLM (rather than
+the saturated model). For instance, we can check that
+\(m \hat \mu_i \geq 5\) and \(m(1-\hat \mu_i) \geq 5\) in the case of
+grouped logistic regression of \(\hat \mu_i \geq 5\) for Poisson
+regression. Here, \(\hat \mu_i\) are the fitted means under the GLM.
 
 \hypertarget{sec-score-test-unknown-dispersion}{%
 \subsection{\texorpdfstring{Score test inference for \(\phi_0\)
@@ -7911,7 +8071,12 @@ distributions with \(t\) and \(F\) distributions, respectively. For
 example, the score test for a single coefficient \(\beta_j\) is:
 
 \[
-\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(\frac{\boldsymbol{x}_{j,*}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\widetilde{\phi}_0 ([(\boldsymbol{X}^T \boldsymbol{\widehat{W}}^0 \boldsymbol{X})^{-1}]_{j, j})^{-1}}} > t_{n-p}(1-\alpha)\right).
+\phi(\boldsymbol{X}, \boldsymbol{y}) = 1\left(T_{\text{score}} > t_{n-p}(1-\alpha)\right),
+\] where \[
+\begin{split}
+&T_{\text{score}} = \\
+&\frac{\boldsymbol{x}_{*,j}^T \boldsymbol{\widehat{M}}^0 \boldsymbol{\widehat{W}}^0 (\boldsymbol{y} - \boldsymbol{\widehat{\mu}}^0)}{\sqrt{\tilde \phi_0 (\boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j} - \boldsymbol x_{*,j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j}(\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol X_{*,\text{-}j})^{-1}\boldsymbol X_{*,\text{-}j}^T \boldsymbol {\widehat W}^{0}\boldsymbol x_{*,j})}}.
+\end{split}
 \]
 
 The \(t\) and \(F\) distributions are not exact in finite samples, but
@@ -8574,7 +8739,11 @@ latter assumption states that the predictors \(\boldsymbol{x}\) were not
 used in the retrospective sampling process. Then,
 
 \[
-\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) = \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} = \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) = \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+\begin{split}
+\text{logit}(\mathbb{P}[y = 1|z = 1, \boldsymbol{x}]) &= \log \frac{\rho_1 \mathbb{P}[y = 1|\boldsymbol{x}]}{\rho_0 \mathbb{P}[y = 0|\boldsymbol{x}]} \\
+&= \log \frac{\rho_1}{\rho_0} + \text{logit}(\mathbb{P}[y = 1|\boldsymbol{x}]) \\
+&= \left(\log \frac{\rho_1}{\rho_0} + \beta_0\right) + \boldsymbol{x}^T \boldsymbol{\beta}_{-0}.
+\end{split}
 \]
 
 Thus, conditioning on retrospective sampling changes only the intercept
@@ -8620,10 +8789,10 @@ Here we have substituted the notation \(\boldsymbol{\pi}\) for
 Therefore, the score equations for logistic regression are
 
 \begin{equation}\protect\hypertarget{eq-logistic-score-equations}{}{
-0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0, \quad j = 0, \dots, p-1.
-}\label{eq-logistic-score-equations}\end{equation}
-
-We can solve these equations using IRLS. The Fisher information is
+0 = \boldsymbol{X}^T \text{diag}\left(m_i\right)(\boldsymbol{y} - \boldsymbol{\widehat{\mu}}) \quad \Longleftrightarrow \quad \sum_{i = 1}^n m_i x_{ij}(y_i-\widehat{\pi}_i) = 0,
+}\label{eq-logistic-score-equations}\end{equation} for
+\(j = 0, \dots, p-1\). We can solve these equations using IRLS. The
+Fisher information is
 
 \[
 \boldsymbol{I}(\boldsymbol{\beta}) = \boldsymbol{X}^T \text{diag}\left(m_i \pi_i(1-\pi_i)\right) \boldsymbol{X}.
@@ -8711,7 +8880,7 @@ uses these coefficient estimates as test statistics.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\textwidth,height=\textheight]{figures/hauck-donner.png}
+{\centering \includegraphics{logistic-regression_files/figure-pdf/fig-hauck-donner-1.pdf}
 
 }
 
@@ -8753,7 +8922,10 @@ d(y, \mu) \equiv 2(t(y,y)-t(y,\pi)) = 2\left(y \log \frac{y}{\pi} + (1-y)\log \f
 The total deviance, therefore, is
 
 \begin{equation}\protect\hypertarget{eq-logistic-deviance}{}{
-D(\boldsymbol y, \hat{\boldsymbol \pi}) \equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
+\begin{split}
+D(\boldsymbol y, \hat{\boldsymbol \pi}) &\equiv \sum_{i = 1}^n w_i d(y_i, \widehat \pi_i) \\
+&= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right).
+\end{split}
 }\label{eq-logistic-deviance}\end{equation}
 
 \hypertarget{sec-comparing-deviances}{%
@@ -8765,7 +8937,9 @@ logistic regression models. Consider the following grouped and ungrouped
 models:
 
 \[
-y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i, \quad \text{where} \quad \text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
+y^{\text{grp}}_i \overset{\text{ind}} \sim \frac{1}{m_i}\text{Bin}(m_i, \pi_i) \quad \text{and} \quad y^{\text{ungrp}}_{ik} \overset{\text{ind}} \sim \text{Ber}(\pi_i), \quad k = 1, \dots, m_i,
+\] where \[
+\text{logit}(\pi_i) = \boldsymbol x_{i*}^T \boldsymbol \beta.
 \]
 
 The relationship between the grouped and ungrouped observations is that
@@ -8778,18 +8952,22 @@ Since the grouped and ungrouped logistic regression models have the same
 likelihoods, it follows that they have the same maximum likelihood
 estimates \(\widehat{\boldsymbol \beta}\) and
 \(\widehat{\boldsymbol \pi}\). However, the total deviances of the two
-models are different. The total deviance of the grouped model is given
-by (\ref{eq-logistic-deviance}):
+models are different. The total deviance of the grouped model can be
+derived from equation (\ref{eq-logistic-deviance}):
 
 \begin{equation}\protect\hypertarget{eq-total-deviance-grouped}{}{
-D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) = 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
+\begin{split}
+&D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \\
+&\quad= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{y^{\text{grp}}_i}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1-y^{\text{grp}}_i}{1-\widehat \pi_i}\right).
+\end{split}
 }\label{eq-total-deviance-grouped}\end{equation}
 
 On the other hand, the total deviance of the ungrouped model is
 
 \begin{equation}\protect\hypertarget{eq-total-deviance-ungrouped}{}{
 \begin{split}
-D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) &= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
+&D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \\
+&= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{y^{\text{ungrp}}_{ik}}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1-y^{\text{ungrp}}_{ik}}{1-\widehat \pi_i}\right) \\
 &= 2\sum_{i = 1}^n \sum_{k = 1}^{m_i} \left(y^{\text{ungrp}}_{ik} \log \frac{1}{\widehat \pi_i} + (1-y^{\text{ungrp}}_{ik}) \log\frac{1}{1-\widehat \pi_i}\right) \\
 &= 2\sum_{i = 1}^n \left(m_i y^{\text{grp}}_i \log \frac{1}{\widehat \pi_i} + m_i(1-y^{\text{grp}}_i) \log\frac{1}{1-\widehat \pi_i}\right).
 \end{split}
@@ -8802,10 +8980,10 @@ In the second line, we used the fact that \(y \log y \rightarrow 0\) and
 (\ref{eq-total-deviance-ungrouped}) total deviances, we see that these
 are given by related, but different expressions. Because small
 dispersion asymptotics applies to the grouped model but not the
-ungrouped model, we have that
+ungrouped model, we have that under small-dispersion asymptotics,
 
 \[
-\text{under small-dispersion asymptotics,} \quad D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
+D(\boldsymbol y^{\text{grp}}, \hat{\boldsymbol \pi}) \overset \cdot \sim \chi^2_{n-p} \quad \text{but} \quad D(\boldsymbol y^{\text{ungrp}}, \hat{\boldsymbol \pi}) \not \sim \chi^2_{n-p}.
 \]
 
 \hypertarget{sec-likelihood-ratio-test}{%
@@ -8834,7 +9012,10 @@ the fitted model (\ref{eq-logistic-deviance}) to a chi-squared quantile.
 In particular, the deviance-based goodness of fit test rejects when:
 
 \begin{equation}\protect\hypertarget{eq-goodness-of-fit}{}{
-D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) > \chi^2_{n-p}(1-\alpha).
+\begin{split}
+&D(\boldsymbol{y}, \hat{\boldsymbol{\pi}}) = \\
+&2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) > \chi^2_{n-p}(1-\alpha).
+\end{split}
 }\label{eq-goodness-of-fit}\end{equation}
 
 This test is justified by small-dispersion asymptotics based on the
@@ -8863,7 +9044,8 @@ Therefore, the deviance-based test of \(H_0: \beta_1 = 0\) rejects when:
 \[
 \begin{split}
 D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &= 2\sum_{i = 1}^n \left(m_i y_i \log \frac{y_i}{\widehat \pi_i} + m_i(1-y_i) \log\frac{1-y_i}{1-\widehat \pi_i}\right) \\
-&= \left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
+&= 2\left(m_0 y_0 \log\frac{y_0}{\hat \pi} + m_0(1-y_0)\log\frac{1-y_0}{1-\hat \pi}\right) + \\
+&\quad \quad 2\left(m_1 y_1 \log\frac{y_1}{\hat \pi} + m_1(1-y_1)\log\frac{1-y_1}{1-\hat \pi}\right) \\
 &> \chi^2_{1}(1-\alpha).
 \end{split}
 \]
@@ -8876,7 +9058,10 @@ and \((1-y)\log(1-y) \rightarrow 0\) as \(y \rightarrow 0\) or
 \(y \rightarrow 1\) to see that:
 
 \begin{equation}\protect\hypertarget{eq-perfect-separability}{}{
-D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) = 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) = 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
+\begin{split}
+D(\boldsymbol{y}, \boldsymbol{\widehat \pi}) &= 2\left(m_0 \log\frac{1}{1-\hat \pi} + m_1 \log\frac{1}{\hat \pi}\right) \\
+&= 2\left(m_0 \log \frac{m_0 + m_1}{m_0} + m_1 \log \frac{m_0 + m_1}{m_1}\right).
+\end{split}
 }\label{eq-perfect-separability}\end{equation}
 
 This gives us a finite value, which we can compare to
@@ -8891,7 +9076,7 @@ the rate at which the Wald test breaks down.
 \section{Score-based inference}\label{sec-score-based-inference}}
 
 Here we present only the score-based goodness-of-fit test. Recalling
-Section Section~\ref{sec-score-goodness-of-fit}, the score statistic for
+Section~\ref{sec-score-goodness-of-fit}, the score statistic for
 goodness of fit is Pearson's \(X^2\) statistic:
 
 \begin{equation}\protect\hypertarget{eq-pearson-statistic}{}{
@@ -8918,10 +9103,11 @@ Note that under \(H_0: \pi_1 = \pi_2\), we have:
 
 \begin{equation}\protect\hypertarget{eq-exact-test}{}{
 \begin{split}
-\mathbb{P}[s_1 = t | s_1+s_2 = v] &= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
-&= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
-&= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
-&= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
+&\mathbb{P}[s_1 = t | s_1+s_2 = v] \\
+&\quad= \mathbb{P}[s_1 = t | s_1 + s_2 = v] \\
+&\quad= \frac{\mathbb{P}[s_1 = t, s_2 = v-t]}{\mathbb{P}[s_1 + s_2 = v]} \\
+&\quad= \frac{{m_1 \choose t}\pi^{t}(1-\pi)^{m_1 - t}{m_2 \choose v-t}\pi^{v-t}(1-\pi)^{m_2 - (v-t)}}{{m_1 + m_2 \choose v}\pi^v (1-\pi)^{m_1 + m_2 - v}} \\
+&\quad= \frac{{m_1 \choose t}{m_2 \choose v-t}}{{m_1 + m_2 \choose v}}.
 \end{split}
 }\label{eq-exact-test}\end{equation}
 
@@ -9050,8 +9236,8 @@ D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\ha
 \hypertarget{sec-score-based-inference}{%
 \subsection{Score-based inference}\label{sec-score-based-inference}}
 
-Recalling equation (\ref{eq-score-test-univariate}), the score test for
-\(H_0: \beta_j = 0\) is based on:
+Recalling equation (\textbf{?@eq-score-test-univariate}), the score test
+for \(H_0: \beta_j = 0\) is based on:
 
 \[
 \frac{\boldsymbol{x}_{j*}^T (\boldsymbol{y} - \boldsymbol{\widehat \mu}^0)}{\sqrt{\left([(\boldsymbol{X}^T \text{diag}(\hat \mu^0_{i})\boldsymbol{X})^{-1}]_{jj}\right)^{-1}}} \overset{\cdot}\sim N(0, 1).

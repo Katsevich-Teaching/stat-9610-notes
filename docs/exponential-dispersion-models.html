@@ -443,7 +443,7 @@ y \sim \text{EDM}(\mu, \phi).
 <h3 data-number="19.2.1" class="anchored" data-anchor-id="normal-distribution"><span class="header-section-number">19.2.1</span> Normal distribution</h3>
 <p>As derived above, <span class="math inline">\(y \sim N(\mu, \sigma^2)\)</span> is an EDM with</p>
 <p><span class="math display">\[
-\theta = \mu, \quad \psi(\theta) = -\frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\theta = \mu, \quad \psi(\theta) = \frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
 \]</span></p>
 </section>
 <section id="bernoulli-distribution" class="level3" data-number="19.2.2">
@@ -469,7 +469,7 @@ f(y) &amp;= {m \choose my}\mu^{my}(1-\mu)^{m(1-y)} \\
 \]</span></p>
 <p>so</p>
 <p><span class="math display">\[
-\theta = \log\frac{\mu}{1-\mu}, \quad \psi(\theta) = \frac{e^{\theta}}{1 + e^{\theta}}, \quad \phi = 1/m, \quad h(y, \phi) = {m \choose my}.
+\theta = \log\frac{\mu}{1-\mu}, \quad \psi(\theta) = \log(1+e^\theta), \quad \phi = 1/m, \quad h(y, \phi) = {m \choose my}.
 \]</span></p>
 <p>Note that <span class="math inline">\(\text{Bin}(m, 0)\)</span> and <span class="math inline">\(\text{Bin}(m, 1)\)</span> are not included in this class of EDMs, for the same reason as above. Hence, <span class="math inline">\(\mu \in (0,1)\)</span>, and the support of any binomial EDM is <span class="math inline">\(\{0,\frac{1}{m}, \frac{2}{m}, \dots, 1\}\)</span>.</p>
 </section>

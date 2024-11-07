@@ -47,7 +47,7 @@ The support of $y \sim \text{EDM}(\mu, \phi)$ remains fixed as $(\mu, \phi)$ var
 As derived above, $y \sim N(\mu, \sigma^2)$ is an EDM with
 
 $$
-\theta = \mu, \quad \psi(\theta) = -\frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
+\theta = \mu, \quad \psi(\theta) = \frac 12 \theta^2, \quad \phi = \sigma^2, \quad h(y, \phi) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac1{2\sigma^2} y^2\right).
 $$
 
 ### Bernoulli distribution
@@ -80,7 +80,7 @@ $$
 so
 
 $$
-\theta = \log\frac{\mu}{1-\mu}, \quad \psi(\theta) = \frac{e^{\theta}}{1 + e^{\theta}}, \quad \phi = 1/m, \quad h(y, \phi) = {m \choose my}.
+\theta = \log\frac{\mu}{1-\mu}, \quad \psi(\theta) = \log(1+e^\theta), \quad \phi = 1/m, \quad h(y, \phi) = {m \choose my}.
 $$
 
 Note that $\text{Bin}(m, 0)$ and $\text{Bin}(m, 1)$ are not included in this class of EDMs, for the same reason as above. Hence, $\mu \in (0,1)$, and the support of any binomial EDM is $\{0,\frac{1}{m}, \frac{2}{m}, \dots, 1\}$.

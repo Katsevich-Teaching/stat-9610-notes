@@ -445,23 +445,23 @@ y_i \overset{\text{ind}} \sim \text{Poi}(\mu_i), \quad \log \mu_i = \log t_i + \
 <h3 data-number="25.3.2" class="anchored" data-anchor-id="sec-likelihood-ratio-inference"><span class="header-section-number">25.3.2</span> Likelihood ratio inference</h3>
 <p>For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:</p>
 <p><span class="math display">\[
-d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
+d(y, \mu) = 2\left(y \log \frac{y}{\mu} - (y - \mu)\right).
 \]</span></p>
 <p>Hence, the total deviance is:</p>
 <p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
+D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
 \]</span></p>
 <p>The residual deviance is then:</p>
 <p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = 2\sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
 \]</span></p>
 <p>The last equality holds for any model containing the intercept, since by the normal equations we have <span class="math inline">\(\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0\)</span>. We can carry out a likelihood ratio test for <span class="math inline">\(H_0: \boldsymbol \beta_S = \boldsymbol{0}\)</span> via:</p>
 <p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
+D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = 2\sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
 \]</span></p>
 <p>We can carry out a goodness-of-fit test via:</p>
 <p><span class="math display">\[
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = 2\sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
 \]</span> This approximation is justified by the saddlepoint approximation in small-dispersion asymptotics, which is reliable if <span class="math inline">\(\hat \mu_i \geq 3\)</span> for all <span class="math inline">\(i\)</span>.</p>
 </section>
 <section id="sec-score-based-inference" class="level3" data-number="25.3.3">
@@ -494,9 +494,9 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 <h2 data-number="25.5" class="anchored" data-anchor-id="sec-example-2x2-tables"><span class="header-section-number">25.5</span> Example: <span class="math inline">\(2 \times 2\)</span> contingency tables</h2>
 <section id="sec-poisson-2x2" class="level3" data-number="25.5.1">
 <h3 data-number="25.5.1" class="anchored" data-anchor-id="sec-poisson-2x2"><span class="header-section-number">25.5.1</span> Poisson model for <span class="math inline">\(2 \times 2\)</span> contingency tables</h3>
-<p>Let’s say that we have two binary random variables <span class="math inline">\(x_1, x_2 \in \{0,1\}\)</span> with joint distribution <span class="math inline">\(\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}\)</span> for <span class="math inline">\(j,k \in \{0,1\}\)</span>. We collect a total of <span class="math inline">\(n\)</span> samples from this joint distribution and summarize the counts in a <span class="math inline">\(2 \times 2\)</span> table, where <span class="math inline">\(y_{jk}\)</span> is the number of times we observed <span class="math inline">\((x_1, x_2) = (j,k)\)</span>, so that:</p>
+<p>Let’s say that we have two binary random variables <span class="math inline">\(x_1, x_2 \in \{0,1\}\)</span> with joint distribution <span class="math inline">\(\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}\)</span> for <span class="math inline">\(j,k \in \{0,1\}\)</span>. We collect a total of <span class="math inline">\(m\)</span> samples from this joint distribution and summarize the counts in a <span class="math inline">\(2 \times 2\)</span> table, where <span class="math inline">\(y_{jk}\)</span> is the number of times we observed <span class="math inline">\((x_1, x_2) = (j,k)\)</span>, so that:</p>
 <p><span class="math display">\[
-(y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
+(y_{00}, y_{01}, y_{10}, y_{11}) \sim \text{Mult}(m, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
 \]</span></p>
 <p>Our primary question is whether these two random variables are independent, i.e.</p>
 <p><span id="eq-null-product-formulation"><span class="math display">\[
@@ -512,7 +512,7 @@ X^2 \equiv \sum_{i = 1}^n \frac{(y_i - \hat \mu_i)^2}{\hat \mu_i} \overset{\cdot
 <p><span id="eq-independence-2"><span class="math display">\[
 H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
 \tag{25.3}\]</span></span></p>
-<p>Let’s arbitrarily assume that, additionally, <span class="math inline">\(n \sim \text{Poi}(\mu_{++})\)</span>. Then, by the relationship between Poisson and multinomial distributions, we have:</p>
+<p>Let’s arbitrarily assume that, additionally, <span class="math inline">\(m \sim \text{Poi}(\mu_{++})\)</span>. Then, by the relationship between Poisson and multinomial distributions, we have:</p>
 <p><span class="math display">\[
 y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).
 \]</span></p>

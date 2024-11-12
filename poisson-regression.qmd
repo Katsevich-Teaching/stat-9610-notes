@@ -59,31 +59,31 @@ $$
 For likelihood ratio inference, we first derive the total deviance. The unit deviance of a Poisson distribution is:
 
 $$
-d(y, \mu) = y \log \frac{y}{\mu} - (y - \mu).
+d(y, \mu) = 2\left(y \log \frac{y}{\mu} - (y - \mu)\right).
 $$
 
 Hence, the total deviance is:
 
 $$
-D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
+D(\boldsymbol{y}, \boldsymbol{\mu}) = \sum_{i = 1}^n d(y_i, \mu_i) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\mu_i} - (y_i - \mu_i)\right).
 $$
 
 The residual deviance is then:
 
 $$
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = 2\sum_{i = 1}^n \left(y_i \log \frac{y_i}{\hat \mu_i} - (y_i - \hat \mu_i)\right) = 2\sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i}.
 $$
 
 The last equality holds for any model containing the intercept, since by the normal equations we have $\sum_{i = 1}^n (y_i - \hat \mu_i) = \boldsymbol{1}^T (\boldsymbol{y} - \boldsymbol{\hat \mu}) = 0$. We can carry out a likelihood ratio test for $H_0: \boldsymbol \beta_S = \boldsymbol{0}$ via:
 
 $$
-D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = \sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
+D(\boldsymbol{y}, \boldsymbol{\hat \mu}^0) - D(\boldsymbol{y}, \boldsymbol{\hat \mu}) = 2\sum_{i = 1}^n y_i \log \frac{\hat \mu_i}{\hat \mu^0_{i}} \overset{\cdot}\sim \chi^2_{|S|}.
 $$
 
 We can carry out a goodness-of-fit test via:
 
 $$
-D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = \sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
+D(\boldsymbol{y}, \boldsymbol{\hat\mu}) = 2\sum_{i = 1}^n y_i \log \frac{y_i}{\hat \mu_i} \overset{\cdot}\sim \chi^2_{n - p}.
 $$
 This approximation is justified by the saddlepoint approximation in small-dispersion asymptotics, which is reliable if $\hat \mu_i \geq 3$ for all $i$.
 
@@ -126,10 +126,10 @@ We recognize the last expression in the previous display as the probability mass
 
 ### Poisson model for $2 \times 2$ contingency tables {#sec-poisson-2x2}
 
-Let's say that we have two binary random variables $x_1, x_2 \in \{0,1\}$ with joint distribution $\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}$ for $j,k \in \{0,1\}$. We collect a total of $n$ samples from this joint distribution and summarize the counts in a $2 \times 2$ table, where $y_{jk}$ is the number of times we observed $(x_1, x_2) = (j,k)$, so that:
+Let's say that we have two binary random variables $x_1, x_2 \in \{0,1\}$ with joint distribution $\mathbb{P}(x_1 = j, x_2 = k) = \pi_{jk}$ for $j,k \in \{0,1\}$. We collect a total of $m$ samples from this joint distribution and summarize the counts in a $2 \times 2$ table, where $y_{jk}$ is the number of times we observed $(x_1, x_2) = (j,k)$, so that:
 
 $$
-(y_{00}, y_{01}, y_{10}, y_{11})|n \sim \text{Mult}(n, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
+(y_{00}, y_{01}, y_{10}, y_{11}) \sim \text{Mult}(m, (\pi_{00}, \pi_{01}, \pi_{10}, \pi_{11})).
 $$
 
 Our primary question is whether these two random variables are independent, i.e.
@@ -154,7 +154,7 @@ $$
 H_0: \frac{\pi_{11}\pi_{00}}{\pi_{10}\pi_{01}} = 1.
 $$ {#eq-independence-2}
 
-Let's arbitrarily assume that, additionally, $n \sim \text{Poi}(\mu_{++})$. Then, by the relationship between Poisson and multinomial distributions, we have:
+Let's arbitrarily assume that, additionally, $m \sim \text{Poi}(\mu_{++})$. Then, by the relationship between Poisson and multinomial distributions, we have:
 
 $$
 y_{jk} \overset{\text{ind}} \sim \text{Poi}(\mu_{++}\pi_{jk}).

@@ -208,7 +208,7 @@ $$
 \hat \mu_{++} = y_{++}; \quad \hat \mu_{j+} = y_{j+} \text{ for all } j \in \{0, 1\}; \quad \hat \mu_{+k} = y_{+k} \text{ for all } k \in \{0, 1\}.
 $$
 
-Therefore, the fitted means under the null hypothesis model [-@eq-2x2-poisson-reg-null] are:
+Therefore, the fitted means under the null hypothesis model ([-@eq-2x2-poisson-reg-null]) are:
 
 $$
 \hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
@@ -230,18 +230,17 @@ We would compare both $X^2$ and $G^2$ to a $\chi^2_1$ distribution.
 
 ### Inference is the same regardless of conditioning on margins {#sec-inference-conditioning-margins}
 
-Now, our data might actually have been collected such that $n \sim \text{Poi}(\mu_{++})$, or maybe $n$ was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:
+Now, our data might actually have been collected such that $m = y_{++} \sim \text{Poi}(\mu_{++})$; for example, maybe $y_{++} = m$ was fixed in advance. Is the Poisson inference proposed above actually valid in the latter case? In fact, it is! To see this, let us consider the log likelihoods of the two models:
 
 $$
-p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
+p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++})p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}),
 $$
 
 so:
 
 $$
 \begin{split}
-\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) &= \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) \\
-&= C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) &= \log p_{\mu_{++}}(y_{++}) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}).
 \end{split}
 $$
 
@@ -249,7 +248,7 @@ In other words, the log-likelihoods of the Poisson and multinomial models, as a 
 
 ### Equivalence among Poisson and logistic regressions {#sec-poisson-logistic-equivalence}
 
-We've talked about two ways to view a $2 \times 2$ contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations [-@eq-2x2-poisson-reg] and [-@eq-2x2-poisson-reg-coefs] that $x_1 \perp \!\!\! \perp x_2$ if and only if $\beta_{12} = 0$ in the Poisson regression:
+We've talked about two ways to view a $2 \times 2$ contingency table. In the logistic regression view, we thought about one variable as a predictor and the other as a response, seeking to test whether the predictor has an impact on the response. In the Poisson regression view, we thought about the two variables symmetrically, seeking to test independence. It turns out that these two perspectives are equivalent. Recall that we have derived in equations ([-@eq-2x2-poisson-reg]) and ([-@eq-2x2-poisson-reg-coefs]) that $x_1 \perp \!\!\! \perp x_2$ if and only if $\beta_{12} = 0$ in the Poisson regression:
 
 $$
 \log y_i \overset{\text{ind}}{\sim} \text{Poi}(\mu_i), \quad \log \mu_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_{12} x_{i1}x_{i2}, \quad i = 1, \dots, 4.
@@ -267,20 +266,20 @@ $$
 Recalling the logistic regression of $x_2$ on $x_1$:
 
 $$
-\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
+\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde \beta_0 + \tilde \beta_1 x_1,
 $$ {#eq-2x2-logistic-reg}
 
-and that $\tilde{\beta_1}$ is the log odds ratio, we conclude that:
+and that $\tilde \beta_1$ is the log odds ratio, we conclude that:
 
 $$
-\beta_{12} = \tilde{\beta_1},
+\beta_{12} = \tilde \beta_1,
 $$
 
-so $x_1 \perp \!\!\! \perp x_2$ if and only if $\tilde{\beta_1} = 0$. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio $\beta_{12}$ (or $\tilde{\beta_1}$) obtained from Poisson and logistic regressions will be the same.
+so $x_1 \perp \!\!\! \perp x_2$ if and only if $\tilde \beta_1 = 0$. Due to the equivalence between Poisson and multinomial distributions, the hypothesis tests and confidence intervals for the log odds ratio $\beta_{12}$ (or $\tilde \beta_1$) obtained from Poisson and logistic regressions will be the same.
 
 ## Example: Poisson models for $J \times K$ contingency tables {#sec-poisson-jk-tables}
 
-Suppose now that $x_1 \in \{0, 1, \dots, J-1\}$ and $x_2 \in \{0, 1, \dots, K-1\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $j$ and $k$, which amounts to a goodness-of-fit test for the Poisson model:
+Suppose now that $x_1 \in \{0, 1, \dots, J-1\}$ and $x_2 \in \{0, 1, \dots, K-1\}$. Then, we denote $\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}$. We still are interested in testing for independence between $x_1$ and $x_2$, which amounts to a goodness-of-fit test for the Poisson model:
 
 $$
 y_{jk} \overset{\text{ind}}\sim \text{Poi}(\mu_{jk}); \quad \log \mu_{jk} = \beta_0 + \beta^1_j + \beta^2_k.
@@ -311,13 +310,56 @@ $$
 where:
 
 $$
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
 $$
 
 $$
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
 $$
 
 $$
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_l \quad \text{(conditional independence)}.
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_{kl} \quad \text{(conditional independence)}.
 $$
+Here, $j = 1, \dots, J-1$, $k = 1, \dots, K-1$, and $l = 1, \dots, L-1$.
+
+For example, consider conditional independence. In this case, we have
+$$
+\begin{split}
+\pi_{jkl} &= \mathbb P[x_1 = j, x_2 = k \mid x_3 = l] \\
+&= \mathbb P[x_1 = j \mid x_3 = l] \mathbb P[x_2 = k \mid x_3 = l] \mathbb P[x_3 = l] \\
+&= \frac{\pi_{j+l}}{\pi_{++l}} \frac{\pi_{k+l}}{\pi_{++l}} \pi_{++l} \\
+&= \frac{\pi_{j+l} \pi_{+kl}}{\pi_{++l}}.
+\end{split}
+$$
+Therefore, 
+$$
+\begin{split}
+\log \mu_{jkl} &= \log \mu_{+++} + \log \pi_{jkl} \\
+&= \log \mu_{+++} + \log \pi_{j+l} + \log \pi_{+kl} - \log \pi_{++l}.
+\end{split}
+$$
+Therefore,
+$$
+\begin{split}
+\log \mu_i = \log \mu_{+++} &+ \sum_{j = 0}^{J-1}\sum_{l = 0}^{L-1}\log \pi_{j+l}1(x_{i1} = j)1(x_{i3} = l) \\
+&+ \sum_{k = 0}^{K-1}\sum_{l = 0}^{L-1}\log \pi_{k+l}1(x_{i2} = k)1(x_{i3} = l) \\
+&- \sum_{l = 0}^{L-1} \log \pi_{++l}1(x_{i3} = l).
+\end{split}
+$$
+In this representation, there is some multicollinearity among the predictors. For example, $\{1(x_{i3 = l})\}_{l = 0}^{L-1}$ are multicollinear with the intercept, so we remove the $1(x_{i3} = 0)$. Next, $\{1(x_{i1} = j)1(x_{i3} = l)\}_{j = 0}^{J-1}$ are multicollinear with $1(x_{i3} = l)$ for each $l$, so we remove $1(x_{i1} = 0)1(x_{i3} = l)$ for each $l$. Similarly, $\{1(x_{i2} = k)1(x_{i3} = l)\}_{k = 0}^{K-1}$ are multicollinear with $1(x_{i3} = l)$ for each $l$, so we remove $1(x_{i2} = 0)1(x_{i3} = l)$ for each $l$. This leaves us with the model 
+$$
+\begin{split}
+\log \mu_i = \beta^0 &+ \sum_{j = 1}^{J-1}\sum_{l = 0}^{L-1} \beta^{1,3}_{j,l}(x_{i1} = j)1(x_{i3} = l) \\
+&+ \sum_{k = 1}^{K-1}\sum_{l = 0}^{L-1} \beta^{2,3}_{k,l}1(x_{i2} = k)1(x_{i3} = l) \\
+&+ \sum_{l = 1}^{L-1} \beta^3_{l} 1(x_{i3} = l).
+\end{split}
+$$
+Alternatively, we can reparameterize to the following form:
+$$
+\begin{split}
+\log \mu_i &= \beta^0 + \\
+&\quad \sum_{j = 1}^{J-1} \beta^1_{j} 1(x_{i1} = j) + \sum_{k = 1}^{K-1} \beta^2_{k} 1(x_{i2} = k) + \sum_{l = 1}^{L-1} \beta^3_{l} 1(x_{i3} = l) \\
+& \quad + \sum_{j = 1}^{J-1}\sum_{l = 1}^{L-1} \beta^{1,3}_{j,l}(x_{i1} = j)1(x_{i3} = l) + \sum_{k = 1}^{K-1}\sum_{l = 1}^{L-1} \beta^{2,3}_{k,l}1(x_{i2} = k)1(x_{i3} = l).
+\end{split}
+$$
+Note that the coefficients here are not necessarily the same as the coefficients in the display above. This formulation recovers the conditional independence model referenced above.

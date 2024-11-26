@@ -406,7 +406,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sec-global-multiple-testing" class="level2" data-number="28.2">
 <h2 data-number="28.2" class="anchored" data-anchor-id="sec-global-multiple-testing"><span class="header-section-number">28.2</span> Global testing and multiple testing</h2>
-<p>Suppose we have <span class="math inline">\(m\)</span> null hypotheses <span class="math inline">\(H_{01}, \dots, H_{0m}\)</span>. Let $p_1, , <span class="math inline">\(p_m\)</span> be the corresponding <span class="math inline">\(p\)</span>-values.</p>
+<p>Suppose we have <span class="math inline">\(m\)</span> null hypotheses <span class="math inline">\(H_{01}, \dots, H_{0m}\)</span>. Let <span class="math inline">\(p_1, \dots, p_m\)</span> be the corresponding <span class="math inline">\(p\)</span>-values.</p>
 <div id="def-valid-p-value" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 28.1 </strong></span>A <span class="math inline">\(p\)</span>-value <span class="math inline">\(p_j\)</span> for a null hypothesis <span class="math inline">\(H_{0j}\)</span> is <em>valid</em> if <span id="eq-valid-p-value"><span class="math display">\[
 \mathbb{P}_{H_{0j}}[p_j \leq t] \leq t \quad \text{for all } t \in [0, 1].
@@ -432,7 +432,9 @@ H_0 \equiv \bigcap_{j = 1}^m H_{0j}.
 <section id="subsec-multiple-testing-goals" class="level2" data-number="28.3">
 <h2 data-number="28.3" class="anchored" data-anchor-id="subsec-multiple-testing-goals"><span class="header-section-number">28.3</span> Multiple testing goals</h2>
 <p>Let us define <span class="math display">\[
-\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\} \quad \text{and} \quad \mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
+\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\}
+\]</span> and <span class="math display">\[
+\mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
 \]</span></p>
 <p>In other words, <span class="math inline">\(\mathcal{H}_0\)</span> is the set of indices of the true null hypotheses, and <span class="math inline">\(\mathcal{H}_1\)</span> is the set of indices of the false null hypotheses. There are two primary notions of Type-I error that multiple testing procedures seek to control: the <em>family-wise error rate</em> (FWER) and the <em>false discovery rate</em> (FDR).</p>
 <section id="definitions-of-type-i-error-rate-and-power" class="level3" data-number="28.3.1">

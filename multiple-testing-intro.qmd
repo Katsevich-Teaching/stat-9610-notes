@@ -16,7 +16,7 @@ The multiplicity problem is not limited to regression. In the next two sections,
 
 ## Global testing and multiple testing {#sec-global-multiple-testing}
 
-Suppose we have $m$ null hypotheses $H_{01}, \dots, H_{0m}$. Let $p_1, \dots, $p_m$ be the corresponding $p$-values.
+Suppose we have $m$ null hypotheses $H_{01}, \dots, H_{0m}$. Let $p_1, \dots, p_m$ be the corresponding $p$-values.
 
 ::: {#def-valid-p-value}
 A $p$-value $p_j$ for a null hypothesis $H_{0j}$ is *valid* if
@@ -55,7 +55,11 @@ A multiple testing procedure determines *which* of the null hypotheses can be re
 
 Let us define
 $$
-\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\} \quad \text{and} \quad \mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
+\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\}
+$$
+and
+$$
+\mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
 $$
 
 In other words, $\mathcal{H}_0$ is the set of indices of the true null hypotheses, and $\mathcal{H}_1$ is the set of indices of the false null hypotheses. There are two primary notions of Type-I error that multiple testing procedures seek to control: the *family-wise error rate* (FWER) and the *false discovery rate* (FDR).

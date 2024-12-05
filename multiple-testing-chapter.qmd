@@ -169,7 +169,7 @@ $$
 The threshold $\widehat t$ is a stopping time with respect to this filtration, so by the optional stopping theorem, we have
 
 $$
-\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] \leq \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
+\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] = \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
 $$
 
 This completes the proof.
@@ -294,11 +294,15 @@ This leads to the Storey-BH procedure, which adapts to the null proportion:
 
 :::
 
-Storey et al. (2004) showed that the Storey-BH procedure controls FDR at level $q$ under independent $p$-values.
+Storey et al. (2004) showed that a small modification of the Storey-BH procedure controls FDR at level $q$ under independent $p$-values.
 
 ::: {#prp-storey-bh}
 
-The Storey-BH procedure controls FDR at level $q$ under independent $p$-values.
+The Storey-BH procedure with 
+$$
+\hat \pi_\lambda^+ = \frac{1 + |\{j: p_j > \lambda\}|}{m(1-\lambda)}
+$$
+instead of $\hat \pi_\lambda$ controls FDR at level $q$ under independent $p$-values.
 
 :::
 

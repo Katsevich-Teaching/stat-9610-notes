@@ -187,16 +187,16 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
 \theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -244,7 +244,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1435,7 +1435,7 @@ of the adjusted exposure on the adjusted outcome via a univariate linear
 model. This is the essence of \emph{covariate adjustment} in causal
 inference.
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, breakable, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, toptitle=1mm, opacitybacktitle=0.6, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, titlerule=0mm, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 Causal inference is a vast field, which lies mostly beyond the scope of
 STAT 9610; see STAT 9210 instead.
@@ -4353,7 +4353,7 @@ a vector of parameters, and then proceed by estimating
   \(\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}\).
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, breakable, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, toptitle=1mm, opacitybacktitle=0.6, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, leftrule=.75mm, titlerule=0mm, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 Random effects models deal address correlated errors but not with model
 bias. The difference is that, in the case of correlated errors, the
@@ -4692,7 +4692,7 @@ to approximate the sampling distribution of any statistic by simulating
 from this approximate data-generating distribution. In more detail, the
 bootstrap paradigm is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, opacityback=0, leftrule=.75mm, breakable, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 \textbf{Bootstrap paradigm to build confidence intervals for
 \(\beta_j\)}\vspace{2mm}
@@ -4782,7 +4782,7 @@ g(\boldsymbol{\widehat \beta}, \boldsymbol{\beta}) = \widehat \beta_j- \beta_j,
 \text{CI}^{\text{boot}}(\beta_j) \equiv \left[\widehat \beta_j - \mathbb Q_{1-\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j], \widehat \beta_j - \mathbb Q_{\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j]\right].
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-important-color-frame, colback=white, bottomrule=.15mm, breakable, colbacktitle=quarto-callout-important-color!10!white, coltitle=black, bottomtitle=1mm, toptitle=1mm, opacitybacktitle=0.6, opacityback=0, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, leftrule=.75mm, titlerule=0mm, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-important-color-frame]
 
 A commonly used alternative to the empirical bootstrap is the
 \emph{percentile bootstrap}, defined by
@@ -5036,7 +5036,7 @@ paradigm can be adapted to perform hypothesis tests directly.
 \subsection{Bootstrap testing
 paradigm}\label{sec-bootstrap-testing-paradigm}}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, opacityback=0, leftrule=.75mm, breakable, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 \textbf{Bootstrap paradigm to test
 \(H_0: \boldsymbol \beta_S = 0\)}\vspace{2mm}
@@ -5160,7 +5160,7 @@ this may be the usual \(F\)-statistic for testing the hypothesis
 (\ref{eq-linear-model-with-intercept}). Then, the permutation test based
 on the entire permutation group is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, opacityback=0, leftrule=.75mm, breakable, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 \textbf{Permutation test based on the entire permutation
 group}\vspace{2mm}
@@ -5202,7 +5202,6 @@ permutation invariance property (\ref{eq-permutation-invariance}), we
 have \[
 \begin{split}
 &\mathbb P[T(\boldsymbol X, \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]] \\
-&\quad= \mathbb P[T(\boldsymbol X, \tau (\tau^{-1} \boldsymbol y)) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau (\tau^{-1}  \boldsymbol y)): \pi \in \mathcal S_n\}]] \\
 &\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau \boldsymbol y): \pi \in \mathcal S_n\}]] \\
 &\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]].
 \end{split}
@@ -5230,7 +5229,7 @@ computationally infeasible for large \(n\). Instead, we can use a random
 sample of the permutation group to approximate the null distribution of
 the test statistic.
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, opacityback=0, leftrule=.75mm, breakable, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 \textbf{Permutation test based on a sample of the permutation
 group}\vspace{2mm}
@@ -5315,7 +5314,7 @@ p = \frac{1}{|\mathcal S_n|}\sum_{\tau \in \mathcal S_n} \mathbb I\{T(\boldsymbo
 p = \frac{1}{B+1}\left(1 + \sum_{b=1}^B \mathbb I\{T(\boldsymbol X, \pi_b \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}\right).
 }\label{eq-p-value-permutation-test-sample}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-warning-color-frame, colback=white, bottomrule=.15mm, breakable, colbacktitle=quarto-callout-warning-color!10!white, coltitle=black, bottomtitle=1mm, toptitle=1mm, opacitybacktitle=0.6, opacityback=0, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, leftrule=.75mm, titlerule=0mm, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-warning-color-frame]
 
 A common mistake is to omit the ``1+'' term from the numerator and
 denominator of equation (\ref{eq-p-value-permutation-test-sample}).
@@ -5436,7 +5435,7 @@ the scale of the noise terms. \[
 to the standard deviation of the distribution of \(\epsilon_i\); it is
 derived based on the normal distribution.
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, bottomrule=.15mm, breakable, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, toptitle=1mm, opacitybacktitle=0.6, opacityback=0, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, leftrule=.75mm, titlerule=0mm, arc=.35mm, left=2mm, toprule=.15mm, rightrule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
 
 In principle, \(\widehat{\boldsymbol \beta}^{\text{LAD}}\) could be used
 not just for estimation of \(\sigma\) but also for inference for
@@ -9372,7 +9371,7 @@ By combining these equations, we arrive at:
 \]
 
 Therefore, the fitted means under the null hypothesis model
-\ref{eq-2x2-poisson-reg-null} are:
+(\ref{eq-2x2-poisson-reg-null}) are:
 
 \[
 \hat \mu_{jk} = \hat \mu_{++}\hat \pi_{jk} = \hat \mu_{++}\hat \pi_{j+}\hat \pi_{+k} = y_{++}\frac{y_{j+}}{y_{++}}\frac{y_{+k}}{y_{++}} = \frac{y_{j+}y_{+k}}{y_{++}}.
@@ -9398,21 +9397,20 @@ distribution.
 margins}\label{sec-inference-conditioning-margins}}
 
 Now, our data might actually have been collected such that
-\(n \sim \text{Poi}(\mu_{++})\), or maybe \(n\) was fixed in advance. Is
-the Poisson inference proposed above actually valid in the latter case?
-In fact, it is! To see this, let us consider the log likelihoods of the
-two models:
+\(m = y_{++} \sim \text{Poi}(\mu_{++})\); for example, maybe
+\(y_{++} = m\) was fixed in advance. Is the Poisson inference proposed
+above actually valid in the latter case? In fact, it is! To see this,
+let us consider the log likelihoods of the two models:
 
 \[
-p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++} = n)p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n),
+p_{\boldsymbol{\mu}}(\boldsymbol{y}) = p_{\mu_{++}}(y_{++})p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}),
 \]
 
 so:
 
 \[
 \begin{split}
-\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) &= \log p_{\mu_{++}}(y_{++} = n) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n) \\
-&= C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++} = n).
+\log p_{\boldsymbol{\mu}}(\boldsymbol{y}) &= \log p_{\mu_{++}}(y_{++}) + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}) = C + \log p_{\boldsymbol{\pi}}(\boldsymbol{y} | y_{++}).
 \end{split}
 \]
 
@@ -9435,8 +9433,8 @@ predictor and the other as a response, seeking to test whether the
 predictor has an impact on the response. In the Poisson regression view,
 we thought about the two variables symmetrically, seeking to test
 independence. It turns out that these two perspectives are equivalent.
-Recall that we have derived in equations \ref{eq-2x2-poisson-reg} and
-\ref{eq-2x2-poisson-reg-coefs} that \(x_1 \perp \!\!\! \perp x_2\) if
+Recall that we have derived in equations (\ref{eq-2x2-poisson-reg}) and
+(\ref{eq-2x2-poisson-reg-coefs}) that \(x_1 \perp \!\!\! \perp x_2\) if
 and only if \(\beta_{12} = 0\) in the Poisson regression:
 
 \[
@@ -9455,20 +9453,20 @@ However, we have:
 Recalling the logistic regression of \(x_2\) on \(x_1\):
 
 \begin{equation}\protect\hypertarget{eq-2x2-logistic-reg}{}{
-\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde{\beta_0} + \tilde{\beta_1} x_1,
+\text{logit } \mathbb{P}[x_2 = 1 \mid x_1] = \tilde \beta_0 + \tilde \beta_1 x_1,
 }\label{eq-2x2-logistic-reg}\end{equation}
 
-and that \(\tilde{\beta_1}\) is the log odds ratio, we conclude that:
+and that \(\tilde \beta_1\) is the log odds ratio, we conclude that:
 
 \[
-\beta_{12} = \tilde{\beta_1},
+\beta_{12} = \tilde \beta_1,
 \]
 
-so \(x_1 \perp \!\!\! \perp x_2\) if and only if
-\(\tilde{\beta_1} = 0\). Due to the equivalence between Poisson and
-multinomial distributions, the hypothesis tests and confidence intervals
-for the log odds ratio \(\beta_{12}\) (or \(\tilde{\beta_1}\)) obtained
-from Poisson and logistic regressions will be the same.
+so \(x_1 \perp \!\!\! \perp x_2\) if and only if \(\tilde \beta_1 = 0\).
+Due to the equivalence between Poisson and multinomial distributions,
+the hypothesis tests and confidence intervals for the log odds ratio
+\(\beta_{12}\) (or \(\tilde \beta_1\)) obtained from Poisson and
+logistic regressions will be the same.
 
 \hypertarget{sec-poisson-jk-tables}{%
 \section{\texorpdfstring{Example: Poisson models for \(J \times K\)
@@ -9478,7 +9476,7 @@ tables}{Example: Poisson models for J \textbackslash times K contingency tables}
 Suppose now that \(x_1 \in \{0, 1, \dots, J-1\}\) and
 \(x_2 \in \{0, 1, \dots, K-1\}\). Then, we denote
 \(\mathbb{P}[x_1 = j, x_2 = k] = \pi_{jk}\). We still are interested in
-testing for independence between \(j\) and \(k\), which amounts to a
+testing for independence between \(x_1\) and \(x_2\), which amounts to a
 goodness-of-fit test for the Poisson model:
 
 \[
@@ -9535,16 +9533,60 @@ y_{jkl} \overset{\text{ind}}\sim \text{Poi}(\mu_{jkl}),
 where:
 
 \[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l \quad \text{(mutual independence)};
 \]
 
 \[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{2,3}_{kl} \quad \text{(joint independence)};
 \]
 
 \[
-\log \mu_{jkl} = \beta_0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_l \quad \text{(conditional independence)}.
-\]
+\log \mu_{jkl} = \beta^0 + \beta^1_j + \beta^2_k + \beta^3_l + \beta^{1,3}_{jl} + \beta^{2,3}_{kl} \quad \text{(conditional independence)}.
+\] Here, \(j = 1, \dots, J-1\), \(k = 1, \dots, K-1\), and
+\(l = 1, \dots, L-1\).
+
+For example, consider conditional independence. In this case, we have \[
+\begin{split}
+\pi_{jkl} &= \mathbb P[x_1 = j, x_2 = k \mid x_3 = l] \\
+&= \mathbb P[x_1 = j \mid x_3 = l] \mathbb P[x_2 = k \mid x_3 = l] \mathbb P[x_3 = l] \\
+&= \frac{\pi_{j+l}}{\pi_{++l}} \frac{\pi_{k+l}}{\pi_{++l}} \pi_{++l} \\
+&= \frac{\pi_{j+l} \pi_{+kl}}{\pi_{++l}}.
+\end{split}
+\] Therefore, \[
+\begin{split}
+\log \mu_{jkl} &= \log \mu_{+++} + \log \pi_{jkl} \\
+&= \log \mu_{+++} + \log \pi_{j+l} + \log \pi_{+kl} - \log \pi_{++l}.
+\end{split}
+\] Therefore, \[
+\begin{split}
+\log \mu_i = \log \mu_{+++} &+ \sum_{j = 0}^{J-1}\sum_{l = 0}^{L-1}\log \pi_{j+l}1(x_{i1} = j)1(x_{i3} = l) \\
+&+ \sum_{k = 0}^{K-1}\sum_{l = 0}^{L-1}\log \pi_{k+l}1(x_{i2} = k)1(x_{i3} = l) \\
+&- \sum_{l = 0}^{L-1} \log \pi_{++l}1(x_{i3} = l).
+\end{split}
+\] In this representation, there is some multicollinearity among the
+predictors. For example, \(\{1(x_{i3 = l})\}_{l = 0}^{L-1}\) are
+multicollinear with the intercept, so we remove the \(1(x_{i3} = 0)\).
+Next, \(\{1(x_{i1} = j)1(x_{i3} = l)\}_{j = 0}^{J-1}\) are
+multicollinear with \(1(x_{i3} = l)\) for each \(l\), so we remove
+\(1(x_{i1} = 0)1(x_{i3} = l)\) for each \(l\). Similarly,
+\(\{1(x_{i2} = k)1(x_{i3} = l)\}_{k = 0}^{K-1}\) are multicollinear with
+\(1(x_{i3} = l)\) for each \(l\), so we remove
+\(1(x_{i2} = 0)1(x_{i3} = l)\) for each \(l\). This leaves us with the
+model \[
+\begin{split}
+\log \mu_i = \beta^0 &+ \sum_{j = 1}^{J-1}\sum_{l = 0}^{L-1} \beta^{1,3}_{j,l}(x_{i1} = j)1(x_{i3} = l) \\
+&+ \sum_{k = 1}^{K-1}\sum_{l = 0}^{L-1} \beta^{2,3}_{k,l}1(x_{i2} = k)1(x_{i3} = l) \\
+&+ \sum_{l = 1}^{L-1} \beta^3_{l} 1(x_{i3} = l).
+\end{split}
+\] Alternatively, we can reparameterize to the following form: \[
+\begin{split}
+\log \mu_i &= \beta^0 + \\
+&\quad \sum_{j = 1}^{J-1} \beta^1_{j} 1(x_{i1} = j) + \sum_{k = 1}^{K-1} \beta^2_{k} 1(x_{i2} = k) + \sum_{l = 1}^{L-1} \beta^3_{l} 1(x_{i3} = l) \\
+& \quad + \sum_{j = 1}^{J-1}\sum_{l = 1}^{L-1} \beta^{1,3}_{j,l}(x_{i1} = j)1(x_{i3} = l) + \sum_{k = 1}^{K-1}\sum_{l = 1}^{L-1} \beta^{2,3}_{k,l}1(x_{i2} = k)1(x_{i3} = l).
+\end{split}
+\] Note that the coefficients here are not necessarily the same as the
+coefficients in the display above. This formulation recovers the
+conditional independence model referenced above.
 
 \hypertarget{sec-nb-regression}{%
 \chapter{Negative binomial regression}\label{sec-nb-regression}}
@@ -10461,7 +10503,7 @@ problem more formally and generally.
 testing}\label{sec-global-multiple-testing}}
 
 Suppose we have \(m\) null hypotheses \(H_{01}, \dots, H_{0m}\). Let
-\$p\_1, \dots, \(p_m\) be the corresponding \(p\)-values.
+\(p_1, \dots, p_m\) be the corresponding \(p\)-values.
 
 \begin{definition}[]\protect\hypertarget{def-valid-p-value}{}\label{def-valid-p-value}
 
@@ -10518,7 +10560,9 @@ coefficients, the problem we discussed in the beginning of this section.
 \section{Multiple testing goals}\label{subsec-multiple-testing-goals}}
 
 Let us define \[
-\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\} \quad \text{and} \quad \mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
+\mathcal{H}_0 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is true}\}
+\] and \[
+\mathcal{H}_1 \equiv \{j \in \{1, \dots, m\}: H_{0j} \text{ is false}\}.
 \]
 
 In other words, \(\mathcal{H}_0\) is the set of indices of the true null
@@ -10828,7 +10872,8 @@ were proposed by Benjamini and Hochberg in 1995.
 \hypertarget{procedure}{%
 \subsection{Procedure}\label{procedure}}
 
-To define the BH procedure, consider thresholding the \(p\)-values at
+We first present the BH procedure, as reformulated by Storey, Taylor,
+and Siegmund (2004). Consider thresholding the \(p\)-values at
 \(t \in [0,1]\). We would expect
 \(\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t\)
 false discoveries among \(\{j: p_j \leq t\}\). Since \(|\mathcal H_0|\)
@@ -10836,27 +10881,82 @@ is unknown, we can bound it from above by \(mt\). This leads to the FDP
 estimate:
 
 \begin{equation}\protect\hypertarget{eq-fdp-estimate}{}{
-\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}
+\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}.
 }\label{eq-fdp-estimate}\end{equation}
 
 The BH procedure is then defined via:
 
-\begin{equation}\protect\hypertarget{eq-bh-procedure}{}{
-\hat S \equiv \{j: p_j \leq \widehat t\}, \quad \text{where} \quad \widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}
-}\label{eq-bh-procedure}\end{equation}
+\begin{equation}\protect\hypertarget{eq-bh-rejection-set}{}{
+\hat S \equiv \{j: p_j \leq \widehat t\},
+}\label{eq-bh-rejection-set}\end{equation} where
+\begin{equation}\protect\hypertarget{eq-bh-threshold}{}{
+\widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}.
+}\label{eq-bh-threshold}\end{equation}
 
 In words, we choose the most liberal \(p\)-value threshold for which the
 estimated FDP is below the nominal level \(q\). Note that the set over
 which the above maximum is taken is always nonempty because it at least
 contains 0: \(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\).
 
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+
+\textbf{BH procedure (Storey et al.~formulation)}\vspace{2mm}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  For each \(t \in [0,1]\), compute the estimated FDP using
+  (\ref{eq-fdp-estimate}).
+\item
+  Let \(\hat t\) be the largest threshold \(t\) for which the estimated
+  FDP is below \(q\) (\ref{eq-bh-threshold}).
+\item
+  Reject the null hypotheses \(j\) whose \(p\)-values are below
+  \(\hat t\) (\ref{eq-bh-rejection-set}).
+\end{enumerate}
+
+\end{tcolorbox}
+
+The original BH procedure was formulated differently:
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+
+\textbf{BH procedure (original formulation)}\vspace{2mm}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Order the \(p\)-values
+  \(p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}\).
+\item
+  Let \(\hat k\) be the largest index \(k\) such that
+  \(p_{(k)} \leq \frac{k}{m}q\), or 0 if no such \(k\) exists.
+\item
+  Reject the null hypotheses \(j\) corresponding to the \(\hat k\)
+  smallest \(p\)-values.
+\end{enumerate}
+
+\end{tcolorbox}
+
+These two formulations are equivalent. Indeed, defining
+\(p_{(0)} \equiv 0\) for convenience, note that \[
+\begin{split}
+\widehat t &\equiv \max\left\{t \in [0,1]: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&= \max \left\{t \in \{0, p_{(1)}, \dots, p_{(m)}\}: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&= \max \left\{p_{(k)}: \frac{mp_{(k)}}{k} \leq q, \ k = 0, \dots, m\right\} \\
+&= \max \left\{p_{(k)}: p_{(k)} \leq \frac{qk}{m}, \ k = 0, \dots, m \right\} \\
+&= p_{(\hat k)}.
+\end{split}
+\]
+
 \hypertarget{sec-fdr-control-independence}{%
 \subsection{FDR control under
 independence}\label{sec-fdr-control-independence}}
 
 Benjamini and Hochberg established that their procedure controls the FDR
-if the \(p\)-values are independent. Here we present an alternative
-argument due to Storey, Taylor, and Siegmund (2004).
+if the \(p\)-values are independent.
 
 \begin{proposition}[]\protect\hypertarget{prp-bh-fdr-control}{}\label{prp-bh-fdr-control}
 
@@ -10865,7 +10965,51 @@ The BH procedure controls the FDR at level \(q\) assuming that the
 
 \end{proposition}
 
-\begin{proof}
+We present two proofs of this fact, one due to Benjamini and Yekutieli
+(2001) and one due to Storey, Taylor, and Siegmund (2004).
+
+\begin{proof}[Benjamini and Yekutieli, 2001]
+
+As a starting point, note that
+\begin{equation}\protect\hypertarget{eq-fdp-decomp}{}{
+\begin{split}
+\text{FDP}(\hat S) &= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right).
+\end{split}
+}\label{eq-fdp-decomp}\end{equation} From here, define
+\(\hat S(p_j \rightarrow 0)\) as the rejection set of BH when applied to
+the \(p\)-values \((p_1, \dots, p_{j-1}, 0, p_{j+1}, \dots, p_m)\). We
+claim that if the \(j\)th hypothesis is the rejected, the size of the
+rejection set does not change if the \(j\)th \(p\)-value is set to 0. In
+other words, we claim that
+\begin{equation}\protect\hypertarget{eq-key-bh-claim}{}{
+1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) = 1\left(p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right).
+}\label{eq-key-bh-claim}\end{equation} This can be seen by noting that
+\(|\hat S| = k\) if and only if \(p_{(k)} \leq qk/m\) and
+\(p_{(k')} > qk'/m\) for each \(k' > k\). Therefore, if \(|\hat S| = k\)
+and \(p_j \leq qk/m\), then \(p_j\) is among the \(k\) smallest
+\(p\)-values, so setting \(p_j\) to zero will preserve the statements
+\(p_{(k)} \leq qk/m\) and \(p_{(k')} > qk'/m\), so
+\(|\hat S(p_j \rightarrow 0)| = k\). The converse implication can be
+established by similar logic. Given the statement
+(\ref{eq-key-bh-claim}), we can deduce from equation
+(\ref{eq-fdp-decomp}) that \[
+\begin{split}
+\text{FDR} &= \mathbb E[\text{FDP}(\hat S)] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S| = k\right] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}\right]\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\frac{qk}{m}\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \frac{q}{m}\sum_{j \in \mathcal H_0} \sum_{k = 1}^m \mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \frac{|\mathcal H_0|}{m}q \\
+&\leq q.
+\end{split}
+\]
+
+\end{proof}
+
+\begin{proof}[Storey, Taylor, and Siegmund, 2004]
 
 We have
 
@@ -10891,14 +11035,18 @@ is a backwards martingale with respect to the filtration
 with \(t\) running backwards from 1 to 0. Indeed, for \(s < t\) we have
 
 \[
-\mathbb{E}[M(s)|\mathcal F_t] = \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] = \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} = \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\begin{split}
+\mathbb{E}[M(s)|\mathcal F_t] &= \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] \\
+&= \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} \\
+&= \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\end{split}
 \]
 
 The threshold \(\widehat t\) is a stopping time with respect to this
 filtration, so by the optional stopping theorem, we have
 
 \[
-\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] \leq \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
+\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] = \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
 \]
 
 This completes the proof.
@@ -10909,8 +11057,47 @@ This completes the proof.
 \subsection{FDR control under
 dependence}\label{sec-fdr-control-dependence}}
 
-Under dependence, the BH procedure's FDR can be bounded by a multiple of
-the nominal FDR level.
+Under some forms of dependence, the BH procedure can be shown to control
+FDR at level \(q\). One such form of dependence is a special kind of
+positive dependence, defined below:
+
+\begin{definition}[]\protect\hypertarget{def-prds}{}\label{def-prds}
+
+The \(p\)-values \((p_1, \ldots, p_m)\) are said to be positively
+regression dependent on a subset
+\(\mathcal J \subseteq \{1, \dots, m\}\) (PRDS on \(\mathcal J\)) if for
+all \(j \in \mathcal J\) and all non-decreasing sets
+\(D \subseteq [0,1]^m\) (sets for which \(z \in D\) and \(z' \geq z\)
+coordinatewise imply \(z' \in D\)), the quantity \[
+\mathbb P[(p_1, \dots, p_m) \in D \mid p_j = t]
+\] is nondecreasing in \(t\).
+
+\end{definition}
+
+One example of positively dependent \(p\)-values are those based on
+one-sided tests of \(\mu_j = 0\) in based on
+\(\boldsymbol y \sim N(\boldsymbol \mu, \boldsymbol \Sigma)\), where
+\(\Sigma_{j1,j2} \geq 0\) for all \(j1\) and \(j2\).
+
+Given this definition, we have the following result:
+
+\begin{proposition}[]\protect\hypertarget{prp-bh-prds}{}\label{prp-bh-prds}
+
+If the \(p\)-values are PRDS on \(\mathcal H_0\), then the BH procedure
+controls the FDR at level \(q\).
+
+\end{proposition}
+
+This result is due to Benjamini and Yekutieli (2001). See this paper for
+a proof. While there are not much more general conditions under which BH
+has been proven to control FDR, numerical simulations have shown that
+the BH procedure controls FDR under nearly all dependency structures
+(though it is possible to construct contrived counterexamples).
+
+For those wanting a rigorous FDR guarantee regardless of dependence
+structure, Benjamini and Yekutieli showed that BH can be run with an FDR
+level of \(q/(1 + \frac{1}{2} + \cdots + \frac{1}{m})\). However, this
+is rarely done in practice.
 
 \begin{proposition}[]\protect\hypertarget{prp-bh-dependence}{}\label{prp-bh-dependence}
 
@@ -10922,21 +11109,28 @@ The BH procedure controls the FDR at level
 
 \begin{proof}
 
-We have
-
-\[
+This proof is for the case that \(p_j \sim \text{Unif}[0,1]\) for
+\(j \in \mathcal H_0\). Using the relationship (\ref{eq-fdp-decomp}), we
+have \[
 \begin{split}
-\text{FDP}(\hat S) &= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
-&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
-&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
-&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l} 1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
+\text{FDP}(\hat S) &= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{k}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right)\sum_{k = l}^m 1\left(|\hat S| = k\right)  \\
+&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
 \end{split}
 \]
 
 It follows that
 
 \[
-\text{FDR} = \mathbb{E}[\text{FDP}(\hat S)] \leq \frac{|\mathcal H_0|}{m}q\left(1 + \frac{1}{2} + \cdots + \frac{1}{m}\right).
+\begin{split}
+\text{FDR} &= \mathbb{E}[\text{FDP}(\hat S)] \\
+&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\mathbb P\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right) \\
+&= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\frac{q}{m} \\
+&= \frac{|\mathcal H_0|}{m}q \sum_{l = 1}^m \frac{1}{l} \\
+&\leq q \sum_{l = 1}^m \frac{1}{l}.
+\end{split}
 \]
 
 This completes the proof.
@@ -10996,9 +11190,107 @@ It follows that
 \]
 
 The last equality follows from the fact that the weights \(w_j\) average
-to 1 by assumption.
+to 1 by assumption. This completes the proof.
 
-This completes the proof.
+\end{proof}
+
+\hypertarget{sec-adaptive-multiple-testing}{%
+\subsection{Adaptive multiple testing
+procedures}\label{sec-adaptive-multiple-testing}}
+
+Recall that, under independence, the BH procedure controls Type-I error
+at the level \(\tfrac{|\mathcal H_0|}{m}q\). To the extent that
+\(|\mathcal H_0| < m\), this makes the BH procedure conservative. If we
+had access to the null proportion
+\(\pi \equiv \tfrac{|\mathcal H_0|}{m}\), then we could control FDR at
+level \(q\) by applying BH targeting a less stringent FDR level of
+\(q/\pi\). Since \(\pi\) is usually unknown, Storey et al.~(2004)
+proposed the following estimator:
+\begin{equation}\protect\hypertarget{eq-storey-pi-hat}{}{
+\hat \pi_\lambda \equiv \frac{|\{j: p_j > \lambda\}|}{m(1 - \lambda)},
+}\label{eq-storey-pi-hat}\end{equation} where \(\lambda \in (0,1)\) is a
+tuning parameter, with default recommended value of \(\lambda = 0.5\).
+The motivation for this definition is that \(p\)-values larger than a
+threshold \(\lambda\) are mostly from null hypotheses, so we would
+expect \[
+|\{j: p_j > \lambda\}| \approx |\{j \in \mathcal H_0: p_j > \lambda\}| \approx |\mathcal H_0|\mathbb P[\text{Unif}[0,1] > \lambda] = \pi m (1 - \lambda).
+\]
+
+This leads to the Storey-BH procedure, which adapts to the null
+proportion:
+
+\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+
+\textbf{Storey-BH procedure}\vspace{2mm}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Estimate the null proportion \(\hat \pi_\lambda\) using equation
+  (\ref{eq-storey-pi-hat}).
+\item
+  Run the BH procedure, targeting nominal level \(q/\hat \pi_\lambda\).
+\end{enumerate}
+
+\end{tcolorbox}
+
+Storey et al.~(2004) showed that a small modification of the Storey-BH
+procedure controls FDR at level \(q\) under independent \(p\)-values.
+
+\begin{proposition}[]\protect\hypertarget{prp-storey-bh}{}\label{prp-storey-bh}
+
+The Storey-BH procedure with \[
+\hat \pi_\lambda^+ = \frac{1 + |\{j: p_j > \lambda\}|}{m(1-\lambda)}
+\] instead of \(\hat \pi_\lambda\) controls FDR at level \(q\) under
+independent \(p\)-values.
+
+\end{proposition}
+
+Note that the Storey-BH procedure is less resilient to \(p\)-value
+dependency than the BH procedure.
+
+\hypertarget{sec-fdx-control}{%
+\subsection{False discovery exceedance control}\label{sec-fdx-control}}
+
+Controlling the mean of the FDP (i.e., the FDR), does not guarantee that
+the FDP will not substantially exceed the nominal level for a given
+realization of the \(p\)-values. To address this, the stricter false
+discovery exceedance (FDX) criterion was proposed (Guo and Romano,
+2005).
+
+\begin{definition}[]\protect\hypertarget{def-fdx}{}\label{def-fdx}
+
+The \emph{false discovery exceedance} (FDX) of a multiple testing
+procedure with respect to threshold \(\gamma \in (0,1)\) is the
+probability that the FDP exceeds this threshold: \[
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) > \gamma].
+\] A procedure controls the FDX with threshold \(\gamma\) at level
+\(\alpha\) if \(\text{FDX}_\gamma \leq \alpha\).
+
+\end{definition}
+
+A simple way to control the FDX is to apply the BH procedure with a more
+stringent FDR level of \(\gamma \alpha\).
+
+\begin{proposition}[]\protect\hypertarget{prp-fdx-bh}{}\label{prp-fdx-bh}
+
+Under independence or PRDS on \(\mathcal H_0\), the BH procedure
+targeting FDR level \(\gamma \alpha\) controls the FDX with threshold
+\(\gamma\) at level \(\alpha\).
+
+\end{proposition}
+
+\begin{proof}
+
+Markov's inequality allows us to bound the FDX in terms of the FDR.
+
+\[
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) > \gamma] \leq \frac{\mathbb E[\text{FDP}(\hat S)]}{\gamma} \equiv \frac 1 \gamma \text{FDR}.
+\] Given independent or PRDS \(p\)-values,
+Proposition~\ref{prp-bh-fdr-control} and Proposition~\ref{prp-bh-prds}
+guarantee that \(\text{FDR} \leq \gamma \alpha\), which implies
+\(\text{FDX}_\gamma \leq \alpha\).
 
 \end{proof}
 

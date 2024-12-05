@@ -530,7 +530,7 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 \]</span></p>
 <p>The threshold <span class="math inline">\(\widehat t\)</span> is a stopping time with respect to this filtration, so by the optional stopping theorem, we have</p>
 <p><span class="math display">\[
-\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] \leq \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
+\mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{m \widehat t}\right] = \mathbb{E}[M(\widehat t)] = \mathbb{E}[M(1)] = \frac{|\mathcal H_0|}{m} \leq 1.
 \]</span></p>
 <p>This completes the proof.</p>
 </div>
@@ -625,9 +625,11 @@ Storey-BH procedure
 </ol>
 </div>
 </div>
-<p>Storey et al.&nbsp;(2004) showed that the Storey-BH procedure controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
+<p>Storey et al.&nbsp;(2004) showed that a small modification of the Storey-BH procedure controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
 <div id="prp-storey-bh" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 30.6 </strong></span>The Storey-BH procedure controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
+<p><span class="theorem-title"><strong>Proposition 30.6 </strong></span>The Storey-BH procedure with <span class="math display">\[
+\hat \pi_\lambda^+ = \frac{1 + |\{j: p_j &gt; \lambda\}|}{m(1-\lambda)}
+\]</span> instead of <span class="math inline">\(\hat \pi_\lambda\)</span> controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
 </div>
 <p>Note that the Storey-BH procedure is less resilient to <span class="math inline">\(p\)</span>-value dependency than the BH procedure.</p>
 </section>

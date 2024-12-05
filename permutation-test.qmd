@@ -55,7 +55,6 @@ Suppose $H_0$ holds. Let $\tau \in \mathcal S_n$. Then, by the permutation invar
 $$
 \begin{split}
 &\mathbb P[T(\boldsymbol X, \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]] \\
-&\quad= \mathbb P[T(\boldsymbol X, \tau (\tau^{-1} \boldsymbol y)) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau (\tau^{-1}  \boldsymbol y)): \pi \in \mathcal S_n\}]] \\
 &\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \tau \boldsymbol y): \pi \in \mathcal S_n\}]] \\
 &\quad = \mathbb P[T(\boldsymbol X, \tau \boldsymbol y) > \mathbb Q_{1-\alpha}[\{T(\boldsymbol X, \pi \boldsymbol y): \pi \in \mathcal S_n\}]].
 \end{split}

@@ -1,3 +1,3 @@
 # Multiple testing {#sec-multiple-testing}
 
-
+Consider the problem of assessing which variables in a GLM have nonzero coefficients. In the preceding chapters, we have described a variety of tests for obtaining $p$-values for each coefficient. Given this set of $p$-values (call them $p_1$, \dots, $p_m$), we must determine which variables to deem significant. As it turns out, this task is a nontrivial one for several reasons. In this chapter, we formalize this task as a *multiple testing problem*, discuss the challenges that arise, and describe some common methods for addressing these challenges.

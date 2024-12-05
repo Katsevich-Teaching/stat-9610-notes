@@ -1,7 +1,5 @@
 # Introduction {#sec-introduction-multiple-testing}
 
-Consider the problem of assessing which variables in a GLM have nonzero coefficients. In the preceding chapters, we have described a variety of tests for obtaining $p$-values for each coefficient. Given this set of $p$-values (call them $p_1$, \dots, $p_m$), we must determine which variables to deem significant. As it turns out, this task is a nontrivial one for several reasons, the first of which is the *multiplicity problem*.
-
 ## The multiplicity problem {#sec-multiplicity-problem}
 
 When R prints a regression summary, it adds stars to variables based on their $p$-values. Variables with $p$-values below 0.05 get one star, those with $p$-values below 0.01 get two stars, and those with $p$-values below 0.001 get three stars. A natural strategy for selecting significant variables is to choose those with one or more stars. However, the issue with this strategy is that even null variables (those with coefficients of zero) will sometimes have small $p$-values by chance (@fig-spurious-correlation). The more total variables we are testing, the more of them will have small $p$-values by chance. This is the *multiplicity problem*.
@@ -67,6 +65,9 @@ In other words, $\mathcal{H}_0$ is the set of indices of the true null hypothese
 ### Definitions of Type-I error rate and power
 
 ::: {#def-fwer}
+
+## Tukey, 1953
+
 The family-wise error rate (FWER) of a multiple testing procedure $\mathcal{M}: (p_1, \dots, p_m) \mapsto \hat{S}$ is the probability that it makes any false rejections:
 $$
 \text{FWER}(\mathcal{M}) \equiv \mathbb{P}[\hat{S} \cap \mathcal{H}_0 \neq \varnothing].
@@ -78,6 +79,9 @@ $$
 :::
 
 ::: {#def-fdr}
+
+## Benjamini and Hochberg, 1995
+
 The false discovery proportion (FDP) of a rejection set $\hat{S}$ is the proportion of these rejections that are false:
 $$
 \text{FDP}(\hat{S}) \equiv \frac{|\hat{S} \cap \mathcal{H}_0|}{|\hat{S}|}, \quad \text{where} \quad \frac{0}{0} \equiv 0.

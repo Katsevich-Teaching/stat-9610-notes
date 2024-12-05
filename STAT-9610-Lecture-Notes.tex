@@ -187,16 +187,16 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[chapter]
-\theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -244,7 +244,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, boxrule=0pt, enhanced, frame hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1435,7 +1435,7 @@ of the adjusted exposure on the adjusted outcome via a univariate linear
 model. This is the essence of \emph{covariate adjustment} in causal
 inference.
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
 
 Causal inference is a vast field, which lies mostly beyond the scope of
 STAT 9610; see STAT 9210 instead.
@@ -4353,7 +4353,7 @@ a vector of parameters, and then proceed by estimating
   \(\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}\).
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
 
 Random effects models deal address correlated errors but not with model
 bias. The difference is that, in the case of correlated errors, the
@@ -4692,7 +4692,7 @@ to approximate the sampling distribution of any statistic by simulating
 from this approximate data-generating distribution. In more detail, the
 bootstrap paradigm is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{Bootstrap paradigm to build confidence intervals for
 \(\beta_j\)}\vspace{2mm}
@@ -4782,7 +4782,7 @@ g(\boldsymbol{\widehat \beta}, \boldsymbol{\beta}) = \widehat \beta_j- \beta_j,
 \text{CI}^{\text{boot}}(\beta_j) \equiv \left[\widehat \beta_j - \mathbb Q_{1-\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j], \widehat \beta_j - \mathbb Q_{\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j]\right].
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-important-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-important-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-important-color-frame, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-important-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
 
 A commonly used alternative to the empirical bootstrap is the
 \emph{percentile bootstrap}, defined by
@@ -5036,7 +5036,7 @@ paradigm can be adapted to perform hypothesis tests directly.
 \subsection{Bootstrap testing
 paradigm}\label{sec-bootstrap-testing-paradigm}}
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{Bootstrap paradigm to test
 \(H_0: \boldsymbol \beta_S = 0\)}\vspace{2mm}
@@ -5160,7 +5160,7 @@ this may be the usual \(F\)-statistic for testing the hypothesis
 (\ref{eq-linear-model-with-intercept}). Then, the permutation test based
 on the entire permutation group is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{Permutation test based on the entire permutation
 group}\vspace{2mm}
@@ -5229,7 +5229,7 @@ computationally infeasible for large \(n\). Instead, we can use a random
 sample of the permutation group to approximate the null distribution of
 the test statistic.
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{Permutation test based on a sample of the permutation
 group}\vspace{2mm}
@@ -5314,7 +5314,7 @@ p = \frac{1}{|\mathcal S_n|}\sum_{\tau \in \mathcal S_n} \mathbb I\{T(\boldsymbo
 p = \frac{1}{B+1}\left(1 + \sum_{b=1}^B \mathbb I\{T(\boldsymbol X, \pi_b \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}\right).
 }\label{eq-p-value-permutation-test-sample}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-warning-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-warning-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
 
 A common mistake is to omit the ``1+'' term from the numerator and
 denominator of equation (\ref{eq-p-value-permutation-test-sample}).
@@ -5435,7 +5435,7 @@ the scale of the noise terms. \[
 to the standard deviation of the distribution of \(\epsilon_i\); it is
 derived based on the normal distribution.
 
-\begin{tcolorbox}[enhanced jigsaw, opacitybacktitle=0.6, arc=.35mm, leftrule=.75mm, breakable, colbacktitle=quarto-callout-note-color!10!white, bottomtitle=1mm, colback=white, opacityback=0, toprule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, titlerule=0mm, toptitle=1mm, coltitle=black, left=2mm, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
 
 In principle, \(\widehat{\boldsymbol \beta}^{\text{LAD}}\) could be used
 not just for estimation of \(\sigma\) but also for inference for
@@ -10436,16 +10436,17 @@ Response: Violent
 
 \part{Multiple testing}
 
-\hypertarget{sec-introduction-multiple-testing}{%
-\chapter{Introduction}\label{sec-introduction-multiple-testing}}
-
 Consider the problem of assessing which variables in a GLM have nonzero
 coefficients. In the preceding chapters, we have described a variety of
 tests for obtaining \(p\)-values for each coefficient. Given this set of
 \(p\)-values (call them \(p_1\), \dots, \(p_m\)), we must determine
 which variables to deem significant. As it turns out, this task is a
-nontrivial one for several reasons, the first of which is the
-\emph{multiplicity problem}.
+nontrivial one for several reasons. In this chapter, we formalize this
+task as a \emph{multiple testing problem}, discuss the challenges that
+arise, and describe some common methods for addressing these challenges.
+
+\hypertarget{sec-introduction-multiple-testing}{%
+\chapter{Introduction}\label{sec-introduction-multiple-testing}}
 
 \hypertarget{sec-multiplicity-problem}{%
 \section{The multiplicity problem}\label{sec-multiplicity-problem}}
@@ -10575,7 +10576,8 @@ rate} (FWER) and the \emph{false discovery rate} (FDR).
 \subsection{Definitions of Type-I error rate and
 power}\label{definitions-of-type-i-error-rate-and-power}}
 
-\begin{definition}[]\protect\hypertarget{def-fwer}{}\label{def-fwer}
+\begin{definition}[Tukey,
+1953]\protect\hypertarget{def-fwer}{}\label{def-fwer}
 
 The family-wise error rate (FWER) of a multiple testing procedure
 \(\mathcal{M}: (p_1, \dots, p_m) \mapsto \hat{S}\) is the probability
@@ -10588,7 +10590,8 @@ that it makes any false rejections: \[
 
 \end{definition}
 
-\begin{definition}[]\protect\hypertarget{def-fdr}{}\label{def-fdr}
+\begin{definition}[Benjamini and Hochberg,
+1995]\protect\hypertarget{def-fdr}{}\label{def-fdr}
 
 The false discovery proportion (FDP) of a rejection set \(\hat{S}\) is
 the proportion of these rejections that are false: \[
@@ -10898,7 +10901,7 @@ estimated FDP is below the nominal level \(q\). Note that the set over
 which the above maximum is taken is always nonempty because it at least
 contains 0: \(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\).
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{BH procedure (Storey et al.~formulation)}\vspace{2mm}
 
@@ -10920,7 +10923,7 @@ contains 0: \(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\).
 
 The original BH procedure was formulated differently:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{BH procedure (original formulation)}\vspace{2mm}
 
@@ -11219,7 +11222,7 @@ expect \[
 This leads to the Storey-BH procedure, which adapts to the null
 proportion:
 
-\begin{tcolorbox}[enhanced jigsaw, toprule=.15mm, rightrule=.15mm, arc=.35mm, leftrule=.75mm, breakable, left=2mm, colback=white, opacityback=0, bottomrule=.15mm, colframe=quarto-callout-note-color-frame]
+\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
 
 \textbf{Storey-BH procedure}\vspace{2mm}
 

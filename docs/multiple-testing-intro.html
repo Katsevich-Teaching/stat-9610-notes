@@ -390,7 +390,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Consider the problem of assessing which variables in a GLM have nonzero coefficients. In the preceding chapters, we have described a variety of tests for obtaining <span class="math inline">\(p\)</span>-values for each coefficient. Given this set of <span class="math inline">\(p\)</span>-values (call them <span class="math inline">\(p_1\)</span>, , <span class="math inline">\(p_m\)</span>), we must determine which variables to deem significant. As it turns out, this task is a nontrivial one for several reasons, the first of which is the <em>multiplicity problem</em>.</p>
 <section id="sec-multiplicity-problem" class="level2" data-number="28.1">
 <h2 data-number="28.1" class="anchored" data-anchor-id="sec-multiplicity-problem"><span class="header-section-number">28.1</span> The multiplicity problem</h2>
 <p>When R prints a regression summary, it adds stars to variables based on their <span class="math inline">\(p\)</span>-values. Variables with <span class="math inline">\(p\)</span>-values below 0.05 get one star, those with <span class="math inline">\(p\)</span>-values below 0.01 get two stars, and those with <span class="math inline">\(p\)</span>-values below 0.001 get three stars. A natural strategy for selecting significant variables is to choose those with one or more stars. However, the issue with this strategy is that even null variables (those with coefficients of zero) will sometimes have small <span class="math inline">\(p\)</span>-values by chance (<a href="#fig-spurious-correlation">Figure&nbsp;<span>28.1</span></a>). The more total variables we are testing, the more of them will have small <span class="math inline">\(p\)</span>-values by chance. This is the <em>multiplicity problem</em>.</p>
@@ -440,14 +439,14 @@ H_0 \equiv \bigcap_{j = 1}^m H_{0j}.
 <section id="definitions-of-type-i-error-rate-and-power" class="level3" data-number="28.3.1">
 <h3 data-number="28.3.1" class="anchored" data-anchor-id="definitions-of-type-i-error-rate-and-power"><span class="header-section-number">28.3.1</span> Definitions of Type-I error rate and power</h3>
 <div id="def-fwer" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 28.4 </strong></span>The family-wise error rate (FWER) of a multiple testing procedure <span class="math inline">\(\mathcal{M}: (p_1, \dots, p_m) \mapsto \hat{S}\)</span> is the probability that it makes any false rejections: <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 28.4 (Tukey, 1953) </strong></span>The family-wise error rate (FWER) of a multiple testing procedure <span class="math inline">\(\mathcal{M}: (p_1, \dots, p_m) \mapsto \hat{S}\)</span> is the probability that it makes any false rejections: <span class="math display">\[
 \text{FWER}(\mathcal{M}) \equiv \mathbb{P}[\hat{S} \cap \mathcal{H}_0 \neq \varnothing].
 \]</span> A multiple testing procedure controls the FWER at level <span class="math inline">\(\alpha\)</span> if <span class="math display">\[
 \text{FWER}(\mathcal{M}) \leq \alpha.
 \]</span></p>
 </div>
 <div id="def-fdr" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 28.5 </strong></span>The false discovery proportion (FDP) of a rejection set <span class="math inline">\(\hat{S}\)</span> is the proportion of these rejections that are false: <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 28.5 (Benjamini and Hochberg, 1995) </strong></span>The false discovery proportion (FDP) of a rejection set <span class="math inline">\(\hat{S}\)</span> is the proportion of these rejections that are false: <span class="math display">\[
 \text{FDP}(\hat{S}) \equiv \frac{|\hat{S} \cap \mathcal{H}_0|}{|\hat{S}|}, \quad \text{where} \quad \frac{0}{0} \equiv 0.
 \]</span> The false discovery rate (FDR) of a multiple testing procedure <span class="math inline">\(\mathcal{M}: (p_1, \dots, p_m) \mapsto \hat{S}\)</span> is its expected false discovery proportion: <span id="eq-fdr-def"><span class="math display">\[
 \text{FDR}(\mathcal{M}) \equiv \mathbb{E}[\text{FDP}(\hat{S})] = \mathbb{E}\left[\frac{|\hat{S} \cap \mathcal{H}_0|}{|\hat{S}|}\right].

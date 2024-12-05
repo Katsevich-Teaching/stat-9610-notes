@@ -369,6 +369,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-additional-topics" id="toc-sec-additional-topics" class="nav-link" data-scroll-target="#sec-additional-topics"><span class="header-section-number">30.3</span> Additional topics</a>
   <ul class="collapse">
   <li><a href="#sec-weighted-multiple-testing" id="toc-sec-weighted-multiple-testing" class="nav-link" data-scroll-target="#sec-weighted-multiple-testing"><span class="header-section-number">30.3.1</span> Weighted multiple testing procedures</a></li>
+  <li><a href="#sec-adaptive-multiple-testing" id="toc-sec-adaptive-multiple-testing" class="nav-link" data-scroll-target="#sec-adaptive-multiple-testing"><span class="header-section-number">30.3.2</span> Adaptive multiple testing procedures</a></li>
+  <li><a href="#sec-fdx-control" id="toc-sec-fdx-control" class="nav-link" data-scroll-target="#sec-fdx-control"><span class="header-section-number">30.3.3</span> False discovery exceedance control</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -417,24 +419,93 @@ ul.task-list li input[type="checkbox"] {
 <p>Designing procedures with FDR control, as well as verifying the latter property, is typically harder than for FWER control. It is harder to decouple the effects of the individual hypotheses, as the denominator <span class="math inline">\(|S|\)</span> in the FDR definition (<a href="multiple-testing-intro.html#eq-fdr-def"><span>28.3</span></a>) couples them together. Both the FDR criterion and the most popular FDR-controlling procedure were proposed by Benjamini and Hochberg in 1995.</p>
 <section id="procedure" class="level3" data-number="30.2.1">
 <h3 data-number="30.2.1" class="anchored" data-anchor-id="procedure"><span class="header-section-number">30.2.1</span> Procedure</h3>
-<p>To define the BH procedure, consider thresholding the <span class="math inline">\(p\)</span>-values at <span class="math inline">\(t \in [0,1]\)</span>. We would expect <span class="math inline">\(\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t\)</span> false discoveries among <span class="math inline">\(\{j: p_j \leq t\}\)</span>. Since <span class="math inline">\(|\mathcal H_0|\)</span> is unknown, we can bound it from above by <span class="math inline">\(mt\)</span>. This leads to the FDP estimate:</p>
+<p>We first present the BH procedure, as reformulated by Storey, Taylor, and Siegmund (2004). Consider thresholding the <span class="math inline">\(p\)</span>-values at <span class="math inline">\(t \in [0,1]\)</span>. We would expect <span class="math inline">\(\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t\)</span> false discoveries among <span class="math inline">\(\{j: p_j \leq t\}\)</span>. Since <span class="math inline">\(|\mathcal H_0|\)</span> is unknown, we can bound it from above by <span class="math inline">\(mt\)</span>. This leads to the FDP estimate:</p>
 <p><span id="eq-fdp-estimate"><span class="math display">\[
-\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}
+\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}.
 \tag{30.2}\]</span></span></p>
 <p>The BH procedure is then defined via:</p>
-<p><span id="eq-bh-procedure"><span class="math display">\[
-\hat S \equiv \{j: p_j \leq \widehat t\}, \quad \text{where} \quad \widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}
-\tag{30.3}\]</span></span></p>
+<p><span id="eq-bh-rejection-set"><span class="math display">\[
+\hat S \equiv \{j: p_j \leq \widehat t\},
+\tag{30.3}\]</span></span> where <span id="eq-bh-threshold"><span class="math display">\[
+\widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}.
+\tag{30.4}\]</span></span></p>
 <p>In words, we choose the most liberal <span class="math inline">\(p\)</span>-value threshold for which the estimated FDP is below the nominal level <span class="math inline">\(q\)</span>. Note that the set over which the above maximum is taken is always nonempty because it at least contains 0: <span class="math inline">\(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\)</span>.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+BH procedure (Storey et al.&nbsp;formulation)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>For each <span class="math inline">\(t \in [0,1]\)</span>, compute the estimated FDP using (<a href="#eq-fdp-estimate"><span>30.2</span></a>).</li>
+<li>Let <span class="math inline">\(\hat t\)</span> be the largest threshold <span class="math inline">\(t\)</span> for which the estimated FDP is below <span class="math inline">\(q\)</span> (<a href="#eq-bh-threshold"><span>30.4</span></a>).</li>
+<li>Reject the null hypotheses <span class="math inline">\(j\)</span> whose <span class="math inline">\(p\)</span>-values are below <span class="math inline">\(\hat t\)</span> (<a href="#eq-bh-rejection-set"><span>30.3</span></a>).</li>
+</ol>
+</div>
+</div>
+<p>The original BH procedure was formulated differently:</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+BH procedure (original formulation)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Order the <span class="math inline">\(p\)</span>-values <span class="math inline">\(p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}\)</span>.</li>
+<li>Let <span class="math inline">\(\hat k\)</span> be the largest index <span class="math inline">\(k\)</span> such that <span class="math inline">\(p_{(k)} \leq \frac{k}{m}q\)</span>, or 0 if no such <span class="math inline">\(k\)</span> exists.</li>
+<li>Reject the null hypotheses <span class="math inline">\(j\)</span> corresponding to the <span class="math inline">\(\hat k\)</span> smallest <span class="math inline">\(p\)</span>-values.</li>
+</ol>
+</div>
+</div>
+<p>These two formulations are equivalent. Indeed, defining <span class="math inline">\(p_{(0)} \equiv 0\)</span> for convenience, note that <span class="math display">\[
+\begin{split}
+\widehat t &amp;\equiv \max\left\{t \in [0,1]: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&amp;= \max \left\{t \in \{0, p_{(1)}, \dots, p_{(m)}\}: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&amp;= \max \left\{p_{(k)}: \frac{mp_{(k)}}{k} \leq q, \ k = 0, \dots, m\right\} \\
+&amp;= \max \left\{p_{(k)}: p_{(k)} \leq \frac{qk}{m}, \ k = 0, \dots, m \right\} \\
+&amp;= p_{(\hat k)}.
+\end{split}
+\]</span></p>
 </section>
 <section id="sec-fdr-control-independence" class="level3" data-number="30.2.2">
 <h3 data-number="30.2.2" class="anchored" data-anchor-id="sec-fdr-control-independence"><span class="header-section-number">30.2.2</span> FDR control under independence</h3>
-<p>Benjamini and Hochberg established that their procedure controls the FDR if the <span class="math inline">\(p\)</span>-values are independent. Here we present an alternative argument due to Storey, Taylor, and Siegmund (2004).</p>
+<p>Benjamini and Hochberg established that their procedure controls the FDR if the <span class="math inline">\(p\)</span>-values are independent.</p>
 <div id="prp-bh-fdr-control" class="theorem proposition">
 <p><span class="theorem-title"><strong>Proposition 30.2 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q\)</span> assuming that the <span class="math inline">\(p\)</span>-values are independent.</p>
 </div>
+<p>We present two proofs of this fact, one due to Benjamini and Yekutieli (2001) and one due to Storey, Taylor, and Siegmund (2004).</p>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We have</p>
+<p><span class="proof-title"><em>Proof</em> (Benjamini and Yekutieli, 2001). </span>As a starting point, note that <span id="eq-fdp-decomp"><span class="math display">\[
+\begin{split}
+\text{FDP}(\hat S) &amp;= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right).
+\end{split}
+\tag{30.5}\]</span></span> From here, define <span class="math inline">\(\hat S(p_j \rightarrow 0)\)</span> as the rejection set of BH when applied to the <span class="math inline">\(p\)</span>-values <span class="math inline">\((p_1, \dots, p_{j-1}, 0, p_{j+1}, \dots, p_m)\)</span>. We claim that if the <span class="math inline">\(j\)</span>th hypothesis is the rejected, the size of the rejection set does not change if the <span class="math inline">\(j\)</span>th <span class="math inline">\(p\)</span>-value is set to 0. In other words, we claim that <span id="eq-key-bh-claim"><span class="math display">\[
+1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) = 1\left(p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right).
+\tag{30.6}\]</span></span> This can be seen by noting that <span class="math inline">\(|\hat S| = k\)</span> if and only if <span class="math inline">\(p_{(k)} \leq qk/m\)</span> and <span class="math inline">\(p_{(k')} &gt; qk'/m\)</span> for each <span class="math inline">\(k' &gt; k\)</span>. Therefore, if <span class="math inline">\(|\hat S| = k\)</span> and <span class="math inline">\(p_j \leq qk/m\)</span>, then <span class="math inline">\(p_j\)</span> is among the <span class="math inline">\(k\)</span> smallest <span class="math inline">\(p\)</span>-values, so setting <span class="math inline">\(p_j\)</span> to zero will preserve the statements <span class="math inline">\(p_{(k)} \leq qk/m\)</span> and <span class="math inline">\(p_{(k')} &gt; qk'/m\)</span>, so <span class="math inline">\(|\hat S(p_j \rightarrow 0)| = k\)</span>. The converse implication can be established by similar logic. Given the statement (<a href="#eq-key-bh-claim"><span>30.6</span></a>), we can deduce from equation (<a href="#eq-fdp-decomp"><span>30.5</span></a>) that <span class="math display">\[
+\begin{split}
+\text{FDR} &amp;= \mathbb E[\text{FDP}(\hat S)] \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S| = k\right] \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right] \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}\right]\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&amp;\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\frac{qk}{m}\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&amp;= \frac{q}{m}\sum_{j \in \mathcal H_0} \sum_{k = 1}^m \mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&amp;= \frac{|\mathcal H_0|}{m}q \\
+&amp;\leq q.
+\end{split}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em> (Storey, Taylor, and Siegmund, 2004). </span>We have</p>
 <p><span class="math display">\[
 \begin{split}
 \text{FDR} &amp;= \mathbb{E}\left[\text{FDP}(\widehat t)\right] = \mathbb{E}\left[\frac{|\{j \in \mathcal H_0: p_j \leq \widehat t\}|}{|\{j: p_j \leq \widehat t\}|}\right] \\
@@ -444,14 +515,18 @@ ul.task-list li input[type="checkbox"] {
 <p>To prove that the last expectation is bounded above by 1, note that</p>
 <p><span id="eq-martingale"><span class="math display">\[
 M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
-\tag{30.4}\]</span></span></p>
+\tag{30.7}\]</span></span></p>
 <p>is a backwards martingale with respect to the filtration</p>
 <p><span id="eq-filtration"><span class="math display">\[
 \mathcal F_t = \sigma(\{p_j: j \in \mathcal H_1\}, |\{j \in \mathcal H_0: p_j \leq t'\}| \text{ for } t' \geq t),
-\tag{30.5}\]</span></span></p>
+\tag{30.8}\]</span></span></p>
 <p>with <span class="math inline">\(t\)</span> running backwards from 1 to 0. Indeed, for <span class="math inline">\(s &lt; t\)</span> we have</p>
 <p><span class="math display">\[
-\mathbb{E}[M(s)|\mathcal F_t] = \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] = \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} = \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\begin{split}
+\mathbb{E}[M(s)|\mathcal F_t] &amp;= \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] \\
+&amp;= \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} \\
+&amp;= \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\end{split}
 \]</span></p>
 <p>The threshold <span class="math inline">\(\widehat t\)</span> is a stopping time with respect to this filtration, so by the optional stopping theorem, we have</p>
 <p><span class="math display">\[
@@ -462,23 +537,41 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 </section>
 <section id="sec-fdr-control-dependence" class="level3" data-number="30.2.3">
 <h3 data-number="30.2.3" class="anchored" data-anchor-id="sec-fdr-control-dependence"><span class="header-section-number">30.2.3</span> FDR control under dependence</h3>
-<p>Under dependence, the BH procedure’s FDR can be bounded by a multiple of the nominal FDR level.</p>
+<p>Under some forms of dependence, the BH procedure can be shown to control FDR at level <span class="math inline">\(q\)</span>. One such form of dependence is a special kind of positive dependence, defined below:</p>
+<div id="def-prds" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 30.1 </strong></span>The <span class="math inline">\(p\)</span>-values <span class="math inline">\((p_1, \ldots, p_m)\)</span> are said to be positively regression dependent on a subset <span class="math inline">\(\mathcal J \subseteq \{1, \dots, m\}\)</span> (PRDS on <span class="math inline">\(\mathcal J\)</span>) if for all <span class="math inline">\(j \in \mathcal J\)</span> and all non-decreasing sets <span class="math inline">\(D \subseteq [0,1]^m\)</span> (sets for which <span class="math inline">\(z \in D\)</span> and <span class="math inline">\(z' \geq z\)</span> coordinatewise imply <span class="math inline">\(z' \in D\)</span>), the quantity <span class="math display">\[
+\mathbb P[(p_1, \dots, p_m) \in D \mid p_j = t]
+\]</span> is nondecreasing in <span class="math inline">\(t\)</span>.</p>
+</div>
+<p>One example of positively dependent <span class="math inline">\(p\)</span>-values are those based on one-sided tests of <span class="math inline">\(\mu_j = 0\)</span> in based on <span class="math inline">\(\boldsymbol y \sim N(\boldsymbol \mu, \boldsymbol \Sigma)\)</span>, where <span class="math inline">\(\Sigma_{j1,j2} \geq 0\)</span> for all <span class="math inline">\(j1\)</span> and <span class="math inline">\(j2\)</span>.</p>
+<p>Given this definition, we have the following result:</p>
+<div id="prp-bh-prds" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 30.3 </strong></span>If the <span class="math inline">\(p\)</span>-values are PRDS on <span class="math inline">\(\mathcal H_0\)</span>, then the BH procedure controls the FDR at level <span class="math inline">\(q\)</span>.</p>
+</div>
+<p>This result is due to Benjamini and Yekutieli (2001). See this paper for a proof. While there are not much more general conditions under which BH has been proven to control FDR, numerical simulations have shown that the BH procedure controls FDR under nearly all dependency structures (though it is possible to construct contrived counterexamples).</p>
+<p>For those wanting a rigorous FDR guarantee regardless of dependence structure, Benjamini and Yekutieli showed that BH can be run with an FDR level of <span class="math inline">\(q/(1 + \frac{1}{2} + \cdots + \frac{1}{m})\)</span>. However, this is rarely done in practice.</p>
 <div id="prp-bh-dependence" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 30.3 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q(1 + \frac{1}{2} + \cdots + \frac{1}{m})\)</span> regardless of the <span class="math inline">\(p\)</span>-value dependency structure.</p>
+<p><span class="theorem-title"><strong>Proposition 30.4 </strong></span>The BH procedure controls the FDR at level <span class="math inline">\(q(1 + \frac{1}{2} + \cdots + \frac{1}{m})\)</span> regardless of the <span class="math inline">\(p\)</span>-value dependency structure.</p>
 </div>
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We have</p>
-<p><span class="math display">\[
+<p><span class="proof-title"><em>Proof</em>. </span>This proof is for the case that <span class="math inline">\(p_j \sim \text{Unif}[0,1]\)</span> for <span class="math inline">\(j \in \mathcal H_0\)</span>. Using the relationship (<a href="#eq-fdp-decomp"><span>30.5</span></a>), we have <span class="math display">\[
 \begin{split}
-\text{FDP}(\hat S) &amp;= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
-&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
-&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
-&amp;\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l} 1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
+\text{FDP}(\hat S) &amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
+&amp;= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{k}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&amp;\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&amp;= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right)\sum_{k = l}^m 1\left(|\hat S| = k\right)  \\
+&amp;\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
 \end{split}
 \]</span></p>
 <p>It follows that</p>
 <p><span class="math display">\[
-\text{FDR} = \mathbb{E}[\text{FDP}(\hat S)] \leq \frac{|\mathcal H_0|}{m}q\left(1 + \frac{1}{2} + \cdots + \frac{1}{m}\right).
+\begin{split}
+\text{FDR} &amp;= \mathbb{E}[\text{FDP}(\hat S)] \\
+&amp;\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\mathbb P\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right) \\
+&amp;= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\frac{q}{m} \\
+&amp;= \frac{|\mathcal H_0|}{m}q \sum_{l = 1}^m \frac{1}{l} \\
+&amp;\leq q \sum_{l = 1}^m \frac{1}{l}.
+\end{split}
 \]</span></p>
 <p>This completes the proof.</p>
 </div>
@@ -491,10 +584,10 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 <p>Sometimes, we may have more prior evidence against certain null hypotheses than others, which we wish to incorporate in the global testing or multiple testing procedure to boost power. A common approach to doing so is to <em>weight</em> the <span class="math inline">\(p\)</span>-values. Letting <span class="math inline">\(w_1, \dots, w_m\)</span> be <span class="math inline">\(p\)</span>-value weights averaging to 1, define <em>weighted <span class="math inline">\(p\)</span>-values</em> <span class="math inline">\(\tilde{p}_j\)</span> via:</p>
 <p><span id="eq-weighted-p-values"><span class="math display">\[
 \tilde{p}_j \equiv \frac{p_j}{w_j}
-\tag{30.6}\]</span></span></p>
+\tag{30.9}\]</span></span></p>
 <p>Note that <span class="math inline">\(p\)</span>-values corresponding to hypotheses with large (small) weights will be made more (less) significant. We can then attempt to apply the above global testing and multiple testing procedures on the weighted <span class="math inline">\(p\)</span>-values <span class="math inline">\(\tilde{p}_j\)</span> rather than the original <span class="math inline">\(p\)</span>-values <span class="math inline">\(p_j\)</span>. As it turns out, in many cases these weighted procedures retain the Type-I error guarantees of their unweighted counterparts.</p>
 <div id="prp-weighted-bonferroni" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 30.4 </strong></span>The weighted variants of the Bonferroni global test, the Bonferroni FWER procedure, and the BH FDR procedure all control their respective Type-I error rates under the same conditions as their unweighted counterparts (arbitrary dependence for the Bonferroni procedures and independence for BH).</p>
+<p><span class="theorem-title"><strong>Proposition 30.5 </strong></span>The weighted variants of the Bonferroni global test, the Bonferroni FWER procedure, and the BH FDR procedure all control their respective Type-I error rates under the same conditions as their unweighted counterparts (arbitrary dependence for the Bonferroni procedures and independence for BH).</p>
 </div>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Here, we prove the statement just for the Bonferroni global test; the remaining proofs are left as exercises. The weighted Bonferroni global test is as follows:</p>
@@ -505,8 +598,56 @@ M(t) \equiv \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t}
 <p><span class="math display">\[
 \mathbb{E}_{H_0}[\phi(p_1, \dots, p_m)] \leq \sum_{j = 1}^m \frac{\alpha}{m} w_j = \alpha.
 \]</span></p>
-<p>The last equality follows from the fact that the weights <span class="math inline">\(w_j\)</span> average to 1 by assumption.</p>
-<p>This completes the proof.</p>
+<p>The last equality follows from the fact that the weights <span class="math inline">\(w_j\)</span> average to 1 by assumption. This completes the proof.</p>
+</div>
+</section>
+<section id="sec-adaptive-multiple-testing" class="level3" data-number="30.3.2">
+<h3 data-number="30.3.2" class="anchored" data-anchor-id="sec-adaptive-multiple-testing"><span class="header-section-number">30.3.2</span> Adaptive multiple testing procedures</h3>
+<p>Recall that, under independence, the BH procedure controls Type-I error at the level <span class="math inline">\(\tfrac{|\mathcal H_0|}{m}q\)</span>. To the extent that <span class="math inline">\(|\mathcal H_0| &lt; m\)</span>, this makes the BH procedure conservative. If we had access to the null proportion <span class="math inline">\(\pi \equiv \tfrac{|\mathcal H_0|}{m}\)</span>, then we could control FDR at level <span class="math inline">\(q\)</span> by applying BH targeting a less stringent FDR level of <span class="math inline">\(q/\pi\)</span>. Since <span class="math inline">\(\pi\)</span> is usually unknown, Storey et al.&nbsp;(2004) proposed the following estimator: <span id="eq-storey-pi-hat"><span class="math display">\[
+\hat \pi_\lambda \equiv \frac{|\{j: p_j &gt; \lambda\}|}{m(1 - \lambda)},
+\tag{30.10}\]</span></span> where <span class="math inline">\(\lambda \in (0,1)\)</span> is a tuning parameter, with default recommended value of <span class="math inline">\(\lambda = 0.5\)</span>. The motivation for this definition is that <span class="math inline">\(p\)</span>-values larger than a threshold <span class="math inline">\(\lambda\)</span> are mostly from null hypotheses, so we would expect <span class="math display">\[
+|\{j: p_j &gt; \lambda\}| \approx |\{j \in \mathcal H_0: p_j &gt; \lambda\}| \approx |\mathcal H_0|\mathbb P[\text{Unif}[0,1] &gt; \lambda] = \pi m (1 - \lambda).
+\]</span></p>
+<p>This leads to the Storey-BH procedure, which adapts to the null proportion:</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Storey-BH procedure
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Estimate the null proportion <span class="math inline">\(\hat \pi_\lambda\)</span> using equation (<a href="#eq-storey-pi-hat"><span>30.10</span></a>).</li>
+<li>Run the BH procedure, targeting nominal level <span class="math inline">\(q/\hat \pi_\lambda\)</span>.</li>
+</ol>
+</div>
+</div>
+<p>Storey et al.&nbsp;(2004) showed that the Storey-BH procedure controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
+<div id="prp-storey-bh" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 30.6 </strong></span>The Storey-BH procedure controls FDR at level <span class="math inline">\(q\)</span> under independent <span class="math inline">\(p\)</span>-values.</p>
+</div>
+<p>Note that the Storey-BH procedure is less resilient to <span class="math inline">\(p\)</span>-value dependency than the BH procedure.</p>
+</section>
+<section id="sec-fdx-control" class="level3" data-number="30.3.3">
+<h3 data-number="30.3.3" class="anchored" data-anchor-id="sec-fdx-control"><span class="header-section-number">30.3.3</span> False discovery exceedance control</h3>
+<p>Controlling the mean of the FDP (i.e., the FDR), does not guarantee that the FDP will not substantially exceed the nominal level for a given realization of the <span class="math inline">\(p\)</span>-values. To address this, the stricter false discovery exceedance (FDX) criterion was proposed (Guo and Romano, 2005).</p>
+<div id="def-fdx" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 30.2 </strong></span>The <em>false discovery exceedance</em> (FDX) of a multiple testing procedure with respect to threshold <span class="math inline">\(\gamma \in (0,1)\)</span> is the probability that the FDP exceeds this threshold: <span class="math display">\[
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) &gt; \gamma].
+\]</span> A procedure controls the FDX with threshold <span class="math inline">\(\gamma\)</span> at level <span class="math inline">\(\alpha\)</span> if <span class="math inline">\(\text{FDX}_\gamma \leq \alpha\)</span>.</p>
+</div>
+<p>A simple way to control the FDX is to apply the BH procedure with a more stringent FDR level of <span class="math inline">\(\gamma \alpha\)</span>.</p>
+<div id="prp-fdx-bh" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 30.7 </strong></span>Under independence or PRDS on <span class="math inline">\(\mathcal H_0\)</span>, the BH procedure targeting FDR level <span class="math inline">\(\gamma \alpha\)</span> controls the FDX with threshold <span class="math inline">\(\gamma\)</span> at level <span class="math inline">\(\alpha\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Markov’s inequality allows us to bound the FDX in terms of the FDR.</p>
+<p><span class="math display">\[
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) &gt; \gamma] \leq \frac{\mathbb E[\text{FDP}(\hat S)]}{\gamma} \equiv \frac 1 \gamma \text{FDR}.
+\]</span> Given independent or PRDS <span class="math inline">\(p\)</span>-values, <a href="#prp-bh-fdr-control">Proposition&nbsp;<span>30.2</span></a> and <a href="#prp-bh-prds">Proposition&nbsp;<span>30.3</span></a> guarantee that <span class="math inline">\(\text{FDR} \leq \gamma \alpha\)</span>, which implies <span class="math inline">\(\text{FDX}_\gamma \leq \alpha\)</span>.</p>
 </div>
 
 

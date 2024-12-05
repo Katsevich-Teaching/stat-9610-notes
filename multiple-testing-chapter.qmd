@@ -34,23 +34,61 @@ Designing procedures with FDR control, as well as verifying the latter property,
 
 ### Procedure
 
-To define the BH procedure, consider thresholding the $p$-values at $t \in [0,1]$. We would expect $\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t$ false discoveries among $\{j: p_j \leq t\}$. Since $|\mathcal H_0|$ is unknown, we can bound it from above by $mt$. This leads to the FDP estimate:
+We first present the BH procedure, as reformulated by Storey, Taylor, and Siegmund (2004). Consider thresholding the $p$-values at $t \in [0,1]$. We would expect $\mathbb{E}[|\{j: p_j \leq t\} \cap \mathcal H_0|] = |\mathcal H_0|t$ false discoveries among $\{j: p_j \leq t\}$. Since $|\mathcal H_0|$ is unknown, we can bound it from above by $mt$. This leads to the FDP estimate:
 
 $$
-\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}
+\widehat{\text{FDP}}(t) \equiv \frac{mt}{|\{j: p_j \leq t\}|}.
 $$ {#eq-fdp-estimate}
 
 The BH procedure is then defined via:
 
 $$
-\hat S \equiv \{j: p_j \leq \widehat t\}, \quad \text{where} \quad \widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}
-$$ {#eq-bh-procedure}
+\hat S \equiv \{j: p_j \leq \widehat t\},
+$$ {#eq-bh-rejection-set}
+where
+$$
+\widehat t = \max\{t \in [0,1]: \widehat{\text{FDP}}(t) \leq q\}.
+$$ {#eq-bh-threshold}
 
 In words, we choose the most liberal $p$-value threshold for which the estimated FDP is below the nominal level $q$. Note that the set over which the above maximum is taken is always nonempty because it at least contains 0: $\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0$.
 
+::: {.callout-note appearance="minimal"}
+
+## BH procedure (Storey et al. formulation)
+
+1. For each $t \in [0,1]$, compute the estimated FDP using ([-@eq-fdp-estimate]).
+2. Let $\hat t$ be the largest threshold $t$ for which the estimated FDP is below $q$ ([-@eq-bh-threshold]).
+3. Reject the null hypotheses $j$ whose $p$-values are below $\hat t$ ([-@eq-bh-rejection-set]).
+
+:::
+
+The original BH procedure was formulated differently:
+
+::: {.callout-note appearance="minimal"}
+
+## BH procedure (original formulation)
+
+1. Order the $p$-values $p_{(1)} \leq p_{(2)} \leq \cdots \leq p_{(m)}$.
+2. Let $\hat k$ be the largest index $k$ such that $p_{(k)} \leq \frac{k}{m}q$, or 0 if no such $k$ exists.
+3. Reject the null hypotheses $j$ corresponding to the $\hat k$ smallest $p$-values.
+
+:::
+
+These two formulations are equivalent. Indeed, defining $p_{(0)} \equiv 0$ for convenience, note that 
+$$
+\begin{split}
+\widehat t &\equiv \max\left\{t \in [0,1]: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&= \max \left\{t \in \{0, p_{(1)}, \dots, p_{(m)}\}: \frac{mt}{|\{j: p_j \leq t\}|} \leq q\right\} \\
+&= \max \left\{p_{(k)}: \frac{mp_{(k)}}{k} \leq q, \ k = 0, \dots, m\right\} \\
+&= \max \left\{p_{(k)}: p_{(k)} \leq \frac{qk}{m}, \ k = 0, \dots, m \right\} \\
+&= p_{(\hat k)}.
+\end{split}
+$$
+
+
 ### FDR control under independence {#sec-fdr-control-independence}
 
-Benjamini and Hochberg established that their procedure controls the FDR if the $p$-values are independent. Here we present an alternative argument due to Storey, Taylor, and Siegmund (2004).
+Benjamini and Hochberg established that their procedure controls the FDR if the $p$-values are independent. 
 
 ::: {#prp-bh-fdr-control}
 
@@ -58,7 +96,44 @@ The BH procedure controls the FDR at level $q$ assuming that the $p$-values are 
 
 :::
 
+We present two proofs of this fact, one due to Benjamini and Yekutieli (2001) and one due to Storey, Taylor, and Siegmund (2004).
+
 ::: {.proof}
+
+## Benjamini and Yekutieli, 2001
+
+As a starting point, note that
+$$
+\begin{split}
+\text{FDP}(\hat S) &= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right).
+\end{split}
+$$ {#eq-fdp-decomp}
+From here, define $\hat S(p_j \rightarrow 0)$ as the rejection set of BH when applied to the $p$-values $(p_1, \dots, p_{j-1}, 0, p_{j+1}, \dots, p_m)$. We claim that if the $j$th hypothesis is the rejected, the size of the rejection set does not change if the $j$th $p$-value is set to 0. In other words, we claim that
+$$
+1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) = 1\left(p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right).
+$$ {#eq-key-bh-claim}
+This can be seen by noting that $|\hat S| = k$ if and only if $p_{(k)} \leq qk/m$ and $p_{(k')} > qk'/m$ for each $k' > k$. Therefore, if $|\hat S| = k$ and $p_j \leq qk/m$, then $p_j$ is among the $k$ smallest $p$-values, so setting $p_j$ to zero will preserve the statements $p_{(k)} \leq qk/m$ and $p_{(k')} > qk'/m$, so $|\hat S(p_j \rightarrow 0)| = k$. The converse implication can be established by similar logic. Given the statement ([-@eq-key-bh-claim]), we can deduce from equation ([-@eq-fdp-decomp]) that
+$$
+\begin{split}
+\text{FDR} &= \mathbb E[\text{FDP}(\hat S)] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S| = k\right] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}, |\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\mathbb P\left[p_j \leq \frac{qk}{m}\right]\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}\frac{qk}{m}\mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \frac{q}{m}\sum_{j \in \mathcal H_0} \sum_{k = 1}^m \mathbb P\left[|\hat S(p_j \rightarrow 0)| = k\right] \\
+&= \frac{|\mathcal H_0|}{m}q \\
+&\leq q.
+\end{split}
+$$
+
+
+:::
+
+::: {.proof}
+
+## Storey, Taylor, and Siegmund, 2004
 
 We have
 
@@ -84,7 +159,11 @@ $$ {#eq-filtration}
 with $t$ running backwards from 1 to 0. Indeed, for $s < t$ we have
 
 $$
-\mathbb{E}[M(s)|\mathcal F_t] = \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] = \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} = \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\begin{split}
+\mathbb{E}[M(s)|\mathcal F_t] &= \mathbb{E}\left[\left.\frac{|\{j \in \mathcal H_0: p_j \leq s\}|}{m s} \right| \mathcal F_t\right] \\
+&= \frac{\frac{s}{t}|\{j \in \mathcal H_0: p_j \leq t\}|}{m s} \\
+&= \frac{|\{j \in \mathcal H_0: p_j \leq t\}|}{m t} = M(t).
+\end{split}
 $$
 
 The threshold $\widehat t$ is a stopping time with respect to this filtration, so by the optional stopping theorem, we have
@@ -98,7 +177,31 @@ This completes the proof.
 
 ### FDR control under dependence {#sec-fdr-control-dependence}
 
-Under dependence, the BH procedure's FDR can be bounded by a multiple of the nominal FDR level.
+Under some forms of dependence, the BH procedure can be shown to control FDR at level $q$. One such form of dependence is a special kind of positive dependence, defined below:
+
+::: {#def-prds}
+
+The $p$-values $(p_1, \ldots, p_m)$ are said to be positively regression dependent on a subset $\mathcal J \subseteq \{1, \dots, m\}$ (PRDS on $\mathcal J$) if for all $j \in \mathcal J$ and all non-decreasing sets $D \subseteq [0,1]^m$ (sets for which $z \in D$ and $z' \geq z$ coordinatewise imply $z' \in D$), the quantity 
+$$
+\mathbb P[(p_1, \dots, p_m) \in D \mid p_j = t]
+$$ 
+is nondecreasing in $t$.
+
+:::
+
+One example of positively dependent $p$-values are those based on one-sided tests of $\mu_j = 0$ in based on $\boldsymbol y \sim N(\boldsymbol \mu, \boldsymbol \Sigma)$, where $\Sigma_{j1,j2} \geq 0$ for all $j1$ and $j2$.
+
+Given this definition, we have the following result:
+
+::: {#prp-bh-prds}
+
+If the $p$-values are PRDS on $\mathcal H_0$, then the BH procedure controls the FDR at level $q$.
+
+:::
+
+This result is due to Benjamini and Yekutieli (2001). See this paper for a proof. While there are not much more general conditions under which BH has been proven to control FDR, numerical simulations have shown that the BH procedure controls FDR under nearly all dependency structures (though it is possible to construct contrived counterexamples).
+
+For those wanting a rigorous FDR guarantee regardless of dependence structure, Benjamini and Yekutieli showed that BH can be run with an FDR level of $q/(1 + \frac{1}{2} + \cdots + \frac{1}{m})$. However, this is rarely done in practice.
 
 ::: {#prp-bh-dependence}
 
@@ -108,21 +211,27 @@ The BH procedure controls the FDR at level $q(1 + \frac{1}{2} + \cdots + \frac{1
 
 ::: {.proof}
 
-We have
-
+This proof is for the case that $p_j \sim \text{Unif}[0,1]$ for $j \in \mathcal H_0$. Using the relationship ([-@eq-fdp-decomp]), we have
 $$
 \begin{split}
-\text{FDP}(\hat S) &= \sum_{k = 1}^m \frac{|\hat S \cap \mathcal H_0|}{k}1(|\hat S| = k) \\
-&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1(j \in \hat S, |\hat S| = k) \\
-&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
-&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l} 1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
+\text{FDP}(\hat S) &= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \frac{1}{k}1\left(p_j \leq \frac{qk}{m}, |\hat S| = k\right) \\
+&= \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{k}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&\leq \sum_{k = 1}^m \sum_{j \in \mathcal H_0} \sum_{l = 1}^k \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right], |\hat S| = k\right) \\
+&= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right)\sum_{k = l}^m 1\left(|\hat S| = k\right)  \\
+&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}1\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right).
 \end{split}
 $$
 
 It follows that
 
 $$
-\text{FDR} = \mathbb{E}[\text{FDP}(\hat S)] \leq \frac{|\mathcal H_0|}{m}q\left(1 + \frac{1}{2} + \cdots + \frac{1}{m}\right).
+\begin{split}
+\text{FDR} &= \mathbb{E}[\text{FDP}(\hat S)] \\
+&\leq \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\mathbb P\left(p_j \in \left[\frac{q(l-1)}{m}, \frac{ql}{m}\right]\right) \\
+&= \sum_{j \in \mathcal H_0} \sum_{l = 1}^m \frac{1}{l}\frac{q}{m} \\
+&= \frac{|\mathcal H_0|}{m}q \sum_{l = 1}^m \frac{1}{l} \\
+&\leq q \sum_{l = 1}^m \frac{1}{l}.
+\end{split}
 $$
 
 This completes the proof.
@@ -160,7 +269,70 @@ $$
 \mathbb{E}_{H_0}[\phi(p_1, \dots, p_m)] \leq \sum_{j = 1}^m \frac{\alpha}{m} w_j = \alpha.
 $$
 
-The last equality follows from the fact that the weights $w_j$ average to 1 by assumption.
+The last equality follows from the fact that the weights $w_j$ average to 1 by assumption. This completes the proof.
+:::
 
-This completes the proof.
+### Adaptive multiple testing procedures {#sec-adaptive-multiple-testing}
+
+Recall that, under independence, the BH procedure controls Type-I error at the level $\tfrac{|\mathcal H_0|}{m}q$. To the extent that $|\mathcal H_0| < m$, this makes the BH procedure conservative. If we had access to the null proportion $\pi \equiv \tfrac{|\mathcal H_0|}{m}$, then we could control FDR at level $q$ by applying BH targeting a less stringent FDR level of $q/\pi$. Since $\pi$ is usually unknown, Storey et al. (2004) proposed the following estimator:
+$$
+\hat \pi_\lambda \equiv \frac{|\{j: p_j > \lambda\}|}{m(1 - \lambda)},
+$$ {#eq-storey-pi-hat}
+where $\lambda \in (0,1)$ is a tuning parameter, with default recommended value of $\lambda = 0.5$. The motivation for this definition is that $p$-values larger than a threshold $\lambda$ are mostly from null hypotheses, so we would expect 
+$$
+|\{j: p_j > \lambda\}| \approx |\{j \in \mathcal H_0: p_j > \lambda\}| \approx |\mathcal H_0|\mathbb P[\text{Unif}[0,1] > \lambda] = \pi m (1 - \lambda).
+$$
+
+This leads to the Storey-BH procedure, which adapts to the null proportion:
+
+::: {.callout-note appearance="minimal"}
+
+## Storey-BH procedure
+
+1. Estimate the null proportion $\hat \pi_\lambda$ using equation ([-@eq-storey-pi-hat]).
+2. Run the BH procedure, targeting nominal level $q/\hat \pi_\lambda$.
+
+:::
+
+Storey et al. (2004) showed that the Storey-BH procedure controls FDR at level $q$ under independent $p$-values.
+
+::: {#prp-storey-bh}
+
+The Storey-BH procedure controls FDR at level $q$ under independent $p$-values.
+
+:::
+
+Note that the Storey-BH procedure is less resilient to $p$-value dependency than the BH procedure.
+
+### False discovery exceedance control {#sec-fdx-control}
+
+Controlling the mean of the FDP (i.e., the FDR), does not guarantee that the FDP will not substantially exceed the nominal level for a given realization of the $p$-values. To address this, the stricter false discovery exceedance (FDX) criterion was proposed (Guo and Romano, 2005).
+
+::: {#def-fdx}
+
+The *false discovery exceedance* (FDX) of a multiple testing procedure with respect to threshold $\gamma \in (0,1)$ is the probability that the FDP exceeds this threshold:
+$$
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) > \gamma].
+$$
+A procedure controls the FDX with threshold $\gamma$ at level $\alpha$ if $\text{FDX}_\gamma \leq \alpha$.
+
+:::
+
+A simple way to control the FDX is to apply the BH procedure with a more stringent FDR level of $\gamma \alpha$. 
+
+::: {#prp-fdx-bh}
+
+Under independence or PRDS on $\mathcal H_0$, the BH procedure targeting FDR level $\gamma \alpha$ controls the FDX with threshold $\gamma$ at level $\alpha$.
+
+:::
+
+::: {.proof}
+
+Markov's inequality allows us to bound the FDX in terms of the FDR.
+
+$$
+\text{FDX}_\gamma \equiv \mathbb P[\text{FDP}(\hat S) > \gamma] \leq \frac{\mathbb E[\text{FDP}(\hat S)]}{\gamma} \equiv \frac 1 \gamma \text{FDR}.
+$$
+Given independent or PRDS $p$-values, @prp-bh-fdr-control and @prp-bh-prds guarantee that $\text{FDR} \leq \gamma \alpha$, which implies $\text{FDX}_\gamma \leq \alpha$.
+
 :::

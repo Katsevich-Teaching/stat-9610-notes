@@ -541,8 +541,8 @@ F = \frac{\|(\boldsymbol H - \boldsymbol H_{\text{-}S})\boldsymbol y \|^2 / |S|}
 \boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}).
 \tag{14.9}\]</span></span> On the other hand, since <span class="math inline">\(\boldsymbol{\widehat \beta}_S\)</span> can be obtained by regressing <span class="math inline">\(\boldsymbol y\)</span> onto <span class="math inline">\(\boldsymbol X_{*,S}^{\perp}\)</span>, we also have that <span id="eq-beta-s-2"><span class="math display">\[
 \boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X_{*,S}^{\perp})^T \boldsymbol X_{*,S}^{\perp}]^{-1}).
-\tag{14.10}\]</span></span> Combining <a href="#eq-beta-s-1"><span>14.9</span></a> and <a href="#eq-beta-s-2"><span>14.10</span></a>, we verify the claimed relationship <a href="#eq-claim-wald-f"><span>14.8</span></a>. Therefore, we have <span class="math display">\[
-F = \frac{\boldsymbol{\widehat \beta}_S^T [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
+\tag{14.10}\]</span></span> Combining statements (<a href="#eq-beta-s-1"><span>14.9</span></a>) and (<a href="#eq-beta-s-2"><span>14.10</span></a>), we verify the claimed relationship (<a href="#eq-claim-wald-f"><span>14.8</span></a>). Therefore, we have <span class="math display">\[
+F = \frac{\boldsymbol{\widehat \beta}_S^T \{[(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}\}^{-1} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
 \]</span> Recalling that <span class="math inline">\(\boldsymbol{\widehat \Omega} = \widehat \sigma^2 (\boldsymbol X^T \boldsymbol X)^{-1}\)</span>, we find that <span class="math display">\[
 F = \boldsymbol{\widehat \beta}_S^T \left(\boldsymbol{\widehat \Omega}_{S,S}\right)^{-1} \boldsymbol{\widehat \beta}_S / |S|,
 \]</span> as desired.</p>

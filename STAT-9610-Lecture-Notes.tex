@@ -189,14 +189,14 @@
 \usepackage{amsthm}
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -244,7 +244,7 @@
 \begin{document}
 \frontmatter
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, sharp corners, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -1435,7 +1435,7 @@ of the adjusted exposure on the adjusted outcome via a univariate linear
 model. This is the essence of \emph{covariate adjustment} in causal
 inference.
 
-\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, titlerule=0mm, breakable, colframe=quarto-callout-note-color-frame, coltitle=black, rightrule=.15mm, leftrule=.75mm, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, opacitybacktitle=0.6, arc=.35mm, left=2mm, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm]
 
 Causal inference is a vast field, which lies mostly beyond the scope of
 STAT 9610; see STAT 9210 instead.
@@ -4353,7 +4353,7 @@ a vector of parameters, and then proceed by estimating
   \(\Sigma_{i_1i_2} = \sigma^2\rho^{|i_1-i_2|}\).
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, titlerule=0mm, breakable, colframe=quarto-callout-note-color-frame, coltitle=black, rightrule=.15mm, leftrule=.75mm, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Random versus fixed effects models}, colback=white, opacitybacktitle=0.6, arc=.35mm, left=2mm, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm]
 
 Random effects models deal address correlated errors but not with model
 bias. The difference is that, in the case of correlated errors, the
@@ -4624,10 +4624,10 @@ regression of \(\boldsymbol y\) on \(\boldsymbol X\). Then, we have \[
 \(\boldsymbol y\) onto \(\boldsymbol X_{*,S}^{\perp}\), we also have
 that \begin{equation}\protect\hypertarget{eq-beta-s-2}{}{
 \boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X_{*,S}^{\perp})^T \boldsymbol X_{*,S}^{\perp}]^{-1}).
-}\label{eq-beta-s-2}\end{equation} Combining \ref{eq-beta-s-1} and
-\ref{eq-beta-s-2}, we verify the claimed relationship
-\ref{eq-claim-wald-f}. Therefore, we have \[
-F = \frac{\boldsymbol{\widehat \beta}_S^T [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
+}\label{eq-beta-s-2}\end{equation} Combining statements
+(\ref{eq-beta-s-1}) and (\ref{eq-beta-s-2}), we verify the claimed
+relationship (\ref{eq-claim-wald-f}). Therefore, we have \[
+F = \frac{\boldsymbol{\widehat \beta}_S^T \{[(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}\}^{-1} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
 \] Recalling that
 \(\boldsymbol{\widehat \Omega} = \widehat \sigma^2 (\boldsymbol X^T \boldsymbol X)^{-1}\),
 we find that \[
@@ -4692,7 +4692,7 @@ to approximate the sampling distribution of any statistic by simulating
 from this approximate data-generating distribution. In more detail, the
 bootstrap paradigm is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{Bootstrap paradigm to build confidence intervals for
 \(\beta_j\)}\vspace{2mm}
@@ -4782,7 +4782,7 @@ g(\boldsymbol{\widehat \beta}, \boldsymbol{\beta}) = \widehat \beta_j- \beta_j,
 \text{CI}^{\text{boot}}(\beta_j) \equiv \left[\widehat \beta_j - \mathbb Q_{1-\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j], \widehat \beta_j - \mathbb Q_{\alpha/2}[\widehat \beta^{(b)}_j - \widehat \beta_j]\right].
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-important-color-frame, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-important-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, titlerule=0mm, breakable, colframe=quarto-callout-important-color-frame, coltitle=black, rightrule=.15mm, leftrule=.75mm, bottomtitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{The percentile bootstrap}, colback=white, opacitybacktitle=0.6, arc=.35mm, left=2mm, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-important-color!10!white, toptitle=1mm]
 
 A commonly used alternative to the empirical bootstrap is the
 \emph{percentile bootstrap}, defined by
@@ -5036,7 +5036,7 @@ paradigm can be adapted to perform hypothesis tests directly.
 \subsection{Bootstrap testing
 paradigm}\label{sec-bootstrap-testing-paradigm}}
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{Bootstrap paradigm to test
 \(H_0: \boldsymbol \beta_S = 0\)}\vspace{2mm}
@@ -5160,7 +5160,7 @@ this may be the usual \(F\)-statistic for testing the hypothesis
 (\ref{eq-linear-model-with-intercept}). Then, the permutation test based
 on the entire permutation group is as follows:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{Permutation test based on the entire permutation
 group}\vspace{2mm}
@@ -5229,7 +5229,7 @@ computationally infeasible for large \(n\). Instead, we can use a random
 sample of the permutation group to approximate the null distribution of
 the test statistic.
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{Permutation test based on a sample of the permutation
 group}\vspace{2mm}
@@ -5314,7 +5314,7 @@ p = \frac{1}{|\mathcal S_n|}\sum_{\tau \in \mathcal S_n} \mathbb I\{T(\boldsymbo
 p = \frac{1}{B+1}\left(1 + \sum_{b=1}^B \mathbb I\{T(\boldsymbol X, \pi_b \boldsymbol y) \geq T(\boldsymbol X, \boldsymbol y)\}\right).
 }\label{eq-p-value-permutation-test-sample}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-warning-color-frame, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-warning-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, titlerule=0mm, breakable, colframe=quarto-callout-warning-color-frame, coltitle=black, rightrule=.15mm, leftrule=.75mm, bottomtitle=1mm, title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{Warning}, colback=white, opacitybacktitle=0.6, arc=.35mm, left=2mm, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-warning-color!10!white, toptitle=1mm]
 
 A common mistake is to omit the ``1+'' term from the numerator and
 denominator of equation (\ref{eq-p-value-permutation-test-sample}).
@@ -5435,7 +5435,7 @@ the scale of the noise terms. \[
 to the standard deviation of the distribution of \(\epsilon_i\); it is
 derived based on the normal distribution.
 
-\begin{tcolorbox}[enhanced jigsaw, bottomrule=.15mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, opacitybacktitle=0.6, rightrule=.15mm, left=2mm, toprule=.15mm, opacityback=0, coltitle=black, toptitle=1mm, breakable, titlerule=0mm, colbacktitle=quarto-callout-note-color!10!white, arc=.35mm, bottomtitle=1mm, colback=white]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, titlerule=0mm, breakable, colframe=quarto-callout-note-color-frame, coltitle=black, rightrule=.15mm, leftrule=.75mm, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, colback=white, opacitybacktitle=0.6, arc=.35mm, left=2mm, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm]
 
 In principle, \(\widehat{\boldsymbol \beta}^{\text{LAD}}\) could be used
 not just for estimation of \(\sigma\) but also for inference for
@@ -7958,7 +7958,7 @@ written as
 \begin{equation}\protect\hypertarget{eq-score-stat-alternative}{}{
 \begin{split}
 &T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) = \\
-&\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0) \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
+&\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0)^T \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
 \end{split}
 }\label{eq-score-stat-alternative}\end{equation}
 
@@ -8024,7 +8024,7 @@ in place of
 \(\boldsymbol{\widehat \mu}^0, \boldsymbol{\widehat W}^0, \boldsymbol{\widehat M}^0\)
 to reflect that the full original GLM is being fit under the null
 hypothesis. Therefore, we get the score statistic \[
-T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
+T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu})^T \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
 \] Now, note that the matrix \(\widetilde{\boldsymbol X}\) is a
 full-rank square matrix, and therefore it is invertible. Hence, we can
 simplify the statistic as follows: \[
@@ -9778,7 +9778,7 @@ w_i = 1; \quad V(\mu_i) = \mu_i + \gamma \mu_i^2; \quad \frac{\partial\eta_i}{\p
 Putting this together, we find that
 
 \begin{equation}\protect\hypertarget{eq-w-m-simplified}{}{
-\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{1 + \gamma \mu_i}\right).
+\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{\mu_i}\right).
 }\label{eq-w-m-simplified}\end{equation}
 
 \hypertarget{estimation-in-negative-binomial-regression}{%
@@ -10786,7 +10786,7 @@ The Fisher combination test controls Type-I error at level \(\alpha\)
 
 Under the null, the \(p\)-values are stochastically larger than uniform
 (\ref{eq-fishers-formula}). Therefore, \(-2\sum_{j = 1}^m \log p_j\) is
-stochastically larger than \(\chi^2_{2m}\), from which the conclusion
+stochastically smaller than \(\chi^2_{2m}\), from which the conclusion
 follows.
 
 \end{proof}
@@ -10828,7 +10828,7 @@ We discussed the Bonferroni test for the global null. This test can be
 extended to an FWER-controlling procedure:
 
 \begin{equation}\protect\hypertarget{eq-bonferroni}{}{
-\hat S \equiv \{j: p_j \leq \alpha/m\}
+\hat S \equiv \{j: p_j \leq \alpha/m\}.
 }\label{eq-bonferroni}\end{equation}
 
 \begin{proposition}[]\protect\hypertarget{prp-bonferroni}{}\label{prp-bonferroni}
@@ -10901,7 +10901,7 @@ estimated FDP is below the nominal level \(q\). Note that the set over
 which the above maximum is taken is always nonempty because it at least
 contains 0: \(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\).
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{BH procedure (Storey et al.~formulation)}\vspace{2mm}
 
@@ -10923,7 +10923,7 @@ contains 0: \(\widehat{\text{FDP}}(0) = \frac{0}{0} \equiv 0\).
 
 The original BH procedure was formulated differently:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{BH procedure (original formulation)}\vspace{2mm}
 
@@ -11222,7 +11222,7 @@ expect \[
 This leads to the Storey-BH procedure, which adapts to the null
 proportion:
 
-\begin{tcolorbox}[enhanced jigsaw, rightrule=.15mm, bottomrule=.15mm, left=2mm, leftrule=.75mm, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, toprule=.15mm, opacityback=0]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, breakable, colframe=quarto-callout-note-color-frame, toprule=.15mm, arc=.35mm, left=2mm, bottomrule=.15mm, rightrule=.15mm, colback=white, leftrule=.75mm]
 
 \textbf{Storey-BH procedure}\vspace{2mm}
 

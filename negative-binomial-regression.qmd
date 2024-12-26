@@ -131,7 +131,7 @@ $$ {#eq-w-v-deriv}
 Putting this together, we find that
 
 $$
-\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{1 + \gamma \mu_i}\right).
+\boldsymbol{W} = \text{diag}\left(\frac{\mu_i}{1 + \gamma \mu_i}\right); \quad \boldsymbol{M} = \text{diag}\left(\frac{1}{\mu_i}\right).
 $$ {#eq-w-m-simplified}
 
 ## Estimation in negative binomial regression

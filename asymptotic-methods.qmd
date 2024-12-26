@@ -204,9 +204,9 @@ On the other hand, since $\boldsymbol{\widehat \beta}_S$ can be obtained by regr
 $$
 \boldsymbol{\widehat \beta}_S \sim N(\boldsymbol \beta_S, \sigma^2 [(\boldsymbol X_{*,S}^{\perp})^T \boldsymbol X_{*,S}^{\perp}]^{-1}).
 $$ {#eq-beta-s-2}
-Combining [-@eq-beta-s-1] and [-@eq-beta-s-2], we verify the claimed relationship [-@eq-claim-wald-f]. Therefore, we have
+Combining statements ([-@eq-beta-s-1]) and ([-@eq-beta-s-2]), we verify the claimed relationship ([-@eq-claim-wald-f]). Therefore, we have
 $$
-F = \frac{\boldsymbol{\widehat \beta}_S^T [(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
+F = \frac{\boldsymbol{\widehat \beta}_S^T \{[(\boldsymbol X^T \boldsymbol X)^{-1}]_{S,S}\}^{-1} \boldsymbol{\widehat \beta}_S / |S|}{\widehat \sigma^2}.
 $$
 Recalling that $\boldsymbol{\widehat \Omega} = \widehat \sigma^2 (\boldsymbol X^T \boldsymbol X)^{-1}$, we find that
 $$

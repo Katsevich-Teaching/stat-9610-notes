@@ -7,7 +7,7 @@ Here we present one method each for FWER and FDR control.
 We discussed the Bonferroni test for the global null. This test can be extended to an FWER-controlling procedure:
 
 $$
-\hat S \equiv \{j: p_j \leq \alpha/m\}
+\hat S \equiv \{j: p_j \leq \alpha/m\}.
 $$ {#eq-bonferroni}
 
 ::: {#prp-bonferroni}

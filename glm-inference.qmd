@@ -278,7 +278,7 @@ where the last step used the fact that $\boldsymbol U_{\text{-}S}(\boldsymbol{\w
 $$
 \begin{split}
 &T^2_{\text{score}}(\boldsymbol X, \boldsymbol y) = \\
-&\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0) \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
+&\frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}^0)^T \boldsymbol{\widehat W}^0 \boldsymbol{\widehat M}^0 \boldsymbol X (\boldsymbol X^T \boldsymbol{\widehat W}^0 \boldsymbol X)^{-1} \boldsymbol X^T \boldsymbol{\widehat M}^0 \boldsymbol{\widehat W}^0 (\boldsymbol y - \boldsymbol{\widehat \mu}^0).
 \end{split}
 $$ {#eq-score-stat-alternative}
 
@@ -316,7 +316,7 @@ y_i \sim \text{EDM}(\mu_i, \phi_i); \quad g(\mu_i) = \boldsymbol x_{i*}^T \bolds
 $$
 where $\boldsymbol Z \in \mathbb R^{n \times (n-p)}$ is a matrix of extra variables so that the columns of the augmented model matrix $\widetilde{\boldsymbol X} \equiv [\boldsymbol X, \boldsymbol Z]$ form a basis for $\mathbb R^n$. Then, the goodness of fit null hypothesis is $H_0: \boldsymbol \gamma = \boldsymbol 0$, and the alternative hypothesis is the saturated model. To test this hypothesis, we use the score test statistic in the form of equation ([-@eq-score-stat-alternative]) with the augmented model matrix $\widetilde{\boldsymbol X}$ in place of $\boldsymbol X$ and the GLM fits $\boldsymbol {\widehat \mu}, \boldsymbol{\widehat W}, \boldsymbol{\widehat M}$ in place of $\boldsymbol{\widehat \mu}^0, \boldsymbol{\widehat W}^0, \boldsymbol{\widehat M}^0$ to reflect that the full original GLM is being fit under the null hypothesis. Therefore, we get the score statistic
 $$
-T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu}) \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
+T^2_{\text{score}} = \frac{1}{\phi_0} (\boldsymbol y - \boldsymbol{\widehat \mu})^T \boldsymbol{\widehat W} \boldsymbol{\widehat M} \widetilde{\boldsymbol X} (\widetilde{\boldsymbol X}^T \boldsymbol{\widehat W} \widetilde{\boldsymbol X})^{-1} \widetilde{\boldsymbol X}^T \boldsymbol{\widehat M} \boldsymbol{\widehat W} (\boldsymbol y - \boldsymbol{\widehat \mu}).
 $$
 Now, note that the matrix $\widetilde{\boldsymbol X}$ is a full-rank square matrix, and therefore it is invertible. Hence, we can simplify the statistic as follows:
 $$

@@ -74,7 +74,7 @@ The Fisher combination test controls Type-I error at level $\alpha$ ([-@eq-globa
 :::
 
 ::: {.proof}
-Under the null, the $p$-values are stochastically larger than uniform ([-@eq-fishers-formula]). Therefore, $-2\sum_{j = 1}^m \log p_j$ is stochastically larger than $\chi^2_{2m}$, from which the conclusion follows.
+Under the null, the $p$-values are stochastically larger than uniform ([-@eq-fishers-formula]). Therefore, $-2\sum_{j = 1}^m \log p_j$ is stochastically smaller than $\chi^2_{2m}$, from which the conclusion follows.
 :::
 
 ### Discussion
